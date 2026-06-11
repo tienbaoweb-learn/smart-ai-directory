@@ -300,7 +300,7 @@ function Navbar() {
 
 function HeroSection() {
   return (
-    <section className="bg-white pt-16 sm:pt-24 pb-20 sm:pb-28 overflow-hidden relative">
+    <section className="bg-white pt-16 sm:pt-24 pb-8 sm:pb-12 overflow-hidden relative">
       <div className="absolute bottom-10 right-0 w-96 h-96 bg-[#F97316]/10 rounded-full blur-3xl -z-10" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-8 items-center">
@@ -390,10 +390,10 @@ function StatsBar() {
     { value: "100+", label: "Countries", icon: "🌍" },
   ];
   return (
-    <section className="py-12 sm:py-14">
+    <section className="py-6 sm:py-7">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading - outside frame */}
-        <h3 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#1E293B] text-center mb-10 sm:mb-12">
+        <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#1E293B] text-center mb-10 sm:mb-12">
           Trusted by Professionals Worldwide
         </h3>
 
