@@ -714,7 +714,7 @@ function Newsletter() {
   return (
     <section id="newsletter" className="py-10 sm:py-14 bg-gray-50">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="rounded-2xl bg-gradient-to-r from-[#1062B1] via-[#5cdce7] to-[#E84C3D] flex flex-col sm:flex-row items-center justify-between gap-8 px-8 sm:px-12 py-10">
+        <div className="rounded-2xl bg-gradient-to-r from-[#1062B1] via-[#5cdce7] to-[#F97316] flex flex-col sm:flex-row items-center justify-between gap-8 px-8 sm:px-12 py-10">
 
           {/* Left — 60% */}
           <div className="flex-[3] flex flex-col items-start">
