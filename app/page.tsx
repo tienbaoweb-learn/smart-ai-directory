@@ -713,41 +713,43 @@ function LatestInsights() {
 function Newsletter() {
   return (
     <section id="newsletter" className="py-0 bg-white">
-      <div className="max-w-[1215px] mx-auto px-4 sm:px-6 lg:px-8 pt-3 pb-3 bg-gradient-to-r from-[#FFF0E0] via-[#FFFCF0] to-[#E0F2FF] rounded-3xl">
-        <div className="rounded-2xl overflow-hidden grid sm:grid-cols-2">
-          {/* Left — blue gradient matching reference */}
-          <div className="bg-gradient-to-br from-[#1A56DB] to-[#1E40AF] p-4 sm:p-6 flex flex-col justify-center">
-            <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center mb-4">
-              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
-              </svg>
-            </div>
-            <h2 className="text-lg sm:text-xl font-extrabold text-white mb-2 leading-snug">
-              Get Weekly AI Tools &amp; Industry Insights
-            </h2>
-            <p className="text-white/70 text-xs sm:text-sm leading-relaxed">
-              Join 10,000+ professionals who get the best AI tools, tips, and
-              workflows every week.
-            </p>
-          </div>
-
-          {/* Right — orange gradient matching reference */}
-          <div className="bg-gradient-to-br from-[#F97316] to-[#EA580C] p-4 sm:p-6 flex flex-col justify-center">
-            <div className="flex flex-col sm:flex-row gap-2 mb-3">
-              <input
-                type="email"
-                placeholder="Enter your email address"
-                className="flex-1 px-3 py-2.5 rounded-xl text-sm bg-white text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white/50"
-              />
-              <button className="bg-[#1E293B] hover:bg-slate-700 text-white font-semibold px-5 py-2.5 rounded-xl transition-colors whitespace-nowrap text-sm">
-                Subscribe Now
-              </button>
+      <div className="max-w-[1215px] mx-auto px-4 sm:px-6 lg:px-8 pb-[10px]">
+        {/* Gradient border wrapper */}
+        <div className="p-[3px] rounded-2xl bg-gradient-to-r from-[#F97316] via-[#F59E0B] to-[#0EA5E9]">
+          <div className="rounded-[14px] overflow-hidden grid sm:grid-cols-2">
+            {/* Left — blue panel */}
+            <div className="bg-gradient-to-br from-[#1A56DB] to-[#1E40AF] p-4 sm:p-6 flex flex-col justify-center">
+              <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center mb-4">
+                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                </svg>
+              </div>
+              <h2 className="text-lg sm:text-xl font-extrabold text-white mb-2 leading-snug">
+                Get Weekly AI Tools &amp; Industry Insights
+              </h2>
+              <p className="text-white/70 text-xs sm:text-sm leading-relaxed">
+                Join 10,000+ professionals who get the best AI tools, tips, and
+                workflows every week.
+              </p>
             </div>
 
-            <div className="flex flex-wrap gap-3 text-white/80 text-xs">
-              {["✓ No spam", "✓ Unsubscribe anytime", "✓ 100% Free"].map((b) => (
-                <span key={b}>{b}</span>
-              ))}
+            {/* Right — orange panel */}
+            <div className="bg-gradient-to-br from-[#F97316] to-[#EA580C] p-4 sm:p-6 flex flex-col justify-center">
+              <div className="flex flex-col sm:flex-row gap-2 mb-3">
+                <input
+                  type="email"
+                  placeholder="Enter your email address"
+                  className="flex-1 px-3 py-2.5 rounded-xl text-sm bg-white text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white/50"
+                />
+                <button className="bg-[#1E293B] hover:bg-slate-700 text-white font-semibold px-5 py-2.5 rounded-xl transition-colors whitespace-nowrap text-sm">
+                  Subscribe Now
+                </button>
+              </div>
+              <div className="flex flex-wrap gap-3 text-white/80 text-xs">
+                {["✓ No spam", "✓ Unsubscribe anytime", "✓ 100% Free"].map((b) => (
+                  <span key={b}>{b}</span>
+                ))}
+              </div>
             </div>
           </div>
         </div>
