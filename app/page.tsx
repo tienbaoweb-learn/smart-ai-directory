@@ -712,8 +712,8 @@ function LatestInsights() {
 
 function Newsletter() {
   return (
-    <section id="newsletter" className="py-10 sm:py-14 bg-gray-50">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="newsletter" className="pt-3 pb-5 sm:pt-[17px] sm:pb-7 bg-white">
+      <div className="max-w-[1215px] mx-auto px-4 sm:px-6 lg:px-8 pb-[10px]">
         <div className="rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-8 px-8 sm:px-12 py-10" style={{ background: 'linear-gradient(to right, #1062B1 0%, #5cdce7 35%, #F5A623 70%, #F97316 100%)' }}>
 
           {/* Left — 60% */}
