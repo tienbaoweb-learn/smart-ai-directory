@@ -474,7 +474,7 @@ function StatsBar() {
     <section id="stats" className="py-6 sm:py-7">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading - outside frame */}
-        <p className="text-sm font-semibold text-gray-500 text-center tracking-wide mb-4 sm:mb-6">
+        <p className="text-[42px] font-semibold text-gray-500 text-center tracking-wide mb-4 sm:mb-6">
           Trusted by Professionals Worldwide
         </p>
 
@@ -529,7 +529,7 @@ function TopTools() {
           </h2>
           <a
             href="#"
-            className="bg-gradient-to-r from-[#F97316] via-[#F59E0B] to-[#0EA5E9] bg-clip-text text-transparent text-sm font-semibold hover:opacity-80 hidden sm:block whitespace-nowrap"
+            className="text-[#1062B1] text-sm font-semibold hover:opacity-80 hidden sm:block whitespace-nowrap"
           >
             View all tools →
           </a>
@@ -598,7 +598,7 @@ function TopTools() {
         <div className="text-center mt-8 sm:hidden">
           <a
             href="#"
-            className="bg-gradient-to-r from-[#F97316] via-[#F59E0B] to-[#0EA5E9] bg-clip-text text-transparent text-sm font-semibold hover:opacity-80"
+            className="text-[#1062B1] text-sm font-semibold hover:opacity-80"
           >
             View all tools →
           </a>
@@ -712,7 +712,7 @@ function LatestInsights() {
 
 function Newsletter() {
   return (
-    <section id="newsletter" className="py-0 bg-white">
+    <section id="newsletter" className="py-0 bg-gradient-to-r from-[#FFF7ED] via-white to-[#EFF6FF]">
       <div className="max-w-[1215px] mx-auto px-4 sm:px-6 lg:px-8 pb-[10px]">
         <div className="rounded-2xl overflow-hidden grid sm:grid-cols-2">
           {/* Left — blue gradient matching reference */}
@@ -911,7 +911,7 @@ function ExploreByIndustry() {
                 </p>
                 <a
                   href="#top-tools"
-                  className="inline-flex items-center gap-1 bg-gradient-to-r from-[#F97316] via-[#F59E0B] to-[#0EA5E9] bg-clip-text text-transparent text-sm font-bold hover:opacity-80"
+                  className="inline-flex items-center gap-1 text-[#1062B1] text-sm font-bold hover:opacity-80"
                 >
                   Explore Tools →
                 </a>
