@@ -556,19 +556,19 @@ function TopTools() {
           ))}
         </div>
 
-        {/* Tool grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-6">
+        {/* Tool grid — gap reduced 35% */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-4">
           {filtered.map((tool) => (
             <div
               key={tool.id}
-              className="border border-gray-100 rounded-2xl p-3 sm:p-5 hover:shadow-lg hover:border-orange-100 transition-all group"
+              className="relative border border-gray-100 rounded-2xl p-3 sm:p-5 pt-8 sm:pt-9 hover:shadow-lg hover:border-orange-100 transition-all group flex flex-col items-center text-center"
             >
-              {/* Industry tag */}
-              <span className={`text-xs font-semibold px-2 py-0.5 rounded-full inline-block mb-3 ${tool.industryColor}`}>
+              {/* Industry tag — absolute top-left, 5% from border */}
+              <span className={`absolute top-[5%] left-[5%] text-xs font-semibold px-2 py-0.5 rounded-full ${tool.industryColor}`}>
                 {tool.industry}
               </span>
 
-              {/* Logo */}
+              {/* Logo — centered */}
               <div className={`w-14 h-14 rounded-xl ${tool.logoBg} flex items-center justify-center mb-3 shrink-0`}>
                 <span className={`${tool.logoTextColor} leading-none`}>{tool.logoText}</span>
               </div>
@@ -580,8 +580,8 @@ function TopTools() {
                 {tool.desc}
               </p>
 
-              {/* Rating */}
-              <div className="flex items-center gap-1.5 mb-4">
+              {/* Rating — centered */}
+              <div className="flex items-center justify-center gap-1.5 mb-4">
                 <StarRating rating={tool.rating} />
                 <span className="text-xs font-bold text-[#1E293B]">
                   {tool.rating}
