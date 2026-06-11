@@ -714,11 +714,11 @@ function Newsletter() {
   return (
     <section id="newsletter" className="py-10 sm:py-14 bg-gray-50">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="rounded-2xl bg-gradient-to-r from-[#1E3FA0] via-[#1565C0] to-[#F97316] flex flex-col sm:flex-row items-center justify-between gap-8 px-8 sm:px-12 py-10">
+        <div className="rounded-2xl bg-gradient-to-r from-[#1E40AF] via-[#00B4D8] to-[#F5A623] flex flex-col sm:flex-row items-center justify-between gap-8 px-8 sm:px-12 py-10">
 
           {/* Left — 60% */}
           <div className="flex-[3] flex flex-col items-start">
-            <div className="w-11 h-11 bg-white/15 rounded-xl flex items-center justify-center mb-5">
+            <div className="w-11 h-11 bg-white/20 rounded-xl flex items-center justify-center mb-5">
               <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
               </svg>
