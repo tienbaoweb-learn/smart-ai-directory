@@ -714,7 +714,7 @@ function Newsletter() {
   return (
     <section id="newsletter" className="py-10 sm:py-14 bg-gray-50">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="rounded-2xl bg-gradient-to-r from-[#1E40AF] via-[#00B4D8] to-[#F5A623] flex flex-col sm:flex-row items-center justify-between gap-8 px-8 sm:px-12 py-10">
+        <div className="rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-8 px-8 sm:px-12 py-10" style={{ background: 'linear-gradient(to right, #1E40AF 0%, #1E40AF 30%, #00B4D8 45%, #F5A623 75%, #F97316 100%)' }}>
 
           {/* Left — 60% */}
           <div className="flex-[3] flex flex-col items-start">
