@@ -303,7 +303,7 @@ function HeroSection() {
     <section className="bg-white pt-16 sm:pt-24 pb-20 sm:pb-28 overflow-hidden relative">
       <div className="absolute bottom-10 right-0 w-96 h-96 bg-[#F97316]/10 rounded-full blur-3xl -z-10" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 sm:gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-8 items-center">
           {/* Left */}
           <div>
             <span className="inline-block text-xs font-bold tracking-widest text-[#F97316] uppercase mb-5">
@@ -330,14 +330,14 @@ function HeroSection() {
             </div>
 
             {/* Trust badges */}
-            <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-x-8 sm:gap-y-3">
+            <div className="flex flex-wrap sm:flex-nowrap gap-2 sm:gap-6 text-nowrap">
               {[
                 "✅ 200+ AI Tools",
                 "🔍 Expert Tested & Reviewed",
                 "⚖️ Unbiased Independent Reviews",
                 "🔄 Updated Weekly",
               ].map((badge) => (
-                <span key={badge} className="text-sm text-gray-500 font-medium">
+                <span key={badge} className="text-xs sm:text-sm text-gray-500 font-medium">
                   {badge}
                 </span>
               ))}
@@ -349,7 +349,7 @@ function HeroSection() {
             {INDUSTRY_CARDS.map((card) => (
               <div
                 key={card.id}
-                className="relative rounded-2xl overflow-hidden cursor-pointer group h-32 sm:h-48"
+                className="relative rounded-2xl overflow-hidden cursor-pointer group h-40 sm:h-60"
               >
                 <Image
                   src={card.img}
@@ -386,21 +386,23 @@ function StatsBar() {
     { value: "100+", label: "Countries", icon: "🌍" },
   ];
   return (
-    <section className="bg-gray-50 border border-gray-200 shadow-sm py-12 sm:py-14">
+    <section className="py-12 sm:py-14">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p className="text-center text-gray-400 text-xs font-bold tracking-widest uppercase mb-8 sm:mb-10">
-          Trusted by Professionals Worldwide
-        </p>
-        <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-gray-200">
-          {stats.map((s) => (
-            <div key={s.label} className="text-center px-4 sm:px-6 py-2">
-              <p className="text-2xl sm:text-3xl mb-2">{s.icon}</p>
-              <p className="text-2xl sm:text-4xl font-extrabold text-slate-800 mb-1">
-                {s.value}
-              </p>
-              <p className="text-gray-500 text-xs sm:text-sm font-medium">{s.label}</p>
-            </div>
-          ))}
+        <div className="bg-gradient-to-b from-white to-gray-50/50 border border-gray-200/60 shadow-sm hover:shadow-md hover:border-gray-300 transition-all rounded-2xl py-8 sm:py-10 px-4 sm:px-8">
+          <p className="text-center text-gray-500 text-xs font-bold tracking-widest uppercase mb-8 sm:mb-10">
+            Trusted by Professionals Worldwide
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-gray-200/50">
+            {stats.map((s) => (
+              <div key={s.label} className="text-center px-4 sm:px-6 py-2 group hover:bg-gray-50/50 transition-colors rounded-lg">
+                <p className="text-2xl sm:text-3xl mb-2 group-hover:scale-110 transition-transform">{s.icon}</p>
+                <p className="text-2xl sm:text-4xl font-extrabold text-slate-800 mb-1">
+                  {s.value}
+                </p>
+                <p className="text-gray-500 text-xs sm:text-sm font-medium">{s.label}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -767,20 +769,6 @@ function Footer() {
 
 // ─── PAGE ────────────────────────────────────────────────────────────────────
 function ExploreByIndustry() {
-  const [offset, setOffset] = useState(0);
-  const cardWidth = 272; // w-64 (256) + gap-4 (16)
-  const maxOffset = (INDUSTRY_CARDS.length - 3) * cardWidth;
-
-  useEffect(() => {
-    let currentOffset = 0;
-    const interval = setInterval(() => {
-      currentOffset = (currentOffset + cardWidth) % ((maxOffset + cardWidth));
-      setOffset(currentOffset);
-    }, 5000); // Scroll every 5 seconds
-
-    return () => clearInterval(interval);
-  }, [cardWidth, maxOffset]);
-
   return (
     <section className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -794,86 +782,45 @@ function ExploreByIndustry() {
           </p>
         </div>
 
-        {/* Slider wrapper */}
-        <div className="relative -mx-4 sm:mx-0">
-          {/* Left arrow */}
-          <button
-            onClick={() => setOffset((o) => Math.max(0, o - cardWidth))}
-            disabled={offset === 0}
-            className="absolute -left-2 sm:-left-5 top-1/2 -translate-y-1/2 z-10 w-9 sm:w-11 h-9 sm:h-11 rounded-full bg-white border-2 border-gray-200 shadow-md flex items-center justify-center text-gray-400 hover:border-[#F97316] hover:text-[#F97316] disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-xs sm:text-sm"
-          >
-            ←
-          </button>
-
-          {/* Cards track */}
-          <div className="overflow-hidden px-4 sm:px-0">
+        {/* 4-Column Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {INDUSTRY_CARDS.map((card) => (
             <div
-              className="flex gap-4 transition-transform duration-300 ease-in-out"
-              style={{ transform: `translateX(-${offset}px)` }}
-            >
-              {INDUSTRY_CARDS.map((card) => (
-                <div
-                  key={card.id}
-                  className="relative flex-shrink-0 w-64 h-72 rounded-2xl overflow-hidden cursor-pointer group"
-                >
-                  <Image
-                    src={card.img}
-                    alt={card.label}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  {/* Overlay */}
-                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors" />
-
-                  {/* Center icon in white circle */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-20 h-20 rounded-full bg-white flex items-center justify-center text-4xl shadow-lg">
-                      {card.icon}
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="relative h-full flex flex-col justify-between p-6">
-                    <div></div>
-                    <div>
-                      <p className="text-white font-extrabold text-xl mb-1">
-                        {card.label}
-                      </p>
-                      <p className="text-white/70 text-sm leading-relaxed mb-4">
-                        {card.desc}
-                      </p>
-                      <span className="inline-flex items-center gap-1 bg-white/90 hover:bg-white text-[#F97316] text-xs font-bold px-3 py-1.5 rounded-full transition-colors">
-                        Explore Tools →
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Right arrow */}
-          <button
-            onClick={() => setOffset((o) => Math.min(maxOffset, o + cardWidth))}
-            disabled={offset >= maxOffset}
-            className="absolute -right-2 sm:-right-5 top-1/2 -translate-y-1/2 z-10 w-9 sm:w-11 h-9 sm:h-11 rounded-full bg-white border-2 border-gray-200 shadow-md flex items-center justify-center text-gray-400 hover:border-[#F97316] hover:text-[#F97316] disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-xs sm:text-sm"
-          >
-            →
-          </button>
-        </div>
-
-        {/* Dot indicators */}
-        <div className="flex justify-center gap-2 mt-8">
-          {INDUSTRY_CARDS.map((card, i) => (
-            <button
               key={card.id}
-              onClick={() => setOffset(Math.min(i * cardWidth, maxOffset))}
-              className={`w-2 h-2 rounded-full transition-colors ${
-                Math.round(offset / cardWidth) === i
-                  ? "bg-[#F97316] w-5"
-                  : "bg-gray-300 hover:bg-gray-400"
-              }`}
-            />
+              className="relative flex-shrink-0 rounded-2xl overflow-hidden cursor-pointer group h-72 hover:shadow-xl transition-shadow"
+            >
+              <Image
+                src={card.img}
+                alt={card.label}
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors" />
+
+              {/* Center icon in white circle */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-20 h-20 rounded-full bg-white flex items-center justify-center text-4xl shadow-lg">
+                  {card.icon}
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="relative h-full flex flex-col justify-between p-6">
+                <div></div>
+                <div>
+                  <p className="text-white font-extrabold text-xl mb-1">
+                    {card.label}
+                  </p>
+                  <p className="text-white/70 text-sm leading-relaxed mb-4">
+                    {card.desc}
+                  </p>
+                  <span className="inline-flex items-center gap-1 bg-white/90 hover:bg-white text-[#F97316] text-xs font-bold px-3 py-1.5 rounded-full transition-colors">
+                    Explore Tools →
+                  </span>
+                </div>
+              </div>
+            </div>
           ))}
         </div>
       </div>
