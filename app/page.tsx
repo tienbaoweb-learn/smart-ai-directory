@@ -250,26 +250,15 @@ function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20 gap-8">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-3 shrink-0">
-            <div className="w-10 h-10 rounded-full bg-[#F97316] flex items-center justify-center">
-              <svg
-                className="w-6 h-6 text-white"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={1.5}
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 002.25-2.25V6.75a2.25 2.25 0 00-2.25-2.25H6.75A2.25 2.25 0 004.5 6.75v10.5a2.25 2.25 0 002.25 2.25zm.75-12h9v9h-9v-9z" />
-              </svg>
-            </div>
-            <div className="flex flex-col leading-tight">
-              <span className="font-extrabold text-[#1E293B] text-lg tracking-tight">
-                SmartAI
-              </span>
-              <span className="text-[#F97316] text-xs font-semibold tracking-wide uppercase">
-                for Work
-              </span>
-            </div>
+          <a href="#" className="shrink-0">
+            <Image
+              src="/SmartaiforworkLogo.webp"
+              alt="SmartAI for Work"
+              width={160}
+              height={50}
+              className="h-11 w-auto"
+              priority
+            />
           </a>
 
           {/* Nav links */}
@@ -715,39 +704,39 @@ function LatestInsights() {
 
 function Newsletter() {
   return (
-    <section id="newsletter" className="py-16 sm:py-20 bg-gray-50">
+    <section id="newsletter" className="py-0 bg-white">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="rounded-2xl overflow-hidden grid sm:grid-cols-2">
-          {/* Left — dark navy */}
-          <div className="bg-[#1E293B] p-6 sm:p-10 flex flex-col justify-center">
-            <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center mb-6">
-              <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+          {/* Left — blue gradient matching reference */}
+          <div className="bg-gradient-to-br from-[#1A56DB] to-[#1E40AF] p-4 sm:p-6 flex flex-col justify-center">
+            <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center mb-4">
+              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
               </svg>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-3 leading-snug">
+            <h2 className="text-lg sm:text-xl font-extrabold text-white mb-2 leading-snug">
               Get Weekly AI Tools &amp; Industry Insights
             </h2>
-            <p className="text-white/60 text-sm sm:text-base leading-relaxed">
+            <p className="text-white/70 text-xs sm:text-sm leading-relaxed">
               Join 10,000+ professionals who get the best AI tools, tips, and
               workflows every week.
             </p>
           </div>
 
-          {/* Right — orange */}
-          <div className="bg-[#F97316] p-6 sm:p-10 flex flex-col justify-center">
-            <div className="flex flex-col sm:flex-row gap-3 mb-5">
+          {/* Right — orange gradient matching reference */}
+          <div className="bg-gradient-to-br from-[#F97316] to-[#EA580C] p-4 sm:p-6 flex flex-col justify-center">
+            <div className="flex flex-col sm:flex-row gap-2 mb-3">
               <input
                 type="email"
                 placeholder="Enter your email address"
-                className="flex-1 px-4 py-3 rounded-xl text-sm bg-white text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white/50"
+                className="flex-1 px-3 py-2.5 rounded-xl text-sm bg-white text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white/50"
               />
-              <button className="bg-[#1E293B] hover:bg-slate-700 text-white font-semibold px-6 py-3 rounded-xl transition-colors whitespace-nowrap text-sm">
+              <button className="bg-[#1E293B] hover:bg-slate-700 text-white font-semibold px-5 py-2.5 rounded-xl transition-colors whitespace-nowrap text-sm">
                 Subscribe Now
               </button>
             </div>
 
-            <div className="flex flex-wrap gap-4 text-white/80 text-xs">
+            <div className="flex flex-wrap gap-3 text-white/80 text-xs">
               {["✓ No spam", "✓ Unsubscribe anytime", "✓ 100% Free"].map((b) => (
                 <span key={b}>{b}</span>
               ))}
@@ -766,24 +755,14 @@ function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 sm:gap-8 mb-12">
           {/* Col 1 — Brand */}
           <div className="col-span-2 md:col-span-1">
-            <div className="flex items-center gap-2 mb-3">
-              <div className="w-8 h-8 rounded-full bg-[#F97316] flex items-center justify-center shrink-0">
-                <svg
-                  className="w-5 h-5 text-white"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v1h8v-1zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-1a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v1h-3zM4.75 14.094A5.973 5.973 0 004 17v1H1v-1a3 3 0 013.75-2.906z" />
-                </svg>
-              </div>
-              <div className="flex flex-col leading-tight">
-                <span className="font-extrabold text-white text-base">
-                  SmartAI
-                </span>
-                <span className="text-[#F97316] text-xs font-semibold uppercase tracking-wide">
-                  for Work
-                </span>
-              </div>
+            <div className="mb-3">
+              <Image
+                src="/SmartaiforworkLogo.webp"
+                alt="SmartAI for Work"
+                width={120}
+                height={38}
+                className="h-8 w-auto"
+              />
             </div>
             <p className="text-white/50 text-xs sm:text-sm leading-relaxed mb-5">
               Helping professionals in furniture, architecture, construction, and
