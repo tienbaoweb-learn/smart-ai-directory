@@ -306,7 +306,7 @@ function HeroSection() {
         <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-8 items-center">
           {/* Left */}
           <div>
-            <span className="inline-block text-xs font-bold tracking-widest text-[#F97316] uppercase mb-5">
+            <span className="inline-block px-4 py-2 bg-orange-100 text-xs font-bold tracking-widest text-[#F97316] uppercase mb-5 rounded-full">
               AI Tools for Your Industry
             </span>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#1E293B] leading-tight mb-7">
@@ -330,16 +330,18 @@ function HeroSection() {
             </div>
 
             {/* Trust badges */}
-            <div className="flex flex-wrap sm:flex-nowrap gap-2 sm:gap-6 text-nowrap">
+            <div className="flex gap-2 sm:gap-6 flex-wrap sm:flex-nowrap w-full">
               {[
-                "✅ 200+ AI Tools",
-                "🔍 Expert Tested & Reviewed",
-                "⚖️ Unbiased Independent Reviews",
-                "🔄 Updated Weekly",
-              ].map((badge) => (
-                <span key={badge} className="text-xs sm:text-sm text-gray-500 font-medium">
-                  {badge}
-                </span>
+                { bold: "200+", light: "AI Tools" },
+                { bold: "Expert", light: "Tested & Reviewed" },
+                { bold: "Unbiased", light: "Independent Reviews" },
+                { bold: "Updated", light: "Weekly" },
+              ].map((badge, i) => (
+                <div key={i} className="text-xs sm:text-sm">
+                  <span className="font-bold text-gray-700">✓ {badge.bold}</span>
+                  <br />
+                  <span className="text-gray-500">{badge.light}</span>
+                </div>
               ))}
             </div>
           </div>
@@ -359,7 +361,9 @@ function HeroSection() {
                 />
                 <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors" />
                 <div className="relative h-full flex flex-col justify-between p-3 sm:p-5">
-                  <span className="text-lg sm:text-3xl">{card.icon}</span>
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white flex items-center justify-center text-lg sm:text-3xl shadow-md">
+                    {card.icon}
+                  </div>
                   <div>
                     <p className="text-white font-bold text-sm sm:text-lg leading-tight">
                       {card.label}
