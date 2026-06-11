@@ -815,7 +815,7 @@ function ExploreByIndustry() {
               <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors" />
 
               {/* Center icon in white circle */}
-              <div className="absolute inset-0 flex items-center justify-center">
+              <div className="absolute inset-x-0 top-[15%] flex items-center justify-center">
                 <div className="w-20 h-20 rounded-full bg-white flex items-center justify-center text-4xl shadow-lg">
                   {card.icon}
                 </div>
