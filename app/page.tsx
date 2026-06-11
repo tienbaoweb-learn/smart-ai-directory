@@ -472,7 +472,7 @@ function TopTools() {
         </div>
 
         {/* Tool grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6">
           {filtered.map((tool) => (
             <div
               key={tool.id}
@@ -534,15 +534,14 @@ function TopTools() {
 
 function HowAIHelps() {
   return (
-    <section className="py-16 sm:py-20 bg-gray-50">
+    <section className="py-8 sm:py-10 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 sm:mb-14">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-[#1E293B] mb-4">
             How AI Helps Your Business
           </h2>
-          <p className="text-gray-500 text-base sm:text-lg max-w-xl mx-auto">
-            Whether you're managing a job site or a design studio, AI tools
-            deliver measurable results.
+          <p className="text-gray-500 text-base sm:text-lg max-w-xl mx-auto whitespace-nowrap overflow-hidden text-ellipsis">
+            Whether you're managing a job site or a design studio, AI tools deliver measurable results.
           </p>
         </div>
 
@@ -760,6 +759,13 @@ function Footer() {
               </button>
             </div>
           </div>
+        </div>
+
+        {/* Disclaimer */}
+        <div className="mb-8">
+          <p className="text-xs text-[#777F8A] leading-relaxed">
+            Disclaimer: Some links on this page are affiliate links, meaning we may earn a commission at no cost to you. We only recommend tools we believe provide real value. This helps support our independent research. Thank you!
+          </p>
         </div>
 
         {/* Copyright */}
