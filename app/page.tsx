@@ -375,7 +375,7 @@ function HeroSection() {
               <a href="#explore" className="flex items-center justify-center gap-2 bg-[#F97316] hover:bg-orange-600 text-white font-bold text-base px-8 py-4 rounded-xl transition-colors shadow-lg shadow-orange-100">
                 Explore AI Tools <span>→</span>
               </a>
-              <a href="#top-tools" className="flex items-center justify-center gap-2 border-2 border-[#1E293B] text-[#1E293B] hover:bg-[#1E293B] hover:text-white font-bold text-base px-8 py-4 rounded-xl transition-colors">
+              <a href="#top-tools" className="flex items-center justify-center gap-2 border-2 border-[#1E293B] text-[#1E293B] hover:bg-[#2B7FFF] hover:border-[#2B7FFF] hover:text-white font-bold text-base px-8 py-4 rounded-xl transition-colors">
                 See Top Picks
               </a>
             </div>
@@ -474,7 +474,7 @@ function StatsBar() {
     <section id="stats" className="py-6 sm:py-7">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading - outside frame */}
-        <p className="text-[42px] font-semibold text-gray-500 text-center tracking-wide mb-4 sm:mb-6">
+        <p className="text-[34px] font-semibold text-gray-500 text-center tracking-wide mb-4 sm:mb-6">
           Trusted by Professionals Worldwide
         </p>
 
@@ -529,7 +529,7 @@ function TopTools() {
           </h2>
           <a
             href="#"
-            className="text-[#1062B1] text-sm font-semibold hover:opacity-80 hidden sm:block whitespace-nowrap"
+            className="text-[#2B7FFF] text-sm font-semibold hover:opacity-80 hidden sm:block whitespace-nowrap"
           >
             View all tools →
           </a>
@@ -598,7 +598,7 @@ function TopTools() {
         <div className="text-center mt-8 sm:hidden">
           <a
             href="#"
-            className="text-[#1062B1] text-sm font-semibold hover:opacity-80"
+            className="text-[#2B7FFF] text-sm font-semibold hover:opacity-80"
           >
             View all tools →
           </a>
@@ -712,8 +712,8 @@ function LatestInsights() {
 
 function Newsletter() {
   return (
-    <section id="newsletter" className="py-0 bg-gradient-to-r from-[#FFF7ED] via-white to-[#EFF6FF]">
-      <div className="max-w-[1215px] mx-auto px-4 sm:px-6 lg:px-8 pb-[10px]">
+    <section id="newsletter" className="py-0 bg-white">
+      <div className="max-w-[1215px] mx-auto px-4 sm:px-6 lg:px-8 pt-3 pb-3 bg-gradient-to-r from-[#FFF0E0] via-[#FFFCF0] to-[#E0F2FF] rounded-3xl">
         <div className="rounded-2xl overflow-hidden grid sm:grid-cols-2">
           {/* Left — blue gradient matching reference */}
           <div className="bg-gradient-to-br from-[#1A56DB] to-[#1E40AF] p-4 sm:p-6 flex flex-col justify-center">
@@ -911,7 +911,7 @@ function ExploreByIndustry() {
                 </p>
                 <a
                   href="#top-tools"
-                  className="inline-flex items-center gap-1 text-[#1062B1] text-sm font-bold hover:opacity-80"
+                  className="inline-flex items-center gap-1 text-[#2B7FFF] text-sm font-bold hover:opacity-80"
                 >
                   Explore Tools →
                 </a>
