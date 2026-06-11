@@ -714,7 +714,7 @@ function Newsletter() {
   return (
     <section id="newsletter" className="py-10 sm:py-14 bg-gray-50">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="rounded-2xl bg-gradient-to-r from-[#1062B1] via-[#5cdce7] to-[#F97316] flex flex-col sm:flex-row items-center justify-between gap-8 px-8 sm:px-12 py-10">
+        <div className="rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-8 px-8 sm:px-12 py-10" style={{ background: 'linear-gradient(to right, #1062B1 0%, #5cdce7 35%, #F5A623 70%, #F97316 100%)' }}>
 
           {/* Left — 60% */}
           <div className="flex-[3] flex flex-col items-start">
@@ -743,7 +743,7 @@ function Newsletter() {
                 Subscribe Now
               </button>
             </div>
-            <div className="flex flex-wrap gap-4 text-white/70 text-xs">
+            <div className="flex flex-wrap gap-4 text-white text-xs">
               {["✓ No spam", "✓ Unsubscribe anytime", "✓ 100% Free"].map((b) => (
                 <span key={b}>{b}</span>
               ))}
