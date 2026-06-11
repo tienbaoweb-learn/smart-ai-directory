@@ -392,18 +392,30 @@ function StatsBar() {
   return (
     <section className="py-12 sm:py-14">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-gradient-to-b from-white to-gray-50/50 border border-gray-200/60 shadow-sm hover:shadow-md hover:border-gray-300 transition-all rounded-2xl py-8 sm:py-10 px-4 sm:px-8">
-          <p className="text-center text-gray-500 text-xs font-bold tracking-widest uppercase mb-8 sm:mb-10">
-            Trusted by Professionals Worldwide
-          </p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-gray-200/50">
+        {/* Heading - outside frame */}
+        <h3 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#1E293B] text-center mb-10 sm:mb-12">
+          Trusted by Professionals Worldwide
+        </h3>
+
+        {/* Stats container - reduced height, smaller radius */}
+        <div className="bg-gradient-to-b from-white to-gray-50/50 border border-gray-200/60 shadow-sm hover:shadow-md hover:border-gray-300 transition-all rounded-[20px] py-5 sm:py-6 px-4 sm:px-8">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
             {stats.map((s) => (
-              <div key={s.label} className="text-center px-4 sm:px-6 py-2 group hover:bg-gray-50/50 transition-colors rounded-lg">
-                <p className="text-2xl sm:text-3xl mb-2 group-hover:scale-110 transition-transform">{s.icon}</p>
-                <p className="text-2xl sm:text-4xl font-extrabold text-slate-800 mb-1">
-                  {s.value}
-                </p>
-                <p className="text-gray-500 text-xs sm:text-sm font-medium">{s.label}</p>
+              <div key={s.label} className="flex gap-3 sm:gap-4 items-start">
+                {/* Icon column - with faint circle background */}
+                <div className="flex-shrink-0">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#eff4fd] flex items-center justify-center text-xl sm:text-2xl">
+                    {s.icon}
+                  </div>
+                </div>
+
+                {/* Text column */}
+                <div className="flex flex-col justify-center">
+                  <p className="text-xl sm:text-3xl font-extrabold text-slate-800">
+                    {s.value}
+                  </p>
+                  <p className="text-gray-500 text-xs sm:text-sm font-medium">{s.label}</p>
+                </div>
               </div>
             ))}
           </div>
