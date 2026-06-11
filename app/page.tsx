@@ -127,29 +127,37 @@ const TOOLS = [
   },
 ];
 
+const BENEFIT_ICONS = [
+  // Clock - Save Time
+  <svg key="time" className="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2m6-2a10 10 0 11-20 0 10 10 0 0120 0z" /></svg>,
+  // Dollar - Reduce Costs
+  <svg key="cost" className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>,
+  // Chart - Increase Productivity
+  <svg key="prod" className="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>,
+  // Brain - Make Smarter Decisions
+  <svg key="smart" className="w-6 h-6 text-purple-500" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>,
+  // Rocket - Stay Ahead
+  <svg key="ahead" className="w-6 h-6 text-sky-500" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.82m5.84-2.56a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.818m2.784-7.421A6 6 0 016.592 9.6" /></svg>,
+];
+
 const BENEFITS = [
   {
-    icon: "⏱️",
     title: "Save Time",
     desc: "Automate repetitive tasks and focus on what matters.",
   },
   {
-    icon: "💰",
     title: "Reduce Costs",
     desc: "Cut operational costs and improve efficiency.",
   },
   {
-    icon: "📈",
     title: "Increase Productivity",
     desc: "Get more done in less time with AI-powered tools.",
   },
   {
-    icon: "🧠",
     title: "Make Smarter Decisions",
     desc: "Leverage data and AI insights to make better decisions.",
   },
   {
-    icon: "🚀",
     title: "Stay Ahead",
     desc: "Innovate faster and stay ahead of the competition.",
   },
@@ -349,12 +357,12 @@ function HeroSection() {
         <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-8 items-center">
           {/* Left */}
           <div>
-            <span className="inline-block px-4 py-2 bg-orange-100 text-xs font-bold tracking-widest text-[#F97316] uppercase mb-5 rounded-full">
+            <span className="inline-block px-4 py-2 bg-orange-50 text-xs font-bold tracking-widest uppercase mb-5 rounded-full bg-gradient-to-r from-[#F97316] via-[#F59E0B] to-[#0EA5E9] bg-clip-text text-transparent border border-orange-200">
               AI Tools for Your Industry
             </span>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#1E293B] leading-tight mb-7">
               AI Tools That Power{" "}
-              <span className="text-[#F97316]">Your Industry</span>
+              <span className="bg-gradient-to-r from-[#F97316] via-[#F59E0B] to-[#0EA5E9] bg-clip-text text-transparent">Your Industry</span>
             </h1>
             <p className="text-gray-500 text-base sm:text-xl leading-relaxed mb-10 max-w-lg">
               Discover handpicked AI tools for furniture, architecture,
@@ -466,9 +474,9 @@ function StatsBar() {
     <section id="stats" className="py-6 sm:py-7">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading - outside frame */}
-        <h3 className="text-xl sm:text-3xl lg:text-4xl font-extrabold text-[#1E293B] text-center mb-8 sm:mb-12">
+        <p className="text-sm font-semibold text-gray-500 text-center tracking-wide mb-4 sm:mb-6">
           Trusted by Professionals Worldwide
-        </h3>
+        </p>
 
         {/* Stats container */}
         <div className="bg-gradient-to-b from-white to-gray-50/50 border border-gray-200/60 shadow-sm hover:shadow-md hover:border-gray-300 transition-all rounded-[20px] py-5 sm:py-6 px-4 sm:px-8">
@@ -512,7 +520,7 @@ function TopTools() {
     active === "All" ? TOOLS : TOOLS.filter((t) => t.industry === active);
 
   return (
-    <section id="top-tools" className="py-16 sm:py-20 bg-white">
+    <section id="top-tools" className="pt-[41px] pb-16 sm:pt-[52px] sm:pb-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-2">
@@ -521,7 +529,7 @@ function TopTools() {
           </h2>
           <a
             href="#"
-            className="text-[#F97316] text-sm font-semibold hover:underline hidden sm:block whitespace-nowrap"
+            className="bg-gradient-to-r from-[#F97316] via-[#F59E0B] to-[#0EA5E9] bg-clip-text text-transparent text-sm font-semibold hover:opacity-80 hidden sm:block whitespace-nowrap"
           >
             View all tools →
           </a>
@@ -590,7 +598,7 @@ function TopTools() {
         <div className="text-center mt-8 sm:hidden">
           <a
             href="#"
-            className="text-[#F97316] text-sm font-semibold hover:underline"
+            className="bg-gradient-to-r from-[#F97316] via-[#F59E0B] to-[#0EA5E9] bg-clip-text text-transparent text-sm font-semibold hover:opacity-80"
           >
             View all tools →
           </a>
@@ -609,13 +617,13 @@ function HowAIHelps() {
         </h2>
 
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6">
-          {BENEFITS.map((b) => (
+          {BENEFITS.map((b, i) => (
             <div
               key={b.title}
               className="bg-white rounded-2xl p-6 border border-gray-100 hover:border-orange-200 hover:shadow-md transition-all flex flex-col items-start"
             >
-              <div className="w-12 h-12 rounded-full bg-orange-50 flex items-center justify-center text-2xl mb-4 shrink-0">
-                {b.icon}
+              <div className="w-12 h-12 rounded-full bg-orange-50 flex items-center justify-center mb-4 shrink-0">
+                {BENEFIT_ICONS[i]}
               </div>
               <p className="font-bold text-[#1E293B] text-sm mb-2">
                 {b.title}
@@ -631,7 +639,7 @@ function HowAIHelps() {
 
 function LatestInsights() {
   return (
-    <section id="insights" className="py-16 sm:py-20 bg-white">
+    <section id="insights" className="pt-[41px] pb-16 sm:pt-[52px] sm:pb-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-8">
           <div>
@@ -645,7 +653,7 @@ function LatestInsights() {
           </div>
           <a
             href="#"
-            className="text-[#F97316] text-sm font-semibold hover:underline hidden sm:block whitespace-nowrap"
+            className="bg-gradient-to-r from-[#F97316] via-[#F59E0B] to-[#0EA5E9] bg-clip-text text-transparent text-sm font-semibold hover:opacity-80 hidden sm:block whitespace-nowrap"
           >
             View all articles →
           </a>
@@ -692,7 +700,7 @@ function LatestInsights() {
         <div className="text-center mt-8 sm:hidden">
           <a
             href="#"
-            className="text-[#F97316] text-sm font-semibold hover:underline"
+            className="bg-gradient-to-r from-[#F97316] via-[#F59E0B] to-[#0EA5E9] bg-clip-text text-transparent text-sm font-semibold hover:opacity-80"
           >
             View all articles →
           </a>
@@ -705,7 +713,7 @@ function LatestInsights() {
 function Newsletter() {
   return (
     <section id="newsletter" className="py-0 bg-white">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1215px] mx-auto px-4 sm:px-6 lg:px-8 pb-[10px]">
         <div className="rounded-2xl overflow-hidden grid sm:grid-cols-2">
           {/* Left — blue gradient matching reference */}
           <div className="bg-gradient-to-br from-[#1A56DB] to-[#1E40AF] p-4 sm:p-6 flex flex-col justify-center">
@@ -903,7 +911,7 @@ function ExploreByIndustry() {
                 </p>
                 <a
                   href="#top-tools"
-                  className="inline-flex items-center gap-1 text-[#F97316] text-sm font-bold hover:underline"
+                  className="inline-flex items-center gap-1 bg-gradient-to-r from-[#F97316] via-[#F59E0B] to-[#0EA5E9] bg-clip-text text-transparent text-sm font-bold hover:opacity-80"
                 >
                   Explore Tools →
                 </a>
