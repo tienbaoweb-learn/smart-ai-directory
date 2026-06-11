@@ -152,8 +152,7 @@ const ARTICLES = [
       "From 3D visualization to AI-generated product descriptions — the tools that are transforming furniture workflows.",
     date: "Jun 8, 2025",
     readTime: "6 min read",
-    thumbBg: "bg-gradient-to-br from-amber-200 to-amber-400",
-    thumbIcon: "🪑",
+    thumbImg: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80",
   },
   {
     tag: "COMPARISON",
@@ -163,8 +162,7 @@ const ARTICLES = [
       "A deep dive into features, pricing, and real-world performance for architecture firms of every size.",
     date: "Jun 5, 2025",
     readTime: "9 min read",
-    thumbBg: "bg-gradient-to-br from-slate-200 to-slate-400",
-    thumbIcon: "📐",
+    thumbImg: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80",
   },
   {
     tag: "TOOLS",
@@ -174,8 +172,7 @@ const ARTICLES = [
       "These tools don't just promise ROI — they deliver it. Real data from real job sites.",
     date: "Jun 2, 2025",
     readTime: "5 min read",
-    thumbBg: "bg-gradient-to-br from-orange-200 to-orange-400",
-    thumbIcon: "🏗️",
+    thumbImg: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80",
   },
 ];
 
@@ -303,7 +300,8 @@ function Navbar() {
 
 function HeroSection() {
   return (
-    <section className="bg-white pt-24 pb-28 overflow-hidden">
+    <section className="bg-white pt-24 pb-28 overflow-hidden relative">
+      <div className="absolute bottom-10 right-0 w-96 h-96 bg-[#F97316]/10 rounded-full blur-3xl -z-10" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left */}
@@ -382,10 +380,10 @@ function HeroSection() {
 
 function StatsBar() {
   const stats = [
-    { value: "20K+", label: "Professionals" },
-    { value: "50K+", label: "Monthly Visitors" },
-    { value: "4.9/5", label: "Average Rating" },
-    { value: "100+", label: "Countries" },
+    { value: "20K+", label: "Professionals", icon: "👥" },
+    { value: "50K+", label: "Monthly Visitors", icon: "📊" },
+    { value: "4.9/5", label: "Average Rating", icon: "⭐" },
+    { value: "100+", label: "Countries", icon: "🌍" },
   ];
   return (
     <section className="bg-gray-50 border border-gray-200 shadow-sm py-14">
@@ -396,6 +394,7 @@ function StatsBar() {
         <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-gray-200">
           {stats.map((s) => (
             <div key={s.label} className="text-center px-6 py-2">
+              <p className="text-3xl mb-2">{s.icon}</p>
               <p className="text-4xl font-extrabold text-slate-800 mb-1">
                 {s.value}
               </p>
@@ -464,11 +463,11 @@ function TopTools() {
               {/* Logo + name */}
               <div className="flex items-start gap-4 mb-3">
                 <div
-                  className={`w-12 h-12 rounded-xl ${tool.emojiColor} flex items-center justify-center text-2xl border border-gray-100`}
+                  className={`w-14 h-14 rounded-xl ${tool.emojiColor} flex items-center justify-center text-2xl font-bold border-2 ${tool.industryColor.replace('text-', 'border-')} shrink-0`}
                 >
                   {tool.emoji}
                 </div>
-                <div>
+                <div className="flex-1">
                   <p className="font-bold text-[#1E293B] text-base">
                     {tool.name}
                   </p>
@@ -579,10 +578,13 @@ function LatestInsights() {
               className="border border-gray-100 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow group cursor-pointer"
             >
               {/* Thumbnail */}
-              <div
-                className={`h-44 ${a.thumbBg} flex items-center justify-center text-5xl`}
-              >
-                {a.thumbIcon}
+              <div className="relative h-44 overflow-hidden bg-gray-100">
+                <Image
+                  src={a.thumbImg}
+                  alt={a.title}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                />
               </div>
 
               <div className="p-5">
@@ -613,7 +615,7 @@ function LatestInsights() {
 
 function Newsletter() {
   return (
-    <section className="py-20 bg-gradient-to-br from-[#0F172A] via-[#1E3A5F] to-[#0E7490]">
+    <section className="py-20 bg-gradient-to-r from-[#0E7490] to-[#F97316]">
       <div className="max-w-2xl mx-auto px-4 text-center">
         <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-5">
           📬
@@ -735,7 +737,7 @@ function Footer() {
 
         {/* Copyright */}
         <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-center gap-3 text-white/40 text-xs">
-          <p>© 2025 SmartAI for Work. All rights reserved.</p>
+          <p>© 2026 SmartAI for Work. All rights reserved.</p>
           <span className="hidden sm:inline">·</span>
           <div className="flex gap-4">
             <a href="#" className="hover:text-white transition-colors">
@@ -804,9 +806,16 @@ function ExploreByIndustry() {
                   {/* Overlay */}
                   <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors" />
 
+                  {/* Center icon in white circle */}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-20 h-20 rounded-full bg-white flex items-center justify-center text-4xl shadow-lg">
+                      {card.icon}
+                    </div>
+                  </div>
+
                   {/* Content */}
                   <div className="relative h-full flex flex-col justify-between p-6">
-                    <span className="text-5xl">{card.icon}</span>
+                    <div></div>
                     <div>
                       <p className="text-white font-extrabold text-xl mb-1">
                         {card.label}
