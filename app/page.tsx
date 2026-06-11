@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
 // ─── DATA ───────────────────────────────────────────────────────────────────
@@ -146,32 +146,32 @@ const BENEFITS = [
 const ARTICLES = [
   {
     tag: "GUIDE",
-    tagColor: "bg-green-100 text-green-700",
-    title: "Top 10 AI Tools for Furniture Designers in 2025",
+    tagColor: "bg-blue-100 text-blue-700",
+    title: "10 AI Interior Design Tools That Save You Hours Every Week",
     excerpt:
-      "From 3D visualization to AI-generated product descriptions — the tools that are transforming furniture workflows.",
-    date: "Jun 8, 2025",
+      "Discover the best AI tools that are transforming interior design workflows with AI-powered visualization and planning.",
+    date: "May 20, 2025",
     readTime: "6 min read",
     thumbImg: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80",
   },
   {
     tag: "COMPARISON",
-    tagColor: "bg-blue-100 text-blue-700",
-    title: "Archicad AI vs Revit AI: Which BIM Tool Wins in 2025?",
+    tagColor: "bg-teal-100 text-teal-700",
+    title: "ChatGPT vs Claude: Which AI Assistant Is Better for Your Business?",
     excerpt:
-      "A deep dive into features, pricing, and real-world performance for architecture firms of every size.",
-    date: "Jun 5, 2025",
-    readTime: "9 min read",
+      "We compare ChatGPT and Claude on features, pricing, and real-world performance for professionals.",
+    date: "May 15, 2025",
+    readTime: "8 min read",
     thumbImg: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80",
   },
   {
     tag: "TOOLS",
-    tagColor: "bg-orange-100 text-orange-700",
-    title: "5 AI Tools Every Construction PM Should Know",
+    tagColor: "bg-purple-100 text-purple-700",
+    title: "Best AI Tools for Real Estate in 2026 [Tried & Tested]",
     excerpt:
-      "These tools don't just promise ROI — they deliver it. Real data from real job sites.",
-    date: "Jun 2, 2025",
-    readTime: "5 min read",
+      "Find leads and close more deals faster with these AI tools helping real estate professionals.",
+    date: "May 10, 2025",
+    readTime: "6 min read",
     thumbImg: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80",
   },
 ];
@@ -300,37 +300,37 @@ function Navbar() {
 
 function HeroSection() {
   return (
-    <section className="bg-white pt-24 pb-28 overflow-hidden relative">
+    <section className="bg-white pt-16 sm:pt-24 pb-20 sm:pb-28 overflow-hidden relative">
       <div className="absolute bottom-10 right-0 w-96 h-96 bg-[#F97316]/10 rounded-full blur-3xl -z-10" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 sm:gap-16 items-center">
           {/* Left */}
           <div>
             <span className="inline-block text-xs font-bold tracking-widest text-[#F97316] uppercase mb-5">
               AI Tools for Your Industry
             </span>
-            <h1 className="text-5xl sm:text-6xl font-extrabold text-[#1E293B] leading-tight mb-7">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#1E293B] leading-tight mb-7">
               AI Tools That Power{" "}
               <span className="text-[#F97316]">Your Industry</span>
             </h1>
-            <p className="text-gray-500 text-xl leading-relaxed mb-10 max-w-lg">
+            <p className="text-gray-500 text-base sm:text-xl leading-relaxed mb-10 max-w-lg">
               Discover handpicked AI tools for furniture, architecture,
               construction, and real estate. Save time, reduce costs, and grow
               your business with AI.
             </p>
 
             {/* CTAs */}
-            <div className="flex flex-wrap gap-4 mb-10">
-              <button className="flex items-center gap-2 bg-[#F97316] hover:bg-orange-600 text-white font-bold text-base px-8 py-4 rounded-xl transition-colors shadow-lg shadow-orange-100">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-4 mb-10">
+              <button className="flex items-center justify-center gap-2 bg-[#F97316] hover:bg-orange-600 text-white font-bold text-base px-8 py-4 rounded-xl transition-colors shadow-lg shadow-orange-100">
                 Explore AI Tools <span>→</span>
               </button>
-              <button className="flex items-center gap-2 border-2 border-[#1E293B] text-[#1E293B] hover:bg-[#1E293B] hover:text-white font-bold text-base px-8 py-4 rounded-xl transition-colors">
+              <button className="flex items-center justify-center gap-2 border-2 border-[#1E293B] text-[#1E293B] hover:bg-[#1E293B] hover:text-white font-bold text-base px-8 py-4 rounded-xl transition-colors">
                 See Top Picks
               </button>
             </div>
 
             {/* Trust badges */}
-            <div className="flex flex-wrap gap-x-8 gap-y-3">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-x-8 sm:gap-y-3">
               {[
                 "✅ 200+ AI Tools",
                 "🔍 Expert Tested & Reviewed",
@@ -345,11 +345,11 @@ function HeroSection() {
           </div>
 
           {/* Right — 2×2 industry card grid */}
-          <div className="grid grid-cols-2 gap-5">
+          <div className="grid grid-cols-2 gap-3 sm:gap-5">
             {INDUSTRY_CARDS.map((card) => (
               <div
                 key={card.id}
-                className="relative rounded-2xl overflow-hidden cursor-pointer group h-48"
+                className="relative rounded-2xl overflow-hidden cursor-pointer group h-32 sm:h-48"
               >
                 <Image
                   src={card.img}
@@ -358,13 +358,13 @@ function HeroSection() {
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors" />
-                <div className="relative h-full flex flex-col justify-between p-5">
-                  <span className="text-3xl">{card.icon}</span>
+                <div className="relative h-full flex flex-col justify-between p-3 sm:p-5">
+                  <span className="text-lg sm:text-3xl">{card.icon}</span>
                   <div>
-                    <p className="text-white font-bold text-lg leading-tight">
+                    <p className="text-white font-bold text-sm sm:text-lg leading-tight">
                       {card.label}
                     </p>
-                    <p className="text-white/80 text-sm">
+                    <p className="text-white/80 text-xs sm:text-sm">
                       {card.count} AI Tools
                     </p>
                   </div>
@@ -386,19 +386,19 @@ function StatsBar() {
     { value: "100+", label: "Countries", icon: "🌍" },
   ];
   return (
-    <section className="bg-gray-50 border border-gray-200 shadow-sm py-14">
+    <section className="bg-gray-50 border border-gray-200 shadow-sm py-12 sm:py-14">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p className="text-center text-gray-400 text-xs font-bold tracking-widest uppercase mb-10">
+        <p className="text-center text-gray-400 text-xs font-bold tracking-widest uppercase mb-8 sm:mb-10">
           Trusted by Professionals Worldwide
         </p>
         <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-gray-200">
           {stats.map((s) => (
-            <div key={s.label} className="text-center px-6 py-2">
-              <p className="text-3xl mb-2">{s.icon}</p>
-              <p className="text-4xl font-extrabold text-slate-800 mb-1">
+            <div key={s.label} className="text-center px-4 sm:px-6 py-2">
+              <p className="text-2xl sm:text-3xl mb-2">{s.icon}</p>
+              <p className="text-2xl sm:text-4xl font-extrabold text-slate-800 mb-1">
                 {s.value}
               </p>
-              <p className="text-gray-500 text-sm font-medium">{s.label}</p>
+              <p className="text-gray-500 text-xs sm:text-sm font-medium">{s.label}</p>
             </div>
           ))}
         </div>
@@ -421,28 +421,28 @@ function TopTools() {
     active === "All" ? TOOLS : TOOLS.filter((t) => t.industry === active);
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-16 sm:py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="flex items-end justify-between mb-6">
-          <h2 className="text-3xl font-extrabold text-[#1E293B]">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#1E293B]">
             Top AI Tools Across Industries
           </h2>
           <a
             href="#"
-            className="text-[#F97316] text-sm font-semibold hover:underline hidden sm:block"
+            className="text-[#F97316] text-sm font-semibold hover:underline hidden sm:block whitespace-nowrap"
           >
             View all tools →
           </a>
         </div>
 
         {/* Filter tabs */}
-        <div className="flex flex-wrap gap-2 mb-8">
+        <div className="flex flex-wrap gap-2 mb-8 overflow-x-auto pb-2">
           {tabs.map((tab) => (
             <button
               key={tab}
               onClick={() => setActive(tab)}
-              className={`px-4 py-2 rounded-full text-sm font-semibold border transition-colors ${
+              className={`px-4 py-2 rounded-full text-sm font-semibold border whitespace-nowrap transition-colors ${
                 active === tab
                   ? "bg-[#F97316] border-[#F97316] text-white"
                   : "bg-white border-gray-200 text-gray-600 hover:border-[#F97316] hover:text-[#F97316]"
@@ -454,7 +454,7 @@ function TopTools() {
         </div>
 
         {/* Tool grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {filtered.map((tool) => (
             <div
               key={tool.id}
@@ -467,19 +467,19 @@ function TopTools() {
                 >
                   {tool.emoji}
                 </div>
-                <div className="flex-1">
-                  <p className="font-bold text-[#1E293B] text-base">
+                <div className="flex-1 min-w-0">
+                  <p className="font-bold text-[#1E293B] text-base truncate">
                     {tool.name}
                   </p>
                   <span
-                    className={`text-xs font-semibold px-2 py-0.5 rounded-full ${tool.industryColor}`}
+                    className={`text-xs font-semibold px-2 py-0.5 rounded-full inline-block ${tool.industryColor}`}
                   >
                     {tool.industry}
                   </span>
                 </div>
               </div>
 
-              <p className="text-gray-500 text-sm leading-relaxed mb-4">
+              <p className="text-gray-500 text-sm leading-relaxed mb-4 line-clamp-2">
                 {tool.desc}
               </p>
 
@@ -489,8 +489,8 @@ function TopTools() {
                 <span className="text-sm font-bold text-[#1E293B]">
                   {tool.rating}
                 </span>
-                <span className="text-xs text-gray-400">
-                  ({tool.reviews} reviews)
+                <span className="text-xs text-gray-400 truncate">
+                  ({tool.reviews})
                 </span>
               </div>
 
@@ -516,19 +516,19 @@ function TopTools() {
 
 function HowAIHelps() {
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-16 sm:py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-14">
-          <h2 className="text-4xl font-extrabold text-[#1E293B] mb-4">
+        <div className="text-center mb-12 sm:mb-14">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#1E293B] mb-4">
             How AI Helps Your Business
           </h2>
-          <p className="text-gray-500 text-lg max-w-xl mx-auto">
+          <p className="text-gray-500 text-base sm:text-lg max-w-xl mx-auto">
             Whether you're managing a job site or a design studio, AI tools
             deliver measurable results.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8">
           {BENEFITS.map((b) => (
             <div
               key={b.title}
@@ -551,27 +551,27 @@ function HowAIHelps() {
 
 function LatestInsights() {
   return (
-    <section className="py-20 bg-white">
+    <section className="py-16 sm:py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-end justify-between mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-8">
           <div>
-            <h2 className="text-3xl font-extrabold text-[#1E293B] mb-2">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#1E293B] mb-2">
               Latest AI Insights & Guides
             </h2>
-            <p className="text-gray-500">
+            <p className="text-gray-500 text-sm sm:text-base">
               Stay up to date with expert reviews, comparisons, and how-to
               guides.
             </p>
           </div>
           <a
             href="#"
-            className="text-[#F97316] text-sm font-semibold hover:underline hidden sm:block"
+            className="text-[#F97316] text-sm font-semibold hover:underline hidden sm:block whitespace-nowrap"
           >
             View all articles →
           </a>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {ARTICLES.map((a, i) => (
             <article
               key={i}
@@ -593,7 +593,7 @@ function LatestInsights() {
                 >
                   {a.tag}
                 </span>
-                <h3 className="mt-3 font-bold text-[#1E293B] text-base leading-snug group-hover:text-[#F97316] transition-colors">
+                <h3 className="mt-3 font-bold text-[#1E293B] text-base leading-snug group-hover:text-[#F97316] transition-colors line-clamp-2">
                   {a.title}
                 </h3>
                 <p className="text-gray-500 text-sm mt-2 leading-relaxed line-clamp-2">
@@ -608,6 +608,15 @@ function LatestInsights() {
             </article>
           ))}
         </div>
+
+        <div className="text-center mt-8 sm:hidden">
+          <a
+            href="#"
+            className="text-[#F97316] text-sm font-semibold hover:underline"
+          >
+            View all articles →
+          </a>
+        </div>
       </div>
     </section>
   );
@@ -615,15 +624,15 @@ function LatestInsights() {
 
 function Newsletter() {
   return (
-    <section className="py-20 bg-gradient-to-r from-[#0E7490] to-[#F97316]">
+    <section className="py-16 sm:py-20 bg-gradient-to-r from-[#0EA5E9] to-[#F97316]">
       <div className="max-w-2xl mx-auto px-4 text-center">
         <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-5">
           📬
         </div>
-        <h2 className="text-3xl font-extrabold text-white mb-3">
+        <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-3">
           Get Weekly AI Tools & Industry Insights
         </h2>
-        <p className="text-white/70 mb-8">
+        <p className="text-white/70 text-sm sm:text-base mb-8">
           Join 100,000+ professionals who get the best AI tools, guides, and
           industry news delivered every week.
         </p>
@@ -634,12 +643,12 @@ function Newsletter() {
             placeholder="Enter your email address"
             className="flex-1 px-4 py-3 rounded-xl text-sm bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-white/50"
           />
-          <button className="bg-[#F97316] hover:bg-orange-500 text-white font-semibold px-6 py-3 rounded-xl transition-colors whitespace-nowrap">
+          <button className="bg-[#1E293B] hover:bg-slate-700 text-white font-semibold px-6 py-3 rounded-xl transition-colors whitespace-nowrap">
             Subscribe Now
           </button>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-5 text-white/60 text-xs">
+        <div className="flex flex-wrap justify-center gap-3 sm:gap-5 text-white/60 text-xs">
           {["🚫 No spam", "🔓 Unsubscribe anytime", "💯 100% Free"].map((b) => (
             <span key={b}>{b}</span>
           ))}
@@ -651,9 +660,9 @@ function Newsletter() {
 
 function Footer() {
   return (
-    <footer className="bg-[#1E293B] text-white pt-16 pb-8">
+    <footer className="bg-[#1E293B] text-white pt-12 sm:pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 sm:gap-8 mb-12">
           {/* Col 1 — Brand */}
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2 mb-3">
@@ -675,7 +684,7 @@ function Footer() {
                 </span>
               </div>
             </div>
-            <p className="text-white/50 text-sm leading-relaxed mb-5">
+            <p className="text-white/50 text-xs sm:text-sm leading-relaxed mb-5">
               The world's largest directory of AI tools for the built
               environment industries.
             </p>
@@ -700,13 +709,13 @@ function Footer() {
 
           {FOOTER_COLS.map((col) => (
             <div key={col.title}>
-              <p className="font-bold text-sm text-white mb-4">{col.title}</p>
+              <p className="font-bold text-xs sm:text-sm text-white mb-4">{col.title}</p>
               <ul className="space-y-2.5">
                 {col.links.map((link) => (
                   <li key={link}>
                     <a
                       href="#"
-                      className="text-white/50 hover:text-white text-sm transition-colors"
+                      className="text-white/50 hover:text-white text-xs sm:text-sm transition-colors"
                     >
                       {link}
                     </a>
@@ -718,17 +727,17 @@ function Footer() {
 
           {/* Col 6 — Newsletter */}
           <div>
-            <p className="font-bold text-sm text-white mb-4">Newsletter</p>
-            <p className="text-white/50 text-sm leading-relaxed mb-4">
+            <p className="font-bold text-xs sm:text-sm text-white mb-4">Newsletter</p>
+            <p className="text-white/50 text-xs sm:text-sm leading-relaxed mb-4">
               Weekly AI tools and insights for industry professionals.
             </p>
             <div className="flex gap-2">
               <input
                 type="email"
                 placeholder="Your email"
-                className="flex-1 min-w-0 px-3 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/40 text-sm focus:outline-none focus:border-white/40"
+                className="flex-1 min-w-0 px-3 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/40 text-xs sm:text-sm focus:outline-none focus:border-white/40"
               />
-              <button className="bg-[#F97316] hover:bg-orange-500 text-white px-3 py-2 rounded-lg text-sm font-bold transition-colors shrink-0">
+              <button className="bg-[#F97316] hover:bg-orange-500 text-white px-3 py-2 rounded-lg text-xs sm:text-sm font-bold transition-colors shrink-0">
                 →
               </button>
             </div>
@@ -736,7 +745,7 @@ function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-center gap-3 text-white/40 text-xs">
+        <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 text-white/40 text-xs">
           <p>© 2026 SmartAI for Work. All rights reserved.</p>
           <span className="hidden sm:inline">·</span>
           <div className="flex gap-4">
@@ -762,32 +771,42 @@ function ExploreByIndustry() {
   const cardWidth = 272; // w-64 (256) + gap-4 (16)
   const maxOffset = (INDUSTRY_CARDS.length - 3) * cardWidth;
 
+  useEffect(() => {
+    let currentOffset = 0;
+    const interval = setInterval(() => {
+      currentOffset = (currentOffset + cardWidth) % ((maxOffset + cardWidth));
+      setOffset(currentOffset);
+    }, 5000); // Scroll every 5 seconds
+
+    return () => clearInterval(interval);
+  }, [cardWidth, maxOffset]);
+
   return (
     <section className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-extrabold text-[#1E293B] mb-4">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#1E293B] mb-4">
             Explore AI Tools by Industry
           </h2>
-          <p className="text-gray-500 text-lg max-w-xl mx-auto">
+          <p className="text-gray-500 text-base sm:text-lg max-w-xl mx-auto">
             Find the perfect AI tools tailored to your industry needs.
           </p>
         </div>
 
         {/* Slider wrapper */}
-        <div className="relative">
+        <div className="relative -mx-4 sm:mx-0">
           {/* Left arrow */}
           <button
             onClick={() => setOffset((o) => Math.max(0, o - cardWidth))}
             disabled={offset === 0}
-            className="absolute -left-5 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white border-2 border-gray-200 shadow-md flex items-center justify-center text-gray-400 hover:border-[#F97316] hover:text-[#F97316] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+            className="absolute -left-2 sm:-left-5 top-1/2 -translate-y-1/2 z-10 w-9 sm:w-11 h-9 sm:h-11 rounded-full bg-white border-2 border-gray-200 shadow-md flex items-center justify-center text-gray-400 hover:border-[#F97316] hover:text-[#F97316] disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-xs sm:text-sm"
           >
             ←
           </button>
 
           {/* Cards track */}
-          <div className="overflow-hidden">
+          <div className="overflow-hidden px-4 sm:px-0">
             <div
               className="flex gap-4 transition-transform duration-300 ease-in-out"
               style={{ transform: `translateX(-${offset}px)` }}
@@ -837,7 +856,7 @@ function ExploreByIndustry() {
           <button
             onClick={() => setOffset((o) => Math.min(maxOffset, o + cardWidth))}
             disabled={offset >= maxOffset}
-            className="absolute -right-5 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white border-2 border-gray-200 shadow-md flex items-center justify-center text-gray-400 hover:border-[#F97316] hover:text-[#F97316] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+            className="absolute -right-2 sm:-right-5 top-1/2 -translate-y-1/2 z-10 w-9 sm:w-11 h-9 sm:h-11 rounded-full bg-white border-2 border-gray-200 shadow-md flex items-center justify-center text-gray-400 hover:border-[#F97316] hover:text-[#F97316] disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-xs sm:text-sm"
           >
             →
           </button>
@@ -862,8 +881,26 @@ function ExploreByIndustry() {
   );
 }
 export default function HomePage() {
+  useEffect(() => {
+    const elements = document.querySelectorAll<HTMLElement>(".reveal");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    elements.forEach((element) => observer.observe(element));
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="min-h-screen bg-white font-sans">
+    <div className="min-h-screen bg-slate-50 font-sans text-slate-900">
       <Navbar />
       <HeroSection />
       <StatsBar />
