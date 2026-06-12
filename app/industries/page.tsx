@@ -1,0 +1,838 @@
+"use client";
+
+import Image from "next/image";
+import Navbar from "../components/Navbar";
+import Newsletter from "../components/Newsletter";
+import Footer from "../components/Footer";
+
+// ─── DATA ────────────────────────────────────────────────────────────────────
+
+const INDUSTRIES = [
+  {
+    id: "furniture",
+    label: "Furniture",
+    img: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80",
+    icon: "🛋️",
+    toolCount: 35,
+    guideCount: 12,
+    workflowCount: 8,
+    desc: "AI tools for furniture designers, retailers, and manufacturers.",
+    btnClass: "bg-emerald-600 hover:bg-emerald-700",
+    iconBg: "bg-emerald-100",
+    iconText: "text-emerald-600",
+    titleColor: "text-emerald-700",
+  },
+  {
+    id: "architecture",
+    label: "Architecture",
+    img: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80",
+    icon: "🏛️",
+    toolCount: 28,
+    guideCount: 10,
+    workflowCount: 7,
+    desc: "AI tools for architects, designers, and planning professionals.",
+    btnClass: "bg-blue-600 hover:bg-blue-700",
+    iconBg: "bg-blue-100",
+    iconText: "text-blue-600",
+    titleColor: "text-blue-700",
+  },
+  {
+    id: "construction",
+    label: "Construction",
+    img: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80",
+    icon: "🏗️",
+    toolCount: 24,
+    guideCount: 9,
+    workflowCount: 6,
+    desc: "AI tools for contractors, project managers, and builders.",
+    btnClass: "bg-orange-500 hover:bg-orange-600",
+    iconBg: "bg-orange-100",
+    iconText: "text-orange-500",
+    titleColor: "text-orange-600",
+  },
+  {
+    id: "realestate",
+    label: "Real Estate",
+    img: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80",
+    icon: "🏠",
+    toolCount: 31,
+    guideCount: 11,
+    workflowCount: 9,
+    desc: "AI tools for agents, brokers, and property managers.",
+    btnClass: "bg-purple-600 hover:bg-purple-700",
+    iconBg: "bg-purple-100",
+    iconText: "text-purple-600",
+    titleColor: "text-purple-700",
+  },
+];
+
+const CHALLENGES = [
+  {
+    industry: "Furniture Businesses",
+    icon: "🛋️",
+    iconBg: "bg-emerald-100",
+    points: [
+      "High cost of product visualization",
+      "Time-consuming content creation",
+      "Managing large product catalogs",
+      "Generating quality leads",
+    ],
+  },
+  {
+    industry: "Architecture Firms",
+    icon: "🏛️",
+    iconBg: "bg-blue-100",
+    points: [
+      "Time-consuming concept design",
+      "Complex 3D rendering processes",
+      "Manual documentation workload",
+      "Client presentation challenges",
+    ],
+  },
+  {
+    industry: "Construction Companies",
+    icon: "🏗️",
+    iconBg: "bg-orange-100",
+    points: [
+      "Project delays and cost overruns",
+      "Lack of real-time site visibility",
+      "Inaccurate progress tracking",
+      "Manual reporting and paperwork",
+    ],
+  },
+  {
+    industry: "Real Estate Professionals",
+    icon: "🏠",
+    iconBg: "bg-purple-100",
+    points: [
+      "Finding and qualifying leads",
+      "Creating engaging property listings",
+      "Time-consuming virtual staging",
+      "Following up with prospects",
+    ],
+  },
+];
+
+const WORKFLOWS = [
+  {
+    industry: "Furniture Workflow",
+    titleColor: "text-emerald-600",
+    linkColor: "text-emerald-600 hover:text-emerald-700",
+    steps: [
+      { emoji: "✏️", label: "Design" },
+      { emoji: "🖥️", label: "Render" },
+      { emoji: "📢", label: "Market" },
+      { emoji: "💰", label: "Sell" },
+    ],
+    tagline: "From idea to customer with AI-powered tools.",
+    link: "Explore Furniture",
+  },
+  {
+    industry: "Architecture Workflow",
+    titleColor: "text-blue-600",
+    linkColor: "text-blue-600 hover:text-blue-700",
+    steps: [
+      { emoji: "💡", label: "Concept" },
+      { emoji: "🏗️", label: "BIM" },
+      { emoji: "🖥️", label: "Visualize" },
+      { emoji: "📊", label: "Present" },
+    ],
+    tagline: "Design smarter. Present with impact.",
+    link: "Explore Architecture",
+  },
+  {
+    industry: "Construction Workflow",
+    titleColor: "text-orange-500",
+    linkColor: "text-orange-500 hover:text-orange-600",
+    steps: [
+      { emoji: "📋", label: "Plan" },
+      { emoji: "👁️", label: "Monitor" },
+      { emoji: "📈", label: "Track" },
+      { emoji: "📄", label: "Report" },
+    ],
+    tagline: "Build better with real-time AI insights.",
+    link: "Explore Construction",
+  },
+  {
+    industry: "Real Estate Workflow",
+    titleColor: "text-purple-600",
+    linkColor: "text-purple-600 hover:text-purple-700",
+    steps: [
+      { emoji: "👥", label: "Leads" },
+      { emoji: "📋", label: "Listings" },
+      { emoji: "🏠", label: "Staging" },
+      { emoji: "🤝", label: "Close" },
+    ],
+    tagline: "Attract leads. Close deals. Grow faster.",
+    link: "Explore Real Estate",
+  },
+];
+
+const TOP_TOOLS = [
+  {
+    name: "Midjourney",
+    desc: "AI image generation for designs",
+    logo: "🎨",
+    logoBg: "bg-slate-800",
+    logoIsText: false,
+    industries: ["🛋️", "🏛️", "🏗️", "🏠"],
+  },
+  {
+    name: "ChatGPT",
+    desc: "AI assistant for writing and research",
+    logo: "GP",
+    logoBg: "bg-[#10A37F]",
+    logoIsText: true,
+    logoClass: "text-white font-black text-sm",
+    industries: ["🛋️", "🏛️", "🏗️", "🏠"],
+  },
+  {
+    name: "D5 Render",
+    desc: "Real-time rendering for 3D",
+    logo: "D5",
+    logoBg: "bg-purple-600",
+    logoIsText: true,
+    logoClass: "text-white font-black text-sm",
+    industries: ["🛋️", "🏛️"],
+  },
+  {
+    name: "Notion AI",
+    desc: "AI powered docs and knowledge",
+    logo: "N",
+    logoBg: "bg-white border border-gray-200",
+    logoIsText: true,
+    logoClass: "text-gray-900 font-black text-xl",
+    industries: ["🛋️", "🏛️", "🏗️", "🏠"],
+  },
+  {
+    name: "Canva AI",
+    desc: "AI powered content creation",
+    logo: "C",
+    logoBg: "bg-[#0CC0DF]",
+    logoIsText: true,
+    logoClass: "text-white font-black text-xl",
+    industries: ["🛋️", "🏛️", "🏗️", "🏠"],
+  },
+  {
+    name: "Buildots",
+    desc: "AI construction analytics",
+    logo: "B",
+    logoBg: "bg-amber-500",
+    logoIsText: true,
+    logoClass: "text-white font-black text-xl",
+    industries: ["🏗️", "🛋️", "🏠"],
+  },
+  {
+    name: "REimagineHome",
+    desc: "AI virtual staging and design",
+    logo: "R",
+    logoBg: "bg-[#FF6B6B]",
+    logoIsText: true,
+    logoClass: "text-white font-black text-xl",
+    industries: ["🏠", "🛋️", "🏛️"],
+  },
+];
+
+const CASE_STUDIES = [
+  {
+    stat: "+70%",
+    statColor: "text-emerald-500",
+    desc: "Increase in product engagement",
+    company: "Modern Wood Co.",
+    type: "Furniture Retailer",
+    img: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=80",
+  },
+  {
+    stat: "-60%",
+    statColor: "text-blue-500",
+    desc: "Reduction in concept design time",
+    company: "Design Forward Studio",
+    type: "Architecture Firm",
+    img: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=400&q=80",
+  },
+  {
+    stat: "-20%",
+    statColor: "text-orange-500",
+    desc: "Decrease in project delays",
+    company: "BuildWell Construction",
+    type: "Construction Company",
+    img: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&q=80",
+  },
+  {
+    stat: "+40%",
+    statColor: "text-purple-500",
+    desc: "More qualified leads",
+    company: "PropertyMax Realty",
+    type: "Real Estate Agency",
+    img: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&q=80",
+  },
+];
+
+const BEST_OF = [
+  { industry: "Furniture", icon: "🛋️", count: 12, iconBg: "bg-emerald-100" },
+  { industry: "Architecture", icon: "🏛️", count: 10, iconBg: "bg-blue-100" },
+  { industry: "Construction", icon: "🏗️", count: 10, iconBg: "bg-orange-100" },
+  { industry: "Real Estate", icon: "🏠", count: 12, iconBg: "bg-purple-100" },
+];
+
+const GUIDES = [
+  {
+    title: "Top 10 AI Tools for Furniture Design in 2026",
+    date: "Jan 15, 2026",
+    readTime: "8 min read",
+    img: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80",
+    tag: "Furniture",
+    tagBg: "bg-emerald-100 text-emerald-700",
+  },
+  {
+    title: "How Architecture Firms Are Using AI to Win More Clients",
+    date: "Feb 3, 2026",
+    readTime: "6 min read",
+    img: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80",
+    tag: "Architecture",
+    tagBg: "bg-blue-100 text-blue-700",
+  },
+  {
+    title: "AI in Construction: Complete Guide to Project Management Tools",
+    date: "Mar 10, 2026",
+    readTime: "10 min read",
+    img: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80",
+    tag: "Construction",
+    tagBg: "bg-orange-100 text-orange-700",
+  },
+];
+
+// ─── HERO ─────────────────────────────────────────────────────────────────────
+
+function HeroSection() {
+  return (
+    <section className="bg-white pt-10 pb-12 sm:pt-14 sm:pb-16 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-12">
+          {/* ── Left ── */}
+          <div className="flex-1 max-w-lg lg:max-w-none">
+            <span className="inline-block text-xs font-bold tracking-widest uppercase mb-4 text-[#0EA5E9] bg-sky-50 border border-sky-200 rounded-full px-4 py-1.5">
+              AI Solutions for Every Industry
+            </span>
+            <h1 className="text-4xl sm:text-5xl font-extrabold text-[#1E293B] leading-tight mb-4">
+              AI Tools{" "}
+              <span className="bg-gradient-to-r from-[#0EA5E9] to-[#9333EA] bg-clip-text text-transparent">
+                by Industry
+              </span>
+            </h1>
+            <p className="text-gray-500 text-base sm:text-lg leading-relaxed mb-8 max-w-md">
+              Explore AI tools, workflows, and best practices customized for your industry. Solve problems, save time, and grow your business with AI.
+            </p>
+
+            {/* CTA buttons */}
+            <div className="flex flex-wrap gap-3 mb-8">
+              <a
+                href="#explore"
+                className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-xl transition-colors text-sm shadow-md shadow-blue-100"
+              >
+                Explore Industries →
+              </a>
+              <a
+                href="/ai-tools"
+                className="inline-flex items-center gap-2 border-2 border-gray-200 text-[#1E293B] hover:border-blue-300 hover:text-blue-600 font-semibold px-6 py-3 rounded-xl transition-colors text-sm bg-white"
+              >
+                View Best AI Tools →
+              </a>
+            </div>
+
+            {/* Stat badges */}
+            <div className="flex flex-wrap gap-6">
+              {[
+                {
+                  icon: (
+                    <svg className="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" />
+                    </svg>
+                  ),
+                  value: "4",
+                  label: "Industries",
+                },
+                {
+                  icon: (
+                    <svg className="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z" />
+                    </svg>
+                  ),
+                  value: "120+",
+                  label: "Curated Tools",
+                },
+                {
+                  icon: (
+                    <svg className="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M3 8.688c0-.864.933-1.405 1.683-.977l7.108 4.062a1.125 1.125 0 010 1.953l-7.108 4.062A1.125 1.125 0 013 16.81V8.688zM12.75 8.688c0-.864.933-1.405 1.683-.977l7.108 4.062a1.125 1.125 0 010 1.953l-7.108 4.062a1.125 1.125 0 01-1.683-.977V8.688z" />
+                    </svg>
+                  ),
+                  value: "50+",
+                  label: "Workflows",
+                },
+                {
+                  icon: (
+                    <svg className="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                    </svg>
+                  ),
+                  value: "300+",
+                  label: "Case Studies",
+                },
+              ].map((s) => (
+                <div key={s.label} className="flex items-center gap-2">
+                  {s.icon}
+                  <div>
+                    <p className="text-sm font-extrabold text-[#1E293B] leading-none">{s.value}</p>
+                    <p className="text-xs text-gray-500 leading-none mt-0.5">{s.label}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* ── Right — 2×2 on mobile / 4 cols on desktop ── */}
+          <div className="w-full lg:flex-1 lg:max-w-[560px]">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+              {INDUSTRIES.map((ind) => (
+                <a
+                  key={ind.id}
+                  href={`#${ind.id}`}
+                  className="relative rounded-2xl overflow-hidden group h-[200px] lg:h-[220px] cursor-pointer block"
+                >
+                  <Image
+                    src={ind.img}
+                    alt={ind.label}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
+                  {/* Icon circle — top center */}
+                  <div className="absolute top-3 left-1/2 -translate-x-1/2">
+                    <div className={`w-9 h-9 rounded-full ${ind.iconBg} flex items-center justify-center text-lg shadow-md`}>
+                      {ind.icon}
+                    </div>
+                  </div>
+                  {/* Bottom overlay */}
+                  <div className="absolute bottom-0 left-0 right-0 p-3 pr-8">
+                    <p className="text-white font-bold text-sm leading-tight">{ind.label}</p>
+                    <p className="text-white/75 text-xs">{ind.toolCount} Tools</p>
+                  </div>
+                  {/* Plus badge */}
+                  <div className="absolute bottom-3 right-3 w-5 h-5 rounded-full bg-white/25 backdrop-blur-sm flex items-center justify-center text-white text-xs font-bold leading-none">
+                    +
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── CHALLENGES ───────────────────────────────────────────────────────────────
+
+function ChallengesSection() {
+  return (
+    <section className="py-12 sm:py-16 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-10">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1E293B] mb-2">
+            Common Business Challenges AI Can Solve
+          </h2>
+          <p className="text-gray-500 text-sm sm:text-base max-w-xl mx-auto">
+            Across different industries, AI helps solve critical problems and unlock new opportunities.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {CHALLENGES.map((c) => (
+            <div key={c.industry} className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
+              <div className="flex items-center gap-3 mb-4">
+                <div className={`w-9 h-9 rounded-xl ${c.iconBg} flex items-center justify-center text-lg shrink-0`}>
+                  {c.icon}
+                </div>
+                <p className="font-bold text-[#1E293B] text-sm leading-tight">{c.industry}</p>
+              </div>
+              <ul className="space-y-2">
+                {c.points.map((pt) => (
+                  <li key={pt} className="flex items-start gap-2 text-xs text-gray-500">
+                    <svg className="w-3.5 h-3.5 text-gray-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                    </svg>
+                    <span>{pt}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── WORKFLOWS ────────────────────────────────────────────────────────────────
+
+function WorkflowsSection() {
+  return (
+    <section className="py-12 sm:py-16 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-10">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1E293B] mb-2">
+            Industry Workflows Enhanced by AI
+          </h2>
+          <p className="text-gray-500 text-sm sm:text-base max-w-xl mx-auto">
+            See how AI fits into key workflows to streamline operations and drive results.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {WORKFLOWS.map((wf) => (
+            <div key={wf.industry} className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
+              <p className={`font-bold text-sm mb-4 ${wf.titleColor}`}>{wf.industry}</p>
+
+              {/* Steps row */}
+              <div className="flex items-center gap-1 mb-1">
+                {wf.steps.map((step, i) => (
+                  <div key={step.label} className="flex items-center gap-1">
+                    <div className="w-8 h-8 rounded-lg bg-gray-50 border border-gray-100 flex items-center justify-center text-base shrink-0">
+                      {step.emoji}
+                    </div>
+                    {i < wf.steps.length - 1 && (
+                      <svg className="w-3 h-3 text-gray-300 shrink-0" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                      </svg>
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              {/* Step labels */}
+              <div className="flex items-center gap-1 mb-4">
+                {wf.steps.map((step, i) => (
+                  <div key={step.label} className="flex items-center gap-1">
+                    <p className="w-8 text-center text-[10px] text-gray-400 leading-tight">{step.label}</p>
+                    {i < wf.steps.length - 1 && <div className="w-3 shrink-0" />}
+                  </div>
+                ))}
+              </div>
+
+              <p className="text-xs text-gray-500 mb-3 leading-relaxed">{wf.tagline}</p>
+              <a href="#explore" className={`text-xs font-semibold ${wf.linkColor} transition-colors`}>
+                {wf.link} →
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── EXPLORE INDUSTRIES ───────────────────────────────────────────────────────
+
+function ExploreSection() {
+  return (
+    <section id="explore" className="py-12 sm:py-16 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-10">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1E293B] mb-2">
+            Explore AI Solutions for Your Industry
+          </h2>
+          <p className="text-gray-500 text-sm sm:text-base max-w-xl mx-auto">
+            Choose your industry to discover curated tools, workflows, guides, and case studies.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {INDUSTRIES.map((ind) => (
+            <div key={ind.id} id={ind.id} className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow group">
+              {/* Image */}
+              <div className="relative h-40 w-full">
+                <Image
+                  src={ind.img}
+                  alt={ind.label}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                {/* Icon circle overlapping image bottom-left */}
+                <div className={`absolute -bottom-4 left-4 w-10 h-10 rounded-full ${ind.iconBg} border-2 border-white flex items-center justify-center text-xl shadow-md z-10`}>
+                  {ind.icon}
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="pt-7 px-4 pb-4">
+                <p className="font-extrabold text-[#1E293B] text-base mb-1">{ind.label}</p>
+                <p className="text-xs text-gray-500 leading-relaxed mb-4">{ind.desc}</p>
+
+                {/* Mini stats */}
+                <div className="grid grid-cols-3 gap-2 mb-4 border-t border-gray-100 pt-3">
+                  {[
+                    { label: "Tools", value: ind.toolCount },
+                    { label: "Guides", value: ind.guideCount },
+                    { label: "Workflows", value: ind.workflowCount },
+                  ].map((s) => (
+                    <div key={s.label} className="text-center">
+                      <p className="font-extrabold text-[#1E293B] text-sm leading-none">{s.value}</p>
+                      <p className="text-[10px] text-gray-400 mt-0.5">{s.label}</p>
+                    </div>
+                  ))}
+                </div>
+
+                {/* CTA button */}
+                <a
+                  href={`/ai-tools?industry=${ind.id}`}
+                  className={`block w-full text-center text-white text-sm font-semibold py-2.5 rounded-xl transition-colors ${ind.btnClass}`}
+                >
+                  Explore {ind.label} →
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── TOP TOOLS ────────────────────────────────────────────────────────────────
+
+function TopToolsSection() {
+  return (
+    <section className="py-12 sm:py-14 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h2 className="text-xl sm:text-2xl font-extrabold text-[#1E293B]">
+              Top Recommended AI Tools Across Industries
+            </h2>
+            <p className="text-gray-500 text-sm mt-1">Popular tools used by professionals in multiple industries.</p>
+          </div>
+          <a href="/ai-tools" className="text-sm font-semibold text-blue-600 hover:text-blue-700 whitespace-nowrap shrink-0 ml-4">
+            View all tools →
+          </a>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
+          {TOP_TOOLS.map((tool) => (
+            <div
+              key={tool.name}
+              className="bg-white border border-gray-100 rounded-2xl p-3 shadow-sm hover:shadow-md hover:border-gray-200 transition-all"
+            >
+              {/* Logo */}
+              <div className={`w-10 h-10 rounded-xl ${tool.logoBg} flex items-center justify-center mb-2 shrink-0`}>
+                {tool.logoIsText ? (
+                  <span className={tool.logoClass ?? "text-white font-black text-base"}>{tool.logo}</span>
+                ) : (
+                  <span className="text-xl">{tool.logo}</span>
+                )}
+              </div>
+              <p className="font-bold text-[#1E293B] text-sm leading-tight mb-0.5">{tool.name}</p>
+              <p className="text-[11px] text-gray-500 leading-snug mb-2">{tool.desc}</p>
+              <p className="text-[10px] text-gray-400 mb-1">Used in:</p>
+              <div className="flex flex-wrap gap-1">
+                {tool.industries.map((ind) => (
+                  <span key={ind} className="text-base leading-none">{ind}</span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── CASE STUDIES ─────────────────────────────────────────────────────────────
+
+function CaseStudiesSection() {
+  return (
+    <section className="py-12 sm:py-14 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-start justify-between mb-6">
+          <div>
+            <h2 className="text-xl sm:text-2xl font-extrabold text-[#1E293B]">
+              Real Results from AI-Powered Businesses
+            </h2>
+            <p className="text-gray-500 text-sm mt-1">
+              See how companies in different industries are achieving measurable results.
+            </p>
+          </div>
+          <a href="#" className="text-sm font-semibold text-blue-600 hover:text-blue-700 whitespace-nowrap shrink-0 ml-4">
+            View all case studies →
+          </a>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {CASE_STUDIES.map((cs) => (
+            <div
+              key={cs.company}
+              className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-row lg:flex-col"
+            >
+              {/* Image */}
+              <div className="relative w-28 lg:w-full h-auto lg:h-28 shrink-0">
+                <Image src={cs.img} alt={cs.company} fill className="object-cover" />
+              </div>
+              {/* Text */}
+              <div className="p-4 flex-1">
+                <p className={`text-2xl font-extrabold leading-none mb-1 ${cs.statColor}`}>{cs.stat}</p>
+                <p className="text-xs text-gray-600 leading-snug mb-3">{cs.desc}</p>
+                <p className="text-xs font-bold text-[#1E293B]">{cs.company}</p>
+                <p className="text-[11px] text-gray-400">{cs.type}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── BEST OF ──────────────────────────────────────────────────────────────────
+
+function BestOfSection() {
+  return (
+    <section className="py-12 sm:py-14 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h2 className="text-xl sm:text-2xl font-extrabold text-[#1E293B]">Best Of AI Tools by Industry</h2>
+            <p className="text-gray-500 text-sm mt-1">Curated lists of the best-performing AI tools for each industry.</p>
+          </div>
+          <a href="/ai-tools" className="text-sm font-semibold text-blue-600 hover:text-blue-700 whitespace-nowrap shrink-0 ml-4">
+            View all Best Of lists →
+          </a>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {BEST_OF.map((b) => (
+            <a
+              key={b.industry}
+              href={`/ai-tools?industry=${b.industry.toLowerCase().replace(" ", "")}`}
+              className="flex items-center gap-4 p-5 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md hover:border-gray-200 transition-all group"
+            >
+              <div className={`w-12 h-12 rounded-2xl ${b.iconBg} flex items-center justify-center text-2xl shrink-0`}>
+                {b.icon}
+              </div>
+              <div>
+                <p className="font-bold text-[#1E293B] text-sm leading-tight">
+                  Best AI Tools<br />for {b.industry}
+                </p>
+                <p className="text-xs text-gray-400 mt-0.5">{b.count} Tools</p>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── GUIDES ───────────────────────────────────────────────────────────────────
+
+function GuidesSection() {
+  return (
+    <section className="py-12 sm:py-14 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-xl sm:text-2xl font-extrabold text-[#1E293B]">Latest Industry Guides</h2>
+          <a href="#" className="text-sm font-semibold text-blue-600 hover:text-blue-700 whitespace-nowrap">
+            View all guides →
+          </a>
+        </div>
+
+        <div className="flex flex-col lg:flex-row gap-5">
+          {/* ── Left: 3 article cards (2/3) ── */}
+          <div className="flex-[2] flex flex-col gap-4">
+            {GUIDES.map((g) => (
+              <a
+                key={g.title}
+                href="#"
+                className="flex gap-4 bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow group"
+              >
+                <div className="relative w-28 sm:w-32 h-auto shrink-0">
+                  <Image src={g.img} alt={g.title} fill className="object-cover group-hover:scale-105 transition-transform duration-300" />
+                </div>
+                <div className="py-4 pr-4 flex flex-col justify-center">
+                  <span className={`inline-block text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full mb-2 ${g.tagBg}`}>
+                    {g.tag}
+                  </span>
+                  <p className="font-bold text-[#1E293B] text-sm leading-snug mb-2 group-hover:text-blue-600 transition-colors">
+                    {g.title}
+                  </p>
+                  <p className="text-[11px] text-gray-400">
+                    {g.date} · {g.readTime}
+                  </p>
+                </div>
+              </a>
+            ))}
+          </div>
+
+          {/* ── Right: Newsletter card (1/3) ── */}
+          <div className="flex-1 min-w-0">
+            <div
+              className="rounded-2xl p-6 h-full flex flex-col justify-between"
+              style={{ background: "linear-gradient(135deg, #1062B1 0%, #5cdce7 40%, #F5A623 75%, #F97316 100%)" }}
+            >
+              <div className="mb-5">
+                <div className="bg-white/20 backdrop-blur-sm rounded-xl p-2.5 w-10 h-10 flex items-center justify-center mb-4">
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                  </svg>
+                </div>
+                <h3 className="text-white font-extrabold text-lg leading-snug mb-2">
+                  Get Weekly AI Industry Insights
+                </h3>
+                <p className="text-white/80 text-xs leading-relaxed">
+                  Join 1000+ professionals who get practical AI tips, tool reviews, and industry workflows every week.
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  className="w-full px-4 py-2.5 rounded-xl text-sm bg-white text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white/60"
+                />
+                <button className="w-full bg-[#1E293B] hover:bg-slate-700 text-white font-semibold px-4 py-2.5 rounded-xl transition-colors text-sm">
+                  Subscribe Now
+                </button>
+                <div className="flex gap-3 text-white/70 text-[11px]">
+                  <span>✓ No spam</span>
+                  <span>✓ Free</span>
+                  <span>✓ Unsubscribe anytime</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── PAGE ─────────────────────────────────────────────────────────────────────
+
+export default function IndustriesPage() {
+  return (
+    <>
+      <Navbar />
+      <main>
+        <HeroSection />
+        <ChallengesSection />
+        <WorkflowsSection />
+        <ExploreSection />
+        <TopToolsSection />
+        <CaseStudiesSection />
+        <BestOfSection />
+        <GuidesSection />
+      </main>
+      <Newsletter />
+      <Footer />
+    </>
+  );
+}
