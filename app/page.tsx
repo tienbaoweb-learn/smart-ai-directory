@@ -2,16 +2,11 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Navbar from "./components/Navbar";
+import Newsletter from "./components/Newsletter";
+import Footer from "./components/Footer";
 
 // ─── DATA ───────────────────────────────────────────────────────────────────
-
-const NAV_LINKS: { label: string; href: string }[] = [
-  { label: "AI Tools", href: "#top-tools" },
-  { label: "Industries", href: "#explore" },
-  { label: "Best Of", href: "#top-tools" },
-  { label: "Resources", href: "#insights" },
-  { label: "About", href: "#newsletter" },
-];
 
 const INDUSTRY_CARDS = [
   {
@@ -204,25 +199,6 @@ const ARTICLES = [
   },
 ];
 
-const FOOTER_COLS = [
-  {
-    title: "Explore",
-    links: ["AI Tools", "By Industry", "Best Of", "All Reviews", "Workflows"],
-  },
-  {
-    title: "Industries",
-    links: ["Furniture", "Architecture", "Construction", "Real Estate"],
-  },
-  {
-    title: "Resources",
-    links: ["Guides", "Comparisons", "AI Glossary", "Submit a Tool"],
-  },
-  {
-    title: "Company",
-    links: ["About Us", "Contact", "Privacy Policy", "Terms of Use"],
-  },
-];
-
 // ─── SMALL COMPONENTS ────────────────────────────────────────────────────────
 
 function StarRating({ rating }: { rating: number }) {
@@ -244,79 +220,7 @@ function StarRating({ rating }: { rating: number }) {
   );
 }
 
-function ChevronDown() {
-  return (
-    <svg
-      className="w-3.5 h-3.5"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      viewBox="0 0 24 24"
-    >
-      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-    </svg>
-  );
-}
-
 // ─── SECTIONS ────────────────────────────────────────────────────────────────
-
-function Navbar() {
-  return (
-    <header className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20 gap-8">
-          {/* Logo */}
-          <a href="#" className="shrink-0">
-            <Image
-              src="/SmartaiforworkLogo.webp"
-              alt="SmartAI for Work"
-              width={216}
-              height={68}
-              className="h-[60px] w-auto"
-              priority
-            />
-          </a>
-
-          {/* Nav links */}
-          <nav className="hidden lg:flex items-center gap-2">
-            {NAV_LINKS.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className="flex items-center gap-1.5 text-[15px] font-medium text-[#1E293B] hover:text-[#F97316] px-4 py-2.5 rounded-md transition-colors"
-              >
-                {item.label}
-                <ChevronDown />
-              </a>
-            ))}
-          </nav>
-
-          {/* Right actions */}
-          <div className="flex items-center gap-4 shrink-0">
-            <button className="p-2.5 text-gray-500 hover:text-[#F97316] transition-colors rounded-md">
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2}
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M21 21l-4.35-4.35M17 11A6 6 0 115 11a6 6 0 0112 0z"
-                />
-              </svg>
-            </button>
-            <button className="hidden sm:inline-flex items-center gap-2 bg-[#F97316] hover:bg-orange-600 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors shadow-md shadow-orange-100">
-              Subscribe
-            </button>
-          </div>
-        </div>
-      </div>
-    </header>
-  );
-}
 
 function HeroSection() {
   const trustBadges = [
@@ -718,154 +622,6 @@ function LatestInsights() {
   );
 }
 
-function Newsletter() {
-  return (
-    <section id="newsletter" className="pt-3 pb-5 sm:pt-[17px] sm:pb-7 bg-white">
-      <div className="max-w-[1215px] mx-auto px-4 sm:px-6 lg:px-8 pb-[10px]">
-        <div className="rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-8 px-8 sm:px-12 py-10" style={{ background: 'linear-gradient(to right, #1062B1 0%, #5cdce7 35%, #F5A623 70%, #F97316 100%)' }}>
-
-          {/* Left — 60% */}
-          <div className="flex-[3] flex flex-col items-start">
-            <div className="w-11 h-11 bg-white/20 rounded-xl flex items-center justify-center mb-5">
-              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
-              </svg>
-            </div>
-            <h2 className="text-xl sm:text-2xl font-extrabold text-white mb-2 leading-snug">
-              Get Weekly AI Tools &amp; Industry Insights
-            </h2>
-            <p className="text-white/80 text-sm leading-relaxed">
-              Join 10,000+ professionals who get the best AI tools, tips, and workflows every week.
-            </p>
-          </div>
-
-          {/* Right — 40% */}
-          <div className="flex-[2] w-full flex flex-col gap-3">
-            <div className="flex flex-col sm:flex-row gap-2">
-              <input
-                type="email"
-                placeholder="Enter your email address"
-                className="flex-1 px-4 py-3 rounded-xl text-sm bg-white text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white/60"
-              />
-              <button className="bg-[#1E293B] hover:bg-slate-700 text-white font-semibold px-5 py-3 rounded-xl transition-colors whitespace-nowrap text-sm">
-                Subscribe Now
-              </button>
-            </div>
-            <div className="flex flex-wrap gap-4 text-white text-xs">
-              {["✓ No spam", "✓ Unsubscribe anytime", "✓ 100% Free"].map((b) => (
-                <span key={b}>{b}</span>
-              ))}
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Footer() {
-  return (
-    <footer className="bg-[#1E293B] text-white pt-12 sm:pt-16 pb-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 sm:gap-8 mb-12">
-          {/* Col 1 — Brand */}
-          <div className="col-span-2 md:col-span-1">
-            <div className="mb-3">
-              <Image
-                src="/SmartaiforworkLogo.webp"
-                alt="SmartAI for Work"
-                width={162}
-                height={51}
-                className="h-11 w-auto"
-              />
-            </div>
-            <p className="text-white/50 text-xs sm:text-sm leading-relaxed mb-5">
-              Helping professionals in furniture, architecture, construction, and
-              real estate work smarter with AI.
-            </p>
-            <div className="flex gap-2">
-              {[
-                { label: "X", icon: "✕" },
-                { label: "LinkedIn", icon: "in" },
-                { label: "YouTube", icon: "▶" },
-              ].map((s) => (
-                <button
-                  key={s.label}
-                  aria-label={s.label}
-                  className="w-9 h-9 rounded-lg bg-white/10 hover:bg-[#F97316] flex items-center justify-center text-xs font-bold transition-colors"
-                >
-                  {s.icon}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Cols 2-5 — Link columns */}
-          {FOOTER_COLS.map((col) => (
-            <div key={col.title}>
-              <p className="font-bold text-xs sm:text-sm text-white mb-4">{col.title}</p>
-              <ul className="space-y-2.5">
-                {col.links.map((link) => (
-                  <li key={link}>
-                    <a
-                      href="#"
-                      className="text-white/50 hover:text-white text-xs sm:text-sm transition-colors"
-                    >
-                      {link}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-
-          {/* Col 6 — Newsletter */}
-          <div>
-            <p className="font-bold text-xs sm:text-sm text-white mb-4">Newsletter</p>
-            <p className="text-white/50 text-xs sm:text-sm leading-relaxed mb-4">
-              Get the latest AI tools and insights delivered to your inbox.
-            </p>
-            <div className="flex gap-2">
-              <input
-                type="email"
-                placeholder="Your email"
-                className="flex-1 min-w-0 px-3 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/40 text-xs sm:text-sm focus:outline-none focus:border-white/40"
-              />
-              <button className="bg-[#F97316] hover:bg-orange-500 text-white px-3 py-2 rounded-lg text-xs sm:text-sm font-bold transition-colors shrink-0">
-                →
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Disclaimer */}
-        <div className="mb-8">
-          <p className="text-xs text-[#777F8A] leading-relaxed">
-            Disclaimer: Some links on this page are affiliate links, meaning we may earn a commission at no cost to you. We only recommend tools we believe provide real value. This helps support our independent research. Thank you!
-          </p>
-        </div>
-
-        {/* Copyright */}
-        <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 text-white/40 text-xs">
-          <p>© 2026 SmartAI for Work. All rights reserved.</p>
-          <span className="hidden sm:inline">·</span>
-          <div className="flex gap-4">
-            <a href="#" className="hover:text-white transition-colors">
-              Privacy Policy
-            </a>
-            <a href="#" className="hover:text-white transition-colors">
-              Terms of Use
-            </a>
-            <a href="#" className="hover:text-white transition-colors">
-              Cookie Settings
-            </a>
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
-}
 
 // ─── PAGE ────────────────────────────────────────────────────────────────────
 function ExploreByIndustry() {

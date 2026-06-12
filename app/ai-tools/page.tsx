@@ -1,0 +1,880 @@
+"use client";
+
+import React, { useState } from "react";
+import Image from "next/image";
+import Navbar from "../components/Navbar";
+import Newsletter from "../components/Newsletter";
+import Footer from "../components/Footer";
+
+// ─── DATA ────────────────────────────────────────────────────────────────────
+
+const INDUSTRY_CARDS = [
+  {
+    id: "furniture",
+    label: "Furniture",
+    desc: "Design, visualise & sell furniture smarter",
+    img: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80",
+  },
+  {
+    id: "architecture",
+    label: "Architecture",
+    desc: "Design, plan & visualize architectural projects",
+    img: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80",
+  },
+  {
+    id: "construction",
+    label: "Construction",
+    desc: "Build, manage & track projects efficiently",
+    img: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80",
+  },
+  {
+    id: "realestate",
+    label: "Real Estate",
+    desc: "Find leads, list & close deals faster",
+    img: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80",
+  },
+];
+
+const TOP_PICKS = [
+  {
+    rank: 1,
+    name: "ChatGPT",
+    company: "by OpenAI",
+    rating: 4.9,
+    reviews: 560,
+    desc: "The all-in-one AI assistant for writing, research, and more.",
+    logoBg: "bg-[#10A37F]",
+    logoText: "GP",
+    logoTextClass: "text-white font-black text-sm",
+  },
+  {
+    rank: 2,
+    name: "Claude",
+    company: "by Anthropic",
+    rating: 4.8,
+    reviews: 420,
+    desc: "Powerful AI for analysis, writing, and reasoning.",
+    logoBg: "bg-[#D97706]",
+    logoText: "Cl",
+    logoTextClass: "text-white font-black text-base",
+  },
+  {
+    rank: 3,
+    name: "Notion AI",
+    company: "by Notion",
+    rating: 4.7,
+    reviews: 310,
+    desc: "AI workspace for notes, docs, and productivity.",
+    logoBg: "bg-white border-2 border-gray-200",
+    logoText: "N",
+    logoTextClass: "text-gray-900 font-black text-2xl",
+  },
+  {
+    rank: 4,
+    name: "Zapier",
+    company: "by Zapier",
+    rating: 4.6,
+    reviews: 280,
+    desc: "Automate workflows across thousands of apps.",
+    logoBg: "bg-[#FF4A00]",
+    logoText: "Z",
+    logoTextClass: "text-white font-black text-2xl",
+  },
+  {
+    rank: 5,
+    name: "Perplexity AI",
+    company: "by Perplexity",
+    rating: 4.6,
+    reviews: 210,
+    desc: "AI search engine with real-time answers and citations.",
+    logoBg: "bg-[#1E293B]",
+    logoText: "Px",
+    logoTextClass: "text-white font-black text-base",
+  },
+];
+
+const CATEGORIES = [
+  { name: "AI Writing", count: 18, color: "bg-purple-100", iconColor: "text-purple-500" },
+  { name: "AI Automation", count: 16, color: "bg-orange-100", iconColor: "text-orange-500" },
+  { name: "AI Agents", count: 14, color: "bg-blue-100", iconColor: "text-blue-500" },
+  { name: "AI Marketing", count: 15, color: "bg-pink-100", iconColor: "text-pink-500" },
+  { name: "AI Productivity", count: 17, color: "bg-yellow-100", iconColor: "text-yellow-600" },
+  { name: "No-code & Low-code", count: 12, color: "bg-teal-100", iconColor: "text-teal-500" },
+  { name: "AI Design", count: 13, color: "bg-violet-100", iconColor: "text-violet-500" },
+  { name: "AI Data & Analytics", count: 11, color: "bg-sky-100", iconColor: "text-sky-500" },
+  { name: "AI Sales", count: 10, color: "bg-green-100", iconColor: "text-green-500" },
+  { name: "AI Video & Audio", count: 9, color: "bg-red-100", iconColor: "text-red-500" },
+];
+
+const ALL_TOOLS = [
+  {
+    name: "ChatGPT",
+    company: "by OpenAI",
+    logoBg: "bg-[#10A37F]",
+    logoText: "GP",
+    logoTextClass: "text-white font-black text-xs",
+    category: "AI Writing",
+    pricing: "Freemium",
+    pricingDetail: "$20/month",
+    bestFor: "Writing, Research, Brainstorming",
+    keyFeatures: "Content creation, Q&A, summarization, code generation",
+    rating: 4.9,
+    reviews: 560,
+    industries: ["furniture", "architecture", "construction", "realestate"],
+  },
+  {
+    name: "Claude",
+    company: "by Anthropic",
+    logoBg: "bg-[#D97706]",
+    logoText: "Cl",
+    logoTextClass: "text-white font-black text-xs",
+    category: "AI Writing",
+    pricing: "Freemium",
+    pricingDetail: "$30/month",
+    bestFor: "Analysis, Writing, Business Tasks",
+    keyFeatures: "Long context, analysis, document understanding, reasoning",
+    rating: 4.8,
+    reviews: 420,
+    industries: ["furniture", "architecture", "construction", "realestate"],
+  },
+  {
+    name: "Notion AI",
+    company: "by Notion",
+    logoBg: "bg-white border border-gray-200",
+    logoText: "N",
+    logoTextClass: "text-gray-900 font-black text-sm",
+    category: "AI Productivity",
+    pricing: "Freemium",
+    pricingDetail: "$10/month",
+    bestFor: "Notes, Docs, Project Management",
+    keyFeatures: "AI writing, summaries, task management, knowledge base",
+    rating: 4.7,
+    reviews: 310,
+    industries: ["architecture", "construction", "realestate"],
+  },
+  {
+    name: "Zapier",
+    company: "by Zapier",
+    logoBg: "bg-[#FF4A00]",
+    logoText: "Z",
+    logoTextClass: "text-white font-black text-sm",
+    category: "AI Automation",
+    pricing: "Freemium",
+    pricingDetail: "$19.99/month",
+    bestFor: "Automation, Integrations",
+    keyFeatures: "Workflow automation, 6000+ apps, no-code builder",
+    rating: 4.6,
+    reviews: 280,
+    industries: ["furniture", "construction", "realestate"],
+  },
+  {
+    name: "Perplexity AI",
+    company: "by Perplexity",
+    logoBg: "bg-[#1E293B]",
+    logoText: "Px",
+    logoTextClass: "text-white font-black text-xs",
+    category: "AI Productivity",
+    pricing: "Freemium",
+    pricingDetail: "$20/month",
+    bestFor: "Research, Search, Information",
+    keyFeatures: "AI search, real-time data, citations, summaries",
+    rating: 4.6,
+    reviews: 210,
+    industries: ["architecture", "realestate"],
+  },
+  {
+    name: "Grammarly",
+    company: "by Grammarly",
+    logoBg: "bg-[#15C39A]",
+    logoText: "G",
+    logoTextClass: "text-white font-black text-sm",
+    category: "AI Writing",
+    pricing: "Freemium",
+    pricingDetail: "$12/month",
+    bestFor: "Writing, Editing, Communication",
+    keyFeatures: "Grammar check, tone detection, AI suggestions",
+    rating: 4.5,
+    reviews: 190,
+    industries: ["furniture", "architecture", "realestate"],
+  },
+  {
+    name: "Midjourney",
+    company: "by Midjourney",
+    logoBg: "bg-[#1E293B]",
+    logoText: "MJ",
+    logoTextClass: "text-white font-black text-xs",
+    category: "AI Design",
+    pricing: "Paid",
+    pricingDetail: "$10/month",
+    bestFor: "Image Generation, Design",
+    keyFeatures: "AI image generation, art, concepts, visuals",
+    rating: 4.5,
+    reviews: 160,
+    industries: ["furniture", "architecture"],
+  },
+  {
+    name: "Make",
+    company: "by Make",
+    logoBg: "bg-[#6D28D9]",
+    logoText: "M",
+    logoTextClass: "text-white font-black text-sm",
+    category: "AI Automation",
+    pricing: "Freemium",
+    pricingDetail: "$9/month",
+    bestFor: "Automation, Workflow",
+    keyFeatures: "Visual automation, integrations, scenarios",
+    rating: 4.4,
+    reviews: 140,
+    industries: ["construction", "realestate"],
+  },
+];
+
+const INDUSTRY_ICON_MAP: Record<string, { emoji: string; color: string }> = {
+  furniture: { emoji: "🪑", color: "bg-amber-100" },
+  architecture: { emoji: "🏛️", color: "bg-slate-100" },
+  construction: { emoji: "🏗️", color: "bg-orange-100" },
+  realestate: { emoji: "🏙️", color: "bg-blue-100" },
+};
+
+const POPULAR_SEARCHES = ["ChatGPT", "Automation", "Writing", "No-code", "Marketing"];
+
+// ─── SMALL HELPERS ────────────────────────────────────────────────────────────
+
+function StarRating({ rating }: { rating: number }) {
+  return (
+    <div className="flex items-center gap-0.5">
+      {[1, 2, 3, 4, 5].map((s) => (
+        <svg
+          key={s}
+          className={`w-3.5 h-3.5 ${s <= Math.floor(rating) ? "text-amber-400" : "text-gray-200"}`}
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+        </svg>
+      ))}
+    </div>
+  );
+}
+
+function CategoryIcon({ name, colorClass }: { name: string; colorClass: string }) {
+  const icons: Record<string, React.ReactElement> = {
+    "AI Writing": (
+      <svg className={`w-5 h-5 ${colorClass}`} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+      </svg>
+    ),
+    "AI Automation": (
+      <svg className={`w-5 h-5 ${colorClass}`} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+      </svg>
+    ),
+    "AI Agents": (
+      <svg className={`w-5 h-5 ${colorClass}`} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17H4a2 2 0 01-2-2V5a2 2 0 012-2h16a2 2 0 012 2v10a2 2 0 01-2 2h-1" />
+      </svg>
+    ),
+    "AI Marketing": (
+      <svg className={`w-5 h-5 ${colorClass}`} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+      </svg>
+    ),
+    "AI Productivity": (
+      <svg className={`w-5 h-5 ${colorClass}`} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+      </svg>
+    ),
+    "No-code & Low-code": (
+      <svg className={`w-5 h-5 ${colorClass}`} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+      </svg>
+    ),
+    "AI Design": (
+      <svg className={`w-5 h-5 ${colorClass}`} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+      </svg>
+    ),
+    "AI Data & Analytics": (
+      <svg className={`w-5 h-5 ${colorClass}`} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+      </svg>
+    ),
+    "AI Sales": (
+      <svg className={`w-5 h-5 ${colorClass}`} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    ),
+    "AI Video & Audio": (
+      <svg className={`w-5 h-5 ${colorClass}`} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15 10l4.553-2.069A1 1 0 0121 8.876v6.248a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+      </svg>
+    ),
+  };
+  return icons[name] ?? null;
+}
+
+// ─── SECTIONS ─────────────────────────────────────────────────────────────────
+
+function HeroSection({
+  searchQuery,
+  setSearchQuery,
+}: {
+  searchQuery: string;
+  setSearchQuery: (v: string) => void;
+}) {
+  const statBadges = [
+    {
+      value: "200+",
+      label: "Tools Reviewed",
+      icon: (
+        <svg className="w-4 h-4 text-[#F97316]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+        </svg>
+      ),
+    },
+    {
+      value: "12",
+      label: "Categories",
+      icon: (
+        <svg className="w-4 h-4 text-[#0EA5E9]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+        </svg>
+      ),
+    },
+    {
+      value: "200+",
+      label: "Hours Tested",
+      icon: (
+        <svg className="w-4 h-4 text-[#F97316]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2m6-2a10 10 0 11-20 0 10 10 0 0120 0z" />
+        </svg>
+      ),
+    },
+    {
+      value: "1000+",
+      label: "Happy Readers",
+      icon: (
+        <svg className="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+        </svg>
+      ),
+    },
+  ];
+
+  return (
+    <section className="bg-white pt-14 pb-10 sm:pt-20 sm:pb-14 overflow-hidden relative">
+      <div className="absolute top-0 right-0 w-[480px] h-[480px] bg-orange-50 rounded-full blur-3xl -z-10 opacity-80" />
+      <div className="absolute bottom-0 left-0 w-80 h-80 bg-sky-50 rounded-full blur-3xl -z-10 opacity-80" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-10 items-center">
+          {/* Left */}
+          <div>
+            <span className="inline-block text-xs font-bold tracking-widest uppercase mb-5 text-[#0EA5E9]">
+              AI Tools for Every Workflow
+            </span>
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-[#1E293B] leading-tight mb-5">
+              Discover AI Tools<br />
+              That Help You{" "}
+              <span className="bg-gradient-to-r from-[#F97316] to-[#9333EA] bg-clip-text text-transparent text-[1.3em]">
+                Work Smarter
+              </span>
+            </h1>
+            <p className="text-gray-500 text-base sm:text-lg leading-relaxed mb-8 max-w-lg">
+              Explore the best AI writing, automation, marketing, productivity and agent tools tested for real business use. Save time, automate workflows and get more done with AI.
+            </p>
+
+            {/* Stat badges */}
+            <div className="flex gap-3 mb-8">
+              {statBadges.map((badge) => (
+                <div key={badge.label} className="flex items-center gap-2 bg-gray-50 border border-gray-100 rounded-xl px-3 py-2">
+                  <div className="shrink-0">{badge.icon}</div>
+                  <div className="leading-none">
+                    <p className="font-extrabold text-[#1E293B] text-sm">{badge.value}</p>
+                    <p className="text-gray-500 text-xs mt-0.5">{badge.label}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Search bar */}
+            <div className="flex gap-2 mb-5">
+              <div className="flex-1 flex items-center gap-2 bg-white border border-gray-200 rounded-xl px-4 py-3 shadow-sm focus-within:border-orange-300 transition-colors">
+                <svg className="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 115 11a6 6 0 0112 0z" />
+                </svg>
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search AI tools (e.g. writing, automation, productivity...)"
+                  className="flex-1 text-sm text-gray-700 placeholder-gray-400 bg-transparent focus:outline-none"
+                />
+              </div>
+              <button className="bg-[#F97316] hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-xl transition-colors text-sm shrink-0 shadow-md shadow-orange-100">
+                Search
+              </button>
+            </div>
+
+            {/* Popular searches */}
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-xs text-gray-500 font-medium">Popular searches:</span>
+              {POPULAR_SEARCHES.map((tag) => (
+                <button
+                  key={tag}
+                  onClick={() => setSearchQuery(tag)}
+                  className="text-xs px-3 py-1.5 rounded-full bg-gray-100 hover:bg-orange-50 hover:text-[#F97316] text-gray-600 border border-gray-100 hover:border-orange-200 transition-colors"
+                >
+                  {tag}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Right — banner mockup image */}
+          <div className="relative flex justify-center lg:justify-end lg:-translate-x-[35px]">
+            <div className="absolute -top-8 right-4 w-60 h-60 bg-orange-100 rounded-full opacity-70 blur-3xl pointer-events-none" />
+            <div className="absolute bottom-0 -left-4 w-52 h-52 bg-sky-100 rounded-full opacity-70 blur-3xl pointer-events-none" />
+
+            <div
+              className="relative w-full max-w-[480px]"
+              style={{
+                maskImage:
+                  "radial-gradient(ellipse 90% 85% at 52% 46%, black 42%, rgba(0,0,0,0.75) 62%, rgba(0,0,0,0.3) 80%, transparent 100%)",
+                WebkitMaskImage:
+                  "radial-gradient(ellipse 90% 85% at 52% 46%, black 42%, rgba(0,0,0,0.75) 62%, rgba(0,0,0,0.3) 80%, transparent 100%)",
+              }}
+            >
+              <Image
+                src="/bannerMockupAITools.webp"
+                alt="Why trust our reviews — AI Tools mockup"
+                width={960}
+                height={1020}
+                className="w-full h-auto"
+                priority
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function IndustrySection() {
+  return (
+    <section className="py-10 sm:py-12 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1E293B] mb-1">
+          Looking for tools by industry?
+        </h2>
+        <p className="text-gray-500 text-sm sm:text-base mb-6">
+          Explore curated AI tools and workflows for your industry.
+        </p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {INDUSTRY_CARDS.map((card) => (
+            <a
+              key={card.id}
+              href="/#explore"
+              className="flex items-center gap-4 p-4 border border-gray-100 rounded-2xl bg-white hover:border-orange-200 hover:shadow-md transition-all group"
+            >
+              <div className="relative w-20 h-20 rounded-xl overflow-hidden shrink-0">
+                <Image
+                  src={card.img}
+                  alt={card.label}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <div className="flex-1">
+                <p className="font-bold text-[#1E293B] text-base mb-0.5">{card.label}</p>
+                <p className="text-sm text-gray-500 leading-relaxed">{card.desc}</p>
+              </div>
+              <span className="text-gray-400 group-hover:text-[#F97316] transition-colors shrink-0">→</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function TopPicksSection() {
+  return (
+    <section className="py-10 sm:py-14 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-2">
+          <div className="flex items-center gap-2">
+            <span className="text-2xl">👑</span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1E293B]">Top Picks</h2>
+          </div>
+          <a href="#" className="text-[#2B7FFF] text-sm font-semibold hover:opacity-80 hidden sm:block whitespace-nowrap">
+            View all top picks →
+          </a>
+        </div>
+        <p className="text-gray-500 text-sm mb-8">Our highest-rated AI tools this month</p>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+          {TOP_PICKS.map((tool) => (
+            <div
+              key={tool.rank}
+              className="relative border border-gray-100 rounded-2xl p-5 hover:shadow-lg hover:border-orange-100 transition-all flex flex-col items-center text-center group"
+            >
+              {/* Rank badge */}
+              <div
+                className={`absolute top-3 left-3 w-7 h-7 rounded-full flex items-center justify-center text-xs font-black ${
+                  tool.rank === 1
+                    ? "bg-[#F97316] text-white"
+                    : tool.rank === 2
+                    ? "bg-gray-300 text-gray-700"
+                    : tool.rank === 3
+                    ? "bg-amber-400 text-white"
+                    : "bg-gray-100 text-gray-500"
+                }`}
+              >
+                {tool.rank}
+              </div>
+
+              {/* Logo */}
+              <div className={`w-16 h-16 rounded-2xl ${tool.logoBg} flex items-center justify-center mb-3 mt-4 shrink-0 shadow-sm`}>
+                <span className={tool.logoTextClass}>{tool.logoText}</span>
+              </div>
+
+              <p className="font-bold text-[#1E293B] text-sm mb-1">{tool.name}</p>
+
+              <div className="flex items-center justify-center gap-1 mb-1">
+                <StarRating rating={tool.rating} />
+                <span className="text-xs font-bold text-[#1E293B]">{tool.rating}</span>
+              </div>
+              <span className="text-xs text-gray-400 mb-3">({tool.reviews})</span>
+
+              <p className="text-gray-500 text-xs leading-relaxed mb-4 line-clamp-2 flex-1">{tool.desc}</p>
+
+              <button className="w-full bg-[#2B7FFF] hover:bg-blue-600 text-white font-semibold text-xs py-2 rounded-lg transition-colors mb-2">
+                Read Review
+              </button>
+              <button className="w-full border border-gray-200 hover:border-gray-300 text-gray-600 font-semibold text-xs py-2 rounded-lg transition-colors">
+                Visit Website
+              </button>
+            </div>
+          ))}
+        </div>
+
+        <div className="text-center mt-6 sm:hidden">
+          <a href="#" className="text-[#2B7FFF] text-sm font-semibold hover:opacity-80">
+            View all top picks →
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CategoriesSection() {
+  return (
+    <section className="py-10 sm:py-14 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center gap-2 mb-1.5">
+          <svg className="w-5 h-5 text-[#F97316]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+          </svg>
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1E293B]">Browse AI Tools by Category</h2>
+        </div>
+        <p className="text-gray-500 text-sm mb-8 ml-7">Find AI tools for every use case and workflow.</p>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
+          {CATEGORIES.map((cat) => (
+            <a
+              key={cat.name}
+              href="#"
+              className="flex items-center gap-3 bg-white rounded-2xl border border-gray-100 hover:border-orange-200 hover:shadow-md transition-all p-4 group"
+            >
+              <div className={`w-9 h-9 rounded-xl ${cat.color} flex items-center justify-center shrink-0`}>
+                <CategoryIcon name={cat.name} colorClass={cat.iconColor} />
+              </div>
+              <div className="min-w-0">
+                <p className="font-semibold text-[#1E293B] text-xs sm:text-sm leading-tight group-hover:text-[#F97316] transition-colors line-clamp-2">
+                  {cat.name}
+                </p>
+                <p className="text-gray-400 text-xs mt-0.5">{cat.count} Tools</p>
+              </div>
+            </a>
+          ))}
+        </div>
+
+        <div className="text-center mt-8">
+          <a href="#" className="inline-flex items-center gap-1 text-[#2B7FFF] text-sm font-semibold hover:opacity-80">
+            View all categories →
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function AllToolsTable({
+  searchQuery,
+  categoryFilter,
+  setCategoryFilter,
+  pricingFilter,
+  setPricingFilter,
+  sortBy,
+  setSortBy,
+}: {
+  searchQuery: string;
+  categoryFilter: string;
+  setCategoryFilter: (v: string) => void;
+  pricingFilter: string;
+  setPricingFilter: (v: string) => void;
+  sortBy: string;
+  setSortBy: (v: string) => void;
+}) {
+  let filtered = ALL_TOOLS;
+
+  if (searchQuery) {
+    const q = searchQuery.toLowerCase();
+    filtered = filtered.filter(
+      (t) =>
+        t.name.toLowerCase().includes(q) ||
+        t.bestFor.toLowerCase().includes(q) ||
+        t.keyFeatures.toLowerCase().includes(q) ||
+        t.category.toLowerCase().includes(q)
+    );
+  }
+
+  if (categoryFilter !== "All Categories") {
+    filtered = filtered.filter((t) => t.category === categoryFilter);
+  }
+
+  if (pricingFilter !== "All Pricing") {
+    filtered = filtered.filter((t) => t.pricing === pricingFilter);
+  }
+
+  if (sortBy === "Highest Rated") {
+    filtered = [...filtered].sort((a, b) => b.rating - a.rating);
+  } else if (sortBy === "Most Reviews") {
+    filtered = [...filtered].sort((a, b) => b.reviews - a.reviews);
+  } else if (sortBy === "Name A-Z") {
+    filtered = [...filtered].sort((a, b) => a.name.localeCompare(b.name));
+  }
+
+  const uniqueCategories = Array.from(new Set(ALL_TOOLS.map((t) => t.category)));
+  const categoryOptions = ["All Categories", ...uniqueCategories];
+  const pricingOptions = ["All Pricing", "Freemium", "Paid"];
+  const sortOptions = ["Highest Rated", "Most Reviews", "Name A-Z"];
+
+  return (
+    <section className="py-10 sm:py-14 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header row */}
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6">
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1E293B]">All AI Tools</h2>
+            <p className="text-gray-500 text-sm mt-1">Explore our handpicked collection of the best AI tools for work.</p>
+          </div>
+          {/* Filters */}
+          <div className="flex flex-wrap gap-2 shrink-0">
+            <select
+              value={categoryFilter}
+              onChange={(e) => setCategoryFilter(e.target.value)}
+              className="text-sm border border-gray-200 rounded-xl px-3 py-2 text-gray-700 bg-white focus:outline-none focus:border-orange-300 cursor-pointer"
+            >
+              {categoryOptions.map((c) => <option key={c}>{c}</option>)}
+            </select>
+            <select
+              value={pricingFilter}
+              onChange={(e) => setPricingFilter(e.target.value)}
+              className="text-sm border border-gray-200 rounded-xl px-3 py-2 text-gray-700 bg-white focus:outline-none focus:border-orange-300 cursor-pointer"
+            >
+              {pricingOptions.map((p) => <option key={p}>{p}</option>)}
+            </select>
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              className="text-sm border border-gray-200 rounded-xl px-3 py-2 text-gray-700 bg-white focus:outline-none focus:border-orange-300 cursor-pointer"
+            >
+              {sortOptions.map((s) => <option key={s}>Sort by: {s}</option>)}
+            </select>
+          </div>
+        </div>
+
+        {/* Table — desktop */}
+        <div className="hidden lg:block overflow-x-auto rounded-2xl border border-gray-100">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="bg-gray-50 border-b border-gray-100 text-xs text-gray-500 font-semibold uppercase tracking-wide">
+                <th className="text-left px-5 py-4 w-48">Tool</th>
+                <th className="text-left px-4 py-4 w-40">Best For</th>
+                <th className="text-left px-4 py-4">Key Features</th>
+                <th className="text-left px-4 py-4 w-32">Pricing</th>
+                <th className="text-left px-4 py-4 w-36">Rating</th>
+                <th className="text-left px-4 py-4 w-28">Industries</th>
+                <th className="text-left px-4 py-4 w-36">Action</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-50">
+              {filtered.map((tool) => (
+                <tr key={tool.name} className="hover:bg-gray-50/70 transition-colors">
+                  {/* Tool */}
+                  <td className="px-5 py-4">
+                    <div className="flex items-center gap-3">
+                      <div className={`w-9 h-9 rounded-xl ${tool.logoBg} flex items-center justify-center shrink-0`}>
+                        <span className={tool.logoTextClass}>{tool.logoText}</span>
+                      </div>
+                      <div>
+                        <p className="font-bold text-[#1E293B] text-sm">{tool.name}</p>
+                        <p className="text-gray-400 text-xs">{tool.company}</p>
+                      </div>
+                    </div>
+                  </td>
+                  {/* Best For */}
+                  <td className="px-4 py-4">
+                    <p className="text-gray-600 text-xs leading-relaxed">{tool.bestFor}</p>
+                  </td>
+                  {/* Key Features */}
+                  <td className="px-4 py-4 max-w-xs">
+                    <p className="text-gray-600 text-xs leading-relaxed line-clamp-2">{tool.keyFeatures}</p>
+                  </td>
+                  {/* Pricing */}
+                  <td className="px-4 py-4">
+                    <span
+                      className={`inline-block text-xs font-semibold px-2 py-0.5 rounded-full mb-1 ${
+                        tool.pricing === "Freemium"
+                          ? "bg-green-50 text-green-700"
+                          : "bg-blue-50 text-blue-700"
+                      }`}
+                    >
+                      {tool.pricing}
+                    </span>
+                    <p className="text-gray-400 text-xs">{tool.pricingDetail}</p>
+                  </td>
+                  {/* Rating */}
+                  <td className="px-4 py-4">
+                    <div className="flex items-center gap-1 mb-0.5">
+                      <StarRating rating={tool.rating} />
+                      <span className="font-bold text-[#1E293B] text-xs">{tool.rating}</span>
+                    </div>
+                    <p className="text-gray-400 text-xs">({tool.reviews} reviews)</p>
+                  </td>
+                  {/* Industries */}
+                  <td className="px-4 py-4">
+                    <div className="flex flex-wrap gap-1">
+                      {tool.industries.map((ind) => (
+                        <span
+                          key={ind}
+                          title={ind}
+                          className={`text-sm w-6 h-6 rounded-md ${INDUSTRY_ICON_MAP[ind]?.color} flex items-center justify-center`}
+                        >
+                          {INDUSTRY_ICON_MAP[ind]?.emoji}
+                        </span>
+                      ))}
+                    </div>
+                  </td>
+                  {/* Action */}
+                  <td className="px-4 py-4">
+                    <div className="flex flex-col gap-1.5">
+                      <button className="bg-[#2B7FFF] hover:bg-blue-600 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap">
+                        Read Review
+                      </button>
+                      <button className="border border-gray-200 hover:border-gray-300 text-gray-600 hover:text-gray-800 text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap">
+                        Visit Website
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          {filtered.length === 0 && (
+            <div className="text-center py-12">
+              <p className="text-gray-400 text-sm">No tools match your filters. Try adjusting your search.</p>
+            </div>
+          )}
+        </div>
+
+        {/* Card list — mobile */}
+        <div className="lg:hidden space-y-4">
+          {filtered.map((tool) => (
+            <div key={tool.name} className="border border-gray-100 rounded-2xl p-5 hover:shadow-md transition-all">
+              <div className="flex items-start gap-3 mb-3">
+                <div className={`w-10 h-10 rounded-xl ${tool.logoBg} flex items-center justify-center shrink-0`}>
+                  <span className={tool.logoTextClass}>{tool.logoText}</span>
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-start justify-between gap-2">
+                    <div>
+                      <p className="font-bold text-[#1E293B] text-sm">{tool.name}</p>
+                      <p className="text-gray-400 text-xs">{tool.company}</p>
+                    </div>
+                    <div className="flex items-center gap-1 shrink-0">
+                      <StarRating rating={tool.rating} />
+                      <span className="text-xs font-bold text-[#1E293B]">{tool.rating}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p className="text-gray-600 text-xs mb-1"><span className="font-medium">Best for:</span> {tool.bestFor}</p>
+              <p className="text-gray-600 text-xs mb-3 line-clamp-2">{tool.keyFeatures}</p>
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex gap-1">
+                  {tool.industries.map((ind) => (
+                    <span key={ind} className={`text-xs w-6 h-6 rounded-md ${INDUSTRY_ICON_MAP[ind]?.color} flex items-center justify-center`}>
+                      {INDUSTRY_ICON_MAP[ind]?.emoji}
+                    </span>
+                  ))}
+                </div>
+                <div className="flex gap-2">
+                  <button className="bg-[#2B7FFF] text-white text-xs font-semibold px-3 py-1.5 rounded-lg">Read Review</button>
+                  <button className="border border-gray-200 text-gray-600 text-xs font-semibold px-3 py-1.5 rounded-lg">Visit</button>
+                </div>
+              </div>
+            </div>
+          ))}
+
+          {filtered.length === 0 && (
+            <div className="text-center py-8">
+              <p className="text-gray-400 text-sm">No tools match your filters.</p>
+            </div>
+          )}
+        </div>
+
+        <div className="text-center mt-8">
+          <a href="#" className="inline-flex items-center gap-1 text-[#2B7FFF] text-sm font-semibold hover:opacity-80">
+            View all tools →
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── PAGE ─────────────────────────────────────────────────────────────────────
+
+export default function AIToolsPage() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("All Categories");
+  const [pricingFilter, setPricingFilter] = useState("All Pricing");
+  const [sortBy, setSortBy] = useState("Highest Rated");
+
+  return (
+    <div className="min-h-screen bg-white font-sans text-slate-900">
+      <Navbar />
+      <HeroSection searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      <IndustrySection />
+      <TopPicksSection />
+      <CategoriesSection />
+      <AllToolsTable
+        searchQuery={searchQuery}
+        categoryFilter={categoryFilter}
+        setCategoryFilter={setCategoryFilter}
+        pricingFilter={pricingFilter}
+        setPricingFilter={setPricingFilter}
+        sortBy={sortBy}
+        setSortBy={setSortBy}
+      />
+      <Newsletter />
+      <Footer />
+    </div>
+  );
+}
