@@ -5,6 +5,7 @@ import Image from "next/image";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
+import { ALL_TOOLS, CATEGORY_LABELS } from "../data/tools";
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
 
@@ -94,140 +95,13 @@ const TOP_PICKS = [
 ];
 
 const CATEGORIES = [
-  { name: "AI Writing", count: 18, color: "bg-purple-100", iconColor: "text-purple-500" },
-  { name: "AI Automation", count: 16, color: "bg-orange-100", iconColor: "text-orange-500" },
-  { name: "AI Agents", count: 14, color: "bg-blue-100", iconColor: "text-blue-500" },
-  { name: "AI Marketing", count: 15, color: "bg-pink-100", iconColor: "text-pink-500" },
-  { name: "AI Productivity", count: 17, color: "bg-yellow-100", iconColor: "text-yellow-600" },
-  { name: "No-code & Low-code", count: 12, color: "bg-teal-100", iconColor: "text-teal-500" },
-  { name: "AI Design", count: 13, color: "bg-violet-100", iconColor: "text-violet-500" },
-  { name: "AI Data & Analytics", count: 11, color: "bg-sky-100", iconColor: "text-sky-500" },
-  { name: "AI Sales", count: 10, color: "bg-green-100", iconColor: "text-green-500" },
-  { name: "AI Video & Audio", count: 9, color: "bg-red-100", iconColor: "text-red-500" },
+  { name: "AI Design & Visualization",     value: "design",             count: 13, color: "bg-violet-100",  iconColor: "text-violet-500" },
+  { name: "AI Content & Marketing",        value: "content-marketing",  count: 18, color: "bg-purple-100",  iconColor: "text-purple-500" },
+  { name: "AI Automation & Workflow",      value: "automation",         count: 16, color: "bg-orange-100",  iconColor: "text-orange-500" },
+  { name: "AI Sales & Lead Generation",    value: "sales",              count: 10, color: "bg-green-100",   iconColor: "text-green-500" },
+  { name: "AI Productivity & Management",  value: "productivity",       count: 17, color: "bg-yellow-100",  iconColor: "text-yellow-600" },
 ];
 
-const ALL_TOOLS = [
-  {
-    name: "ChatGPT",
-    company: "by OpenAI",
-    logoBg: "bg-[#10A37F]",
-    logoText: "GP",
-    logoTextClass: "text-white font-black text-xs",
-    category: "AI Writing",
-    pricing: "Freemium",
-    pricingDetail: "$20/month",
-    bestFor: "Writing, Research, Brainstorming",
-    keyFeatures: "Content creation, Q&A, summarization, code generation",
-    rating: 4.9,
-    reviews: 560,
-    industries: ["furniture", "architecture", "construction", "realestate"],
-  },
-  {
-    name: "Claude",
-    company: "by Anthropic",
-    logoBg: "bg-[#D97706]",
-    logoText: "Cl",
-    logoTextClass: "text-white font-black text-xs",
-    category: "AI Writing",
-    pricing: "Freemium",
-    pricingDetail: "$30/month",
-    bestFor: "Analysis, Writing, Business Tasks",
-    keyFeatures: "Long context, analysis, document understanding, reasoning",
-    rating: 4.8,
-    reviews: 420,
-    industries: ["furniture", "architecture", "construction", "realestate"],
-  },
-  {
-    name: "Notion AI",
-    company: "by Notion",
-    logoBg: "bg-white border border-gray-200",
-    logoText: "N",
-    logoTextClass: "text-gray-900 font-black text-sm",
-    category: "AI Productivity",
-    pricing: "Freemium",
-    pricingDetail: "$10/month",
-    bestFor: "Notes, Docs, Project Management",
-    keyFeatures: "AI writing, summaries, task management, knowledge base",
-    rating: 4.7,
-    reviews: 310,
-    industries: ["architecture", "construction", "realestate"],
-  },
-  {
-    name: "Zapier",
-    company: "by Zapier",
-    logoBg: "bg-[#FF4A00]",
-    logoText: "Z",
-    logoTextClass: "text-white font-black text-sm",
-    category: "AI Automation",
-    pricing: "Freemium",
-    pricingDetail: "$19.99/month",
-    bestFor: "Automation, Integrations",
-    keyFeatures: "Workflow automation, 6000+ apps, no-code builder",
-    rating: 4.6,
-    reviews: 280,
-    industries: ["furniture", "construction", "realestate"],
-  },
-  {
-    name: "Perplexity AI",
-    company: "by Perplexity",
-    logoBg: "bg-[#1E293B]",
-    logoText: "Px",
-    logoTextClass: "text-white font-black text-xs",
-    category: "AI Productivity",
-    pricing: "Freemium",
-    pricingDetail: "$20/month",
-    bestFor: "Research, Search, Information",
-    keyFeatures: "AI search, real-time data, citations, summaries",
-    rating: 4.6,
-    reviews: 210,
-    industries: ["architecture", "realestate"],
-  },
-  {
-    name: "Grammarly",
-    company: "by Grammarly",
-    logoBg: "bg-[#15C39A]",
-    logoText: "G",
-    logoTextClass: "text-white font-black text-sm",
-    category: "AI Writing",
-    pricing: "Freemium",
-    pricingDetail: "$12/month",
-    bestFor: "Writing, Editing, Communication",
-    keyFeatures: "Grammar check, tone detection, AI suggestions",
-    rating: 4.5,
-    reviews: 190,
-    industries: ["furniture", "architecture", "realestate"],
-  },
-  {
-    name: "Midjourney",
-    company: "by Midjourney",
-    logoBg: "bg-[#1E293B]",
-    logoText: "MJ",
-    logoTextClass: "text-white font-black text-xs",
-    category: "AI Design",
-    pricing: "Paid",
-    pricingDetail: "$10/month",
-    bestFor: "Image Generation, Design",
-    keyFeatures: "AI image generation, art, concepts, visuals",
-    rating: 4.5,
-    reviews: 160,
-    industries: ["furniture", "architecture"],
-  },
-  {
-    name: "Make",
-    company: "by Make",
-    logoBg: "bg-[#6D28D9]",
-    logoText: "M",
-    logoTextClass: "text-white font-black text-sm",
-    category: "AI Automation",
-    pricing: "Freemium",
-    pricingDetail: "$9/month",
-    bestFor: "Automation, Workflow",
-    keyFeatures: "Visual automation, integrations, scenarios",
-    rating: 4.4,
-    reviews: 140,
-    industries: ["construction", "realestate"],
-  },
-];
 
 const INDUSTRY_ICON_MAP: Record<string, { emoji: string; color: string }> = {
   furniture: { emoji: "🪑", color: "bg-amber-100" },
@@ -259,54 +133,29 @@ function StarRating({ rating }: { rating: number }) {
 
 function CategoryIcon({ name, colorClass }: { name: string; colorClass: string }) {
   const icons: Record<string, React.ReactElement> = {
-    "AI Writing": (
-      <svg className={`w-5 h-5 ${colorClass}`} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-      </svg>
-    ),
-    "AI Automation": (
-      <svg className={`w-5 h-5 ${colorClass}`} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-      </svg>
-    ),
-    "AI Agents": (
-      <svg className={`w-5 h-5 ${colorClass}`} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17H4a2 2 0 01-2-2V5a2 2 0 012-2h16a2 2 0 012 2v10a2 2 0 01-2 2h-1" />
-      </svg>
-    ),
-    "AI Marketing": (
-      <svg className={`w-5 h-5 ${colorClass}`} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
-      </svg>
-    ),
-    "AI Productivity": (
-      <svg className={`w-5 h-5 ${colorClass}`} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-      </svg>
-    ),
-    "No-code & Low-code": (
-      <svg className={`w-5 h-5 ${colorClass}`} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-      </svg>
-    ),
-    "AI Design": (
+    "AI Design & Visualization": (
       <svg className={`w-5 h-5 ${colorClass}`} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
       </svg>
     ),
-    "AI Data & Analytics": (
+    "AI Content & Marketing": (
       <svg className={`w-5 h-5 ${colorClass}`} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
       </svg>
     ),
-    "AI Sales": (
+    "AI Automation & Workflow": (
+      <svg className={`w-5 h-5 ${colorClass}`} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+      </svg>
+    ),
+    "AI Sales & Lead Generation": (
       <svg className={`w-5 h-5 ${colorClass}`} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
-    "AI Video & Audio": (
+    "AI Productivity & Management": (
       <svg className={`w-5 h-5 ${colorClass}`} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M15 10l4.553-2.069A1 1 0 0121 8.876v6.248a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
       </svg>
     ),
   };
@@ -663,8 +512,6 @@ function AllToolsTable({
     filtered = [...filtered].sort((a, b) => a.name.localeCompare(b.name));
   }
 
-  const uniqueCategories = Array.from(new Set(ALL_TOOLS.map((t) => t.category)));
-  const categoryOptions = ["All Categories", ...uniqueCategories];
   const pricingOptions = ["All Pricing", "Freemium", "Paid"];
   const sortOptions = ["Highest Rated", "Most Reviews", "Name A-Z"];
 
@@ -684,7 +531,10 @@ function AllToolsTable({
               onChange={(e) => setCategoryFilter(e.target.value)}
               className="text-sm border border-gray-200 rounded-xl px-3 py-2 text-gray-700 bg-white focus:outline-none focus:border-orange-300 cursor-pointer"
             >
-              {categoryOptions.map((c) => <option key={c}>{c}</option>)}
+              <option value="All Categories">All Categories</option>
+              {(Object.entries(CATEGORY_LABELS) as [string, string][]).map(([value, label]) => (
+                <option key={value} value={value}>{label}</option>
+              ))}
             </select>
             <select
               value={pricingFilter}
