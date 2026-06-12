@@ -48,8 +48,8 @@ const BENEFITS = [
   {
     title: "Stay Competitive",
     desc: "Leverage AI to scale smarter",
-    iconBg: "bg-purple-100",
-    iconColor: "text-purple-600",
+    iconBg: "bg-[#009866]/10",
+    iconColor: "text-[#009866]",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -62,8 +62,8 @@ const CHALLENGES = [
   {
     title: "High Design Costs",
     desc: "Traditional design & visualization is expensive and time-consuming.",
-    iconBg: "bg-purple-100",
-    iconColor: "text-purple-600",
+    iconBg: "bg-[#009866]/10",
+    iconColor: "text-[#009866]",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536M9 13l6.586-6.586a2 2 0 112.828 2.828L11.828 15.828a4 4 0 01-1.414.93l-3.414.975.975-3.414a4 4 0 01.93-1.414z" />
@@ -128,11 +128,11 @@ const STEPS = [
     num: 1,
     title: "Design Furniture",
     desc: "Generate new product lines, sketches, and 3D models with AI.",
-    badgeColor: "bg-purple-600",
-    iconBg: "bg-purple-100",
-    iconColor: "text-purple-600",
-    borderColor: "border-purple-100",
-    linkColor: "text-purple-600 hover:text-purple-700",
+    badgeColor: "bg-[#009866]",
+    iconBg: "bg-[#009866]/10",
+    iconColor: "text-[#009866]",
+    borderColor: "border-[#009866]/20",
+    linkColor: "text-[#009866] hover:text-[#016A4E]",
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536M9 13l6.586-6.586a2 2 0 112.828 2.828L11.828 15.828a4 4 0 01-1.414.93l-3.414.975.975-3.414a4 4 0 01.93-1.414z" />
@@ -195,13 +195,13 @@ const STEP_TOOLS_DATA = [
     step: "Design Furniture",
     tab: "Design",
     stepNum: 1,
-    badgeColor: "bg-purple-600",
-    headerText: "text-purple-700",
+    badgeColor: "bg-[#009866]",
+    headerText: "text-[#016A4E]",
     totalCount: 12,
     tools: [
       { name: "Planner 5D", rating: "4.8", reviews: "320", initials: "P5", iconBg: "bg-blue-600" },
       { name: "Midjourney", rating: "4.6", reviews: "532", initials: "MJ", iconBg: "bg-slate-800" },
-      { name: "Kaedim", rating: "4.5", reviews: "210", initials: "K", iconBg: "bg-purple-600" },
+      { name: "Kaedim", rating: "4.5", reviews: "210", initials: "K", iconBg: "bg-[#7C3AED]" },
       { name: "RoomGPT", rating: "4.5", reviews: "178", initials: "RG", iconBg: "bg-pink-500" },
     ],
   },
@@ -213,7 +213,7 @@ const STEP_TOOLS_DATA = [
     headerText: "text-orange-600",
     totalCount: 10,
     tools: [
-      { name: "D5 Render", rating: "4.8", reviews: "410", initials: "D5", iconBg: "bg-purple-600" },
+      { name: "D5 Render", rating: "4.8", reviews: "410", initials: "D5", iconBg: "bg-[#7C3AED]" },
       { name: "Veras", rating: "4.7", reviews: "280", initials: "V", iconBg: "bg-teal-500" },
       { name: "Twinmotion AI", rating: "4.6", reviews: "312", initials: "TM", iconBg: "bg-blue-500" },
       { name: "ArchiVinci", rating: "4.6", reviews: "198", initials: "AV", iconBg: "bg-slate-700" },
@@ -292,7 +292,7 @@ function HeroSection() {
             <h1 className="text-4xl sm:text-5xl font-extrabold text-[#1E293B] leading-tight mb-5">
               AI Tools for
               <br />
-              <span className="text-purple-600">Furniture</span>{" "}
+              <span className="text-[#009866]">Furniture</span>{" "}
               <span className="text-[#F97316]">Businesses</span>
             </h1>
             <p className="text-gray-500 text-base leading-relaxed mb-8 max-w-lg">
@@ -315,7 +315,7 @@ function HeroSection() {
           {/* Right — image + floating cards + blobs */}
           <div className="flex-1 relative w-full min-h-[320px] sm:min-h-[400px]">
             {/* Gradient blobs */}
-            <div className="absolute -top-8 -right-8 w-64 h-64 rounded-full bg-purple-300 blur-3xl opacity-30 pointer-events-none" />
+            <div className="absolute -top-8 -right-8 w-64 h-64 rounded-full bg-[#1AA598] blur-3xl opacity-30 pointer-events-none" />
             <div className="absolute -bottom-8 right-16 w-56 h-56 rounded-full bg-orange-300 blur-3xl opacity-30 pointer-events-none" />
 
             {/* Main image */}
@@ -331,7 +331,7 @@ function HeroSection() {
 
             {/* Floating card — top left */}
             <div className="absolute -top-4 -left-4 sm:left-2 bg-white rounded-2xl shadow-lg px-4 py-3 flex items-start gap-3 max-w-[200px]">
-              <div className="w-9 h-9 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center shrink-0">
+              <div className="w-9 h-9 rounded-xl bg-[#009866]/10 text-[#009866] flex items-center justify-center shrink-0">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536M9 13l6.586-6.586a2 2 0 112.828 2.828L11.828 15.828a4 4 0 01-1.414.93l-3.414.975.975-3.414a4 4 0 01.93-1.414z" />
                 </svg>
@@ -597,7 +597,7 @@ const TOP_TOOLS = [
     bestFor: "Homeowners, Designers",
     integrations: [
       { label: "SH", bg: "bg-green-600", title: "Shopify" },
-      { label: "WC", bg: "bg-purple-600", title: "WooCommerce" },
+      { label: "WC", bg: "bg-[#7C3AED]", title: "WooCommerce" },
     ],
     initials: "RG",
     iconBg: "bg-slate-700",
@@ -931,8 +931,8 @@ const BEST_OF_LISTS = [
   {
     title: "Best AI Tools for Furniture Design",
     count: 12,
-    iconBg: "bg-purple-100",
-    iconColor: "text-purple-600",
+    iconBg: "bg-[#009866]/10",
+    iconColor: "text-[#009866]",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536M9 13l6.586-6.586a2 2 0 112.828 2.828L11.828 15.828a4 4 0 01-1.414.93l-3.414.975.975-3.414a4 4 0 01.93-1.414z" />
