@@ -59,6 +59,7 @@ const TOOLS = [
     desc: "AI interior design & room planning",
     rating: 4.8,
     reviews: "3,520",
+    category: "design",
   },
   {
     id: 2,
@@ -71,6 +72,7 @@ const TOOLS = [
     desc: "AI-enhanced BIM for architectural design",
     rating: 4.7,
     reviews: "256",
+    category: "design",
   },
   {
     id: 3,
@@ -83,6 +85,7 @@ const TOOLS = [
     desc: "AI construction progress tracking & analytics",
     rating: 4.6,
     reviews: "199",
+    category: "automation",
   },
   {
     id: 4,
@@ -95,6 +98,7 @@ const TOOLS = [
     desc: "AI lead generation for real estate agents",
     rating: 4.9,
     reviews: "412",
+    category: "sales",
   },
   {
     id: 5,
@@ -107,6 +111,7 @@ const TOOLS = [
     desc: "AI image generation for concept visualizations",
     rating: 4.8,
     reviews: "532",
+    category: "design",
   },
   {
     id: 6,
@@ -119,6 +124,7 @@ const TOOLS = [
     desc: "AI property valuation & market insights",
     rating: 4.7,
     reviews: "506",
+    category: "sales",
   },
 ];
 
