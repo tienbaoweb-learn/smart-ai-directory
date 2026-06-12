@@ -13,56 +13,52 @@ const INDUSTRIES = [
     id: "furniture",
     label: "Furniture",
     img: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80",
-    icon: "🛋️",
+    iconSrc: "/icons/furniture.svg",
     toolCount: 35,
     guideCount: 12,
     workflowCount: 8,
     desc: "AI tools for furniture designers, retailers, and manufacturers.",
     btnClass: "bg-emerald-600 hover:bg-emerald-700",
     iconBg: "bg-emerald-100",
-    iconText: "text-emerald-600",
     titleColor: "text-emerald-700",
   },
   {
     id: "architecture",
     label: "Architecture",
     img: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80",
-    icon: "🏛️",
+    iconSrc: "/icons/architecture.svg",
     toolCount: 28,
     guideCount: 10,
     workflowCount: 7,
     desc: "AI tools for architects, designers, and planning professionals.",
     btnClass: "bg-blue-600 hover:bg-blue-700",
     iconBg: "bg-blue-100",
-    iconText: "text-blue-600",
     titleColor: "text-blue-700",
   },
   {
     id: "construction",
     label: "Construction",
     img: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80",
-    icon: "🏗️",
+    iconSrc: "/icons/construction.svg",
     toolCount: 24,
     guideCount: 9,
     workflowCount: 6,
     desc: "AI tools for contractors, project managers, and builders.",
     btnClass: "bg-orange-500 hover:bg-orange-600",
     iconBg: "bg-orange-100",
-    iconText: "text-orange-500",
     titleColor: "text-orange-600",
   },
   {
     id: "realestate",
     label: "Real Estate",
     img: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80",
-    icon: "🏠",
+    iconSrc: "/icons/realestate.svg",
     toolCount: 31,
     guideCount: 11,
     workflowCount: 9,
     desc: "AI tools for agents, brokers, and property managers.",
     btnClass: "bg-purple-600 hover:bg-purple-700",
     iconBg: "bg-purple-100",
-    iconText: "text-purple-600",
     titleColor: "text-purple-700",
   },
 ];
@@ -70,7 +66,7 @@ const INDUSTRIES = [
 const CHALLENGES = [
   {
     industry: "Furniture Businesses",
-    icon: "🛋️",
+    iconSrc: "/icons/furniture.svg",
     iconBg: "bg-emerald-100",
     points: [
       "High cost of product visualization",
@@ -81,7 +77,7 @@ const CHALLENGES = [
   },
   {
     industry: "Architecture Firms",
-    icon: "🏛️",
+    iconSrc: "/icons/architecture.svg",
     iconBg: "bg-blue-100",
     points: [
       "Time-consuming concept design",
@@ -92,7 +88,7 @@ const CHALLENGES = [
   },
   {
     industry: "Construction Companies",
-    icon: "🏗️",
+    iconSrc: "/icons/construction.svg",
     iconBg: "bg-orange-100",
     points: [
       "Project delays and cost overruns",
@@ -103,7 +99,7 @@ const CHALLENGES = [
   },
   {
     industry: "Real Estate Professionals",
-    icon: "🏠",
+    iconSrc: "/icons/realestate.svg",
     iconBg: "bg-purple-100",
     points: [
       "Finding and qualifying leads",
@@ -184,7 +180,7 @@ const TOP_TOOLS = [
     logo: "🎨",
     logoBg: "bg-slate-800",
     logoIsText: false,
-    industries: ["🛋️", "🏛️", "🏗️", "🏠"],
+    industries: ["furniture", "architecture", "construction", "realestate"],
   },
   {
     name: "ChatGPT",
@@ -193,7 +189,7 @@ const TOP_TOOLS = [
     logoBg: "bg-[#10A37F]",
     logoIsText: true,
     logoClass: "text-white font-black text-sm",
-    industries: ["🛋️", "🏛️", "🏗️", "🏠"],
+    industries: ["furniture", "architecture", "construction", "realestate"],
   },
   {
     name: "D5 Render",
@@ -202,7 +198,7 @@ const TOP_TOOLS = [
     logoBg: "bg-purple-600",
     logoIsText: true,
     logoClass: "text-white font-black text-sm",
-    industries: ["🛋️", "🏛️"],
+    industries: ["furniture", "architecture"],
   },
   {
     name: "Notion AI",
@@ -211,7 +207,7 @@ const TOP_TOOLS = [
     logoBg: "bg-white border border-gray-200",
     logoIsText: true,
     logoClass: "text-gray-900 font-black text-xl",
-    industries: ["🛋️", "🏛️", "🏗️", "🏠"],
+    industries: ["furniture", "architecture", "construction", "realestate"],
   },
   {
     name: "Canva AI",
@@ -220,7 +216,7 @@ const TOP_TOOLS = [
     logoBg: "bg-[#0CC0DF]",
     logoIsText: true,
     logoClass: "text-white font-black text-xl",
-    industries: ["🛋️", "🏛️", "🏗️", "🏠"],
+    industries: ["furniture", "architecture", "construction", "realestate"],
   },
   {
     name: "Buildots",
@@ -229,7 +225,7 @@ const TOP_TOOLS = [
     logoBg: "bg-amber-500",
     logoIsText: true,
     logoClass: "text-white font-black text-xl",
-    industries: ["🏗️", "🛋️", "🏠"],
+    industries: ["construction", "furniture", "realestate"],
   },
   {
     name: "REimagineHome",
@@ -238,7 +234,7 @@ const TOP_TOOLS = [
     logoBg: "bg-[#FF6B6B]",
     logoIsText: true,
     logoClass: "text-white font-black text-xl",
-    industries: ["🏠", "🛋️", "🏛️"],
+    industries: ["realestate", "furniture", "architecture"],
   },
 ];
 
@@ -278,10 +274,10 @@ const CASE_STUDIES = [
 ];
 
 const BEST_OF = [
-  { industry: "Furniture", icon: "🛋️", count: 12, iconBg: "bg-emerald-100" },
-  { industry: "Architecture", icon: "🏛️", count: 10, iconBg: "bg-blue-100" },
-  { industry: "Construction", icon: "🏗️", count: 10, iconBg: "bg-orange-100" },
-  { industry: "Real Estate", icon: "🏠", count: 12, iconBg: "bg-purple-100" },
+  { industry: "Furniture", iconSrc: "/icons/furniture.svg", count: 12, iconBg: "bg-emerald-100" },
+  { industry: "Architecture", iconSrc: "/icons/architecture.svg", count: 10, iconBg: "bg-blue-100" },
+  { industry: "Construction", iconSrc: "/icons/construction.svg", count: 10, iconBg: "bg-orange-100" },
+  { industry: "Real Estate", iconSrc: "/icons/realestate.svg", count: 12, iconBg: "bg-purple-100" },
 ];
 
 // ─── WORKFLOW ICONS ───────────────────────────────────────────────────────────
@@ -466,7 +462,7 @@ function HeroSection() {
                 <a
                   key={ind.id}
                   href={`#${ind.id}`}
-                  className="relative rounded-2xl overflow-hidden group h-[150px] sm:h-[200px] lg:h-[260px] cursor-pointer block"
+                  className="relative rounded-2xl overflow-hidden group h-[150px] sm:h-[200px] lg:h-[390px] cursor-pointer block"
                 >
                   <Image
                     src={ind.img}
@@ -477,8 +473,8 @@ function HeroSection() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
                   {/* Icon circle — top center */}
                   <div className="absolute top-3 left-1/2 -translate-x-1/2">
-                    <div className={`w-9 h-9 rounded-full ${ind.iconBg} flex items-center justify-center text-lg shadow-md`}>
-                      {ind.icon}
+                    <div className={`w-9 h-9 rounded-full ${ind.iconBg} flex items-center justify-center shadow-md`}>
+                      <Image src={ind.iconSrc} alt={ind.label} width={22} height={22} />
                     </div>
                   </div>
                   {/* Bottom overlay */}
@@ -510,7 +506,7 @@ function ChallengesSection() {
           <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1E293B] mb-2">
             Common Business Challenges AI Can Solve
           </h2>
-          <p className="text-gray-500 text-sm sm:text-base max-w-xl mx-auto">
+          <p className="text-gray-500 text-sm sm:text-base">
             Across different industries, AI helps solve critical problems and unlock new opportunities.
           </p>
         </div>
@@ -519,8 +515,8 @@ function ChallengesSection() {
           {CHALLENGES.map((c) => (
             <div key={c.industry} className="bg-white rounded-2xl p-3 sm:p-5 border border-gray-100 shadow-sm">
               <div className="flex items-center gap-3 mb-4">
-                <div className={`w-9 h-9 rounded-xl ${c.iconBg} flex items-center justify-center text-lg shrink-0`}>
-                  {c.icon}
+                <div className={`w-9 h-9 rounded-xl ${c.iconBg} flex items-center justify-center shrink-0`}>
+                  <Image src={c.iconSrc} alt={c.industry} width={22} height={22} />
                 </div>
                 <p className="font-bold text-[#1E293B] text-sm leading-tight">{c.industry}</p>
               </div>
@@ -552,28 +548,28 @@ function WorkflowsSection() {
           <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1E293B] mb-2">
             Industry Workflows Enhanced by AI
           </h2>
-          <p className="text-gray-500 text-sm sm:text-base max-w-xl mx-auto">
+          <p className="text-gray-500 text-sm sm:text-base">
             See how AI fits into key workflows to streamline operations and drive results.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
           {WORKFLOWS.map((wf) => (
-            <div key={wf.industry} className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
-              <p className={`font-bold text-sm mb-4 ${wf.titleColor}`}>{wf.industry}</p>
+            <div key={wf.industry} className="bg-white rounded-2xl p-3 sm:p-5 border border-gray-100 shadow-sm">
+              <p className={`font-bold text-xs sm:text-sm mb-3 sm:mb-4 ${wf.titleColor}`}>{wf.industry}</p>
 
               {/* Steps row with labels */}
-              <div className="flex items-start gap-1 mb-4">
+              <div className="flex items-start gap-0.5 sm:gap-1 mb-3 sm:mb-4">
                 {wf.steps.map((step, i) => (
-                  <div key={step.label} className="flex items-start gap-1">
+                  <div key={step.label} className="flex items-start gap-0.5 sm:gap-1">
                     <div className="flex flex-col items-center gap-1">
-                      <div className={`w-8 h-8 rounded-lg border flex items-center justify-center shrink-0 ${wf.stepBg} ${wf.stepColor}`}>
+                      <div className={`w-6 h-6 sm:w-8 sm:h-8 rounded-lg border flex items-center justify-center shrink-0 ${wf.stepBg} ${wf.stepColor}`}>
                         {WORKFLOW_ICONS[step.label]}
                       </div>
-                      <p className="text-[9px] text-gray-400 text-center leading-tight w-8">{step.label}</p>
+                      <p className="text-[8px] sm:text-[9px] text-gray-400 text-center leading-tight w-6 sm:w-8">{step.label}</p>
                     </div>
                     {i < wf.steps.length - 1 && (
-                      <svg className="w-3 h-3 text-gray-300 shrink-0 mt-2.5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                      <svg className="w-2 h-2 sm:w-3 sm:h-3 text-gray-300 shrink-0 mt-2 sm:mt-2.5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                       </svg>
                     )}
@@ -603,7 +599,7 @@ function ExploreSection() {
           <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1E293B] mb-2">
             Explore AI Solutions for Your Industry
           </h2>
-          <p className="text-gray-500 text-sm sm:text-base max-w-xl mx-auto">
+          <p className="text-gray-500 text-sm sm:text-base">
             Choose your industry to discover curated tools, workflows, guides, and case studies.
           </p>
         </div>
@@ -620,8 +616,8 @@ function ExploreSection() {
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 {/* Icon circle overlapping image bottom-left */}
-                <div className={`absolute -bottom-4 left-4 w-10 h-10 rounded-full ${ind.iconBg} border-2 border-white flex items-center justify-center text-xl shadow-md z-10`}>
-                  {ind.icon}
+                <div className={`absolute -bottom-4 left-4 w-10 h-10 rounded-full ${ind.iconBg} border-2 border-white flex items-center justify-center shadow-md z-10`}>
+                  <Image src={ind.iconSrc} alt={ind.label} width={22} height={22} />
                 </div>
               </div>
 
@@ -682,22 +678,21 @@ function TopToolsSection() {
           {TOP_TOOLS.map((tool) => (
             <div
               key={tool.name}
-              className="bg-white border border-gray-100 rounded-2xl p-3 shadow-sm hover:shadow-md hover:border-gray-200 transition-all"
+              className="bg-white border border-gray-100 rounded-xl p-3 shadow-sm hover:shadow-md hover:border-gray-200 transition-all"
             >
-              {/* Logo */}
-              <div className={`w-10 h-10 rounded-xl ${tool.logoBg} flex items-center justify-center mb-2 shrink-0`}>
+              <div className={`w-10 h-10 rounded-lg ${tool.logoBg} flex items-center justify-center mb-2 shrink-0`}>
                 {tool.logoIsText ? (
-                  <span className={tool.logoClass ?? "text-white font-black text-base"}>{tool.logo}</span>
+                  <span className={tool.logoClass ?? "text-white font-black text-sm"}>{tool.logo}</span>
                 ) : (
-                  <span className="text-xl">{tool.logo}</span>
+                  <span className="text-base">{tool.logo}</span>
                 )}
               </div>
-              <p className="font-bold text-[#1E293B] text-sm leading-tight mb-0.5">{tool.name}</p>
-              <p className="text-[11px] text-gray-500 leading-snug mb-2">{tool.desc}</p>
-              <p className="text-[10px] text-gray-400 mb-1">Used in:</p>
-              <div className="flex flex-wrap gap-1">
+              <p className="text-sm font-bold text-[#1E293B] mb-1">{tool.name}</p>
+              <p className="text-xs text-gray-500 line-clamp-2 mb-2">{tool.desc}</p>
+              <p className="text-xs text-gray-400 mb-1">Used in:</p>
+              <div className="flex gap-1">
                 {tool.industries.map((ind) => (
-                  <span key={ind} className="text-base leading-none">{ind}</span>
+                  <Image key={ind} src={`/icons/${ind}.svg`} alt={ind} width={14} height={14} />
                 ))}
               </div>
             </div>
@@ -776,8 +771,8 @@ function BestOfSection() {
               href={`/ai-tools?industry=${b.industry.toLowerCase().replace(" ", "")}`}
               className="flex items-center gap-4 p-5 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md hover:border-gray-200 transition-all group"
             >
-              <div className={`w-12 h-12 rounded-2xl ${b.iconBg} flex items-center justify-center text-2xl shrink-0`}>
-                {b.icon}
+              <div className={`w-12 h-12 rounded-2xl ${b.iconBg} flex items-center justify-center shrink-0`}>
+                <Image src={b.iconSrc} alt={b.industry} width={28} height={28} />
               </div>
               <div>
                 <p className="font-bold text-[#1E293B] text-sm leading-tight">

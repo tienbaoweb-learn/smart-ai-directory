@@ -1,4 +1,10 @@
-export default function Newsletter() {
+export default function Newsletter({
+  heading = "Get Weekly AI Tools & Workflow Ideas",
+  subtitle = "Join 1000+ professionals who get practical AI tips, tool reviews, and workflows every week.",
+}: {
+  heading?: string;
+  subtitle?: string;
+} = {}) {
   return (
     <section id="newsletter" className="pt-3 pb-5 sm:pt-[17px] sm:pb-7 bg-white">
       <div className="max-w-[1215px] mx-auto px-4 sm:px-6 lg:px-8 pb-[10px]">
@@ -15,10 +21,10 @@ export default function Newsletter() {
             </div>
             <div>
               <h2 className="text-xl sm:text-2xl font-extrabold text-white mb-1 leading-snug">
-                Get Weekly AI Tools &amp; Workflow Ideas
+                {heading}
               </h2>
               <p className="text-white/80 text-sm leading-relaxed">
-                Join 1000+ professionals who get practical AI tips, tool reviews, and workflows every week.
+                {subtitle}
               </p>
             </div>
           </div>
