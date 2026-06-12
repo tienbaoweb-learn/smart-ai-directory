@@ -482,7 +482,7 @@ function StatsBar() {
     <section id="stats" className="py-6 sm:py-7">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading - outside frame */}
-        <p className="text-[34px] font-semibold text-[#1E293B] text-center tracking-wide mb-4 sm:mb-6">
+        <p className="text-[27px] font-bold text-[#1E293B] text-center tracking-wide mb-4 sm:mb-6">
           Trusted by Professionals Worldwide
         </p>
 
@@ -561,12 +561,12 @@ function TopTools() {
           ))}
         </div>
 
-        {/* Tool grid — gap reduced 35% */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-[10px] sm:gap-5">
+        {/* Tool grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-4">
           {filtered.map((tool) => (
             <div
               key={tool.id}
-              className="relative border border-gray-100 rounded-2xl p-[14px] sm:p-6 pt-[38px] sm:pt-[43px] hover:shadow-lg hover:border-orange-100 transition-all group flex flex-col items-center text-center"
+              className="relative border border-gray-100 rounded-2xl p-[15px] sm:p-[26px] pt-[42px] sm:pt-[47px] hover:shadow-lg hover:border-orange-100 transition-all group flex flex-col items-center text-center"
             >
               {/* Industry tag — absolute top-left, 5% from border */}
               <span className={`absolute top-[5%] left-[5%] text-xs font-semibold px-2 py-0.5 rounded-full ${tool.industryColor}`}>
@@ -574,7 +574,7 @@ function TopTools() {
               </span>
 
               {/* Logo — centered */}
-              <div className={`w-14 h-14 rounded-xl ${tool.logoBg} flex items-center justify-center mb-3 shrink-0`}>
+              <div className={`w-[62px] h-[62px] rounded-xl ${tool.logoBg} flex items-center justify-center mb-3 shrink-0`}>
                 <span className={`${tool.logoTextColor} leading-none`}>{tool.logoText}</span>
               </div>
 
