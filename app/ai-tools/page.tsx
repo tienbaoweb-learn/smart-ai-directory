@@ -471,14 +471,15 @@ function IndustrySection() {
           Explore curated AI tools and workflows for your industry.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           {INDUSTRY_CARDS.map((card) => (
             <a
               key={card.id}
               href="/#explore"
-              className="flex items-center gap-4 p-4 border border-gray-100 rounded-2xl bg-white hover:border-orange-200 hover:shadow-md transition-all group"
+              className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 p-3 sm:p-4 border border-gray-100 rounded-2xl bg-white hover:border-orange-200 hover:shadow-md transition-all group"
             >
-              <div className="relative w-20 h-20 rounded-xl overflow-hidden shrink-0">
+              {/* Image — full-width on mobile (+30% → h-[104px]), fixed 80px square on desktop */}
+              <div className="relative w-full h-[104px] sm:w-20 sm:h-20 sm:shrink-0 rounded-xl overflow-hidden">
                 <Image
                   src={card.img}
                   alt={card.label}
@@ -486,11 +487,15 @@ function IndustrySection() {
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
+
+              {/* Text — slightly larger on mobile to match the bigger card */}
               <div className="flex-1">
-                <p className="font-bold text-[#1E293B] text-base mb-0.5">{card.label}</p>
-                <p className="text-sm text-gray-500 leading-relaxed">{card.desc}</p>
+                <p className="font-bold text-[#1E293B] text-sm sm:text-base mb-0.5 leading-tight">{card.label}</p>
+                <p className="text-xs sm:text-sm text-gray-500 leading-relaxed">{card.desc}</p>
               </div>
-              <span className="text-gray-400 group-hover:text-[#F97316] transition-colors shrink-0">→</span>
+
+              {/* Arrow — hidden on mobile stacked layout, shown on desktop row layout */}
+              <span className="hidden sm:block text-gray-400 group-hover:text-[#F97316] transition-colors shrink-0">→</span>
             </a>
           ))}
         </div>
