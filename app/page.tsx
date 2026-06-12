@@ -140,6 +140,14 @@ const BENEFIT_ICONS = [
   <svg key="ahead" className="w-6 h-6 text-sky-500" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.82m5.84-2.56a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.818m2.784-7.421A6 6 0 016.592 9.6" /></svg>,
 ];
 
+const BENEFIT_CIRCLE_BG = [
+  "bg-orange-100",
+  "bg-green-100",
+  "bg-orange-100",
+  "bg-purple-100",
+  "bg-sky-100",
+];
+
 const BENEFITS = [
   {
     title: "Save Time",
@@ -262,9 +270,9 @@ function Navbar() {
             <Image
               src="/SmartaiforworkLogo.webp"
               alt="SmartAI for Work"
-              width={160}
-              height={50}
-              className="h-11 w-auto"
+              width={216}
+              height={68}
+              className="h-[60px] w-auto"
               priority
             />
           </a>
@@ -474,7 +482,7 @@ function StatsBar() {
     <section id="stats" className="py-6 sm:py-7">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading - outside frame */}
-        <p className="text-[34px] font-semibold text-gray-500 text-center tracking-wide mb-4 sm:mb-6">
+        <p className="text-[34px] font-semibold text-[#1E293B] text-center tracking-wide mb-4 sm:mb-6">
           Trusted by Professionals Worldwide
         </p>
 
@@ -554,11 +562,11 @@ function TopTools() {
         </div>
 
         {/* Tool grid — gap reduced 35% */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-[10px] sm:gap-5">
           {filtered.map((tool) => (
             <div
               key={tool.id}
-              className="relative border border-gray-100 rounded-2xl p-3 sm:p-5 pt-8 sm:pt-9 hover:shadow-lg hover:border-orange-100 transition-all group flex flex-col items-center text-center"
+              className="relative border border-gray-100 rounded-2xl p-[14px] sm:p-6 pt-[38px] sm:pt-[43px] hover:shadow-lg hover:border-orange-100 transition-all group flex flex-col items-center text-center"
             >
               {/* Industry tag — absolute top-left, 5% from border */}
               <span className={`absolute top-[5%] left-[5%] text-xs font-semibold px-2 py-0.5 rounded-full ${tool.industryColor}`}>
@@ -620,15 +628,15 @@ function HowAIHelps() {
           {BENEFITS.map((b, i) => (
             <div
               key={b.title}
-              className="bg-white rounded-2xl p-6 border border-gray-100 hover:border-orange-200 hover:shadow-md transition-all flex flex-col items-start"
+              className="bg-white rounded-2xl p-5 border border-gray-100 hover:border-orange-200 hover:shadow-md transition-all flex flex-row items-start gap-4"
             >
-              <div className="w-12 h-12 rounded-full bg-orange-50 flex items-center justify-center mb-4 shrink-0">
+              <div className={`w-12 h-12 rounded-full ${BENEFIT_CIRCLE_BG[i]} flex items-center justify-center shrink-0`}>
                 {BENEFIT_ICONS[i]}
               </div>
-              <p className="font-bold text-[#1E293B] text-sm mb-2">
-                {b.title}
-              </p>
-              <p className="text-gray-500 text-xs leading-relaxed">{b.desc}</p>
+              <div className="flex flex-col">
+                <p className="font-bold text-[#1E293B] text-sm mb-1">{b.title}</p>
+                <p className="text-gray-500 text-xs leading-relaxed">{b.desc}</p>
+              </div>
             </div>
           ))}
         </div>
@@ -639,7 +647,7 @@ function HowAIHelps() {
 
 function LatestInsights() {
   return (
-    <section id="insights" className="pt-[41px] pb-16 sm:pt-[52px] sm:pb-20 bg-white">
+    <section id="insights" className="pt-[41px] pb-[38px] sm:pt-[52px] sm:pb-12 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-8">
           <div>
@@ -767,9 +775,9 @@ function Footer() {
               <Image
                 src="/SmartaiforworkLogo.webp"
                 alt="SmartAI for Work"
-                width={120}
-                height={38}
-                className="h-8 w-auto"
+                width={162}
+                height={51}
+                className="h-11 w-auto"
               />
             </div>
             <p className="text-white/50 text-xs sm:text-sm leading-relaxed mb-5">
