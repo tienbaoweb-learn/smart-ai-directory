@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import Image from "next/image";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
@@ -118,6 +119,8 @@ const WORKFLOWS = [
     industry: "Furniture Workflow",
     titleColor: "text-emerald-600",
     linkColor: "text-emerald-600 hover:text-emerald-700",
+    stepBg: "bg-emerald-50 border-emerald-200",
+    stepColor: "text-emerald-600",
     steps: [
       { emoji: "✏️", label: "Design" },
       { emoji: "🖥️", label: "Render" },
@@ -131,6 +134,8 @@ const WORKFLOWS = [
     industry: "Architecture Workflow",
     titleColor: "text-blue-600",
     linkColor: "text-blue-600 hover:text-blue-700",
+    stepBg: "bg-blue-50 border-blue-200",
+    stepColor: "text-blue-600",
     steps: [
       { emoji: "💡", label: "Concept" },
       { emoji: "🏗️", label: "BIM" },
@@ -144,6 +149,8 @@ const WORKFLOWS = [
     industry: "Construction Workflow",
     titleColor: "text-orange-500",
     linkColor: "text-orange-500 hover:text-orange-600",
+    stepBg: "bg-orange-50 border-orange-200",
+    stepColor: "text-orange-500",
     steps: [
       { emoji: "📋", label: "Plan" },
       { emoji: "👁️", label: "Monitor" },
@@ -157,6 +164,8 @@ const WORKFLOWS = [
     industry: "Real Estate Workflow",
     titleColor: "text-purple-600",
     linkColor: "text-purple-600 hover:text-purple-700",
+    stepBg: "bg-purple-50 border-purple-200",
+    stepColor: "text-purple-600",
     steps: [
       { emoji: "👥", label: "Leads" },
       { emoji: "📋", label: "Listings" },
@@ -275,57 +284,116 @@ const BEST_OF = [
   { industry: "Real Estate", icon: "🏠", count: 12, iconBg: "bg-purple-100" },
 ];
 
-const GUIDES = [
-  {
-    title: "Top 10 AI Tools for Furniture Design in 2026",
-    date: "Jan 15, 2026",
-    readTime: "8 min read",
-    img: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80",
-    tag: "Furniture",
-    tagBg: "bg-emerald-100 text-emerald-700",
-  },
-  {
-    title: "How Architecture Firms Are Using AI to Win More Clients",
-    date: "Feb 3, 2026",
-    readTime: "6 min read",
-    img: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80",
-    tag: "Architecture",
-    tagBg: "bg-blue-100 text-blue-700",
-  },
-  {
-    title: "AI in Construction: Complete Guide to Project Management Tools",
-    date: "Mar 10, 2026",
-    readTime: "10 min read",
-    img: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80",
-    tag: "Construction",
-    tagBg: "bg-orange-100 text-orange-700",
-  },
-];
+// ─── WORKFLOW ICONS ───────────────────────────────────────────────────────────
+
+const WORKFLOW_ICONS: Record<string, React.ReactNode> = {
+  Design: (
+    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487z" />
+    </svg>
+  ),
+  Render: (
+    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0H3" />
+    </svg>
+  ),
+  Market: (
+    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M10.34 15.84c-.688-.06-1.386-.09-2.09-.09H7.5a4.5 4.5 0 110-9h.75c.704 0 1.402-.03 2.09-.09m0 9.18c.253.962.584 1.892.985 2.783.247.55.06 1.21-.463 1.511l-.657.38c-.551.318-1.26.117-1.527-.461a20.845 20.845 0 01-1.44-4.282m3.102.069a18.03 18.03 0 01-.59-4.59c0-1.586.205-3.124.59-4.59m0 9.18a23.848 23.848 0 018.835 2.535M10.34 6.66a23.847 23.847 0 008.835-2.535m0 0A23.74 23.74 0 0018.795 3m.38 1.125a23.91 23.91 0 011.014 5.395m-1.014 8.855c-.118.38-.245.754-.38 1.125m.38-1.125a23.91 23.91 0 001.014-5.395m0-3.46c.495.413.811 1.035.811 1.73 0 .695-.316 1.317-.811 1.73m0-3.46a24.347 24.347 0 010 3.46" />
+    </svg>
+  ),
+  Sell: (
+    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+    </svg>
+  ),
+  Concept: (
+    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
+    </svg>
+  ),
+  BIM: (
+    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z" />
+    </svg>
+  ),
+  Visualize: (
+    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+    </svg>
+  ),
+  Present: (
+    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6" />
+    </svg>
+  ),
+  Plan: (
+    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" />
+    </svg>
+  ),
+  Monitor: (
+    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+    </svg>
+  ),
+  Track: (
+    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+    </svg>
+  ),
+  Report: (
+    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+    </svg>
+  ),
+  Leads: (
+    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+    </svg>
+  ),
+  Listings: (
+    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+    </svg>
+  ),
+  Staging: (
+    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+    </svg>
+  ),
+  Close: (
+    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+  ),
+};
 
 // ─── HERO ─────────────────────────────────────────────────────────────────────
 
 function HeroSection() {
   return (
-    <section className="bg-white pt-10 pb-12 sm:pt-14 sm:pb-16 overflow-hidden">
+    <section className="bg-white pt-8 pb-10 sm:pt-12 sm:pb-14 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-12">
+        <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-12">
           {/* ── Left ── */}
-          <div className="flex-1 max-w-lg lg:max-w-none">
+          <div className="w-full lg:w-[42%] lg:shrink-0">
             <span className="inline-block text-xs font-bold tracking-widest uppercase mb-4 text-[#0EA5E9] bg-sky-50 border border-sky-200 rounded-full px-4 py-1.5">
               AI Solutions for Every Industry
             </span>
-            <h1 className="text-4xl sm:text-5xl font-extrabold text-[#1E293B] leading-tight mb-4">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[#1E293B] leading-tight mb-3">
               AI Tools{" "}
-              <span className="bg-gradient-to-r from-[#0EA5E9] to-[#9333EA] bg-clip-text text-transparent">
+              <span className="text-[#F97316]">
                 by Industry
               </span>
             </h1>
-            <p className="text-gray-500 text-base sm:text-lg leading-relaxed mb-8 max-w-md">
+            <p className="text-gray-500 text-sm sm:text-base leading-relaxed mb-5 max-w-md">
               Explore AI tools, workflows, and best practices customized for your industry. Solve problems, save time, and grow your business with AI.
             </p>
 
             {/* CTA buttons */}
-            <div className="flex flex-wrap gap-3 mb-8">
+            <div className="flex flex-wrap gap-3 mb-5">
               <a
                 href="#explore"
                 className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-xl transition-colors text-sm shadow-md shadow-blue-100"
@@ -341,7 +409,7 @@ function HeroSection() {
             </div>
 
             {/* Stat badges */}
-            <div className="flex flex-wrap gap-6">
+            <div className="grid grid-cols-4 gap-3 sm:flex sm:flex-wrap sm:gap-6">
               {[
                 {
                   icon: (
@@ -392,13 +460,13 @@ function HeroSection() {
           </div>
 
           {/* ── Right — 2×2 on mobile / 4 cols on desktop ── */}
-          <div className="w-full lg:flex-1 lg:max-w-[560px]">
+          <div className="w-full lg:flex-1">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
               {INDUSTRIES.map((ind) => (
                 <a
                   key={ind.id}
                   href={`#${ind.id}`}
-                  className="relative rounded-2xl overflow-hidden group h-[200px] lg:h-[220px] cursor-pointer block"
+                  className="relative rounded-2xl overflow-hidden group h-[150px] sm:h-[200px] lg:h-[260px] cursor-pointer block"
                 >
                   <Image
                     src={ind.img}
@@ -436,9 +504,9 @@ function HeroSection() {
 
 function ChallengesSection() {
   return (
-    <section className="py-12 sm:py-16 bg-gray-50">
+    <section className="py-8 sm:py-12 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-10">
+        <div className="text-center mb-8">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1E293B] mb-2">
             Common Business Challenges AI Can Solve
           </h2>
@@ -447,9 +515,9 @@ function ChallengesSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
           {CHALLENGES.map((c) => (
-            <div key={c.industry} className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
+            <div key={c.industry} className="bg-white rounded-2xl p-3 sm:p-5 border border-gray-100 shadow-sm">
               <div className="flex items-center gap-3 mb-4">
                 <div className={`w-9 h-9 rounded-xl ${c.iconBg} flex items-center justify-center text-lg shrink-0`}>
                   {c.icon}
@@ -478,9 +546,9 @@ function ChallengesSection() {
 
 function WorkflowsSection() {
   return (
-    <section className="py-12 sm:py-16 bg-white">
+    <section className="py-8 sm:py-12 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-10">
+        <div className="text-center mb-8">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1E293B] mb-2">
             Industry Workflows Enhanced by AI
           </h2>
@@ -489,33 +557,26 @@ function WorkflowsSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
           {WORKFLOWS.map((wf) => (
             <div key={wf.industry} className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
               <p className={`font-bold text-sm mb-4 ${wf.titleColor}`}>{wf.industry}</p>
 
-              {/* Steps row */}
-              <div className="flex items-center gap-1 mb-1">
+              {/* Steps row with labels */}
+              <div className="flex items-start gap-1 mb-4">
                 {wf.steps.map((step, i) => (
-                  <div key={step.label} className="flex items-center gap-1">
-                    <div className="w-8 h-8 rounded-lg bg-gray-50 border border-gray-100 flex items-center justify-center text-base shrink-0">
-                      {step.emoji}
+                  <div key={step.label} className="flex items-start gap-1">
+                    <div className="flex flex-col items-center gap-1">
+                      <div className={`w-8 h-8 rounded-lg border flex items-center justify-center shrink-0 ${wf.stepBg} ${wf.stepColor}`}>
+                        {WORKFLOW_ICONS[step.label]}
+                      </div>
+                      <p className="text-[9px] text-gray-400 text-center leading-tight w-8">{step.label}</p>
                     </div>
                     {i < wf.steps.length - 1 && (
-                      <svg className="w-3 h-3 text-gray-300 shrink-0" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                      <svg className="w-3 h-3 text-gray-300 shrink-0 mt-2.5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                       </svg>
                     )}
-                  </div>
-                ))}
-              </div>
-
-              {/* Step labels */}
-              <div className="flex items-center gap-1 mb-4">
-                {wf.steps.map((step, i) => (
-                  <div key={step.label} className="flex items-center gap-1">
-                    <p className="w-8 text-center text-[10px] text-gray-400 leading-tight">{step.label}</p>
-                    {i < wf.steps.length - 1 && <div className="w-3 shrink-0" />}
                   </div>
                 ))}
               </div>
@@ -536,9 +597,9 @@ function WorkflowsSection() {
 
 function ExploreSection() {
   return (
-    <section id="explore" className="py-12 sm:py-16 bg-gray-50">
+    <section id="explore" className="py-8 sm:py-12 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-10">
+        <div className="text-center mb-8">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1E293B] mb-2">
             Explore AI Solutions for Your Industry
           </h2>
@@ -547,11 +608,11 @@ function ExploreSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
           {INDUSTRIES.map((ind) => (
             <div key={ind.id} id={ind.id} className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow group">
               {/* Image */}
-              <div className="relative h-40 w-full">
+              <div className="relative h-28 sm:h-40 w-full">
                 <Image
                   src={ind.img}
                   alt={ind.label}
@@ -603,9 +664,9 @@ function ExploreSection() {
 
 function TopToolsSection() {
   return (
-    <section className="py-12 sm:py-14 bg-white">
+    <section className="py-8 sm:py-12 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-5">
           <div>
             <h2 className="text-xl sm:text-2xl font-extrabold text-[#1E293B]">
               Top Recommended AI Tools Across Industries
@@ -651,9 +712,9 @@ function TopToolsSection() {
 
 function CaseStudiesSection() {
   return (
-    <section className="py-12 sm:py-14 bg-gray-50">
+    <section className="py-8 sm:py-12 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-start justify-between mb-6">
+        <div className="flex items-start justify-between mb-5">
           <div>
             <h2 className="text-xl sm:text-2xl font-extrabold text-[#1E293B]">
               Real Results from AI-Powered Businesses
@@ -667,22 +728,22 @@ function CaseStudiesSection() {
           </a>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           {CASE_STUDIES.map((cs) => (
             <div
               key={cs.company}
-              className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-row lg:flex-col"
+              className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-row h-[100px] sm:h-[120px]"
             >
-              {/* Image */}
-              <div className="relative w-28 lg:w-full h-auto lg:h-28 shrink-0">
+              {/* Image — fixed left column */}
+              <div className="relative w-[70px] sm:w-[100px] shrink-0 h-full">
                 <Image src={cs.img} alt={cs.company} fill className="object-cover" />
               </div>
               {/* Text */}
-              <div className="p-4 flex-1">
-                <p className={`text-2xl font-extrabold leading-none mb-1 ${cs.statColor}`}>{cs.stat}</p>
-                <p className="text-xs text-gray-600 leading-snug mb-3">{cs.desc}</p>
-                <p className="text-xs font-bold text-[#1E293B]">{cs.company}</p>
-                <p className="text-[11px] text-gray-400">{cs.type}</p>
+              <div className="p-2 sm:p-3 flex-1 flex flex-col justify-center min-w-0">
+                <p className={`text-lg sm:text-2xl font-extrabold leading-none mb-1 ${cs.statColor}`}>{cs.stat}</p>
+                <p className="text-[11px] text-gray-600 leading-snug mb-2">{cs.desc}</p>
+                <p className="text-[11px] font-bold text-[#1E293B] truncate">{cs.company}</p>
+                <p className="text-[10px] text-gray-400">{cs.type}</p>
               </div>
             </div>
           ))}
@@ -696,9 +757,9 @@ function CaseStudiesSection() {
 
 function BestOfSection() {
   return (
-    <section className="py-12 sm:py-14 bg-white">
+    <section className="py-8 sm:py-12 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-5">
           <div>
             <h2 className="text-xl sm:text-2xl font-extrabold text-[#1E293B]">Best Of AI Tools by Industry</h2>
             <p className="text-gray-500 text-sm mt-1">Curated lists of the best-performing AI tools for each industry.</p>
@@ -708,7 +769,7 @@ function BestOfSection() {
           </a>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           {BEST_OF.map((b) => (
             <a
               key={b.industry}
@@ -732,89 +793,6 @@ function BestOfSection() {
   );
 }
 
-// ─── GUIDES ───────────────────────────────────────────────────────────────────
-
-function GuidesSection() {
-  return (
-    <section className="py-12 sm:py-14 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl sm:text-2xl font-extrabold text-[#1E293B]">Latest Industry Guides</h2>
-          <a href="#" className="text-sm font-semibold text-blue-600 hover:text-blue-700 whitespace-nowrap">
-            View all guides →
-          </a>
-        </div>
-
-        <div className="flex flex-col lg:flex-row gap-5">
-          {/* ── Left: 3 article cards (2/3) ── */}
-          <div className="flex-[2] flex flex-col gap-4">
-            {GUIDES.map((g) => (
-              <a
-                key={g.title}
-                href="#"
-                className="flex gap-4 bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow group"
-              >
-                <div className="relative w-28 sm:w-32 h-auto shrink-0">
-                  <Image src={g.img} alt={g.title} fill className="object-cover group-hover:scale-105 transition-transform duration-300" />
-                </div>
-                <div className="py-4 pr-4 flex flex-col justify-center">
-                  <span className={`inline-block text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full mb-2 ${g.tagBg}`}>
-                    {g.tag}
-                  </span>
-                  <p className="font-bold text-[#1E293B] text-sm leading-snug mb-2 group-hover:text-blue-600 transition-colors">
-                    {g.title}
-                  </p>
-                  <p className="text-[11px] text-gray-400">
-                    {g.date} · {g.readTime}
-                  </p>
-                </div>
-              </a>
-            ))}
-          </div>
-
-          {/* ── Right: Newsletter card (1/3) ── */}
-          <div className="flex-1 min-w-0">
-            <div
-              className="rounded-2xl p-6 h-full flex flex-col justify-between"
-              style={{ background: "linear-gradient(135deg, #1062B1 0%, #5cdce7 40%, #F5A623 75%, #F97316 100%)" }}
-            >
-              <div className="mb-5">
-                <div className="bg-white/20 backdrop-blur-sm rounded-xl p-2.5 w-10 h-10 flex items-center justify-center mb-4">
-                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
-                  </svg>
-                </div>
-                <h3 className="text-white font-extrabold text-lg leading-snug mb-2">
-                  Get Weekly AI Industry Insights
-                </h3>
-                <p className="text-white/80 text-xs leading-relaxed">
-                  Join 1000+ professionals who get practical AI tips, tool reviews, and industry workflows every week.
-                </p>
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="w-full px-4 py-2.5 rounded-xl text-sm bg-white text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white/60"
-                />
-                <button className="w-full bg-[#1E293B] hover:bg-slate-700 text-white font-semibold px-4 py-2.5 rounded-xl transition-colors text-sm">
-                  Subscribe Now
-                </button>
-                <div className="flex gap-3 text-white/70 text-[11px]">
-                  <span>✓ No spam</span>
-                  <span>✓ Free</span>
-                  <span>✓ Unsubscribe anytime</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
 
 export default function IndustriesPage() {
@@ -829,7 +807,6 @@ export default function IndustriesPage() {
         <TopToolsSection />
         <CaseStudiesSection />
         <BestOfSection />
-        <GuidesSection />
       </main>
       <Newsletter />
       <Footer />

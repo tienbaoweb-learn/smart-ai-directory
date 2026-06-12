@@ -1,13 +1,14 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 const NAV_LINKS = [
   { label: "AI Tools", href: "/ai-tools" },
-  { label: "Industries", href: "/#explore" },
-  { label: "Best Of", href: "/#top-tools" },
-  { label: "Resources", href: "/#insights" },
-  { label: "About", href: "/#newsletter" },
+  { label: "Industries", href: "/industries" },
+  { label: "Best Of", href: "/best-of" },
+  { label: "Resources", href: "/resources" },
+  { label: "About", href: "/about" },
 ];
 
 function ChevronDown() {
@@ -23,7 +24,7 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20 gap-8">
-          <a href="/" className="shrink-0">
+          <Link href="/" className="shrink-0">
             <Image
               src="/SmartaiforworkLogo.webp"
               alt="SmartAI for Work"
@@ -32,17 +33,17 @@ export default function Navbar() {
               className="h-[60px] w-auto"
               priority
             />
-          </a>
+          </Link>
           <nav className="hidden lg:flex items-center gap-2">
             {NAV_LINKS.map((item) => (
-              <a
+              <Link
                 key={item.label}
                 href={item.href}
                 className="flex items-center gap-1.5 text-[15px] font-medium text-[#1E293B] hover:text-[#F97316] px-4 py-2.5 rounded-md transition-colors"
               >
                 {item.label}
                 <ChevronDown />
-              </a>
+              </Link>
             ))}
           </nav>
           <div className="flex items-center gap-4 shrink-0">
