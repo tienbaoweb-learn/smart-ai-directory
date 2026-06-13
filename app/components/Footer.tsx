@@ -3,7 +3,7 @@ import Image from "next/image";
 const FOOTER_COLS = [
   {
     title: "Explore",
-    links: ["AI Tools", "By Industry", "Best Of", "All Reviews", "Workflows"],
+    links: ["AI Tools", "Industries", "Best Of", "All Reviews", "Workflows"],
   },
   {
     title: "Industries",
