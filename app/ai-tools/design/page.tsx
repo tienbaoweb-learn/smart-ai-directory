@@ -146,7 +146,7 @@ function HeroSection() {
 
   const stats = [
     {
-      value: "200+",
+      value: "20+",
       label: "Tools Reviewed",
       icon: (
         <svg className="w-4 h-4 text-[#F97316]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
@@ -155,8 +155,8 @@ function HeroSection() {
       ),
     },
     {
-      value: "12",
-      label: "Categories",
+      value: "4",
+      label: "Industries",
       icon: (
         <svg className="w-4 h-4 text-[#0EA5E9]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
@@ -164,7 +164,7 @@ function HeroSection() {
       ),
     },
     {
-      value: "200+",
+      value: "100+",
       label: "Hours Tested",
       icon: (
         <svg className="w-4 h-4 text-[#F97316]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
@@ -224,7 +224,7 @@ function HeroSection() {
         </div>
 
         {/* Search bar */}
-        <div className="flex gap-3 mb-5">
+        <div className="flex gap-3 mb-5 max-w-[610px]">
           <div className="flex-1 flex items-center gap-2 bg-white border border-gray-200 rounded-xl px-4 py-3 shadow-sm focus-within:border-orange-300 transition-colors">
             <svg className="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 115 11a6 6 0 0112 0z" />
@@ -338,6 +338,147 @@ function EmptyState({ onReset }: { onReset: () => void }) {
         Reset Filters
       </button>
     </div>
+  );
+}
+
+// ─── COMPARE SECTION ─────────────────────────────────────────────────────────
+
+const COMPARE_SLOTS = [
+  { name: "Midjourney",  bg: "bg-[#1E293B]", initials: "MJ" },
+  { name: "D5 Render",   bg: "bg-blue-500",  initials: "D5" },
+  { name: "Canva AI",    bg: "bg-[#00C4CC]", initials: "CA" },
+];
+
+const TRENDING_PAIRS = [
+  {
+    a: { name: "Midjourney",  bg: "bg-[#1E293B]", initials: "MJ" },
+    b: { name: "D5 Render",   bg: "bg-blue-500",  initials: "D5" },
+  },
+  {
+    a: { name: "Planner 5D",  bg: "bg-green-500",  initials: "5D" },
+    b: { name: "Homestyler",  bg: "bg-purple-500", initials: "HS" },
+  },
+  {
+    a: { name: "Archicad AI", bg: "bg-blue-600",   initials: "AC" },
+    b: { name: "Veras",       bg: "bg-teal-500",   initials: "V"  },
+  },
+];
+
+function VsBadge({ size = "sm" }: { size?: "sm" | "md" }) {
+  const cls = size === "md"
+    ? "w-7 h-7 text-[10px]"
+    : "w-6 h-6 text-[9px]";
+  return (
+    <div className={`${cls} rounded-full bg-[#1E293B] flex items-center justify-center shrink-0`}>
+      <span className="text-white font-bold">vs</span>
+    </div>
+  );
+}
+
+function CompareSection() {
+  return (
+    <section className="py-10 sm:py-14 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="border border-gray-100 rounded-2xl overflow-hidden">
+
+          {/* ── Header bar ── */}
+          <div className="bg-gray-50 rounded-t-2xl px-6 py-4 flex items-center gap-3 border-b border-gray-100">
+            <div className="w-9 h-9 rounded-xl bg-teal-50 flex items-center justify-center shrink-0">
+              <svg className="w-5 h-5 text-teal-500" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
+              </svg>
+            </div>
+            <h2 className="font-extrabold text-[#1E293B] text-base sm:text-lg leading-snug">
+              Compare AI Tools: Find the Right Fit for Your Needs
+            </h2>
+          </div>
+
+          <div className="p-6 bg-white">
+
+            {/* ── Tool selector row ── */}
+            <p className="text-sm font-semibold text-[#1E293B] mb-3">Add AI tools for comparison</p>
+            <div className="bg-gray-50 rounded-xl p-6 flex flex-wrap items-end gap-4 mb-4">
+              {COMPARE_SLOTS.map((tool, i) => (
+                <React.Fragment key={tool.name}>
+                  {i > 0 && <VsBadge size="sm" />}
+                  <div className="relative flex flex-col items-center gap-1.5">
+                    {/* Remove button */}
+                    <button
+                      className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-gray-200 hover:bg-gray-300 flex items-center justify-center text-gray-500 text-[10px] leading-none transition-colors z-10"
+                      aria-label={`Remove ${tool.name}`}
+                    >
+                      ✕
+                    </button>
+                    <div className={`w-12 h-12 rounded-full ${tool.bg} flex items-center justify-center`}>
+                      <span className="text-white font-black text-xs">{tool.initials}</span>
+                    </div>
+                    <span className="text-xs text-gray-600 font-medium whitespace-nowrap">{tool.name}</span>
+                  </div>
+                </React.Fragment>
+              ))}
+              {/* Add slot — shown only when fewer than 3 tools selected */}
+              {COMPARE_SLOTS.length < 3 && (
+                <>
+                  <VsBadge size="sm" />
+                  <div className="flex flex-col items-center gap-1.5">
+                    <div className="w-12 h-12 rounded-full border-2 border-dashed border-gray-300 hover:border-teal-400 flex items-center justify-center transition-colors cursor-pointer">
+                      <span className="text-gray-400 text-xl leading-none">+</span>
+                    </div>
+                    <span className="text-xs text-gray-400">Add Tool</span>
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* ── Compare button ── */}
+            <div className="flex justify-end mb-8">
+              <button className="bg-gradient-to-r from-teal-400 to-cyan-500 hover:opacity-90 text-white font-semibold px-6 py-2.5 rounded-full text-sm transition-opacity shadow-sm">
+                Compare AI Tools
+              </button>
+            </div>
+
+            {/* ── Trending comparisons ── */}
+            <h3 className="font-bold text-[#1E293B] text-base mb-4">
+              Today&apos;s Trending AI Tools: A Comparison
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {TRENDING_PAIRS.map((pair) => (
+                <div
+                  key={`${pair.a.name}-${pair.b.name}`}
+                  className="bg-gray-50 rounded-xl overflow-hidden flex flex-col"
+                >
+                  <div className="flex items-center justify-center gap-4 p-6 flex-1">
+                    {/* Tool A */}
+                    <div className="flex flex-col items-center gap-2">
+                      <div className={`w-12 h-12 rounded-full ${pair.a.bg} flex items-center justify-center`}>
+                        <span className="text-white font-black text-xs">{pair.a.initials}</span>
+                      </div>
+                      <span className="text-xs font-semibold text-[#1E293B] text-center leading-tight">{pair.a.name}</span>
+                    </div>
+
+                    <VsBadge size="md" />
+
+                    {/* Tool B */}
+                    <div className="flex flex-col items-center gap-2">
+                      <div className={`w-12 h-12 rounded-full ${pair.b.bg} flex items-center justify-center`}>
+                        <span className="text-white font-black text-xs">{pair.b.initials}</span>
+                      </div>
+                      <span className="text-xs font-semibold text-[#1E293B] text-center leading-tight">{pair.b.name}</span>
+                    </div>
+                  </div>
+
+                  {/* Full-width bottom button */}
+                  <button className="w-full bg-gradient-to-r from-teal-400 to-cyan-500 hover:opacity-90 text-white font-semibold py-3 text-sm transition-opacity">
+                    Compare AI&apos;s
+                  </button>
+                </div>
+              ))}
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -557,6 +698,7 @@ export default function DesignToolsPage() {
         </div>
       </section>
 
+      <CompareSection />
       <ExploreOtherCategories />
       <Newsletter />
       <Footer />
