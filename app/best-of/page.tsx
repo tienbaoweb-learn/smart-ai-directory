@@ -1,6 +1,7 @@
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { BarChart3, Building2, ClipboardCheck, Clock, DollarSign, FlaskConical, HardHat, Home, Lightbulb, Mail, RefreshCw, Rocket, Sofa, Sparkles, Star, Tag, TrendingUp, Trophy, Users } from "lucide-react";
+import { BarChart3, Building2, ClipboardCheck, Clock, DollarSign, FlaskConical, HardHat, Home, Lightbulb, RefreshCw, Rocket, Sofa, Sparkles, Star, Tag, TrendingUp, Trophy, Users } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
@@ -453,7 +454,7 @@ export default function BestOfPage() {
               </p>
 
               {/* Buttons */}
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-3 mb-8">
                 <a
                   href="#rankings"
                   className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-700 hover:opacity-90 text-white font-semibold px-6 py-3 rounded-lg transition-opacity text-sm shadow-md shadow-blue-100"
@@ -467,90 +468,39 @@ export default function BestOfPage() {
                   See Industry Picks
                 </a>
               </div>
+
+              {/* Trust badges — inline in hero left column */}
+              <div className="grid grid-cols-2 gap-4">
+                  {TRUST_BADGES.map((badge) => (
+                  <div key={badge.title} className="flex items-start gap-2.5">
+                    <div className={`w-8 h-8 rounded-xl ${badge.iconBg} flex items-center justify-center shrink-0 mt-0.5`}>
+                      {badge.icon}
+                    </div>
+                    <div>
+                      <p className="font-semibold text-[#1E293B] text-xs">{badge.title}</p>
+                      <p className="text-gray-500 text-xs mt-0.5 leading-relaxed">{badge.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
 
-            {/* Right — image placeholder with overlay cards */}
-            <div className="relative">
-              {/* TODO: replace with Unsplash image */}
-              <div className="relative bg-gray-100 rounded-2xl aspect-video w-full overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <svg className="w-16 h-16 text-gray-300" fill="none" stroke="currentColor" strokeWidth={1} viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M13.5 12h.008v.008H13.5V12zm0 0h.008v.008H13.5V12z" />
-                  </svg>
-                </div>
-              </div>
-
-              {/* Overlay card — Best Overall */}
-              <div className="absolute -left-4 top-6 bg-white rounded-xl shadow-lg border border-gray-100 px-4 py-3 flex items-center gap-3 min-w-[160px]">
-                <div className="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center shrink-0">
-                  <svg className="w-4 h-4 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-[10px] text-gray-400 font-medium uppercase tracking-wide">Best Overall</p>
-                  <div className="flex gap-0.5 mt-0.5">
-                    {[1,2,3,4,5].map((s) => (
-                      <svg key={s} className="w-3 h-3 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Overlay card — Best Value */}
-              <div className="absolute -right-4 top-1/3 bg-white rounded-xl shadow-lg border border-gray-100 px-4 py-3 min-w-[150px]">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="w-7 h-7 rounded-full bg-blue-100 flex items-center justify-center shrink-0">
-                    <svg className="w-3.5 h-3.5 text-blue-500" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33" />
-                    </svg>
-                  </div>
-                  <p className="text-[10px] text-gray-400 font-medium uppercase tracking-wide">Best Value</p>
-                </div>
-                <div className="w-full bg-gray-100 rounded-full h-1.5">
-                  <div className="bg-blue-500 h-1.5 rounded-full" style={{ width: "88%" }} />
-                </div>
-                <p className="text-[10px] text-gray-400 mt-1">88 / 100 score</p>
-              </div>
-
-              {/* Overlay card — Easiest to Use */}
-              <div className="absolute -left-4 bottom-6 bg-white rounded-xl shadow-lg border border-gray-100 px-4 py-3 flex items-center gap-3 min-w-[160px]">
-                <div className="w-8 h-8 rounded-full bg-violet-100 flex items-center justify-center shrink-0">
-                  <svg className="w-4 h-4 text-violet-500" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.82m5.84-2.56a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.818m2.784-7.421A6 6 0 016.592 9.6" />
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-[10px] text-gray-400 font-medium uppercase tracking-wide">Easiest to Use</p>
-                  <p className="text-xs font-bold text-[#1E293B] mt-0.5">4.9 / 5.0</p>
-                </div>
-              </div>
+            {/* Right — hero image */}
+            <div className="flex justify-center lg:justify-end">
+              <Image
+                src="/images/BestOfChoose.webp"
+                alt="Best AI Tools rankings showcase"
+                width={1214}
+                height={1186}
+                className="w-full max-w-lg lg:max-w-full object-contain"
+                priority
+              />
             </div>
 
           </div>
         </div>
       </section>
 
-      {/* ── Trust badges ── */}
-      <section className="py-10 border-y border-gray-100 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-            {TRUST_BADGES.map((badge) => (
-              <div key={badge.title} className="flex items-start gap-3">
-                <div className={`w-9 h-9 rounded-xl ${badge.iconBg} flex items-center justify-center shrink-0 mt-0.5`}>
-                  {badge.icon}
-                </div>
-                <div>
-                  <p className="font-semibold text-[#1E293B] text-sm">{badge.title}</p>
-                  <p className="text-gray-500 text-xs mt-0.5 leading-relaxed">{badge.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* ── Section 2: Choose Your Industry ── */}
       <section id="industry-picks" className="py-16 sm:py-20">
@@ -806,7 +756,7 @@ export default function BestOfPage() {
           </div>
 
           {/* Cards grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
             {BEST_BY_GOAL.map((item) => {
               const Icon = item.icon;
               const t = GOAL_THEME[item.theme];
@@ -1001,45 +951,6 @@ export default function BestOfPage() {
         </div>
       </section>
 
-      {/* ── Section 8B: Newsletter CTA ── */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
-        <div className="bg-gradient-to-r from-blue-600 to-orange-500 rounded-2xl p-8 md:p-12">
-          <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-8">
-            {/* Left */}
-            <div className="flex flex-col gap-3">
-              <div className="w-11 h-11 rounded-full bg-white/20 flex items-center justify-center shrink-0">
-                <Mail className="text-white" size={22} />
-              </div>
-              <h2 className="text-xl md:text-2xl font-bold text-white leading-snug">
-                Get Weekly AI Tools Rankings &amp; Insights
-              </h2>
-              <p className="text-sm text-white/90 max-w-md leading-relaxed">
-                Join 10,000+ professionals who get the best AI tools, rankings, and guides delivered every week.
-              </p>
-            </div>
-
-            {/* Right — form */}
-            <div className="flex flex-col gap-2 md:min-w-[320px]">
-              <div className="flex gap-2">
-                <input
-                  type="email"
-                  placeholder="Enter your email address"
-                  className="flex-1 md:w-64 rounded-lg px-4 py-2.5 text-gray-900 text-sm placeholder-gray-400 outline-none focus:ring-2 focus:ring-white/50"
-                />
-                <button
-                  type="button"
-                  className="bg-gray-900 hover:bg-gray-800 text-white font-medium text-sm px-6 py-2.5 rounded-lg transition-colors whitespace-nowrap"
-                >
-                  Subscribe Now
-                </button>
-              </div>
-              <p className="text-xs text-white/80 mt-1">
-                ✓ No spam &nbsp; ✓ Unsubscribe anytime &nbsp; ✓ 100% Free
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
 
       <Newsletter />
       <Footer />
