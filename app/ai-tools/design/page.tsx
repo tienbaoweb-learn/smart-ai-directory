@@ -135,7 +135,10 @@ function BreadcrumbSection() {
   );
 }
 
+const POPULAR_SEARCHES = ["3D Rendering", "Interior Design", "Midjourney", "D5 Render", "Visualization"];
+
 function HeroSection() {
+  const [searchQuery, setSearchQuery] = useState("");
   const avgRating =
     DESIGN_TOOLS.length > 0
       ? (DESIGN_TOOLS.reduce((sum, t) => sum + t.rating, 0) / DESIGN_TOOLS.length).toFixed(1)
@@ -176,12 +179,47 @@ function HeroSection() {
         </p>
 
         {/* Stat badges */}
-        <div className="flex flex-wrap gap-3">
+        <div className="flex gap-3 mb-8">
           {stats.map((s) => (
-            <div key={s.label} className="flex items-center gap-2 bg-gray-50 border border-gray-100 rounded-xl px-4 py-2.5">
-              <span className="font-extrabold text-[#1E293B] text-sm">{s.value}</span>
-              <span className="text-gray-500 text-xs">{s.label}</span>
+            <div key={s.label} className="flex items-center gap-2 bg-gray-50 border border-gray-100 rounded-xl px-3 py-2">
+              <div className="leading-none">
+                <p className="font-extrabold text-[#1E293B] text-sm">{s.value}</p>
+                <p className="text-gray-500 text-xs mt-0.5">{s.label}</p>
+              </div>
             </div>
+          ))}
+        </div>
+
+        {/* Search bar */}
+        <div className="flex gap-2 mb-5">
+          <div className="flex-1 flex items-center gap-2 bg-white border border-gray-200 rounded-xl px-4 py-3 shadow-sm focus-within:border-orange-300 transition-colors">
+            <svg className="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 115 11a6 6 0 0112 0z" />
+            </svg>
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search design tools (e.g. rendering, 3D modeling, visualization...)"
+              className="flex-1 text-sm text-gray-700 placeholder-gray-400 bg-transparent focus:outline-none"
+            />
+          </div>
+          <button className="bg-[#F97316] hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-xl transition-colors text-sm shrink-0 shadow-md shadow-orange-100">
+            Search
+          </button>
+        </div>
+
+        {/* Popular searches */}
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="text-xs text-gray-500 font-medium">Popular searches:</span>
+          {POPULAR_SEARCHES.map((tag) => (
+            <button
+              key={tag}
+              onClick={() => setSearchQuery(tag)}
+              className="text-xs px-3 py-1.5 rounded-full bg-gray-100 hover:bg-orange-50 hover:text-[#F97316] text-gray-600 border border-gray-100 hover:border-orange-200 transition-colors"
+            >
+              {tag}
+            </button>
           ))}
         </div>
       </div>
