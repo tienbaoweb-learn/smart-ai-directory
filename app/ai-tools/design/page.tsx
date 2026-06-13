@@ -416,23 +416,18 @@ function CompareSection() {
                   </div>
                 </React.Fragment>
               ))}
-              {/* Add slot — shown only when fewer than 3 tools selected */}
-              {COMPARE_SLOTS.length < 3 && (
-                <>
-                  <VsBadge size="sm" />
-                  <div className="flex flex-col items-center gap-1.5">
-                    <div className="w-12 h-12 rounded-full border-2 border-dashed border-gray-300 hover:border-teal-400 flex items-center justify-center transition-colors cursor-pointer">
-                      <span className="text-gray-400 text-xl leading-none">+</span>
-                    </div>
-                    <span className="text-xs text-gray-400">Add Tool</span>
-                  </div>
-                </>
-              )}
+              {/* Add Tool slot — always visible after selected tools */}
+              <div className="flex flex-col items-center gap-1.5">
+                <div className="w-14 h-14 rounded-full border-2 border-dashed border-gray-300 hover:border-[#F97316] flex items-center justify-center transition-colors cursor-pointer">
+                  <span className="text-gray-400 text-2xl leading-none">+</span>
+                </div>
+                <span className="text-xs text-gray-400">Add Tool</span>
+              </div>
             </div>
 
             {/* ── Compare button ── */}
             <div className="flex justify-end mb-8">
-              <button className="bg-gradient-to-r from-teal-400 to-cyan-500 hover:opacity-90 text-white font-semibold px-6 py-2.5 rounded-full text-sm transition-opacity shadow-sm">
+              <button className="bg-gradient-to-r from-[#F97316] to-orange-500 hover:opacity-90 text-white font-semibold px-6 py-2.5 rounded-full text-sm transition-opacity shadow-sm">
                 Compare AI Tools
               </button>
             </div>
@@ -468,7 +463,7 @@ function CompareSection() {
                   </div>
 
                   {/* Full-width bottom button */}
-                  <button className="w-full bg-gradient-to-r from-teal-400 to-cyan-500 hover:opacity-90 text-white font-semibold py-3 text-sm transition-opacity">
+                  <button className="w-full bg-gradient-to-r from-[#F97316] to-orange-500 hover:opacity-90 text-white font-semibold py-3 text-sm transition-opacity">
                     Compare AI&apos;s
                   </button>
                 </div>
