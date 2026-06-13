@@ -397,32 +397,15 @@ function CompareSection() {
 
             {/* ── Tool selector row ── */}
             <p className="text-sm font-semibold text-[#1E293B] mb-3">Add AI tools for comparison</p>
-            <div className="bg-gray-50 rounded-xl p-6 flex flex-wrap items-end gap-4 mb-4">
-              {COMPARE_SLOTS.map((tool, i) => (
-                <React.Fragment key={tool.name}>
-                  {i > 0 && <VsBadge size="sm" />}
-                  <div className="relative flex flex-col items-center gap-1.5">
-                    {/* Remove button */}
-                    <button
-                      className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-gray-200 hover:bg-gray-300 flex items-center justify-center text-gray-500 text-[10px] leading-none transition-colors z-10"
-                      aria-label={`Remove ${tool.name}`}
-                    >
-                      ✕
-                    </button>
-                    <div className={`w-12 h-12 rounded-full ${tool.bg} flex items-center justify-center`}>
-                      <span className="text-white font-black text-xs">{tool.initials}</span>
-                    </div>
-                    <span className="text-xs text-gray-600 font-medium whitespace-nowrap">{tool.name}</span>
+            <div className="bg-gray-50 rounded-xl p-6 flex justify-around items-center mb-4">
+              {[1, 2, 3].map((n) => (
+                <div key={n} className="flex flex-col items-center gap-1.5 cursor-pointer group">
+                  <div className="w-14 h-14 rounded-full border-2 border-dashed border-gray-300 group-hover:border-[#F97316] flex items-center justify-center transition-colors">
+                    <span className="text-gray-400 group-hover:text-[#F97316] text-2xl leading-none transition-colors">+</span>
                   </div>
-                </React.Fragment>
-              ))}
-              {/* Add Tool slot — always visible after selected tools */}
-              <div className="flex flex-col items-center gap-1.5">
-                <div className="w-14 h-14 rounded-full border-2 border-dashed border-gray-300 hover:border-[#F97316] flex items-center justify-center transition-colors cursor-pointer">
-                  <span className="text-gray-400 text-2xl leading-none">+</span>
+                  <span className="text-xs text-gray-400">+ Add tool</span>
                 </div>
-                <span className="text-xs text-gray-400">Add Tool</span>
-              </div>
+              ))}
             </div>
 
             {/* ── Compare button ── */}
