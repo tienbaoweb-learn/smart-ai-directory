@@ -407,7 +407,7 @@ function TopPicksSection() {
               <button className="w-full bg-[#2B7FFF] hover:bg-blue-600 text-white font-semibold text-xs py-2 rounded-lg transition-colors mb-2">
                 Read Review
               </button>
-              <button className="w-full border border-gray-200 hover:border-gray-300 text-gray-600 font-semibold text-xs py-2 rounded-lg transition-colors">
+              <button className="w-full border border-gray-200 hover:border-[#F97316] text-gray-600 hover:text-[#F97316] hover:bg-orange-50 font-semibold text-xs py-2 rounded-lg transition-colors">
                 Visit Website
               </button>
             </div>
@@ -631,7 +631,7 @@ function AllToolsTable({
                       <button className="bg-[#2B7FFF] hover:bg-blue-600 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap">
                         Read Review
                       </button>
-                      <button className="border border-gray-200 hover:border-gray-300 text-gray-600 hover:text-gray-800 text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap">
+                      <button className="border border-gray-200 hover:border-[#F97316] text-gray-600 hover:text-[#F97316] hover:bg-orange-50 text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap">
                         Visit Website
                       </button>
                     </div>
