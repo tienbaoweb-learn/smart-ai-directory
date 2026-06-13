@@ -313,7 +313,7 @@ function ToolRow({
           </a>
           <a
             href="#"
-            className="text-xs font-semibold bg-[#F97316] hover:bg-orange-600 text-white px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap"
+            className="text-xs font-semibold bg-[#2B7FFF] hover:bg-blue-600 text-white px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap"
           >
             Visit Website →
           </a>
