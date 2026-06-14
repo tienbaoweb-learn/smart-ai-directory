@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -12,11 +13,14 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata = {
-  metadataBase: new URL("https://smart-ai-tools-for-work-directory.vercel.app"),
+export const metadata: Metadata = {
+  metadataBase: new URL("https://smartaiforwork.com"),
   title: "SmartAI for Work - AI Tools Directory",
   description:
     "Discover handpicked AI tools for furniture, architecture, construction, and real estate.",
+  verification: {
+    google: "Z4JIndYC-yoGI9FOu3WU7sEkqzZgR9i8-d5nWGTzyyA",
+  },
   icons: {
     icon: "/favicon.svg",
   },
@@ -24,7 +28,7 @@ export const metadata = {
     title: "SmartAI for Work - AI Tools Directory",
     description:
       "Discover handpicked AI tools for furniture, architecture, construction, and real estate.",
-    url: "https://smart-ai-tools-for-work-directory.vercel.app",
+    url: "https://smartaiforwork.com",
     type: "website",
     images: [
       {
@@ -57,6 +61,7 @@ export default function RootLayout({
       <body suppressHydrationWarning className="min-h-full flex flex-col">
         {children}
       </body>
+      <GoogleAnalytics gaId="G-L89TF2X49L" />
     </html>
   );
 }
