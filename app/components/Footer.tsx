@@ -1,21 +1,44 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const FOOTER_COLS = [
   {
     title: "Explore",
-    links: ["AI Tools", "Industries", "Best Of", "All Reviews", "Workflows"],
+    links: [
+      { label: "AI Tools",    href: "/ai-tools"            },
+      { label: "Industries",  href: "/industries"          },
+      { label: "Best Of",     href: "/best-of"             },
+      { label: "All Reviews", href: "/all-reviews"         },
+      { label: "Workflows",   href: "/resources/workflows" },
+    ],
   },
   {
     title: "Industries",
-    links: ["Furniture", "Architecture", "Construction", "Real Estate"],
+    links: [
+      { label: "Furniture",     href: "/industries/furniture"     },
+      { label: "Architecture",  href: "/industries/architecture"  },
+      { label: "Construction",  href: "/industries/construction"  },
+      { label: "Real Estate",   href: "/industries/real-estate"   },
+    ],
   },
   {
     title: "Resources",
-    links: ["Guides", "Comparisons", "AI Glossary", "Submit a Tool"],
+    links: [
+      { label: "Guides",       href: "/resources/guides"      },
+      { label: "Comparisons",  href: "/resources/comparisons" },
+      { label: "AI Glossary",  href: "/ai-glossary"           },
+      { label: "Submit a Tool",href: "#"                      },
+    ],
   },
   {
     title: "Company",
-    links: ["About Us", "Contact", "Privacy Policy", "Terms of Use"],
+    links: [
+      { label: "About Us",             href: "/about-us"             },
+      { label: "Contact",              href: "/contact"              },
+      { label: "Privacy Policy",       href: "/privacy-policy"       },
+      { label: "Terms of Use",         href: "/terms-of-use"         },
+      { label: "Affiliate Disclosure", href: "/affiliate-disclosure" },
+    ],
   },
 ];
 
@@ -39,9 +62,9 @@ export default function Footer() {
             </p>
             <div className="flex gap-2">
               {[
-                { label: "X", icon: "✕" },
+                { label: "X",        icon: "✕" },
                 { label: "LinkedIn", icon: "in" },
-                { label: "YouTube", icon: "▶" },
+                { label: "YouTube",  icon: "▶" },
               ].map((s) => (
                 <button
                   key={s.label}
@@ -58,11 +81,11 @@ export default function Footer() {
             <div key={col.title}>
               <p className="font-bold text-xs sm:text-sm text-white mb-4">{col.title}</p>
               <ul className="space-y-2.5">
-                {col.links.map((link) => (
-                  <li key={link}>
-                    <a href="#" className="text-white/50 hover:text-white text-xs sm:text-sm transition-colors">
-                      {link}
-                    </a>
+                {col.links.map(({ label, href }) => (
+                  <li key={label}>
+                    <Link href={href} className="text-white/50 hover:text-white text-xs sm:text-sm transition-colors">
+                      {label}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -87,19 +110,24 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mb-8">
+        {/* Affiliate disclosure notice */}
+        <div className="mb-4 text-center">
           <p className="text-xs text-[#777F8A] leading-relaxed">
-            Disclaimer: Some links on this page are affiliate links, meaning we may earn a commission at no cost to you. We only recommend tools we believe provide real value. This helps support our independent research. Thank you!
+            Some links on this site are affiliate links. We may earn a commission at no extra cost to you.{" "}
+            <Link href="/affiliate-disclosure" className="underline hover:text-white/70 transition-colors">
+              Learn more →
+            </Link>
           </p>
         </div>
 
+        {/* Copyright line */}
         <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 text-white/40 text-xs">
-          <p>© 2026 SmartAI for Work. All rights reserved.</p>
+          <p>© 2026 SmartAIforWork. All rights reserved.</p>
           <span className="hidden sm:inline">·</span>
           <div className="flex gap-4">
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms of Use</a>
-            <a href="#" className="hover:text-white transition-colors">Cookie Settings</a>
+            <Link href="/privacy-policy"       className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/terms-of-use"         className="hover:text-white transition-colors">Terms of Use</Link>
+            <Link href="/affiliate-disclosure" className="hover:text-white transition-colors">Affiliate Disclosure</Link>
           </div>
         </div>
       </div>

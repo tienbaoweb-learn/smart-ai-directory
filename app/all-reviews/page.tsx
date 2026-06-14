@@ -276,7 +276,7 @@ export default function AllReviewsPage() {
                     {/* Buttons */}
                     <div className="flex gap-1.5 sm:gap-2 mt-3 w-full">
                       <Link
-                        href={`/ai-tools/${tool.slug}`}
+                        href={`/tools/${tool.slug}`}
                         className="flex-1 text-center bg-blue-600 hover:bg-blue-700 text-white text-[10px] sm:text-xs font-medium px-1.5 sm:px-3 py-1.5 rounded-md transition-colors whitespace-nowrap"
                       >
                         Read Review →

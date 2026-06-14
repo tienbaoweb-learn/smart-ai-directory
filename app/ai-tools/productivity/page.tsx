@@ -317,12 +317,9 @@ function ToolRow({
           <p className="text-gray-400 text-xs">{tool.pricingDetail}</p>
         </div>
         <div className="flex sm:flex-col gap-2">
-          <a
-            href="#"
-            className="text-xs font-semibold border border-gray-200 hover:border-[#F97316] hover:text-[#F97316] text-gray-600 px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap"
-          >
-            Read Review →
-          </a>
+          <span className="text-xs font-semibold border border-gray-200 text-gray-400 px-3 py-1.5 rounded-lg whitespace-nowrap cursor-default">
+            Review Coming Soon
+          </span>
           <a
             href="#"
             className="text-xs font-semibold bg-[#2B7FFF] hover:bg-blue-600 text-white px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap"
