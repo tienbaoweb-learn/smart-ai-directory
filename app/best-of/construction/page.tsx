@@ -327,44 +327,44 @@ export default function BestConstructionToolsPage() {
 
           <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
             {TOP_PICKS.map((tool) => (
-              <div key={tool.name} className="border border-gray-100 rounded-xl p-4 bg-white relative flex flex-col items-center text-center shadow-sm hover:shadow-md transition-shadow">
+              <div key={tool.name} className="border border-gray-100 rounded-xl p-3 sm:p-4 bg-white relative flex flex-col h-full items-center text-center shadow-sm hover:shadow-md transition-shadow">
                 <span className={`absolute top-2 left-2 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${RANK_BADGE[tool.rank]}`}>
                   {tool.rank}
                 </span>
 
-                <div className={`w-12 h-12 rounded-lg ${tool.logoBg} flex items-center justify-center mt-5 shrink-0`}>
+                <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg ${tool.logoBg} flex items-center justify-center mt-5 shrink-0`}>
                   <span className="text-white text-sm font-bold">{tool.logoText}</span>
                 </div>
 
-                <p className="font-semibold text-base text-[#1E293B] mt-2">{tool.name}</p>
+                <p className="font-semibold text-sm text-[#1E293B] mt-2">{tool.name}</p>
 
                 <div className="flex items-center justify-center gap-1 mt-1">
                   <Star size={12} className="text-amber-400 fill-amber-400 shrink-0" />
-                  <span className="text-xs font-medium text-[#1E293B]">{tool.rating}</span>
-                  <span className="text-xs text-gray-400">({tool.reviews})</span>
+                  <span className="text-[10px] sm:text-xs font-medium text-[#1E293B]">{tool.rating}</span>
+                  <span className="text-[10px] sm:text-xs text-gray-400">({tool.reviews})</span>
                 </div>
 
-                <p className="text-xs text-[#f27313] font-medium mt-1">{tool.bestFor}</p>
+                <p className="text-[10px] sm:text-xs text-[#f27313] font-medium mt-1">{tool.bestFor}</p>
 
-                <p className="text-xs text-gray-600 mt-2 leading-relaxed line-clamp-2 flex-1">
+                <p className="text-[11px] sm:text-xs text-gray-600 mt-2 leading-relaxed line-clamp-3">
                   {tool.desc}
                 </p>
 
                 <div className="mt-2">
-                  <span className="text-xs font-medium text-[#1E293B]">{tool.pricingLabel}</span>
-                  <span className="text-xs text-gray-500"> · {tool.price}</span>
+                  <span className="text-[10px] sm:text-xs font-medium text-[#1E293B]">{tool.pricingLabel}</span>
+                  <span className="text-[10px] sm:text-xs text-gray-500"> · {tool.price}</span>
                 </div>
 
-                <div className="flex flex-row gap-2 mt-3 w-full">
+                <div className="flex flex-row flex-nowrap gap-1.5 mt-auto pt-3 w-full">
                   <Link
                     href={tool.href}
-                    className="flex-1 text-center bg-[#f27313] hover:bg-[#cf5e0a] text-white text-xs font-medium px-2 py-1.5 rounded-md transition-colors whitespace-nowrap"
+                    className="flex-1 text-center bg-[#f27313] hover:bg-[#cf5e0a] text-white text-[10px] sm:text-xs font-medium px-1.5 sm:px-3 py-1.5 rounded-md transition-colors whitespace-nowrap"
                   >
                     Read Review →
                   </Link>
                   <a
                     href="#"
-                    className="flex-1 text-center border border-gray-300 hover:bg-gray-50 text-gray-700 text-xs font-medium px-2 py-1.5 rounded-md transition-colors whitespace-nowrap"
+                    className="flex-1 text-center border border-gray-300 hover:bg-gray-50 text-gray-700 text-[10px] sm:text-xs font-medium px-1.5 sm:px-3 py-1.5 rounded-md transition-colors whitespace-nowrap"
                   >
                     Visit Site ↗
                   </a>

@@ -806,87 +806,57 @@ function TopToolsSection() {
           <div className="lg:col-span-3 space-y-4">
             {TOP_TOOLS.map((tool) => (
               <div key={tool.name} className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow">
-                <div className="flex gap-4">
-                  {/* Rank */}
-                  <div className="shrink-0 flex flex-col items-center gap-2">
-                    <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-extrabold ${
-                      tool.rank === 1
-                        ? "bg-amber-400 text-white"
-                        : "border-2 border-gray-200 text-gray-400"
-                    }`}>
-                      {tool.rank}
-                    </div>
+                <div className="flex justify-between items-start mb-3">
+                  <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-extrabold ${tool.rank === 1 ? "bg-amber-400 text-white" : tool.rank === 2 ? "bg-gray-400 text-white" : "bg-gray-200 text-gray-700"}`}>
+                    {tool.rank}
                   </div>
-
-                  {/* Logo */}
-                  <div className={`w-14 h-14 rounded-xl ${tool.iconBg} flex items-center justify-center text-sm font-black ${tool.iconText} shrink-0`}>
-                    {tool.initials}
-                  </div>
-
-                  {/* Main content */}
-                  <div className="flex-1 min-w-0">
-                    <div className="flex flex-wrap items-center gap-2 mb-1">
-                      <span className="font-bold text-base text-[#1E293B]">{tool.name}</span>
-                      {tool.featured && (
-                        <span className="bg-amber-100 text-amber-700 text-[10px] font-bold px-2 py-0.5 rounded-full">
-                          Featured
-                        </span>
-                      )}
-                    </div>
-                    {/* Stars + reviews */}
-                    <div className="flex items-center gap-1.5 mb-2">
-                      <span className="text-amber-400 text-sm">{"★".repeat(Math.floor(parseFloat(tool.rating)))}</span>
-                      <span className="text-sm font-semibold text-[#1E293B]">{tool.rating}</span>
-                      <span className="text-xs text-gray-400">({tool.reviews} reviews)</span>
-                    </div>
-                    <p className="text-sm text-gray-500 leading-relaxed mb-2">{tool.desc}</p>
-                    <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-500">
-                      <span>
-                        <span className="font-semibold text-[#1E293B]">Best For</span>{" "}
-                        {tool.bestFor}
-                      </span>
-                    </div>
-                    {/* Integrations */}
-                    <div className="flex items-center gap-2 mt-2">
-                      <span className="text-xs text-gray-400 font-semibold">Integrations</span>
-                      <div className="flex gap-1">
-                        {tool.integrations.map((intg) => (
-                          <span
-                            key={intg.label}
-                            title={intg.title}
-                            className={`w-6 h-6 rounded-md ${intg.bg} text-white text-[9px] font-bold flex items-center justify-center`}
-                          >
-                            {intg.label}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Right column */}
-                  <div className="shrink-0 flex flex-col items-end gap-2 min-w-[140px]">
-                    <div className="text-right mb-1">
-                      <p className="text-[10px] text-gray-400 uppercase tracking-wide">Pricing</p>
-                      <p className="text-sm font-bold text-[#1E293B]">{tool.price}</p>
-                    </div>
-                    <a
-                      href="#"
-                      className="w-full text-center text-xs font-semibold text-[#1E293B] border border-gray-300 rounded-lg px-3 py-2 hover:border-[#1E293B] transition-colors"
-                    >
-                      Read Review →
-                    </a>
-                    <a
-                      href="#"
-                      className="w-full text-center text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg px-3 py-2 transition-colors"
-                    >
-                      Visit Website →
-                    </a>
-                    <label className="flex items-center gap-1.5 cursor-pointer mt-1">
-                      <input type="checkbox" className="w-3.5 h-3.5 rounded border-gray-300 accent-blue-600 cursor-pointer" />
-                      <span className="text-[11px] text-gray-400 hover:text-gray-600 transition-colors">Add to Compare</span>
-                    </label>
+                  <div className="text-right">
+                    <p className="text-[10px] text-gray-400 uppercase tracking-wide">Pricing</p>
+                    <p className="text-sm font-bold text-[#1E293B]">{tool.price}</p>
                   </div>
                 </div>
+                <div className="flex items-center gap-3 mb-2">
+                  <div className={`w-12 h-12 rounded-xl ${tool.iconBg} flex items-center justify-center text-sm font-black ${tool.iconText} shrink-0`}>
+                    {tool.initials}
+                  </div>
+                  <div>
+                    <p className="font-bold text-base text-[#1E293B] leading-tight">{tool.name}</p>
+                    {tool.featured && (
+                      <span className="bg-amber-100 text-amber-700 text-[10px] font-bold px-2 py-0.5 rounded-full inline-block mt-0.5">Featured</span>
+                    )}
+                  </div>
+                </div>
+                <div className="flex items-center gap-1.5 mb-2">
+                  <span className="text-amber-400 text-sm">{"★".repeat(Math.floor(parseFloat(tool.rating)))}</span>
+                  <span className="text-sm font-semibold text-[#1E293B]">{tool.rating}</span>
+                  <span className="text-xs text-gray-400">({tool.reviews} reviews)</span>
+                </div>
+                <p className="text-sm text-gray-500 leading-relaxed mb-2 line-clamp-3">{tool.desc}</p>
+                <div className="text-xs text-gray-500 mb-2">
+                  <span className="font-semibold text-[#1E293B]">Best For </span>{tool.bestFor}
+                </div>
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-xs text-gray-400 font-semibold">Integrations</span>
+                  <div className="flex gap-1">
+                    {tool.integrations.map((intg) => (
+                      <span key={intg.label} title={intg.title} className={`w-6 h-6 rounded-md ${intg.bg} text-white text-[9px] font-bold flex items-center justify-center`}>
+                        {intg.label}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <div className="flex gap-2">
+                  <a href="#" className="flex-1 text-center text-xs font-semibold text-[#1E293B] border border-gray-300 rounded-lg px-3 py-2 hover:border-[#1E293B] transition-colors whitespace-nowrap">
+                    Read Review →
+                  </a>
+                  <a href="#" className="flex-1 text-center text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg px-3 py-2 transition-colors whitespace-nowrap">
+                    Visit Website →
+                  </a>
+                </div>
+                <label className="flex items-center gap-1.5 cursor-pointer mt-2">
+                  <input type="checkbox" className="w-3.5 h-3.5 rounded border-gray-300 accent-blue-600 cursor-pointer" />
+                  <span className="text-[11px] text-gray-400 hover:text-gray-600 transition-colors">Add to Compare</span>
+                </label>
               </div>
             ))}
           </div>
