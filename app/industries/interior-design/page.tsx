@@ -11,10 +11,34 @@ import Footer from "../../components/Footer";
 
 const BENEFITS = [
   {
-    title: "Save Time",
-    desc: "Automate reports & documentation",
-    iconBg: "bg-[#eef2f6]",
-    iconColor: "text-[#6484A4]",
+    title: "Visualize Spaces",
+    desc: "Generate photorealistic renders instantly",
+    iconBg: "bg-green-100",
+    iconColor: "text-green-600",
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+        <rect x="3" y="3" width="18" height="18" rx="2" />
+        <circle cx="8.5" cy="8.5" r="1.5" />
+        <polyline points="21 15 16 10 5 21" />
+      </svg>
+    ),
+  },
+  {
+    title: "Impress Clients",
+    desc: "Deliver stunning presentations faster",
+    iconBg: "bg-teal-100",
+    iconColor: "text-teal-600",
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M5 3l14 9-14 9V3z" />
+      </svg>
+    ),
+  },
+  {
+    title: "Save Hours",
+    desc: "Automate mood boards & floor plans",
+    iconBg: "bg-emerald-100",
+    iconColor: "text-emerald-600",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
         <circle cx="12" cy="12" r="10" />
@@ -23,32 +47,10 @@ const BENEFITS = [
     ),
   },
   {
-    title: "Reduce Costs",
-    desc: "Cut overruns & material waste",
-    iconBg: "bg-amber-100",
-    iconColor: "text-amber-600",
-    icon: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-4-4l4 4 4-4M6 10h12" />
-      </svg>
-    ),
-  },
-  {
-    title: "Improve Safety",
-    desc: "AI-powered site hazard detection",
-    iconBg: "bg-blue-100",
-    iconColor: "text-blue-600",
-    icon: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-      </svg>
-    ),
-  },
-  {
-    title: "Stay Competitive",
-    desc: "Win bids with AI-powered insights",
-    iconBg: "bg-emerald-100",
-    iconColor: "text-emerald-600",
+    title: "Win More Projects",
+    desc: "Stand out with AI-powered proposals",
+    iconBg: "bg-lime-100",
+    iconColor: "text-lime-700",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -59,10 +61,10 @@ const BENEFITS = [
 
 const CHALLENGES = [
   {
-    title: "Project Delays & Cost Overruns",
-    desc: "Unexpected delays and budget overruns are the leading causes of project failure.",
-    iconBg: "bg-[#eef2f6]",
-    iconColor: "text-[#6484A4]",
+    title: "Time-Consuming Visualizations",
+    desc: "Creating realistic renders manually takes days, slowing down the design review process.",
+    iconBg: "bg-green-100",
+    iconColor: "text-green-600",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
         <circle cx="12" cy="12" r="10" />
@@ -72,48 +74,47 @@ const CHALLENGES = [
     ),
   },
   {
-    title: "Lack of Real-time Site Visibility",
-    desc: "Without live data, managers miss critical progress updates and on-site issues.",
+    title: "Client Communication Gaps",
+    desc: "Clients struggle to visualize designs from 2D drawings, leading to costly revisions.",
     iconBg: "bg-amber-100",
     iconColor: "text-amber-600",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
       </svg>
     ),
   },
   {
-    title: "Manual Documentation",
-    desc: "Creating daily reports, RFIs, and compliance docs manually consumes hours every day.",
+    title: "Space Planning Complexity",
+    desc: "Optimizing furniture layout and traffic flow for different room sizes is tedious and error-prone.",
     iconBg: "bg-blue-100",
     iconColor: "text-blue-600",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        <rect x="3" y="3" width="18" height="18" rx="2" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3 9h18M9 21V9" />
       </svg>
     ),
   },
   {
-    title: "Inaccurate Progress Tracking",
-    desc: "Relying on manual inspections leads to inaccurate schedules and reactive decisions.",
+    title: "Concept Consistency",
+    desc: "Maintaining a cohesive design style across mood boards, renders, and presentations is challenging.",
     iconBg: "bg-red-100",
     iconColor: "text-red-500",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
-        <polyline strokeLinecap="round" strokeLinejoin="round" points="23 18 13.5 8.5 8.5 13.5 1 6" />
-        <polyline strokeLinecap="round" strokeLinejoin="round" points="17 18 23 18 23 12" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
       </svg>
     ),
   },
   {
-    title: "Safety & Compliance Issues",
-    desc: "Managing safety protocols and regulatory compliance across large sites is complex.",
+    title: "Sourcing & Procurement",
+    desc: "Finding the right furniture and materials that fit style, budget, and availability takes hours.",
     iconBg: "bg-emerald-100",
     iconColor: "text-emerald-600",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
       </svg>
     ),
   },
@@ -122,39 +123,39 @@ const CHALLENGES = [
 const STEPS = [
   {
     num: 1,
-    title: "Project Planning",
-    desc: "Use AI to generate project schedules, cost estimates, and resource plans in minutes.",
-    badgeColor: "bg-[#6484A4]",
-    iconBg: "bg-[#eef2f6]",
-    iconColor: "text-[#6484A4]",
-    borderColor: "border-[#eef2f6]",
-    linkColor: "text-[#6484A4] hover:text-[#6484A4]",
+    title: "Concept & Mood Board",
+    desc: "Use AI to generate mood boards, color palettes, and style concepts from a brief in minutes.",
+    badgeColor: "bg-[#35966a]",
+    iconBg: "bg-green-100",
+    iconColor: "text-green-700",
+    borderColor: "border-green-100",
+    linkColor: "text-green-700 hover:text-green-800",
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
       </svg>
     ),
   },
   {
     num: 2,
-    title: "Site Monitoring",
-    desc: "AI-powered cameras and sensors provide real-time visibility into every corner of your site.",
-    badgeColor: "bg-amber-500",
-    iconBg: "bg-amber-100",
-    iconColor: "text-amber-600",
-    borderColor: "border-amber-100",
-    linkColor: "text-amber-600 hover:text-amber-700",
+    title: "Space Planning",
+    desc: "AI floor plan tools optimize furniture placement and traffic flow for any room dimensions.",
+    badgeColor: "bg-teal-500",
+    iconBg: "bg-teal-100",
+    iconColor: "text-teal-600",
+    borderColor: "border-teal-100",
+    linkColor: "text-teal-600 hover:text-teal-700",
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+        <rect x="3" y="3" width="18" height="18" rx="2" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3 9h18M9 21V9" />
       </svg>
     ),
   },
   {
     num: 3,
-    title: "Progress Tracking",
-    desc: "Automatically compare as-built conditions vs. plans to identify delays before they escalate.",
+    title: "3D Rendering",
+    desc: "Transform floor plans into photorealistic 3D renders to help clients visualize the final space.",
     badgeColor: "bg-blue-600",
     iconBg: "bg-blue-100",
     iconColor: "text-blue-600",
@@ -162,14 +163,14 @@ const STEPS = [
     linkColor: "text-blue-600 hover:text-blue-700",
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
-        <polyline strokeLinecap="round" strokeLinejoin="round" points="22 12 18 12 15 21 9 3 6 12 2 12" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" />
       </svg>
     ),
   },
   {
     num: 4,
-    title: "Reporting & Documentation",
-    desc: "Auto-generate daily reports, safety logs, and compliance documents with AI assistance.",
+    title: "Client Presentation",
+    desc: "Auto-generate polished presentations, virtual tours, and proposal decks with AI assistance.",
     badgeColor: "bg-emerald-500",
     iconBg: "bg-emerald-100",
     iconColor: "text-emerald-600",
@@ -177,7 +178,7 @@ const STEPS = [
     linkColor: "text-emerald-600 hover:text-emerald-700",
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
       </svg>
     ),
   },
@@ -185,64 +186,64 @@ const STEPS = [
 
 const STEP_TOOLS_DATA = [
   {
-    step: "Project Planning",
-    tab: "Planning",
+    step: "Concept & Mood Board",
+    tab: "Concept",
     stepNum: 1,
-    badgeColor: "bg-[#6484A4]",
-    headerText: "text-[#6484A4]",
-    totalCount: 11,
+    badgeColor: "bg-[#35966a]",
+    headerText: "text-green-700",
+    totalCount: 10,
     tools: [
-      { name: "Procore AI", rating: "4.8", reviews: "620", initials: "PC", iconBg: "bg-orange-600" },
-      { name: "ALICE Technologies", rating: "4.7", reviews: "280", initials: "AT", iconBg: "bg-blue-700" },
-      { name: "Notion AI", rating: "4.7", reviews: "640", initials: "N", iconBg: "bg-gray-900" },
-      { name: "Copy.ai", rating: "4.6", reviews: "430", initials: "C", iconBg: "bg-blue-600" },
+      { name: "Midjourney", rating: "4.9", reviews: "1.2K", initials: "MJ", iconBg: "bg-gray-900" },
+      { name: "Canva AI", rating: "4.8", reviews: "980", initials: "CA", iconBg: "bg-[#0CC0DF]" },
+      { name: "Adobe Firefly", rating: "4.7", reviews: "540", initials: "AF", iconBg: "bg-orange-500" },
+      { name: "Moodboard AI", rating: "4.6", reviews: "210", initials: "MB", iconBg: "bg-pink-500" },
     ],
   },
   {
-    step: "Site Monitoring",
-    tab: "Monitoring",
+    step: "Space Planning",
+    tab: "Planning",
     stepNum: 2,
-    badgeColor: "bg-amber-500",
-    headerText: "text-amber-600",
-    totalCount: 9,
+    badgeColor: "bg-teal-500",
+    headerText: "text-teal-600",
+    totalCount: 8,
     tools: [
-      { name: "Buildots", rating: "4.8", reviews: "380", initials: "BT", iconBg: "bg-amber-500" },
-      { name: "OpenSpace", rating: "4.7", reviews: "310", initials: "OS", iconBg: "bg-blue-500" },
-      { name: "Doxel", rating: "4.6", reviews: "190", initials: "DX", iconBg: "bg-indigo-600" },
-      { name: "PlanGrid", rating: "4.5", reviews: "520", initials: "PG", iconBg: "bg-emerald-600" },
+      { name: "Planner 5D", rating: "4.8", reviews: "920", initials: "5D", iconBg: "bg-[#35966a]" },
+      { name: "RoomGPT", rating: "4.7", reviews: "680", initials: "RG", iconBg: "bg-purple-600" },
+      { name: "Homestyler", rating: "4.6", reviews: "750", initials: "HS", iconBg: "bg-teal-500" },
+      { name: "Coohom", rating: "4.6", reviews: "430", initials: "CH", iconBg: "bg-blue-600" },
     ],
   },
   {
-    step: "Progress Tracking",
-    tab: "Tracking",
+    step: "3D Rendering",
+    tab: "Rendering",
     stepNum: 3,
     badgeColor: "bg-blue-600",
     headerText: "text-blue-700",
-    totalCount: 10,
+    totalCount: 11,
     tools: [
-      { name: "Procore AI", rating: "4.8", reviews: "620", initials: "PC", iconBg: "bg-orange-600" },
-      { name: "PlanGrid", rating: "4.7", reviews: "520", initials: "PG", iconBg: "bg-emerald-600" },
-      { name: "Fieldwire", rating: "4.6", reviews: "340", initials: "FW", iconBg: "bg-blue-600" },
-      { name: "Microsoft Copilot", rating: "4.5", reviews: "890", initials: "MC", iconBg: "bg-blue-700" },
+      { name: "Foyr Neo", rating: "4.8", reviews: "380", initials: "FN", iconBg: "bg-indigo-600" },
+      { name: "Coohom", rating: "4.7", reviews: "430", initials: "CH", iconBg: "bg-blue-600" },
+      { name: "Planner 5D", rating: "4.8", reviews: "920", initials: "5D", iconBg: "bg-[#35966a]" },
+      { name: "SketchUp AI", rating: "4.6", reviews: "560", initials: "SK", iconBg: "bg-red-500" },
     ],
   },
   {
-    step: "Reporting",
-    tab: "Reporting",
+    step: "Client Presentation",
+    tab: "Presentation",
     stepNum: 4,
     badgeColor: "bg-emerald-500",
     headerText: "text-emerald-700",
-    totalCount: 8,
+    totalCount: 7,
     tools: [
       { name: "Canva AI", rating: "4.9", reviews: "980", initials: "CA", iconBg: "bg-[#0CC0DF]" },
-      { name: "Notion AI", rating: "4.8", reviews: "640", initials: "N", iconBg: "bg-gray-900" },
+      { name: "Gamma", rating: "4.8", reviews: "610", initials: "G", iconBg: "bg-violet-600" },
       { name: "Jasper", rating: "4.7", reviews: "510", initials: "J", iconBg: "bg-orange-500" },
-      { name: "Copy.ai", rating: "4.6", reviews: "430", initials: "C", iconBg: "bg-blue-600" },
+      { name: "Beautiful.ai", rating: "4.6", reviews: "340", initials: "BA", iconBg: "bg-emerald-600" },
     ],
   },
 ];
 
-const TABS = ["All Steps", "Planning", "Monitoring", "Tracking", "Reporting"];
+const TABS = ["All Steps", "Concept", "Planning", "Rendering", "Presentation"];
 
 // ─── STAR RATING ──────────────────────────────────────────────────────────────
 
@@ -259,122 +260,121 @@ function Stars({ rating }: { rating: string }) {
 // ─── TOP TOOLS DATA ───────────────────────────────────────────────────────────
 
 const USE_CASES = [
-  { label: "Project Planning", count: 24 },
-  { label: "Site Monitoring", count: 18 },
-  { label: "Progress Tracking", count: 22 },
-  { label: "Safety & Compliance", count: 16 },
-  { label: "Cost Estimation", count: 20 },
-  { label: "Documentation", count: 19 },
-  { label: "BIM & Modeling", count: 14 },
+  { label: "Space Planning", count: 22 },
+  { label: "3D Rendering", count: 28 },
+  { label: "Concept Design", count: 20 },
+  { label: "Client Presentation", count: 18 },
+  { label: "Mood Board", count: 16 },
+  { label: "Furniture Layout", count: 14 },
 ];
 
 const PRICING_TYPES = [
-  { label: "Free", count: 8 },
-  { label: "Freemium", count: 22 },
-  { label: "Paid", count: 70 },
+  { label: "Free", count: 10 },
+  { label: "Freemium", count: 24 },
+  { label: "Paid", count: 60 },
 ];
 
 const BEST_FOR_FILTERS = [
-  { label: "General Contractors", count: 30 },
-  { label: "Project Managers", count: 28 },
-  { label: "Site Engineers", count: 20 },
-  { label: "Safety Officers", count: 16 },
-  { label: "Subcontractors", count: 18 },
+  { label: "Interior Designers", count: 32 },
+  { label: "Design Studios", count: 24 },
+  { label: "Freelancers", count: 20 },
+  { label: "Homeowners", count: 18 },
+  { label: "Architects", count: 14 },
 ];
 
 const INTEGRATIONS_FILTERS = [
-  { label: "Procore", count: 28 },
-  { label: "AutoCAD", count: 30 },
-  { label: "Revit", count: 22 },
-  { label: "Trimble", count: 18 },
-  { label: "BIM 360", count: 24 },
-  { label: "Others", count: 20 },
+  { label: "SketchUp", count: 26 },
+  { label: "AutoCAD", count: 22 },
+  { label: "Revit", count: 18 },
+  { label: "Canva", count: 30 },
+  { label: "Adobe Suite", count: 24 },
+  { label: "Others", count: 16 },
 ];
 
 const TOP_TOOLS = [
   {
     rank: 1,
-    name: "Buildots",
+    name: "Planner 5D",
     featured: true,
-    price: "~$500/month",
+    price: "~$7/month",
     rating: "4.8",
-    reviews: "380",
-    desc: "AI-powered construction monitoring platform that compares site progress against BIM models in real time.",
-    bestFor: "General Contractors, Project Managers",
+    reviews: "920",
+    desc: "AI-powered floor plan and 3D design tool that lets you visualize any room in photorealistic quality within minutes.",
+    bestFor: "Interior Designers, Homeowners",
     integrations: [
-      { label: "BM", bg: "bg-blue-600", title: "BIM 360" },
-      { label: "PC", bg: "bg-orange-600", title: "Procore" },
+      { label: "SK", bg: "bg-red-500", title: "SketchUp" },
+      { label: "CA", bg: "bg-[#0CC0DF]", title: "Canva" },
     ],
-    initials: "BT",
-    iconBg: "bg-amber-500",
+    initials: "5D",
+    iconBg: "bg-[#35966a]",
     iconText: "text-white",
   },
   {
     rank: 2,
-    name: "Procore AI",
+    name: "RoomGPT",
     featured: false,
-    price: "~$375/month",
-    rating: "4.8",
-    reviews: "620",
-    desc: "AI-enhanced construction project management platform covering scheduling, budgets, and field collaboration.",
-    bestFor: "General Contractors, Project Managers",
+    price: "Free / ~$15/month",
+    rating: "4.7",
+    reviews: "680",
+    desc: "AI room redesign tool that transforms photos of any room into stunning new interior concepts in seconds.",
+    bestFor: "Freelancers, Homeowners",
     integrations: [
-      { label: "AC", bg: "bg-red-600", title: "AutoCAD" },
-      { label: "RV", bg: "bg-blue-600", title: "Revit" },
+      { label: "CA", bg: "bg-[#0CC0DF]", title: "Canva" },
+      { label: "AD", bg: "bg-orange-500", title: "Adobe Suite" },
     ],
-    initials: "PC",
-    iconBg: "bg-orange-600",
+    initials: "RG",
+    iconBg: "bg-purple-600",
     iconText: "text-white",
   },
   {
     rank: 3,
-    name: "OpenSpace",
+    name: "Coohom",
     featured: false,
-    price: "~$300/month",
+    price: "~$39/month",
     rating: "4.7",
-    reviews: "310",
-    desc: "360° site capture and AI analysis tool that automatically documents every corner of your job site.",
-    bestFor: "Site Engineers, Project Managers",
+    reviews: "430",
+    desc: "Professional 3D interior design and rendering platform with a massive furniture library and real-time collaboration.",
+    bestFor: "Design Studios, Interior Designers",
     integrations: [
-      { label: "PC", bg: "bg-orange-600", title: "Procore" },
-      { label: "BM", bg: "bg-blue-600", title: "BIM 360" },
+      { label: "SK", bg: "bg-red-500", title: "SketchUp" },
+      { label: "AC", bg: "bg-red-600", title: "AutoCAD" },
     ],
-    initials: "OS",
-    iconBg: "bg-blue-500",
+    initials: "CH",
+    iconBg: "bg-blue-600",
     iconText: "text-white",
   },
   {
     rank: 4,
-    name: "ALICE Technologies",
+    name: "Homestyler",
     featured: false,
-    price: "~$250/month",
-    rating: "4.7",
-    reviews: "280",
-    desc: "AI-driven construction simulation and schedule optimization that finds the fastest, lowest-cost build path.",
-    bestFor: "General Contractors, Planners",
+    price: "Free / ~$9/month",
+    rating: "4.6",
+    reviews: "750",
+    desc: "Easy-to-use online interior design tool with AI-generated room suggestions and a large product catalog.",
+    bestFor: "Freelancers, Homeowners",
     integrations: [
-      { label: "AC", bg: "bg-red-600", title: "AutoCAD" },
-      { label: "TM", bg: "bg-indigo-600", title: "Trimble" },
+      { label: "CA", bg: "bg-[#0CC0DF]", title: "Canva" },
+      { label: "AD", bg: "bg-orange-500", title: "Adobe Suite" },
     ],
-    initials: "AT",
-    iconBg: "bg-blue-700",
+    initials: "HS",
+    iconBg: "bg-teal-500",
     iconText: "text-white",
   },
   {
     rank: 5,
-    name: "PlanGrid",
+    name: "Foyr Neo",
     featured: false,
-    price: "~$39/month",
-    rating: "4.5",
-    reviews: "520",
-    desc: "Field management tool by Autodesk for managing drawings, punch lists, and RFIs on any device on-site.",
-    bestFor: "Site Engineers, Subcontractors",
+    price: "~$49/month",
+    rating: "4.8",
+    reviews: "380",
+    desc: "Professional AI interior design software that combines space planning, 3D rendering, and client presentations in one platform.",
+    bestFor: "Interior Designers, Design Studios",
     integrations: [
-      { label: "AC", bg: "bg-red-600", title: "AutoCAD" },
-      { label: "PC", bg: "bg-orange-600", title: "Procore" },
+      { label: "SK", bg: "bg-red-500", title: "SketchUp" },
+      { label: "RV", bg: "bg-blue-600", title: "Revit" },
     ],
-    initials: "PG",
-    iconBg: "bg-emerald-600",
+    initials: "FN",
+    iconBg: "bg-indigo-600",
     iconText: "text-white",
   },
 ];
@@ -383,28 +383,28 @@ const TOP_TOOLS = [
 
 const CASE_STUDIES = [
   {
-    stat: "-20%",
-    label: "Decrease in Project Delays",
-    company: "BuildWell Construction",
-    type: "General Contractor",
-    desc: "AI progress tracking caught schedule drift early, saving weeks on a $15M project.",
-    img: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=300&q=80",
+    stat: "-60%",
+    label: "Faster Visualization Turnaround",
+    company: "Studio Verde Design",
+    type: "Interior Design Studio",
+    desc: "AI rendering tools cut client visualization time from 3 days to under 4 hours per project.",
+    img: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=300&q=80",
   },
   {
-    stat: "+35%",
-    label: "Safety Compliance Rate",
-    company: "SkyBuild Group",
-    type: "Commercial Builder",
-    desc: "AI-powered site monitoring flagged safety violations in real time, reducing incidents.",
-    img: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=300&q=80",
+    stat: "+40%",
+    label: "Increase in Client Approvals",
+    company: "Casa Forma",
+    type: "Luxury Residential Designer",
+    desc: "Photorealistic AI renders helped clients approve designs faster, reducing revision cycles by half.",
+    img: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=300&q=80",
   },
   {
-    stat: "+50%",
-    label: "Faster Report Generation",
-    company: "Metro Construction Co.",
-    type: "Infrastructure Contractor",
-    desc: "Automated AI reporting cut daily documentation time from 2 hours to under 30 minutes.",
-    img: "https://images.unsplash.com/photo-1590644365607-5cf36869a51c?w=300&q=80",
+    stat: "+3x",
+    label: "More Projects Handled",
+    company: "Maya Interiors",
+    type: "Freelance Interior Designer",
+    desc: "Automated mood boards and space planning tools tripled her monthly project capacity.",
+    img: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=300&q=80",
   },
 ];
 
@@ -412,44 +412,10 @@ const CASE_STUDIES = [
 
 const BEST_OF_LISTS = [
   {
-    title: "Best AI Tools for Construction Planning",
-    count: 12,
-    iconBg: "bg-[#eef2f6]",
-    iconColor: "text-[#6484A4]",
-    icon: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-      </svg>
-    ),
-  },
-  {
-    title: "Best AI Site Monitoring Tools",
-    count: 9,
-    iconBg: "bg-amber-100",
-    iconColor: "text-amber-600",
-    icon: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-      </svg>
-    ),
-  },
-  {
-    title: "Best AI Tools for Safety & Compliance",
-    count: 8,
-    iconBg: "bg-blue-100",
-    iconColor: "text-blue-600",
-    icon: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-      </svg>
-    ),
-  },
-  {
-    title: "Best AI BIM Tools",
-    count: 10,
-    iconBg: "bg-indigo-100",
-    iconColor: "text-indigo-600",
+    title: "Best AI Tools for 3D Rendering",
+    count: 14,
+    iconBg: "bg-green-100",
+    iconColor: "text-green-700",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" />
@@ -457,13 +423,47 @@ const BEST_OF_LISTS = [
     ),
   },
   {
-    title: "Best AI Tools for Small Construction Firms",
+    title: "Best AI Floor Plan Tools",
+    count: 10,
+    iconBg: "bg-teal-100",
+    iconColor: "text-teal-600",
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+        <rect x="3" y="3" width="18" height="18" rx="2" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3 9h18M9 21V9" />
+      </svg>
+    ),
+  },
+  {
+    title: "Best AI Mood Board Generators",
+    count: 8,
+    iconBg: "bg-pink-100",
+    iconColor: "text-pink-600",
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+      </svg>
+    ),
+  },
+  {
+    title: "Best AI Tools for Client Presentations",
+    count: 9,
+    iconBg: "bg-blue-100",
+    iconColor: "text-blue-600",
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+      </svg>
+    ),
+  },
+  {
+    title: "Best AI Tools for Freelance Designers",
     count: 11,
     iconBg: "bg-emerald-100",
     iconColor: "text-emerald-600",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
       </svg>
     ),
   },
@@ -498,7 +498,7 @@ function CheckGroup({
                 type="checkbox"
                 checked={checked.includes(item.label)}
                 onChange={() => onToggle(item.label)}
-                className="w-3.5 h-3.5 rounded border-gray-300 accent-[#6484A4] cursor-pointer"
+                className="w-3.5 h-3.5 rounded border-gray-300 accent-[#35966a] cursor-pointer"
               />
               <span className="text-xs text-gray-600 group-hover:text-[#1E293B] transition-colors">{item.label}</span>
             </div>
@@ -516,11 +516,11 @@ function BreadcrumbSection() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-2">
       <nav className="flex items-center gap-1.5 text-xs text-gray-400">
-        <Link href="/" className="hover:text-[#6484A4] transition-colors">Home</Link>
+        <Link href="/" className="hover:text-[#F97316] transition-colors">Home</Link>
         <span>›</span>
-        <Link href="/industries" className="hover:text-[#6484A4] transition-colors">Industries</Link>
+        <Link href="/industries" className="hover:text-[#F97316] transition-colors">Industries</Link>
         <span>›</span>
-        <span className="text-[#1E293B] font-medium">Construction</span>
+        <span className="text-[#1E293B] font-medium">Interior Design</span>
       </nav>
     </div>
   );
@@ -533,17 +533,17 @@ function HeroSection() {
         <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-14">
           {/* Left */}
           <div className="flex-1 min-w-0">
-            <span className="inline-block bg-[#eef2f6] text-[#6484A4] text-xs font-semibold tracking-wider uppercase px-3 py-1 rounded-full mb-5">
-              AI for Construction Companies
+            <span className="inline-block bg-green-100 text-green-700 text-xs font-semibold tracking-wider uppercase px-3 py-1 rounded-full mb-5">
+              AI for Interior Designers
             </span>
             <h1 className="text-4xl sm:text-5xl font-extrabold text-[#1E293B] leading-tight mb-5">
               AI Tools for
               <br />
-              <span className="text-amber-600">Construction</span>{" "}
-              <span className="text-[#6484A4]">Companies</span>
+              <span className="text-[#35966a]">Interior</span>{" "}
+              <span className="text-teal-500">Designers</span>
             </h1>
             <p className="text-gray-500 text-base leading-relaxed mb-8 max-w-lg">
-              From project planning and site monitoring to progress tracking and compliance reporting, discover AI tools that help construction companies deliver projects on time, on budget, and safely.
+              From AI mood boards and space planning to photorealistic 3D rendering and client presentations, discover the tools that help interior designers create stunning spaces faster and win more projects.
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {BENEFITS.map((b) => (
@@ -560,13 +560,13 @@ function HeroSection() {
 
           {/* Right — image + floating cards + blobs */}
           <div className="flex-1 relative w-full min-h-[320px] sm:min-h-[400px]">
-            <div className="absolute -top-8 -right-8 w-64 h-64 rounded-full bg-amber-300 blur-3xl opacity-30 pointer-events-none" />
-            <div className="absolute -bottom-8 right-16 w-56 h-56 rounded-full bg-[#6484A4] blur-3xl opacity-30 pointer-events-none" />
+            <div className="absolute -top-8 -right-8 w-64 h-64 rounded-full bg-green-300 blur-3xl opacity-30 pointer-events-none" />
+            <div className="absolute -bottom-8 right-16 w-56 h-56 rounded-full bg-teal-300 blur-3xl opacity-30 pointer-events-none" />
 
             <div className="relative rounded-2xl overflow-hidden w-full h-[300px] sm:h-[380px]">
               <Image
-                src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=900&q=80"
-                alt="Construction site"
+                src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=900&q=80"
+                alt="Interior design"
                 fill
                 className="object-cover"
                 priority
@@ -575,27 +575,27 @@ function HeroSection() {
 
             {/* Floating card — top left */}
             <div className="absolute -top-4 -left-4 sm:left-2 bg-white rounded-2xl shadow-lg px-4 py-3 flex items-start gap-3 max-w-[200px]">
-              <div className="w-9 h-9 rounded-xl bg-[#eef2f6] text-[#6484A4] flex items-center justify-center shrink-0">
+              <div className="w-9 h-9 rounded-xl bg-green-100 text-green-700 flex items-center justify-center shrink-0">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
               </div>
               <div>
-                <p className="text-sm font-bold text-[#1E293B]">Build Smarter</p>
-                <p className="text-xs text-gray-400 leading-tight mt-0.5">AI-powered planning and site intelligence.</p>
+                <p className="text-sm font-bold text-[#1E293B]">Design Faster</p>
+                <p className="text-xs text-gray-400 leading-tight mt-0.5">AI renders in minutes, not days.</p>
               </div>
             </div>
 
             {/* Floating card — bottom right */}
             <div className="absolute -bottom-4 -right-4 sm:right-2 bg-white rounded-2xl shadow-lg px-4 py-3 flex items-start gap-3 max-w-[200px]">
-              <div className="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
+              <div className="w-9 h-9 rounded-xl bg-teal-100 text-teal-600 flex items-center justify-center shrink-0">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-4-4l4 4 4-4M6 10h12" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 3l14 9-14 9V3z" />
                 </svg>
               </div>
               <div>
-                <p className="text-sm font-bold text-[#1E293B]">Save Costs</p>
-                <p className="text-xs text-gray-400 leading-tight mt-0.5">Reduce overruns with real-time AI insights.</p>
+                <p className="text-sm font-bold text-[#1E293B]">Impress Clients</p>
+                <p className="text-xs text-gray-400 leading-tight mt-0.5">Photorealistic 3D in one click.</p>
               </div>
             </div>
           </div>
@@ -611,7 +611,7 @@ function ChallengesSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1E293B]">
-            Common Challenges in Construction Business
+            Common Challenges in Interior Design
           </h2>
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
@@ -636,10 +636,10 @@ function WorkflowSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1E293B] mb-2">
-            AI-Powered Workflow for Construction Companies
+            AI-Powered Workflow for Interior Designers
           </h2>
           <p className="text-gray-500 text-sm sm:text-base">
-            A step-by-step workflow to streamline your operations with AI
+            A step-by-step workflow to create stunning spaces faster with AI
           </p>
         </div>
 
@@ -790,12 +790,12 @@ function TopToolsSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-8">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1E293B]">
-            Top Tools for Construction Companies
+            Top Tools for Interior Designers
           </h2>
           <div className="flex items-center gap-2 shrink-0">
             <span className="text-sm text-gray-500">Sort by:</span>
             <div className="relative">
-              <select className="appearance-none bg-white border border-gray-200 rounded-lg text-sm font-semibold text-[#1E293B] pl-3 pr-8 py-2 focus:outline-none focus:ring-2 focus:ring-[#6484A4]/30 cursor-pointer">
+              <select className="appearance-none bg-white border border-gray-200 rounded-lg text-sm font-semibold text-[#1E293B] pl-3 pr-8 py-2 focus:outline-none focus:ring-2 focus:ring-[#35966a]/30 cursor-pointer">
                 <option>Featured</option>
                 <option>Highest Rated</option>
                 <option>Most Reviews</option>
@@ -811,7 +811,7 @@ function TopToolsSection() {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           <div className="lg:col-span-1">
             <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm lg:sticky lg:top-24 space-y-6">
-              <CheckGroup title="Use Case" items={USE_CASES} checked={useCases} onToggle={(l) => toggle(useCases, setUseCases, l)} dotColor="bg-[#6484A4]" />
+              <CheckGroup title="Use Case" items={USE_CASES} checked={useCases} onToggle={(l) => toggle(useCases, setUseCases, l)} dotColor="bg-[#35966a]" />
               <div className="border-t border-gray-100" />
               <CheckGroup title="Pricing" items={PRICING_TYPES} checked={pricingTypes} onToggle={(l) => toggle(pricingTypes, setPricingTypes, l)} />
               <div className="border-t border-gray-100" />
@@ -825,7 +825,7 @@ function TopToolsSection() {
                   max={1000}
                   value={priceRange}
                   onChange={(e) => setPriceRange(Number(e.target.value))}
-                  className="w-full h-1.5 accent-[#6484A4] cursor-pointer"
+                  className="w-full h-1.5 accent-[#35966a] cursor-pointer"
                 />
                 <div className="flex justify-between text-[10px] text-gray-400 mt-1.5">
                   <span>$0</span>
@@ -835,7 +835,7 @@ function TopToolsSection() {
               <div className="border-t border-gray-100" />
               <CheckGroup title="Integrations" items={INTEGRATIONS_FILTERS} checked={integrations} onToggle={(l) => toggle(integrations, setIntegrations, l)} />
               <div className="border-t border-gray-100" />
-              <button onClick={resetAll} className="w-full py-2 rounded-xl border border-gray-300 text-sm font-semibold text-gray-600 hover:border-[#6484A4] hover:text-[#6484A4] transition-colors">
+              <button onClick={resetAll} className="w-full py-2 rounded-xl border border-gray-300 text-sm font-semibold text-gray-600 hover:border-[#35966a] hover:text-[#35966a] transition-colors">
                 Reset Filters
               </button>
             </div>
@@ -887,12 +887,12 @@ function TopToolsSection() {
                   <a href="#" className="flex-1 text-center text-xs font-semibold text-[#1E293B] border border-gray-300 rounded-lg px-3 py-2 hover:border-[#1E293B] transition-colors whitespace-nowrap">
                     Read Review →
                   </a>
-                  <a href="#" className="flex-1 text-center text-xs font-semibold text-white bg-[#6484A4] hover:bg-[#527090] rounded-lg px-3 py-2 transition-colors whitespace-nowrap">
+                  <a href="#" className="flex-1 text-center text-xs font-semibold text-white bg-[#35966a] hover:bg-[#2c7d58] rounded-lg px-3 py-2 transition-colors whitespace-nowrap">
                     Visit Website →
                   </a>
                 </div>
                 <label className="flex items-center gap-1.5 cursor-pointer mt-2">
-                  <input type="checkbox" className="w-3.5 h-3.5 rounded border-gray-300 accent-[#6484A4] cursor-pointer" />
+                  <input type="checkbox" className="w-3.5 h-3.5 rounded border-gray-300 accent-[#35966a] cursor-pointer" />
                   <span className="text-[11px] text-gray-400 hover:text-gray-600 transition-colors">Add to Compare</span>
                 </label>
               </div>
@@ -911,11 +911,11 @@ function RealResultsSection() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-8">
           <div>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1E293B] mb-1">
-              Real Results from Construction Companies
+              Real Results from Interior Designers
             </h2>
-            <p className="text-gray-400 text-sm">See how companies use AI to deliver better projects</p>
+            <p className="text-gray-400 text-sm">See how designers use AI to create better spaces</p>
           </div>
-          <a href="#" className="text-sm font-semibold text-[#6484A4] hover:text-[#6484A4] transition-colors shrink-0">
+          <a href="#" className="text-sm font-semibold text-[#35966a] hover:text-[#2c7d58] transition-colors shrink-0">
             View all case studies →
           </a>
         </div>
@@ -926,12 +926,12 @@ function RealResultsSection() {
                 <Image src={cs.img} alt={cs.company} fill className="object-cover" />
               </div>
               <div className="p-5">
-                <p className="text-3xl font-extrabold text-[#6484A4] mb-0.5">{cs.stat}</p>
+                <p className="text-3xl font-extrabold text-[#35966a] mb-0.5">{cs.stat}</p>
                 <p className="text-xs text-gray-400 mb-3">{cs.label}</p>
                 <p className="font-bold text-sm text-[#1E293B] mb-0.5">{cs.company}</p>
                 <p className="text-xs text-gray-400 mb-3">{cs.type}</p>
                 <p className="text-xs text-gray-500 leading-relaxed mb-4">{cs.desc}</p>
-                <a href="#" className="text-xs font-semibold text-[#6484A4] hover:text-[#6484A4] transition-colors">
+                <a href="#" className="text-xs font-semibold text-[#35966a] hover:text-[#2c7d58] transition-colors">
                   Read Story →
                 </a>
               </div>
@@ -950,11 +950,11 @@ function BestOfSection() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-8">
           <div>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1E293B] mb-1">
-              Rest Of Construction AI Tools
+              Best Of Interior Design AI Tools
             </h2>
             <p className="text-gray-400 text-sm">Curated lists of top-performing tools</p>
           </div>
-          <a href="#" className="text-sm font-semibold text-[#6484A4] hover:text-[#6484A4] transition-colors shrink-0">
+          <a href="#" className="text-sm font-semibold text-[#35966a] hover:text-[#2c7d58] transition-colors shrink-0">
             View all Best Of lists →
           </a>
         </div>
@@ -976,7 +976,7 @@ function BestOfSection() {
 
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
 
-export default function ConstructionPage() {
+export default function InteriorDesignPage() {
   return (
     <>
       <Navbar />
@@ -991,8 +991,8 @@ export default function ConstructionPage() {
         <BestOfSection />
       </main>
       <Newsletter
-        heading="Get Weekly AI Tools & Construction Insights"
-        subtitle="Join 10,000+ contractors and project managers who get AI tips, workflows, and tool recommendations."
+        heading="Get Weekly AI Tools & Design Inspiration"
+        subtitle="Join 8,000+ interior designers who get AI tips, tool reviews, and design workflow ideas every week."
       />
       <Footer />
     </>
