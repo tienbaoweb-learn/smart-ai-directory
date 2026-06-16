@@ -22,9 +22,9 @@ const nextConfig: NextConfig = {
         destination: "/tools/jasper-ai",
         permanent: true,
       },
-      // Catch-all: any other /ai-tools/:slug → /tools/:slug
+      // Redirect individual tool slugs to /tools/:slug, but exclude the 5 category pages
       {
-        source: "/ai-tools/:slug",
+        source: "/ai-tools/:slug((?!design|content-marketing|automation|sales|productivity).+)",
         destination: "/tools/:slug",
         permanent: true,
       },

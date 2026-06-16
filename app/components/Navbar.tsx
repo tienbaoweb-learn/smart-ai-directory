@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   Menu, X, ChevronDown,
-  Layers, Star, Sparkles, Tag, PenLine, Image as ImageIcon, Workflow, BarChart3,
+  Layers, Star, Sparkles, Tag, PenLine, Palette, Workflow, BarChart3, TrendingUp,
   Building2, HardHat, Home, Sofa, Armchair, Grid3x3,
   Trophy, ArrowRight,
   BookOpen, GraduationCap, Scale, Briefcase, BookMarked, Newspaper,
@@ -42,10 +42,11 @@ const DROPDOWNS: Record<string, { minWidth: string; sections: DropdownSection[] 
       {
         title: "BY CATEGORY",
         items: [
-          { icon: PenLine,   label: "AI Writing",    href: "/ai-tools/writing" },
-          { icon: ImageIcon, label: "AI Design",     href: "/ai-tools/design" },
-          { icon: Workflow,  label: "AI Automation", href: "/ai-tools/automation" },
-          { icon: BarChart3, label: "AI Analytics",  href: "/ai-tools/analytics" },
+          { icon: PenLine,    label: "AI Content & Marketing",       href: "/ai-tools/content-marketing" },
+          { icon: Palette,    label: "AI Design & Visualization",    href: "/ai-tools/design" },
+          { icon: Workflow,   label: "AI Automation & Workflow",     href: "/ai-tools/automation" },
+          { icon: BarChart3,  label: "AI Productivity & Management", href: "/ai-tools/productivity" },
+          { icon: TrendingUp, label: "AI Sales & Lead Generation",   href: "/ai-tools/sales" },
         ],
       },
     ],
@@ -161,9 +162,11 @@ const MOBILE_NAV: MobileNavItem[] = [
       { icon: Star,      label: "Top Rated",      href: "/ai-tools?sort=top-rated" },
       { icon: Sparkles,  label: "New Arrivals",   href: "/ai-tools?sort=newest" },
       { icon: Tag,       label: "Free Tools",     href: "/ai-tools?pricing=free" },
-      { icon: PenLine,   label: "AI Writing",     href: "/ai-tools/writing",    dividerLabel: "BY CATEGORY" },
-      { icon: ImageIcon, label: "AI Design",      href: "/ai-tools/design" },
-      { icon: Workflow,  label: "AI Automation",  href: "/ai-tools/automation" },
+      { icon: PenLine,    label: "AI Content & Marketing",       href: "/ai-tools/content-marketing",  dividerLabel: "BY CATEGORY" },
+      { icon: Palette,    label: "AI Design & Visualization",    href: "/ai-tools/design" },
+      { icon: Workflow,   label: "AI Automation & Workflow",     href: "/ai-tools/automation" },
+      { icon: BarChart3,  label: "AI Productivity & Management", href: "/ai-tools/productivity" },
+      { icon: TrendingUp, label: "AI Sales & Lead Generation",   href: "/ai-tools/sales" },
     ],
   },
   {

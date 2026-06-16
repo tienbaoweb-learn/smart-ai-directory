@@ -128,7 +128,7 @@ function BreadcrumbSection() {
           <svg className="w-3 h-3 text-gray-300" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
           </svg>
-          <span className="text-[#1E293B] font-medium">Content &amp; Marketing</span>
+          <span className="text-[#1E293B] font-medium">AI Content &amp; Marketing</span>
         </nav>
       </div>
     </div>

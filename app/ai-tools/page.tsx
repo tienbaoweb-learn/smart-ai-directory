@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
@@ -12,24 +13,28 @@ import { ALL_TOOLS, CATEGORY_LABELS } from "../data/tools";
 const INDUSTRY_CARDS = [
   {
     id: "furniture",
+    href: "/industries/furniture",
     label: "Furniture",
     desc: "Design, visualise & sell furniture smarter",
     img: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80",
   },
   {
     id: "architecture",
+    href: "/industries/architecture",
     label: "Architecture",
     desc: "Design, plan & visualize architectural projects",
     img: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80",
   },
   {
     id: "construction",
+    href: "/industries/construction",
     label: "Construction",
     desc: "Build, manage & track projects efficiently",
     img: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80",
   },
   {
     id: "realestate",
+    href: "/industries/real-estate",
     label: "Real Estate",
     desc: "Find leads, list & close deals faster",
     img: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80",
@@ -95,11 +100,11 @@ const TOP_PICKS = [
 ];
 
 const CATEGORIES = [
-  { name: "AI Design & Visualization",     value: "design",             count: 13, color: "bg-violet-100",  iconColor: "text-violet-500" },
-  { name: "AI Content & Marketing",        value: "content-marketing",  count: 18, color: "bg-purple-100",  iconColor: "text-purple-500" },
-  { name: "AI Automation & Workflow",      value: "automation",         count: 16, color: "bg-orange-100",  iconColor: "text-orange-500" },
-  { name: "AI Sales & Lead Generation",    value: "sales",              count: 10, color: "bg-green-100",   iconColor: "text-green-500" },
-  { name: "AI Productivity & Management",  value: "productivity",       count: 17, color: "bg-yellow-100",  iconColor: "text-yellow-600" },
+  { name: "AI Design & Visualization",    href: "/ai-tools/design",            value: "design",             count: 13, color: "bg-violet-100",  iconColor: "text-violet-500" },
+  { name: "AI Content & Marketing",       href: "/ai-tools/content-marketing", value: "content-marketing",  count: 18, color: "bg-purple-100",  iconColor: "text-purple-500" },
+  { name: "AI Automation & Workflow",     href: "/ai-tools/automation",        value: "automation",         count: 16, color: "bg-orange-100",  iconColor: "text-orange-500" },
+  { name: "AI Sales & Lead Generation",   href: "/ai-tools/sales",             value: "sales",              count: 10, color: "bg-green-100",   iconColor: "text-green-500" },
+  { name: "AI Productivity & Management", href: "/ai-tools/productivity",      value: "productivity",       count: 17, color: "bg-yellow-100",  iconColor: "text-yellow-600" },
 ];
 
 
@@ -322,9 +327,9 @@ function IndustrySection() {
 
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           {INDUSTRY_CARDS.map((card) => (
-            <a
+            <Link
               key={card.id}
-              href="/#explore"
+              href={card.href}
               className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 p-3 sm:p-4 border border-gray-100 rounded-2xl bg-white hover:border-orange-200 hover:shadow-md transition-all group"
             >
               {/* Image — full-width on mobile (+30% → h-[104px]), fixed 80px square on desktop */}
@@ -345,7 +350,7 @@ function IndustrySection() {
 
               {/* Arrow — hidden on mobile stacked layout, shown on desktop row layout */}
               <span className="hidden sm:block text-gray-400 group-hover:text-[#F97316] transition-colors shrink-0">→</span>
-            </a>
+            </Link>
           ))}
         </div>
       </div>
@@ -438,9 +443,9 @@ function CategoriesSection() {
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
           {CATEGORIES.map((cat) => (
-            <a
+            <Link
               key={cat.name}
-              href="#"
+              href={cat.href}
               className="flex items-center gap-3 bg-white rounded-2xl border border-gray-100 hover:border-orange-200 hover:shadow-md transition-all p-4 group"
             >
               <div className={`w-9 h-9 rounded-xl ${cat.color} flex items-center justify-center shrink-0`}>
@@ -452,14 +457,14 @@ function CategoriesSection() {
                 </p>
                 <p className="text-gray-400 text-xs mt-0.5">{cat.count} Tools</p>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
 
         <div className="text-center mt-8">
-          <a href="#" className="inline-flex items-center gap-1 text-[#2B7FFF] text-sm font-semibold hover:opacity-80">
+          <Link href="/ai-tools" className="inline-flex items-center gap-1 text-[#2B7FFF] text-sm font-semibold hover:opacity-80">
             View all categories →
-          </a>
+          </Link>
         </div>
       </div>
     </section>
