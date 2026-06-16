@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import Navbar from "./components/Navbar";
 import Newsletter from "./components/Newsletter";
 import Footer from "./components/Footer";
@@ -11,6 +12,7 @@ import Footer from "./components/Footer";
 const INDUSTRY_CARDS = [
   {
     id: "furniture",
+    href: "/industries/furniture",
     label: "Furniture",
     count: 18,
     icon: "🪑",
@@ -20,6 +22,7 @@ const INDUSTRY_CARDS = [
   },
   {
     id: "architecture",
+    href: "/industries/architecture",
     label: "Architecture",
     count: 22,
     icon: "🏛️",
@@ -29,6 +32,7 @@ const INDUSTRY_CARDS = [
   },
   {
     id: "construction",
+    href: "/industries/construction",
     label: "Construction",
     count: 24,
     icon: "🏗️",
@@ -38,6 +42,7 @@ const INDUSTRY_CARDS = [
   },
   {
     id: "realestate",
+    href: "/industries/real-estate",
     label: "Real Estate",
     count: 26,
     icon: "🏙️",
@@ -50,6 +55,7 @@ const INDUSTRY_CARDS = [
 const TOOLS = [
   {
     id: 1,
+    slug: "planner-5d",
     name: "Planner 5D",
     industry: "Furniture",
     industryColor: "bg-amber-100 text-amber-700",
@@ -63,6 +69,7 @@ const TOOLS = [
   },
   {
     id: 2,
+    slug: "archicad-ai",
     name: "Archicad AI",
     industry: "Architecture",
     industryColor: "bg-slate-100 text-slate-700",
@@ -76,6 +83,7 @@ const TOOLS = [
   },
   {
     id: 3,
+    slug: "buildots",
     name: "Buildots",
     industry: "Construction",
     industryColor: "bg-orange-100 text-orange-700",
@@ -89,6 +97,7 @@ const TOOLS = [
   },
   {
     id: 4,
+    slug: "offrs",
     name: "Offrs",
     industry: "Real Estate",
     industryColor: "bg-blue-100 text-blue-700",
@@ -102,6 +111,7 @@ const TOOLS = [
   },
   {
     id: 5,
+    slug: "midjourney",
     name: "Midjourney",
     industry: "Architecture",
     industryColor: "bg-slate-100 text-slate-700",
@@ -115,6 +125,7 @@ const TOOLS = [
   },
   {
     id: 6,
+    slug: "revaluate",
     name: "Revaluate",
     industry: "Real Estate",
     industryColor: "bg-blue-100 text-blue-700",
@@ -290,12 +301,12 @@ function HeroSection() {
 
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row flex-wrap gap-4 mb-10">
-              <a href="#explore" className="flex items-center justify-center gap-2 bg-[#F97316] hover:bg-orange-600 text-white font-bold text-base px-8 py-4 rounded-xl transition-colors shadow-lg shadow-orange-100">
+              <Link href="/ai-tools" className="flex items-center justify-center gap-2 bg-[#F97316] hover:bg-orange-600 text-white font-bold text-base px-8 py-4 rounded-xl transition-colors shadow-lg shadow-orange-100">
                 Explore AI Tools <span>→</span>
-              </a>
-              <a href="#top-tools" className="flex items-center justify-center gap-2 border-2 border-[#1E293B] text-[#1E293B] hover:bg-[#2B7FFF] hover:border-[#2B7FFF] hover:text-white font-bold text-base px-8 py-4 rounded-xl transition-colors">
+              </Link>
+              <Link href="/ai-tools#top-picks" className="flex items-center justify-center gap-2 border-2 border-[#1E293B] text-[#1E293B] hover:bg-[#2B7FFF] hover:border-[#2B7FFF] hover:text-white font-bold text-base px-8 py-4 rounded-xl transition-colors">
                 See Top Picks
-              </a>
+              </Link>
             </div>
 
             {/* Trust badges with icons */}
@@ -445,12 +456,12 @@ function TopTools() {
           <h2 className="text-3xl sm:text-4xl font-extrabold text-[#1E293B]">
             Top AI Tools Across Industries
           </h2>
-          <a
-            href="#"
+          <Link
+            href="/ai-tools"
             className="text-[#2B7FFF] text-sm font-semibold hover:opacity-80 hidden sm:block whitespace-nowrap"
           >
             View all tools →
-          </a>
+          </Link>
         </div>
         <p className="text-gray-500 text-sm sm:text-base mb-8">Most popular and highly rated AI tools</p>
 
@@ -506,20 +517,23 @@ function TopTools() {
                 </span>
               </div>
 
-              <button className="w-full border border-[#F97316] text-[#F97316] group-hover:bg-[#F97316] group-hover:text-white font-semibold text-sm py-2.5 rounded-xl transition-colors">
+              <Link
+                href={`/ai-tools/${tool.slug}`}
+                className="w-full border border-[#F97316] text-[#F97316] group-hover:bg-[#F97316] group-hover:text-white font-semibold text-sm py-2.5 rounded-xl transition-colors block text-center"
+              >
                 View Details
-              </button>
+              </Link>
             </div>
           ))}
         </div>
 
         <div className="text-center mt-8 sm:hidden">
-          <a
-            href="#"
+          <Link
+            href="/ai-tools"
             className="text-[#2B7FFF] text-sm font-semibold hover:opacity-80"
           >
             View all tools →
-          </a>
+          </Link>
         </div>
       </div>
     </section>
@@ -647,9 +661,10 @@ function ExploreByIndustry() {
         {/* 4-Column Grid */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {INDUSTRY_CARDS.map((card) => (
-            <div
+            <Link
               key={card.id}
-              className="rounded-2xl overflow-hidden cursor-pointer group hover:shadow-xl transition-shadow bg-white"
+              href={card.href}
+              className="rounded-2xl overflow-hidden cursor-pointer group hover:shadow-xl transition-shadow bg-white block"
             >
               {/* Image area with centered icon */}
               <div className="relative h-36 sm:h-48">
@@ -679,14 +694,11 @@ function ExploreByIndustry() {
                 <p className="text-gray-500 text-sm leading-relaxed mb-4">
                   {card.desc}
                 </p>
-                <a
-                  href="#top-tools"
-                  className="inline-flex items-center gap-1 text-[#2B7FFF] text-sm font-bold hover:opacity-80"
-                >
+                <span className="inline-flex items-center gap-1 text-[#2B7FFF] text-sm font-bold hover:opacity-80">
                   Explore Tools →
-                </a>
+                </span>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
