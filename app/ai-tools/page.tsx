@@ -41,61 +41,96 @@ const INDUSTRY_CARDS = [
   },
 ];
 
-const TOP_PICKS = [
+const topPicks = [
   {
     rank: 1,
-    name: "ChatGPT",
-    company: "by OpenAI",
-    rating: 4.9,
-    reviews: 560,
-    desc: "The all-in-one AI assistant for writing, research, and more.",
-    logoBg: "bg-[#10A37F]",
-    logoText: "GP",
-    logoTextClass: "text-white font-black text-sm",
+    category: "AI Content & Marketing",
+    categoryHref: "/ai-tools/content-marketing",
+    categoryColor: "bg-blue-100 text-blue-600",
+    name: "Jasper",
+    slug: "jasper",
+    logo: { bg: "bg-purple-600", text: "J" },
+    rating: 4.6,
+    reviews: 2341,
+    bestFor: "Marketing Teams & Agencies",
+    description: "The leading AI writing platform for creating high-quality marketing content, blog posts, and ad copy at scale.",
+    pricing: "Freemium",
+    price: "From $39/month",
+    isFeatured: true,
+    reviewHref: "/ai-tools/jasper",
+    affiliateHref: "https://www.jasper.ai",
   },
   {
     rank: 2,
-    name: "Claude",
-    company: "by Anthropic",
+    category: "AI Design & Visualization",
+    categoryHref: "/ai-tools/design",
+    categoryColor: "bg-purple-100 text-purple-600",
+    name: "Midjourney",
+    slug: "midjourney",
+    logo: { bg: "bg-black", text: "MJ" },
     rating: 4.8,
-    reviews: 420,
-    desc: "Powerful AI for analysis, writing, and reasoning.",
-    logoBg: "bg-[#D97706]",
-    logoText: "Cl",
-    logoTextClass: "text-white font-black text-base",
+    reviews: 532,
+    bestFor: "Architects & Designers",
+    description: "Industry-leading AI image generation tool for creating stunning architectural visualizations and design concepts.",
+    pricing: "Paid",
+    price: "From $10/month",
+    isFeatured: true,
+    reviewHref: "/ai-tools/midjourney",
+    affiliateHref: "#",
   },
   {
     rank: 3,
-    name: "Notion AI",
-    company: "by Notion",
-    rating: 4.7,
-    reviews: 310,
-    desc: "AI workspace for notes, docs, and productivity.",
-    logoBg: "bg-white border-2 border-gray-200",
-    logoText: "N",
-    logoTextClass: "text-gray-900 font-black text-2xl",
+    category: "AI Automation & Workflow",
+    categoryHref: "/ai-tools/automation",
+    categoryColor: "bg-orange-100 text-orange-600",
+    name: "Buildots",
+    slug: "buildots",
+    logo: { bg: "bg-[#6484A4]", text: "BD" },
+    rating: 4.8,
+    reviews: 420,
+    bestFor: "Construction Teams",
+    description: "AI-powered construction monitoring platform that automates site progress tracking and reporting workflows.",
+    pricing: "Custom",
+    price: "Contact for pricing",
+    isFeatured: true,
+    reviewHref: "/ai-tools/buildots",
+    affiliateHref: "#",
   },
   {
     rank: 4,
-    name: "Zapier",
-    company: "by Zapier",
-    rating: 4.6,
-    reviews: 280,
-    desc: "Automate workflows across thousands of apps.",
-    logoBg: "bg-[#FF4A00]",
-    logoText: "Z",
-    logoTextClass: "text-white font-black text-2xl",
+    category: "AI Productivity & Management",
+    categoryHref: "/ai-tools/productivity",
+    categoryColor: "bg-green-100 text-green-600",
+    name: "Planner 5D",
+    slug: "planner-5d",
+    logo: { bg: "bg-green-600", text: "P5" },
+    rating: 4.8,
+    reviews: 1243,
+    bestFor: "Interior Designers & Homeowners",
+    description: "All-in-one AI design and planning tool to create professional 2D & 3D floor plans and interior layouts.",
+    pricing: "Freemium",
+    price: "From $7/month",
+    isFeatured: true,
+    reviewHref: "/ai-tools/planner-5d",
+    affiliateHref: "#",
   },
   {
     rank: 5,
-    name: "Perplexity AI",
-    company: "by Perplexity",
-    rating: 4.6,
-    reviews: 210,
-    desc: "AI search engine with real-time answers and citations.",
-    logoBg: "bg-[#1E293B]",
-    logoText: "Px",
-    logoTextClass: "text-white font-black text-base",
+    category: "AI Sales & Lead Generation",
+    categoryHref: "/ai-tools/sales",
+    categoryColor: "bg-emerald-100 text-emerald-600",
+    name: "REimagineHome",
+    slug: "reimaginehome",
+    logo: { bg: "bg-purple-700", text: "RH" },
+    rating: 4.9,
+    reviews: 412,
+    bestFor: "Real Estate Agents & Brokerages",
+    description: "AI virtual staging and redesign tool that helps real estate agents generate more leads and close deals faster.",
+    pricing: "Freemium",
+    price: "From $29/month",
+    isFeatured: true,
+    reviewHref: "/ai-tools/reimaginehome",
+    affiliateHref: "#",
   },
 ];
 
@@ -107,6 +142,14 @@ const CATEGORIES = [
   { name: "AI Productivity & Management", href: "/ai-tools/productivity",      value: "productivity",       count: 17, color: "bg-yellow-100",  iconColor: "text-yellow-600" },
 ];
 
+
+const CATEGORY_COLOR_MAP: Record<string, string> = {
+  "content-marketing": "bg-blue-100 text-blue-600",
+  design: "bg-purple-100 text-purple-600",
+  automation: "bg-orange-100 text-orange-600",
+  productivity: "bg-green-100 text-green-600",
+  sales: "bg-emerald-100 text-emerald-600",
+};
 
 const INDUSTRY_ICON_MAP: Record<string, { emoji: string; color: string }> = {
   furniture: { emoji: "🪑", color: "bg-amber-100" },
@@ -374,14 +417,14 @@ function TopPicksSection() {
         <p className="text-gray-500 text-sm mb-8">Our highest-rated AI tools this month</p>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-          {TOP_PICKS.map((tool) => (
+          {topPicks.map((tool) => (
             <div
               key={tool.rank}
               className="relative border border-gray-100 rounded-2xl p-5 hover:shadow-lg hover:border-orange-100 transition-all flex flex-col items-center text-center group"
             >
               {/* Rank badge */}
               <div
-                className={`absolute top-3 left-3 w-7 h-7 rounded-full flex items-center justify-center text-xs font-black ${
+                className={`absolute top-2 left-2 w-7 h-7 rounded-full flex items-center justify-center text-xs font-black ${
                   tool.rank === 1
                     ? "bg-[#F97316] text-white"
                     : tool.rank === 2
@@ -394,27 +437,66 @@ function TopPicksSection() {
                 {tool.rank}
               </div>
 
+              {/* Category badge */}
+              <Link
+                href={tool.categoryHref}
+                className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${tool.categoryColor} hover:opacity-80 transition-opacity`}
+              >
+                {tool.category}
+              </Link>
+
               {/* Logo */}
-              <div className={`w-16 h-16 rounded-2xl ${tool.logoBg} flex items-center justify-center mb-3 mt-4 shrink-0 shadow-sm`}>
-                <span className={tool.logoTextClass}>{tool.logoText}</span>
+              <div className={`w-16 h-16 rounded-2xl ${tool.logo.bg} flex items-center justify-center mx-auto mt-4 mb-3 shrink-0 shadow-sm`}>
+                <span className="text-white font-black text-sm">{tool.logo.text}</span>
               </div>
 
-              <p className="font-bold text-[#1E293B] text-sm mb-1">{tool.name}</p>
+              <p className="font-semibold text-[#1E293B] text-sm mb-1">{tool.name}</p>
 
               <div className="flex items-center justify-center gap-1 mb-1">
                 <StarRating rating={tool.rating} />
                 <span className="text-xs font-bold text-[#1E293B]">{tool.rating}</span>
               </div>
-              <span className="text-xs text-gray-400 mb-3">({tool.reviews})</span>
+              <span className="text-xs text-gray-400 mb-2">({tool.reviews})</span>
 
-              <p className="text-gray-500 text-xs leading-relaxed mb-4 line-clamp-2 flex-1">{tool.desc}</p>
+              <span className="text-xs font-semibold text-blue-600 mb-2 block">{tool.bestFor}</span>
 
-              <button className="w-full bg-[#2B7FFF] hover:bg-blue-600 text-white font-semibold text-xs py-2 rounded-lg transition-colors mb-2">
-                Read Review
-              </button>
-              <button className="w-full border border-gray-200 hover:border-[#F97316] text-gray-600 hover:text-[#F97316] hover:bg-orange-50 font-semibold text-xs py-2 rounded-lg transition-colors">
-                Visit Website
-              </button>
+              <p className="text-gray-500 text-xs leading-relaxed mb-3 line-clamp-3 flex-1">{tool.description}</p>
+
+              <div className="text-center mb-3">
+                <span
+                  className={`inline-block text-xs font-semibold px-2 py-0.5 rounded-full ${
+                    tool.pricing === "Freemium"
+                      ? "bg-green-50 text-green-700"
+                      : tool.pricing === "Paid"
+                      ? "bg-blue-50 text-blue-700"
+                      : "bg-gray-50 text-gray-700"
+                  }`}
+                >
+                  {tool.pricing}
+                </span>
+                <p className="text-gray-400 text-xs mt-0.5">{tool.price}</p>
+              </div>
+
+              <Link
+                href={tool.reviewHref}
+                className="w-full bg-[#2B7FFF] hover:bg-blue-600 text-white font-semibold text-xs py-2 rounded-lg transition-colors mb-2 block text-center"
+              >
+                Read Review →
+              </Link>
+              {tool.affiliateHref !== "#" ? (
+                <a
+                  href={tool.affiliateHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full border border-gray-200 hover:border-[#F97316] text-gray-600 hover:text-[#F97316] hover:bg-orange-50 font-semibold text-xs py-2 rounded-lg transition-colors block text-center"
+                >
+                  Visit Website ↗
+                </a>
+              ) : (
+                <button className="w-full border border-gray-200 hover:border-[#F97316] text-gray-600 hover:text-[#F97316] hover:bg-orange-50 font-semibold text-xs py-2 rounded-lg transition-colors">
+                  Visit Website ↗
+                </button>
+              )}
             </div>
           ))}
         </div>
@@ -510,7 +592,11 @@ function AllToolsTable({
   }
 
   if (sortBy === "Highest Rated") {
-    filtered = [...filtered].sort((a, b) => b.rating - a.rating);
+    filtered = [...filtered].sort((a, b) => {
+      if (a.isFeatured && !b.isFeatured) return -1;
+      if (!a.isFeatured && b.isFeatured) return 1;
+      return b.rating - a.rating;
+    });
   } else if (sortBy === "Most Reviews") {
     filtered = [...filtered].sort((a, b) => b.reviews - a.reviews);
   } else if (sortBy === "Name A-Z") {
@@ -584,6 +670,12 @@ function AllToolsTable({
                       <div>
                         <p className="font-bold text-[#1E293B] text-sm">{tool.name}</p>
                         <p className="text-gray-400 text-xs">{tool.company}</p>
+                        <Link
+                          href={`/ai-tools/${tool.category}`}
+                          className={`inline-block text-[10px] font-semibold px-1.5 py-0.5 rounded-full mt-1 ${CATEGORY_COLOR_MAP[tool.category]} hover:opacity-80 transition-opacity`}
+                        >
+                          {CATEGORY_LABELS[tool.category]}
+                        </Link>
                       </div>
                     </div>
                   </td>
@@ -633,12 +725,26 @@ function AllToolsTable({
                   {/* Action */}
                   <td className="px-4 py-4">
                     <div className="flex flex-col gap-1.5">
-                      <button className="bg-[#2B7FFF] hover:bg-blue-600 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap">
-                        Read Review
-                      </button>
-                      <button className="border border-gray-200 hover:border-[#F97316] text-gray-600 hover:text-[#F97316] hover:bg-orange-50 text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap">
-                        Visit Website
-                      </button>
+                      <Link
+                        href={`/ai-tools/${tool.slug}`}
+                        className="bg-[#2B7FFF] hover:bg-blue-600 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap text-center block"
+                      >
+                        Read Review →
+                      </Link>
+                      {tool.affiliateHref !== "#" ? (
+                        <a
+                          href={tool.affiliateHref}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="border border-gray-200 hover:border-[#F97316] text-gray-600 hover:text-[#F97316] hover:bg-orange-50 text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap text-center block"
+                        >
+                          Visit Website ↗
+                        </a>
+                      ) : (
+                        <button className="border border-gray-200 hover:border-[#F97316] text-gray-600 hover:text-[#F97316] hover:bg-orange-50 text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap">
+                          Visit Website ↗
+                        </button>
+                      )}
                     </div>
                   </td>
                 </tr>
@@ -666,6 +772,12 @@ function AllToolsTable({
                     <div>
                       <p className="font-bold text-[#1E293B] text-sm">{tool.name}</p>
                       <p className="text-gray-400 text-xs">{tool.company}</p>
+                      <Link
+                        href={`/ai-tools/${tool.category}`}
+                        className={`inline-block text-[10px] font-semibold px-1.5 py-0.5 rounded-full mt-1 ${CATEGORY_COLOR_MAP[tool.category]} hover:opacity-80 transition-opacity`}
+                      >
+                        {CATEGORY_LABELS[tool.category]}
+                      </Link>
                     </div>
                     <div className="flex items-center gap-1 shrink-0">
                       <StarRating rating={tool.rating} />
@@ -685,8 +797,18 @@ function AllToolsTable({
                   ))}
                 </div>
                 <div className="flex gap-2">
-                  <button className="bg-[#2B7FFF] text-white text-xs font-semibold px-3 py-1.5 rounded-lg">Read Review</button>
-                  <button className="border border-gray-200 text-gray-600 text-xs font-semibold px-3 py-1.5 rounded-lg">Visit</button>
+                  <Link href={`/ai-tools/${tool.slug}`} className="bg-[#2B7FFF] text-white text-xs font-semibold px-3 py-1.5 rounded-lg block">
+                    Read Review →
+                  </Link>
+                  {tool.affiliateHref !== "#" ? (
+                    <a href={tool.affiliateHref} target="_blank" rel="noopener noreferrer" className="border border-gray-200 text-gray-600 text-xs font-semibold px-3 py-1.5 rounded-lg block">
+                      Visit ↗
+                    </a>
+                  ) : (
+                    <button className="border border-gray-200 text-gray-600 text-xs font-semibold px-3 py-1.5 rounded-lg">
+                      Visit ↗
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
