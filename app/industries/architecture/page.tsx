@@ -295,6 +295,8 @@ const TOP_TOOLS = [
     rank: 1,
     name: "Archicad AI",
     featured: true,
+    reviewHref: "/ai-tools/archicad-ai",
+    affiliateHref: "#",
     price: "~$180/month",
     rating: "4.8",
     reviews: "960",
@@ -312,6 +314,8 @@ const TOP_TOOLS = [
     rank: 2,
     name: "D5 Render",
     featured: false,
+    reviewHref: "/ai-tools/d5-render",
+    affiliateHref: "#",
     price: "~$30/month",
     rating: "4.8",
     reviews: "480",
@@ -329,6 +333,8 @@ const TOP_TOOLS = [
     rank: 3,
     name: "Midjourney",
     featured: false,
+    reviewHref: "/ai-tools/midjourney",
+    affiliateHref: "#",
     price: "~$10/month",
     rating: "4.7",
     reviews: "1,243",
@@ -346,6 +352,8 @@ const TOP_TOOLS = [
     rank: 4,
     name: "Veras",
     featured: false,
+    reviewHref: "/ai-tools/veras",
+    affiliateHref: "#",
     price: "~$25/month",
     rating: "4.7",
     reviews: "290",
@@ -363,6 +371,8 @@ const TOP_TOOLS = [
     rank: 5,
     name: "Twinmotion AI",
     featured: false,
+    reviewHref: "/ai-tools/twinmotion-ai",
+    affiliateHref: "#",
     price: "~$499/year",
     rating: "4.6",
     reviews: "350",
@@ -895,10 +905,10 @@ function TopToolsSection() {
                   </div>
                 </div>
                 <div className="flex gap-2">
-                  <a href="#" className="flex-1 text-center text-xs font-semibold text-[#1E293B] border border-gray-300 rounded-lg px-3 py-2 hover:border-[#1E293B] transition-colors whitespace-nowrap">
+                  <a href={tool.reviewHref} className="flex-1 text-center text-xs font-semibold text-[#1E293B] border border-gray-300 rounded-lg px-3 py-2 hover:border-[#1E293B] transition-colors whitespace-nowrap">
                     Read Review →
                   </a>
-                  <a href="#" className="flex-1 text-center text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg px-3 py-2 transition-colors whitespace-nowrap">
+                  <a href={tool.affiliateHref} className="flex-1 text-center text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg px-3 py-2 transition-colors whitespace-nowrap">
                     Visit Website →
                   </a>
                 </div>

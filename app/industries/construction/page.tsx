@@ -296,6 +296,8 @@ const TOP_TOOLS = [
     rank: 1,
     name: "Buildots",
     featured: true,
+    reviewHref: "/ai-tools/buildots",
+    affiliateHref: "#",
     price: "~$500/month",
     rating: "4.8",
     reviews: "380",
@@ -313,6 +315,8 @@ const TOP_TOOLS = [
     rank: 2,
     name: "Procore AI",
     featured: false,
+    reviewHref: "/ai-tools/procore-ai",
+    affiliateHref: "#",
     price: "~$375/month",
     rating: "4.8",
     reviews: "620",
@@ -330,6 +334,8 @@ const TOP_TOOLS = [
     rank: 3,
     name: "OpenSpace",
     featured: false,
+    reviewHref: "/ai-tools/openspace",
+    affiliateHref: "#",
     price: "~$300/month",
     rating: "4.7",
     reviews: "310",
@@ -347,6 +353,8 @@ const TOP_TOOLS = [
     rank: 4,
     name: "ALICE Technologies",
     featured: false,
+    reviewHref: "/ai-tools/alice-technologies",
+    affiliateHref: "#",
     price: "~$250/month",
     rating: "4.7",
     reviews: "280",
@@ -364,6 +372,8 @@ const TOP_TOOLS = [
     rank: 5,
     name: "PlanGrid",
     featured: false,
+    reviewHref: "/ai-tools/plangrid",
+    affiliateHref: "#",
     price: "~$39/month",
     rating: "4.5",
     reviews: "520",
@@ -884,10 +894,10 @@ function TopToolsSection() {
                   </div>
                 </div>
                 <div className="flex gap-2">
-                  <a href="#" className="flex-1 text-center text-xs font-semibold text-[#1E293B] border border-gray-300 rounded-lg px-3 py-2 hover:border-[#1E293B] transition-colors whitespace-nowrap">
+                  <a href={tool.reviewHref} className="flex-1 text-center text-xs font-semibold text-[#1E293B] border border-gray-300 rounded-lg px-3 py-2 hover:border-[#1E293B] transition-colors whitespace-nowrap">
                     Read Review →
                   </a>
-                  <a href="#" className="flex-1 text-center text-xs font-semibold text-white bg-[#6484A4] hover:bg-[#527090] rounded-lg px-3 py-2 transition-colors whitespace-nowrap">
+                  <a href={tool.affiliateHref} className="flex-1 text-center text-xs font-semibold text-white bg-[#6484A4] hover:bg-[#527090] rounded-lg px-3 py-2 transition-colors whitespace-nowrap">
                     Visit Website →
                   </a>
                 </div>

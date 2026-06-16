@@ -48,7 +48,8 @@ const TOP_PICKS = [
     desc: "All-in-one design and planning tool with AI for layout and interior design.",
     pricingLabel: "Freemium",
     price: "From $6.99 / month",
-    href: "/ai-tools/design",
+    href: "/ai-tools/planner-5d",
+    affiliateHref: "#",
   },
   {
     rank: 2,
@@ -61,7 +62,8 @@ const TOP_PICKS = [
     desc: "Generate interior ideas instantly from room photos using AI.",
     pricingLabel: "Freemium",
     price: "From $9.99 / month",
-    href: "/ai-tools/design",
+    href: "/ai-tools/roomgpt",
+    affiliateHref: "#",
   },
   {
     rank: 3,
@@ -74,7 +76,8 @@ const TOP_PICKS = [
     desc: "Professional 3D design and rendering platform for all interior projects.",
     pricingLabel: "Free Plan",
     price: "From $15 / month",
-    href: "/ai-tools/design",
+    href: "/ai-tools/coohom",
+    affiliateHref: "#",
   },
   {
     rank: 4,
@@ -87,7 +90,8 @@ const TOP_PICKS = [
     desc: "User-friendly 3D interior design tool with AI and a huge model library.",
     pricingLabel: "Freemium",
     price: "From $4.90 / month",
-    href: "/ai-tools/design",
+    href: "/ai-tools/homestyler",
+    affiliateHref: "#",
   },
   {
     rank: 5,
@@ -100,18 +104,19 @@ const TOP_PICKS = [
     desc: "AI-powered interior design software with photorealistic renders.",
     pricingLabel: "—",
     price: "From $30 / month",
-    href: "/ai-tools/design",
+    href: "/ai-tools/foyr-neo",
+    affiliateHref: "#",
   },
 ];
 
 // ─── COMPARE TABLE DATA ───────────────────────────────────────────────────────
 
 const COMPARE_TOOLS = [
-  { name: "Planner 5D", logoBg: "bg-green-600",  logoText: "P5", bestFor: "All-in-one Design",  ease: 9.2, features: 9.0, quality: 9.1, price: 8.8, overall: 9.0 },
-  { name: "RoomGPT",    logoBg: "bg-gray-900",   logoText: "RG", bestFor: "Quick Concepts",     ease: 9.6, features: 8.2, quality: 8.3, price: 8.6, overall: 8.7 },
-  { name: "Coohom",     logoBg: "bg-blue-500",   logoText: "C",  bestFor: "3D Visualization",   ease: 8.7, features: 9.3, quality: 9.2, price: 8.1, overall: 8.8 },
-  { name: "Homestyler", logoBg: "bg-gradient-to-br from-red-400 via-yellow-400 to-green-400", logoText: "H", bestFor: "Homeowners", ease: 9.1, features: 8.4, quality: 8.6, price: 9.0, overall: 8.7 },
-  { name: "Foyr Neo",   logoBg: "bg-gray-900",   logoText: "FN", bestFor: "Professional Use",   ease: 8.3, features: 9.1, quality: 9.3, price: 7.9, overall: 8.6 },
+  { name: "Planner 5D", href: "/ai-tools/planner-5d", logoBg: "bg-green-600",  logoText: "P5", bestFor: "All-in-one Design",  ease: 9.2, features: 9.0, quality: 9.1, price: 8.8, overall: 9.0 },
+  { name: "RoomGPT", href: "/ai-tools/roomgpt",    logoBg: "bg-gray-900",   logoText: "RG", bestFor: "Quick Concepts",     ease: 9.6, features: 8.2, quality: 8.3, price: 8.6, overall: 8.7 },
+  { name: "Coohom", href: "/ai-tools/coohom",     logoBg: "bg-blue-500",   logoText: "C",  bestFor: "3D Visualization",   ease: 8.7, features: 9.3, quality: 9.2, price: 8.1, overall: 8.8 },
+  { name: "Homestyler", href: "/ai-tools/homestyler", logoBg: "bg-gradient-to-br from-red-400 via-yellow-400 to-green-400", logoText: "H", bestFor: "Homeowners", ease: 9.1, features: 8.4, quality: 8.6, price: 9.0, overall: 8.7 },
+  { name: "Foyr Neo", href: "/ai-tools/foyr-neo",   logoBg: "bg-gray-900",   logoText: "FN", bestFor: "Professional Use",   ease: 8.3, features: 9.1, quality: 9.3, price: 7.9, overall: 8.6 },
 ];
 
 const MAX_OVERALL = Math.max(...COMPARE_TOOLS.map((t) => t.overall));
@@ -344,7 +349,7 @@ export default function BestInteriorDesignToolsPage() {
               Top Picks for Interior Designers
             </h2>
             <Link
-              href="/ai-tools/design"
+              href="/ai-tools"
               className="hidden sm:inline-flex text-[#35966a] font-medium text-sm hover:underline"
             >
               View all tools →
@@ -390,7 +395,7 @@ export default function BestInteriorDesignToolsPage() {
                     Read Review →
                   </Link>
                   <a
-                    href="#"
+                    href={tool.affiliateHref}
                     className="flex-1 text-center border border-gray-300 hover:bg-gray-50 text-gray-700 text-[10px] sm:text-xs font-medium px-1.5 sm:px-3 py-1.5 rounded-md transition-colors whitespace-nowrap"
                   >
                     Visit Site ↗
@@ -470,7 +475,7 @@ export default function BestInteriorDesignToolsPage() {
                       {/* Learn More */}
                       <td className="py-3 px-4 text-center">
                         <Link
-                          href="/ai-tools/design"
+                          href={tool.href}
                           className="text-[#35966a] text-sm font-medium hover:underline whitespace-nowrap"
                         >
                           Read Review →
@@ -501,12 +506,18 @@ export default function BestInteriorDesignToolsPage() {
           {/* Cards */}
           <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-4">
             {[
-              { label: "Best for Concept Inspiration",   labelClass: "text-blue-600",    logoBg: "bg-gray-900",  logoText: "RG", name: "RoomGPT",    desc: "Instant ideas from photos.",                      href: "/ai-tools/design" },
-              { label: "Best for Space Planning",         labelClass: "text-[#35966a]",   logoBg: "bg-green-600", logoText: "P5", name: "Planner 5D", desc: "Smart layouts and space optimization.",            href: "/ai-tools/design" },
-              { label: "Best for 3D Rendering",           labelClass: "text-purple-600",  logoBg: "bg-blue-500",  logoText: "C",  name: "Coohom",     desc: "High-quality 3D renders in minutes.",             href: "/ai-tools/design" },
-              { label: "Best for Client Presentations",   labelClass: "text-red-500",     logoBg: "bg-gray-900",  logoText: "FN", name: "Foyr Neo",   desc: "Stunning visuals that impress clients.",          href: "/ai-tools/design" },
-              { label: "Best for Material & Furniture",   labelClass: "text-orange-600",  logoBg: "bg-gradient-to-br from-red-400 via-yellow-400 to-green-400", logoText: "H", name: "Homestyler", desc: "Huge library of models and materials.", href: "/ai-tools/design" },
-              { label: "Best for Ecommerce Content",      labelClass: "text-indigo-600",  logoBg: "bg-gray-900",  logoText: "FN", name: "Foyr Neo",   desc: "Create product visuals and catalog images.",      href: "/ai-tools/design" },
+              { label: "Best for Concept Inspiration",   labelClass: "text-blue-600",    logoBg: "bg-gray-900",  logoText: "RG", name: "RoomGPT",    desc: "Instant ideas from photos.",                      href: "/ai-tools/roomgpt",
+    affiliateHref: "#" },
+              { label: "Best for Space Planning",         labelClass: "text-[#35966a]",   logoBg: "bg-green-600", logoText: "P5", name: "Planner 5D", desc: "Smart layouts and space optimization.",            href: "/ai-tools/planner-5d",
+    affiliateHref: "#" },
+              { label: "Best for 3D Rendering",           labelClass: "text-purple-600",  logoBg: "bg-blue-500",  logoText: "C",  name: "Coohom",     desc: "High-quality 3D renders in minutes.",             href: "/ai-tools/coohom",
+    affiliateHref: "#" },
+              { label: "Best for Client Presentations",   labelClass: "text-red-500",     logoBg: "bg-gray-900",  logoText: "FN", name: "Foyr Neo",   desc: "Stunning visuals that impress clients.",          href: "/ai-tools/foyr-neo",
+    affiliateHref: "#" },
+              { label: "Best for Material & Furniture",   labelClass: "text-orange-600",  logoBg: "bg-gradient-to-br from-red-400 via-yellow-400 to-green-400", logoText: "H", name: "Homestyler", desc: "Huge library of models and materials.", href: "/ai-tools/homestyler",
+    affiliateHref: "#" },
+              { label: "Best for Ecommerce Content",      labelClass: "text-indigo-600",  logoBg: "bg-gray-900",  logoText: "FN", name: "Foyr Neo",   desc: "Create product visuals and catalog images.",      href: "/ai-tools/foyr-neo",
+    affiliateHref: "#" },
             ].map((card) => (
               <div key={card.label} className="border border-gray-100 rounded-xl p-4 bg-white text-center flex flex-col items-center hover:shadow-md transition-shadow">
                 <p className={`text-xs font-semibold leading-snug ${card.labelClass}`}>{card.label}</p>

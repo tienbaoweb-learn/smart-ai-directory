@@ -292,8 +292,29 @@ const INTEGRATIONS_FILTERS = [
 const TOP_TOOLS = [
   {
     rank: 1,
+    name: "Canva AI",
+    featured: false,
+    reviewHref: "/ai-tools/canva-ai",
+    affiliateHref: "#",
+    price: "~$13/month",
+    rating: "4.9",
+    reviews: "980",
+    desc: "AI-powered design platform for creating stunning property flyers, social media graphics, and presentation decks.",
+    bestFor: "Agents, Property Managers, Brokerages",
+    integrations: [
+      { label: "ZP", bg: "bg-orange-500", title: "Zapier" },
+      { label: "HS", bg: "bg-orange-600", title: "HubSpot" },
+    ],
+    initials: "CA",
+    iconBg: "bg-[#0CC0DF]",
+    iconText: "text-white",
+  },
+  {
+    rank: 2,
     name: "REimagineHome",
     featured: true,
+    reviewHref: "/ai-tools/reimaginehome",
+    affiliateHref: "#",
     price: "~$29/month",
     rating: "4.8",
     reviews: "290",
@@ -308,9 +329,11 @@ const TOP_TOOLS = [
     iconText: "text-white",
   },
   {
-    rank: 2,
+    rank: 3,
     name: "Copy.ai",
     featured: false,
+    reviewHref: "/ai-tools/copy-ai",
+    affiliateHref: "#",
     price: "~$36/month",
     rating: "4.7",
     reviews: "430",
@@ -325,9 +348,11 @@ const TOP_TOOLS = [
     iconText: "text-white",
   },
   {
-    rank: 3,
+    rank: 4,
     name: "HouseCanary",
     featured: false,
+    reviewHref: "/ai-tools/housecanary",
+    affiliateHref: "#",
     price: "~$79/month",
     rating: "4.7",
     reviews: "340",
@@ -342,9 +367,11 @@ const TOP_TOOLS = [
     iconText: "text-white",
   },
   {
-    rank: 4,
+    rank: 5,
     name: "ManyChat",
     featured: false,
+    reviewHref: "/ai-tools/manychat",
+    affiliateHref: "#",
     price: "~$15/month",
     rating: "4.6",
     reviews: "380",
@@ -356,23 +383,6 @@ const TOP_TOOLS = [
     ],
     initials: "MC",
     iconBg: "bg-blue-500",
-    iconText: "text-white",
-  },
-  {
-    rank: 5,
-    name: "Canva AI",
-    featured: false,
-    price: "~$13/month",
-    rating: "4.9",
-    reviews: "980",
-    desc: "AI-powered design platform for creating stunning property flyers, social media graphics, and presentation decks.",
-    bestFor: "Agents, Property Managers, Brokerages",
-    integrations: [
-      { label: "ZP", bg: "bg-orange-500", title: "Zapier" },
-      { label: "HS", bg: "bg-orange-600", title: "HubSpot" },
-    ],
-    initials: "CA",
-    iconBg: "bg-[#0CC0DF]",
     iconText: "text-white",
   },
 ];
@@ -881,10 +891,10 @@ function TopToolsSection() {
                   </div>
                 </div>
                 <div className="flex gap-2">
-                  <a href="#" className="flex-1 text-center text-xs font-semibold text-[#1E293B] border border-gray-300 rounded-lg px-3 py-2 hover:border-[#1E293B] transition-colors whitespace-nowrap">
+                  <a href={tool.reviewHref} className="flex-1 text-center text-xs font-semibold text-[#1E293B] border border-gray-300 rounded-lg px-3 py-2 hover:border-[#1E293B] transition-colors whitespace-nowrap">
                     Read Review →
                   </a>
-                  <a href="#" className="flex-1 text-center text-xs font-semibold text-white bg-purple-600 hover:bg-purple-700 rounded-lg px-3 py-2 transition-colors whitespace-nowrap">
+                  <a href={tool.affiliateHref} className="flex-1 text-center text-xs font-semibold text-white bg-purple-600 hover:bg-purple-700 rounded-lg px-3 py-2 transition-colors whitespace-nowrap">
                     Visit Website →
                   </a>
                 </div>

@@ -296,6 +296,8 @@ const TOP_TOOLS = [
     rank: 1,
     name: "Planner 5D",
     featured: true,
+    reviewHref: "/ai-tools/planner-5d",
+    affiliateHref: "#",
     price: "~$7/month",
     rating: "4.8",
     reviews: "920",
@@ -311,8 +313,29 @@ const TOP_TOOLS = [
   },
   {
     rank: 2,
+    name: "Foyr Neo",
+    featured: false,
+    reviewHref: "/ai-tools/foyr-neo",
+    affiliateHref: "#",
+    price: "~$49/month",
+    rating: "4.8",
+    reviews: "380",
+    desc: "Professional AI interior design software that combines space planning, 3D rendering, and client presentations in one platform.",
+    bestFor: "Interior Designers, Design Studios",
+    integrations: [
+      { label: "SK", bg: "bg-red-500", title: "SketchUp" },
+      { label: "RV", bg: "bg-blue-600", title: "Revit" },
+    ],
+    initials: "FN",
+    iconBg: "bg-indigo-600",
+    iconText: "text-white",
+  },
+  {
+    rank: 3,
     name: "RoomGPT",
     featured: false,
+    reviewHref: "/ai-tools/roomgpt",
+    affiliateHref: "#",
     price: "Free / ~$15/month",
     rating: "4.7",
     reviews: "680",
@@ -327,9 +350,11 @@ const TOP_TOOLS = [
     iconText: "text-white",
   },
   {
-    rank: 3,
+    rank: 4,
     name: "Coohom",
     featured: false,
+    reviewHref: "/ai-tools/coohom",
+    affiliateHref: "#",
     price: "~$39/month",
     rating: "4.7",
     reviews: "430",
@@ -344,9 +369,11 @@ const TOP_TOOLS = [
     iconText: "text-white",
   },
   {
-    rank: 4,
+    rank: 5,
     name: "Homestyler",
     featured: false,
+    reviewHref: "/ai-tools/homestyler",
+    affiliateHref: "#",
     price: "Free / ~$9/month",
     rating: "4.6",
     reviews: "750",
@@ -358,23 +385,6 @@ const TOP_TOOLS = [
     ],
     initials: "HS",
     iconBg: "bg-teal-500",
-    iconText: "text-white",
-  },
-  {
-    rank: 5,
-    name: "Foyr Neo",
-    featured: false,
-    price: "~$49/month",
-    rating: "4.8",
-    reviews: "380",
-    desc: "Professional AI interior design software that combines space planning, 3D rendering, and client presentations in one platform.",
-    bestFor: "Interior Designers, Design Studios",
-    integrations: [
-      { label: "SK", bg: "bg-red-500", title: "SketchUp" },
-      { label: "RV", bg: "bg-blue-600", title: "Revit" },
-    ],
-    initials: "FN",
-    iconBg: "bg-indigo-600",
     iconText: "text-white",
   },
 ];
@@ -884,10 +894,10 @@ function TopToolsSection() {
                   </div>
                 </div>
                 <div className="flex gap-2">
-                  <a href="#" className="flex-1 text-center text-xs font-semibold text-[#1E293B] border border-gray-300 rounded-lg px-3 py-2 hover:border-[#1E293B] transition-colors whitespace-nowrap">
+                  <a href={tool.reviewHref} className="flex-1 text-center text-xs font-semibold text-[#1E293B] border border-gray-300 rounded-lg px-3 py-2 hover:border-[#1E293B] transition-colors whitespace-nowrap">
                     Read Review →
                   </a>
-                  <a href="#" className="flex-1 text-center text-xs font-semibold text-white bg-[#35966a] hover:bg-[#2c7d58] rounded-lg px-3 py-2 transition-colors whitespace-nowrap">
+                  <a href={tool.affiliateHref} className="flex-1 text-center text-xs font-semibold text-white bg-[#35966a] hover:bg-[#2c7d58] rounded-lg px-3 py-2 transition-colors whitespace-nowrap">
                     Visit Website →
                   </a>
                 </div>
