@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { TOOL_LOGO_URLS } from "../data/tool-logos";
 import { BarChart3, Building2, ClipboardCheck, Clock, DollarSign, FlaskConical, HardHat, Home, Lightbulb, RefreshCw, Rocket, Sofa, Sparkles, Star, Tag, TrendingUp, Trophy, Users } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
@@ -159,6 +160,7 @@ const BEST_BY_GOAL: {
   icon: React.ElementType;
   theme: GoalThemeKey;
   bestTool: string;
+  slug: string;
   toolLogoBg: string;
   toolLogoChar: string;
   href: string;
@@ -168,6 +170,7 @@ const BEST_BY_GOAL: {
     icon: Rocket,
     theme: "green",
     bestTool: "ChatGPT",
+    slug: "chatgpt",
     toolLogoBg: "bg-emerald-600",
     toolLogoChar: "C",
     href: "/ai-tools/productivity",
@@ -177,6 +180,7 @@ const BEST_BY_GOAL: {
     icon: Clock,
     theme: "orange",
     bestTool: "Notion AI",
+    slug: "notion-ai",
     toolLogoBg: "bg-black",
     toolLogoChar: "N",
     href: "/ai-tools/productivity",
@@ -186,6 +190,7 @@ const BEST_BY_GOAL: {
     icon: Users,
     theme: "blue",
     bestTool: "Offrs",
+    slug: "offrs",
     toolLogoBg: "bg-orange-500",
     toolLogoChar: "O",
     href: "/ai-tools/sales",
@@ -195,8 +200,9 @@ const BEST_BY_GOAL: {
     icon: Sparkles,
     theme: "purple",
     bestTool: "Midjourney",
+    slug: "midjourney",
     toolLogoBg: "bg-black",
-    toolLogoChar: "M",
+    toolLogoChar: "MJ",
     href: "/ai-tools/design",
   },
   {
@@ -204,8 +210,9 @@ const BEST_BY_GOAL: {
     icon: DollarSign,
     theme: "yellow",
     bestTool: "Buildots",
-    toolLogoBg: "bg-yellow-500",
-    toolLogoChar: "B",
+    slug: "buildots",
+    toolLogoBg: "bg-[#6484A4]",
+    toolLogoChar: "BD",
     href: "/ai-tools/automation",
   },
 ];
@@ -213,10 +220,10 @@ const BEST_BY_GOAL: {
 // ─── COMPARE TABLE DATA ───────────────────────────────────────────────────────
 
 const COMPARE_TOOLS = [
-  { name: "Vizcom",          logoBg: "bg-black",       logoChar: "V", bestFor: "Concept Design",       ease: 9.6, features: 9.4, value: 9.0, overall: 9.4 },
-  { name: "Autodesk Forma",  logoBg: "bg-purple-600",  logoChar: "F", bestFor: "Site Analysis",        ease: 9.2, features: 9.1, value: 8.8, overall: 9.1 },
-  { name: "TestFit",         logoBg: "bg-gray-800",    logoChar: "T", bestFor: "Feasibility Studies",   ease: 8.9, features: 9.2, value: 8.5, overall: 8.9 },
-  { name: "Midjourney",      logoBg: "bg-black",       logoChar: "M", bestFor: "Visualization",         ease: 9.0, features: 8.9, value: 8.2, overall: 8.7 },
+  { name: "Vizcom",          slug: "vizcom",          logoBg: "bg-black",       logoChar: "V",  bestFor: "Concept Design",       ease: 9.6, features: 9.4, value: 9.0, overall: 9.4 },
+  { name: "Autodesk Forma",  slug: "autodesk-forma",  logoBg: "bg-purple-600",  logoChar: "AF", bestFor: "Site Analysis",        ease: 9.2, features: 9.1, value: 8.8, overall: 9.1 },
+  { name: "TestFit",         slug: "testfit",         logoBg: "bg-gray-800",    logoChar: "TF", bestFor: "Feasibility Studies",   ease: 8.9, features: 9.2, value: 8.5, overall: 8.9 },
+  { name: "Midjourney",      slug: "midjourney",      logoBg: "bg-black",       logoChar: "MJ", bestFor: "Visualization",         ease: 9.0, features: 8.9, value: 8.2, overall: 8.7 },
 ];
 
 const MAX_OVERALL = Math.max(...COMPARE_TOOLS.map((t) => t.overall));
@@ -297,7 +304,7 @@ const INDUSTRY_CARDS = [
     rating: 4.8,
     updated: "Jun 2026",
     buttonClass: "bg-blue-600 hover:bg-blue-700",
-    imageHint: "modern architecture building exterior",
+    img: "https://images.unsplash.com/photo-1492091501265-be9af13d99fc?w=600&q=80",
     icon: Building2,
     iconColor: "text-blue-600",
     href: "/industries/architecture",
@@ -309,7 +316,7 @@ const INDUSTRY_CARDS = [
     rating: 4.7,
     updated: "Jun 2026",
     buttonClass: "bg-orange-500 hover:bg-orange-600",
-    imageHint: "construction site with crane",
+    img: "https://images.unsplash.com/photo-1531431057391-da7a1aabd412?w=600&q=80",
     icon: HardHat,
     iconColor: "text-orange-500",
     href: "/industries/construction",
@@ -321,7 +328,7 @@ const INDUSTRY_CARDS = [
     rating: 4.8,
     updated: "Jun 2026",
     buttonClass: "bg-purple-600 hover:bg-purple-700",
-    imageHint: "modern house exterior at night",
+    img: "https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=600&q=80",
     icon: Home,
     iconColor: "text-purple-600",
     href: "/industries/real-estate",
@@ -333,7 +340,7 @@ const INDUSTRY_CARDS = [
     rating: 4.7,
     updated: "Jun 2026",
     buttonClass: "bg-emerald-600 hover:bg-emerald-700",
-    imageHint: "modern living room interior",
+    img: "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600&q=80",
     icon: Sofa,
     iconColor: "text-emerald-600",
     href: "/industries/furniture",
@@ -522,16 +529,17 @@ export default function BestOfPage() {
               return (
                 <div
                   key={card.title}
-                  className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow overflow-hidden flex flex-col"
+                  className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow overflow-hidden flex flex-col group"
                 >
-                  {/* Image placeholder */}
-                  <div className="relative aspect-[4/3] bg-gray-200 rounded-xl mx-3 mt-3 overflow-hidden">
-                    {/* TODO: replace with Unsplash image — "{card.imageHint}" */}
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <svg className="w-10 h-10 text-gray-300" fill="none" stroke="currentColor" strokeWidth={1} viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M13.5 12h.008v.008H13.5V12z" />
-                      </svg>
-                    </div>
+                  {/* Image */}
+                  <div className="relative aspect-[4/3] rounded-xl mx-3 mt-3 overflow-hidden">
+                    <Image
+                      src={card.img}
+                      alt={card.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-black/10" />
                     {/* Industry icon badge — top-left */}
                     <div className="absolute top-2.5 left-2.5 w-9 h-9 bg-white/90 backdrop-blur-sm rounded-full shadow-md flex items-center justify-center">
                       <Icon className={`w-4.5 h-4.5 ${card.iconColor}`} size={18} />
@@ -704,8 +712,12 @@ export default function BestOfPage() {
                       {/* Tool */}
                       <td className="py-3 px-4">
                         <div className="flex items-center gap-2.5">
-                          <span className={`w-8 h-8 rounded-lg ${tool.logoBg} flex items-center justify-center text-white text-xs font-bold shrink-0`}>
-                            {tool.logoChar}
+                          <span className={`w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center shrink-0 ${TOOL_LOGO_URLS[tool.slug] ? "bg-white border border-gray-100 p-0.5" : `${tool.logoBg}`}`}>
+                            {TOOL_LOGO_URLS[tool.slug] ? (
+                              <Image src={TOOL_LOGO_URLS[tool.slug]} alt={tool.name} width={28} height={28} className="object-contain w-full h-full" />
+                            ) : (
+                              <span className="text-white text-xs font-bold">{tool.logoChar}</span>
+                            )}
                           </span>
                           <span className="font-medium text-[#1E293B] whitespace-nowrap">{tool.name}</span>
                         </div>
@@ -778,8 +790,12 @@ export default function BestOfPage() {
                   {/* Best tool */}
                   <p className="text-xs text-gray-400 mt-2">Best Tool:</p>
                   <div className="flex items-center gap-1.5 mt-1">
-                    <span className={`w-5 h-5 rounded ${item.toolLogoBg} flex items-center justify-center text-white text-[10px] font-bold shrink-0`}>
-                      {item.toolLogoChar}
+                    <span className={`w-6 h-6 rounded overflow-hidden flex items-center justify-center shrink-0 ${TOOL_LOGO_URLS[item.slug] ? "bg-white border border-gray-100 p-0.5" : `${item.toolLogoBg}`}`}>
+                      {TOOL_LOGO_URLS[item.slug] ? (
+                        <Image src={TOOL_LOGO_URLS[item.slug]} alt={item.bestTool} width={20} height={20} className="object-contain w-full h-full" />
+                      ) : (
+                        <span className="text-white text-[10px] font-bold">{item.toolLogoChar}</span>
+                      )}
                     </span>
                     <span className="font-medium text-sm text-[#1E293B]">{item.bestTool}</span>
                   </div>
