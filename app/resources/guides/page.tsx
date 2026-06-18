@@ -23,6 +23,7 @@ import {
 import Navbar from "../../components/Navbar";
 import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
+import { guidesData } from "../../../lib/guides-data";
 
 // ─── CATEGORY CARD THEMES ─────────────────────────────────────────────────────
 
@@ -82,36 +83,8 @@ const CATEGORIES = [
   { label: "View All Guides",    icon: Grid3x3,    sub: "All Guides" },
 ];
 
-const FEATURED_GUIDES = [
-  {
-    badge: "STRATEGY",
-    imageHint: "team meeting with charts and AI dashboard",
-    title: "The Complete AI Adoption Roadmap for Small Businesses",
-    desc: "A practical framework for evaluating, piloting, and scaling AI across your team.",
-    meta: "14 min read",
-  },
-  {
-    badge: "MARKETING",
-    imageHint: "marketing analytics dashboard on screen",
-    title: "How to Build an AI-Powered Content Strategy",
-    desc: "Plan, create, and distribute content faster using AI tools and workflows.",
-    meta: "11 min read",
-  },
-  {
-    badge: "OPERATIONS",
-    imageHint: "office workflow automation diagram",
-    title: "Streamlining Operations with AI Automation",
-    desc: "Identify high-impact processes to automate and the tools to do it.",
-    meta: "13 min read",
-  },
-  {
-    badge: "BEGINNER",
-    imageHint: "person using AI chatbot on laptop",
-    title: "AI 101: A Plain-English Guide for Beginners",
-    desc: "Understand the core concepts of AI without the technical jargon.",
-    meta: "9 min read",
-  },
-];
+const FEATURED_GUIDES = guidesData.filter((g) => g.isFeatured);
+const LATEST_GUIDES_DATA = guidesData.filter((g) => !g.isFeatured);
 
 const RESULT_CARDS = [
   { value: "100+",   label: "In-depth guides",        icon: FileText,   theme: "blue"   },
@@ -121,13 +94,6 @@ const RESULT_CARDS = [
   { value: "Weekly", label: "New guides published",    icon: RefreshCw,  theme: "green"  },
 ];
 
-const LATEST_GUIDES = [
-  { badge: "STRATEGY",   title: "5 Signs Your Business Is Ready for AI Automation",         category: "Strategy",          readTime: "9 min read",  date: "May 20, 2026" },
-  { badge: "MARKETING",  title: "The Beginner's Guide to AI-Generated Ad Creatives",         category: "Marketing",         readTime: "8 min read",  date: "May 18, 2026" },
-  { badge: "ETHICS",     title: "Understanding AI Bias: What Every Business Should Know",    category: "AI Ethics",         readTime: "12 min read", date: "May 16, 2026" },
-  { badge: "PROMPTS",    title: "10 Prompt Engineering Techniques That Actually Work",        category: "Prompt Engineering",readTime: "10 min read", date: "May 14, 2026" },
-  { badge: "OPERATIONS", title: "How to Choose the Right AI Tool for Your Workflow",         category: "Operations",        readTime: "11 min read", date: "May 12, 2026" },
-];
 
 const SIDEBAR_TOPICS = [
   "Getting Started with AI",
@@ -311,10 +277,9 @@ export default function GuidesPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {FEATURED_GUIDES.map((g) => (
-              <div key={g.title} className="border border-gray-100 rounded-xl overflow-hidden bg-white hover:shadow-md transition-shadow flex flex-col">
+              <div key={g.slug} className="border border-gray-100 rounded-xl overflow-hidden bg-white hover:shadow-md transition-shadow flex flex-col">
                 {/* Thumbnail */}
                 <div className="bg-gray-300 aspect-[4/3] relative">
-                  {/* TODO: replace with Unsplash image — hint: {g.imageHint} */}
                   <span className={`absolute top-2 left-2 rounded-full px-2.5 py-1 text-xs font-semibold uppercase ${FEAT_BADGE[g.badge]}`}>
                     {g.badge}
                   </span>
@@ -323,14 +288,14 @@ export default function GuidesPage() {
                 {/* Content */}
                 <div className="p-4 flex flex-col flex-1">
                   <p className="font-semibold text-sm text-[#1E293B] line-clamp-2 leading-snug">{g.title}</p>
-                  <p className="text-xs text-gray-500 mt-1.5 line-clamp-3 leading-relaxed flex-1">{g.desc}</p>
+                  <p className="text-xs text-gray-500 mt-1.5 line-clamp-3 leading-relaxed flex-1">{g.description}</p>
                   <div className="flex items-center gap-1 mt-2 text-xs text-gray-500">
                     <Clock size={11} className="shrink-0" />
-                    <span>{g.meta}</span>
+                    <span>{g.readTime}</span>
                   </div>
-                  <a href="#" className="text-blue-600 text-xs font-medium mt-3 hover:underline inline-block">
+                  <Link href={g.href} className="text-blue-600 text-xs font-medium mt-3 hover:underline inline-block">
                     Read Guide →
-                  </a>
+                  </Link>
                 </div>
               </div>
             ))}
@@ -376,18 +341,16 @@ export default function GuidesPage() {
               </div>
 
               <ul>
-                {LATEST_GUIDES.map((item) => (
-                  <li key={item.title} className="flex gap-4 items-start py-4 border-b border-gray-100 last:border-0">
+                {LATEST_GUIDES_DATA.map((item) => (
+                  <li key={item.slug} className="flex gap-4 items-start py-4 border-b border-gray-100 last:border-0">
                     {/* Thumbnail */}
-                    <div className="bg-gray-300 rounded-lg w-20 h-16 md:w-24 md:h-20 flex-shrink-0">
-                      {/* TODO: replace with image */}
-                    </div>
+                    <div className="bg-gray-300 rounded-lg w-20 h-16 md:w-24 md:h-20 flex-shrink-0" />
 
                     {/* Content */}
                     <div className="flex-1 min-w-0">
-                      <a href="#" className="font-semibold text-sm md:text-base text-[#1E293B] hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
+                      <Link href={item.href} className="font-semibold text-sm md:text-base text-[#1E293B] hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
                         {item.title}
-                      </a>
+                      </Link>
                       <div className="flex flex-wrap items-center gap-2 mt-1.5 text-xs">
                         <span className={`rounded-full px-2 py-0.5 font-semibold ${LATEST_BADGE[item.badge]}`}>
                           {item.badge}
