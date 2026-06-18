@@ -32,6 +32,7 @@ import {
 import Navbar from "../../components/Navbar";
 import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
+import { workflowsData } from "../../../lib/workflows-data";
 
 // ─── BUSINESS FUNCTION CARD THEMES ───────────────────────────────────────────
 
@@ -86,36 +87,8 @@ const COLL_ICON_POSITIONS = [
   { top: "top-3",  left: "left-28",  bg: "bg-emerald-400"},
 ];
 
-const FEATURED_WORKFLOWS = [
-  {
-    icons: ["bg-emerald-500", "bg-purple-600", "bg-gray-900"],
-    title: "Blog Post Creation Workflow",
-    desc: "Research, outline, write, design and publish blog posts.",
-    category: "Content Creation",
-    steps: "5 Steps", tools: "3 Tools", time: "30 min",
-  },
-  {
-    icons: ["bg-cyan-500", "bg-purple-500", "bg-pink-500"],
-    title: "Social Media Content Workflow",
-    desc: "Create engaging posts for multiple platforms in minutes.",
-    category: "Marketing",
-    steps: "6 Steps", tools: "4 Tools", time: "25 min",
-  },
-  {
-    icons: ["bg-blue-600", "bg-green-600", "bg-orange-500"],
-    title: "Lead Generation Workflow",
-    desc: "Find, prospect, enrich data and send personalized outreach.",
-    category: "Sales & Lead Gen",
-    steps: "7 Steps", tools: "5 Tools", time: "45 min",
-  },
-  {
-    icons: ["bg-gray-900", "bg-emerald-500", "bg-blue-500"],
-    title: "Project Kickoff Workflow",
-    desc: "Plan projects, assign tasks and align your team.",
-    category: "Project Management",
-    steps: "6 Steps", tools: "4 Tools", time: "35 min",
-  },
-];
+const FEATURED_WORKFLOWS  = workflowsData.filter((w) => w.isFeatured);
+const LATEST_WORKFLOWS_DATA = workflowsData.filter((w) => !w.isFeatured);
 
 const HOW_STEPS = [
   { icon: LayoutTemplate, bg: "bg-purple-50", color: "text-purple-600", title: "1. Choose a Workflow",   desc: "Pick a workflow that matches your goal or task."             },
@@ -139,13 +112,6 @@ const FREE_RESOURCES_WF = [
   { title: "Zapier Integration Guide",        iconColor: "text-orange-500", iconBg: "bg-orange-50" },
 ];
 
-const LATEST_WORKFLOWS = [
-  { iconBg: "bg-blue-500",   title: "Ecommerce Product Description Workflow", subtitle: "Research SEO-friendly product descriptions at scale.", category: "Content Creation", steps: 5, toolColors: ["bg-emerald-500","bg-purple-500","bg-orange-500"], time: "20 min", updated: "May 20, 2026" },
-  { iconBg: "bg-purple-500", title: "AI-Powered Meeting Notes Workflow",       subtitle: "Record, transcribe, summarize and share meeting notes.",  category: "Productivity",     steps: 6, toolColors: ["bg-gray-900",   "bg-blue-500",   "bg-pink-500"  ], time: "25 min", updated: "May 19, 2026" },
-  { iconBg: "bg-green-500",  title: "Email Outreach Automation Workflow",      subtitle: "Find leads, write emails and follow up automatically.",    category: "Sales & Lead Gen", steps: 7, toolColors: ["bg-cyan-500",    "bg-orange-500", "bg-purple-600"], time: "40 min", updated: "May 18, 2026" },
-  { iconBg: "bg-pink-500",   title: "Client Onboarding Workflow",              subtitle: "Streamline onboarding and document collection.",           category: "Operations",       steps: 8, toolColors: ["bg-blue-600",    "bg-emerald-600","bg-gray-700"  ], time: "45 min", updated: "May 17, 2026" },
-  { iconBg: "bg-orange-500", title: "AI Design Concept Workflow",              subtitle: "Generate, refine and present design concepts.",            category: "Design & Creative",steps: 6, toolColors: ["bg-emerald-500", "bg-purple-500", "bg-blue-400"  ], time: "30 min", updated: "May 16, 2026" },
-];
 
 const BIZ_FUNCTIONS = [
   { label: "Content Creation",        icon: PenLine,      sub: "18 Workflows"  },
@@ -408,15 +374,15 @@ export default function WorkflowsPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {FEATURED_WORKFLOWS.map((wf) => (
-              <div key={wf.title} className="border border-gray-100 rounded-xl p-4 bg-white hover:shadow-md transition-shadow flex flex-col">
+              <Link key={wf.slug} href={wf.href} className="border border-gray-100 rounded-xl p-4 bg-white hover:shadow-md transition-shadow flex flex-col">
                 {/* Icon chain */}
                 <div className="flex items-center gap-1.5 mb-3">
-                  {wf.icons.map((bg, idx) => (
+                  {wf.toolsUsed.map((tool, idx) => (
                     <div key={idx} className="flex items-center gap-1.5">
-                      <div className={`w-9 h-9 rounded-lg ${bg} flex items-center justify-center shrink-0`}>
+                      <div className={`w-9 h-9 rounded-lg ${tool.bg} flex items-center justify-center shrink-0`}>
                         <Workflow size={15} className="text-white" />
                       </div>
-                      {idx < wf.icons.length - 1 && (
+                      {idx < wf.toolsUsed.length - 1 && (
                         <ArrowRight size={12} className="text-gray-300 shrink-0" />
                       )}
                     </div>
@@ -424,24 +390,24 @@ export default function WorkflowsPage() {
                 </div>
 
                 <p className="font-semibold text-sm text-[#1E293B] leading-snug">{wf.title}</p>
-                <p className="text-xs text-gray-500 mt-1 line-clamp-2 leading-relaxed flex-1">{wf.desc}</p>
+                <p className="text-xs text-gray-500 mt-1 line-clamp-2 leading-relaxed flex-1">{wf.description}</p>
                 <p className="text-xs text-blue-600 font-medium mt-2">{wf.category}</p>
 
                 <div className="flex items-center gap-3 mt-2 text-xs text-gray-400">
                   <span className="flex items-center gap-1">
                     <ListOrdered size={11} className="shrink-0" />
-                    {wf.steps}
+                    {wf.steps} Steps
                   </span>
                   <span className="flex items-center gap-1">
                     <Wrench size={11} className="shrink-0" />
-                    {wf.tools}
+                    {wf.toolCount} Tools
                   </span>
                   <span className="flex items-center gap-1">
                     <Clock size={11} className="shrink-0" />
-                    {wf.time}
+                    {wf.duration}
                   </span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -508,8 +474,8 @@ export default function WorkflowsPage() {
                       </tr>
                     </thead>
                     <tbody>
-                      {LATEST_WORKFLOWS.map((row) => (
-                        <tr key={row.title} className="border-t border-gray-100 hover:bg-gray-50 transition-colors">
+                      {LATEST_WORKFLOWS_DATA.map((row) => (
+                        <tr key={row.slug} className="border-t border-gray-100 hover:bg-gray-50 transition-colors">
                           {/* Workflow */}
                           <td className="py-3 px-4">
                             <div className="flex items-start gap-2.5">
@@ -517,10 +483,10 @@ export default function WorkflowsPage() {
                                 <Workflow size={14} className="text-white" />
                               </div>
                               <div className="min-w-0">
-                                <a href="#" className="font-medium text-sm text-[#1E293B] hover:text-blue-600 transition-colors block leading-snug">
+                                <Link href={row.href} className="font-medium text-sm text-[#1E293B] hover:text-blue-600 transition-colors block leading-snug">
                                   {row.title}
-                                </a>
-                                <p className="text-xs text-gray-500 mt-0.5 line-clamp-1">{row.subtitle}</p>
+                                </Link>
+                                <p className="text-xs text-gray-500 mt-0.5 line-clamp-1">{row.description}</p>
                               </div>
                             </div>
                           </td>
@@ -531,17 +497,17 @@ export default function WorkflowsPage() {
                           {/* Tools */}
                           <td className="py-3 px-4">
                             <div className="flex items-center gap-1">
-                              {row.toolColors.map((bg, i) => (
-                                <div key={i} className={`w-6 h-6 rounded ${bg} flex items-center justify-center`}>
+                              {row.toolsUsed.map((tool, i) => (
+                                <div key={i} className={`w-6 h-6 rounded ${tool.bg} flex items-center justify-center`}>
                                   <Workflow size={10} className="text-white" />
                                 </div>
                               ))}
                             </div>
                           </td>
                           {/* Time */}
-                          <td className="py-3 px-4 text-sm text-gray-700 whitespace-nowrap">{row.time}</td>
+                          <td className="py-3 px-4 text-sm text-gray-700 whitespace-nowrap">{row.duration}</td>
                           {/* Updated */}
-                          <td className="py-3 px-4 text-xs text-gray-400 whitespace-nowrap">{row.updated}</td>
+                          <td className="py-3 px-4 text-xs text-gray-400 whitespace-nowrap">{row.date}</td>
                         </tr>
                       ))}
                     </tbody>
