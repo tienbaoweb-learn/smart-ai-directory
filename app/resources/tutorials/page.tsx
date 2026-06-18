@@ -24,6 +24,7 @@ import {
 import Navbar from "../../components/Navbar";
 import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
+import { tutorialsData } from "../../../lib/tutorials-data";
 
 // ─── CATEGORY CARD THEMES ─────────────────────────────────────────────────────
 
@@ -89,36 +90,8 @@ const CATEGORIES = [
   { label: "View All Tutorials", icon: Grid3x3,       sub: "All Tutorials" },
 ];
 
-const FEATURED_TUTORIALS = [
-  {
-    badge: "BEGINNER",
-    imageHint: "ChatGPT interface on laptop screen",
-    title: "Getting Started with ChatGPT: A Complete Beginner's Guide",
-    desc: "Learn the basics of prompting, settings, and use cases for ChatGPT.",
-    meta: "12 min • 8 steps",
-  },
-  {
-    badge: "INTERMEDIATE",
-    imageHint: "automation workflow diagram on screen",
-    title: "Build Your First Zapier Automation Step by Step",
-    desc: "Connect your favorite apps and automate repetitive tasks with Zapier.",
-    meta: "15 min • 10 steps",
-  },
-  {
-    badge: "ADVANCED",
-    imageHint: "AI image generation interface",
-    title: "Advanced Midjourney Prompting Techniques",
-    desc: "Master parameters, styles, and consistency for professional results.",
-    meta: "20 min • 12 steps",
-  },
-  {
-    badge: "NO-CODE",
-    imageHint: "Notion AI workspace screenshot",
-    title: "Create an AI-Powered Notion Workspace (No Code)",
-    desc: "Set up databases, templates, and AI assistants inside Notion.",
-    meta: "18 min • 9 steps",
-  },
-];
+const FEATURED_TUTORIALS = tutorialsData.filter((t) => t.isFeatured);
+const LATEST_TUTORIALS_DATA = tutorialsData.filter((t) => !t.isFeatured);
 
 const RESULT_CARDS = [
   { value: "120+",   label: "Step-by-step tutorials",  icon: BookOpen,    theme: "blue"   },
@@ -128,13 +101,6 @@ const RESULT_CARDS = [
   { value: "Weekly", label: "New tutorials added",      icon: RefreshCw,   theme: "purple" },
 ];
 
-const LATEST_TUTORIALS = [
-  { badge: "AUTOMATION",   title: "How to Connect ChatGPT to Google Sheets with Zapier", meta: "12 min • 8 steps",  level: "Beginner",    date: "May 20, 2026" },
-  { badge: "DESIGN",       title: "Step-by-Step: Creating Brand Visuals with Midjourney", meta: "15 min • 10 steps", level: "Intermediate", date: "May 18, 2026" },
-  { badge: "PRODUCTIVITY", title: "Automate Your Daily Standup Notes with AI",             meta: "10 min • 6 steps",  level: "Beginner",    date: "May 16, 2026" },
-  { badge: "WRITING",      title: "How to Use Claude for Long-Form Content Editing",       meta: "14 min • 7 steps",  level: "Intermediate", date: "May 14, 2026" },
-  { badge: "AI AGENTS",    title: "Build a Simple AI Agent with No-Code Tools",            meta: "25 min • 14 steps", level: "Advanced",    date: "May 12, 2026" },
-];
 
 const SIDEBAR_TOPICS = [
   "Getting Started with AI",
@@ -318,10 +284,9 @@ export default function TutorialsPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {FEATURED_TUTORIALS.map((t) => (
-              <div key={t.title} className="border border-gray-100 rounded-xl overflow-hidden bg-white hover:shadow-md transition-shadow flex flex-col">
+              <div key={t.slug} className="border border-gray-100 rounded-xl overflow-hidden bg-white hover:shadow-md transition-shadow flex flex-col">
                 {/* Thumbnail */}
                 <div className="bg-gray-300 aspect-[4/3] relative">
-                  {/* TODO: replace with Unsplash image — hint: {t.imageHint} */}
                   <span className={`absolute top-2 left-2 rounded-full px-2.5 py-1 text-xs font-semibold uppercase ${FEAT_BADGE[t.badge]}`}>
                     {t.badge}
                   </span>
@@ -330,14 +295,14 @@ export default function TutorialsPage() {
                 {/* Content */}
                 <div className="p-4 flex flex-col flex-1">
                   <p className="font-semibold text-sm text-[#1E293B] line-clamp-2 leading-snug">{t.title}</p>
-                  <p className="text-xs text-gray-500 mt-1.5 line-clamp-3 leading-relaxed flex-1">{t.desc}</p>
+                  <p className="text-xs text-gray-500 mt-1.5 line-clamp-3 leading-relaxed flex-1">{t.description}</p>
                   <div className="flex items-center gap-1 mt-2 text-xs text-gray-500">
                     <Clock size={11} className="shrink-0" />
-                    <span>{t.meta}</span>
+                    <span>{t.duration} • {t.steps} steps</span>
                   </div>
-                  <a href="#" className="text-blue-600 text-xs font-medium mt-3 hover:underline inline-block">
+                  <Link href={t.href} className="text-blue-600 text-xs font-medium mt-3 hover:underline inline-block">
                     Start Tutorial →
-                  </a>
+                  </Link>
                 </div>
               </div>
             ))}
@@ -383,25 +348,23 @@ export default function TutorialsPage() {
               </div>
 
               <ul>
-                {LATEST_TUTORIALS.map((item) => (
-                  <li key={item.title} className="flex gap-4 items-start py-4 border-b border-gray-100 last:border-0">
+                {LATEST_TUTORIALS_DATA.map((item) => (
+                  <li key={item.slug} className="flex gap-4 items-start py-4 border-b border-gray-100 last:border-0">
                     {/* Thumbnail */}
-                    <div className="bg-gray-300 rounded-lg w-20 h-16 md:w-24 md:h-20 flex-shrink-0">
-                      {/* TODO: replace with image */}
-                    </div>
+                    <div className="bg-gray-300 rounded-lg w-20 h-16 md:w-24 md:h-20 flex-shrink-0" />
 
                     {/* Content */}
                     <div className="flex-1 min-w-0">
-                      <a href="#" className="font-semibold text-sm md:text-base text-[#1E293B] hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
+                      <Link href={item.href} className="font-semibold text-sm md:text-base text-[#1E293B] hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
                         {item.title}
-                      </a>
+                      </Link>
                       <div className="flex flex-wrap items-center gap-2 mt-1.5 text-xs">
                         <span className={`rounded-full px-2 py-0.5 font-semibold ${LATEST_BADGE[item.badge]}`}>
                           {item.badge}
                         </span>
                         <span className="text-gray-500 flex items-center gap-1">
                           <Clock size={11} className="shrink-0" />
-                          {item.meta}
+                          {item.duration} • {item.steps} steps
                         </span>
                         <span className={`rounded-full px-2 py-0.5 font-semibold ${LEVEL_BADGE[item.level]}`}>
                           {item.level}
