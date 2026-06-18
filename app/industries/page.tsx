@@ -1,10 +1,12 @@
 "use client";
 
-import React from "react";
+import React, { useState, useRef, useCallback } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
+import { TOOL_LOGO_URLS } from "../data/tool-logos";
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
 
@@ -112,6 +114,22 @@ const CHALLENGES = [
 
 const WORKFLOWS = [
   {
+    industry: "Interior Design Workflow",
+    titleColor: "text-rose-600",
+    linkColor: "text-rose-600 hover:text-rose-700",
+    stepBg: "bg-rose-50 border-rose-200",
+    stepColor: "text-rose-600",
+    steps: [
+      { emoji: "💡", label: "Concept" },
+      { emoji: "🎨", label: "Design" },
+      { emoji: "🖥️", label: "Render" },
+      { emoji: "📊", label: "Present" },
+    ],
+    tagline: "Style beautiful spaces with AI-powered tools.",
+    link: "Explore Interior Design",
+    href: "/industries/interior-design",
+  },
+  {
     industry: "Furniture Workflow",
     titleColor: "text-emerald-600",
     linkColor: "text-emerald-600 hover:text-emerald-700",
@@ -125,6 +143,7 @@ const WORKFLOWS = [
     ],
     tagline: "From idea to customer with AI-powered tools.",
     link: "Explore Furniture",
+    href: "/industries/furniture",
   },
   {
     industry: "Architecture Workflow",
@@ -140,6 +159,7 @@ const WORKFLOWS = [
     ],
     tagline: "Design smarter. Present with impact.",
     link: "Explore Architecture",
+    href: "/industries/architecture",
   },
   {
     industry: "Construction Workflow",
@@ -155,6 +175,7 @@ const WORKFLOWS = [
     ],
     tagline: "Build better with real-time AI insights.",
     link: "Explore Construction",
+    href: "/industries/construction",
   },
   {
     industry: "Real Estate Workflow",
@@ -170,20 +191,26 @@ const WORKFLOWS = [
     ],
     tagline: "Attract leads. Close deals. Grow faster.",
     link: "Explore Real Estate",
+    href: "/industries/real-estate",
   },
 ];
 
 const TOP_TOOLS = [
   {
     name: "Midjourney",
+    slug: "midjourney",
+    reviewHref: "/tools/midjourney",
     desc: "AI image generation for designs",
-    logo: "🎨",
+    logo: "MJ",
     logoBg: "bg-slate-800",
-    logoIsText: false,
+    logoIsText: true,
+    logoClass: "text-white font-black text-xs",
     industries: ["furniture", "architecture", "construction", "realestate"],
   },
   {
     name: "ChatGPT",
+    slug: "chatgpt",
+    reviewHref: "/ai-tools",
     desc: "AI assistant for writing and research",
     logo: "GP",
     logoBg: "bg-[#10A37F]",
@@ -193,6 +220,8 @@ const TOP_TOOLS = [
   },
   {
     name: "D5 Render",
+    slug: "d5-render",
+    reviewHref: "/tools/d5-render",
     desc: "Real-time rendering for 3D",
     logo: "D5",
     logoBg: "bg-purple-600",
@@ -202,6 +231,8 @@ const TOP_TOOLS = [
   },
   {
     name: "Notion AI",
+    slug: "notion-ai",
+    reviewHref: "/ai-tools",
     desc: "AI powered docs and knowledge",
     logo: "N",
     logoBg: "bg-white border border-gray-200",
@@ -211,6 +242,8 @@ const TOP_TOOLS = [
   },
   {
     name: "Canva AI",
+    slug: "canva-ai",
+    reviewHref: "/ai-tools",
     desc: "AI powered content creation",
     logo: "C",
     logoBg: "bg-[#0CC0DF]",
@@ -220,20 +253,24 @@ const TOP_TOOLS = [
   },
   {
     name: "Buildots",
+    slug: "buildots",
+    reviewHref: "/tools/buildots",
     desc: "AI construction analytics",
-    logo: "B",
-    logoBg: "bg-amber-500",
+    logo: "BD",
+    logoBg: "bg-[#6484A4]",
     logoIsText: true,
-    logoClass: "text-white font-black text-xl",
+    logoClass: "text-white font-black text-xs",
     industries: ["construction", "furniture", "realestate"],
   },
   {
     name: "REimagineHome",
+    slug: "reimaginehome",
+    reviewHref: "/tools/reimaginehome",
     desc: "AI virtual staging and design",
-    logo: "R",
-    logoBg: "bg-[#FF6B6B]",
+    logo: "RH",
+    logoBg: "bg-purple-700",
     logoIsText: true,
-    logoClass: "text-white font-black text-xl",
+    logoClass: "text-white font-black text-xs",
     industries: ["realestate", "furniture", "architecture"],
   },
 ];
@@ -274,10 +311,11 @@ const CASE_STUDIES = [
 ];
 
 const BEST_OF = [
-  { industry: "Furniture", iconSrc: "/icons/furniture.svg", count: 12, iconBg: "bg-emerald-100" },
-  { industry: "Architecture", iconSrc: "/icons/architecture.svg", count: 10, iconBg: "bg-blue-100" },
-  { industry: "Construction", iconSrc: "/icons/construction.svg", count: 10, iconBg: "bg-orange-100" },
-  { industry: "Real Estate", iconSrc: "/icons/realestate.svg", count: 12, iconBg: "bg-purple-100" },
+  { industry: "Interior Design", iconSrc: "/icons/interior-design.svg", count: 15, iconBg: "bg-rose-100", href: "/best-of/interior-design" },
+  { industry: "Furniture", iconSrc: "/icons/furniture.svg", count: 12, iconBg: "bg-emerald-100", href: "/best-of/furniture" },
+  { industry: "Architecture", iconSrc: "/icons/architecture.svg", count: 10, iconBg: "bg-blue-100", href: "/best-of/architecture" },
+  { industry: "Construction", iconSrc: "/icons/construction.svg", count: 10, iconBg: "bg-orange-100", href: "/best-of/construction" },
+  { industry: "Real Estate", iconSrc: "/icons/realestate.svg", count: 12, iconBg: "bg-purple-100", href: "/best-of/real-estate" },
 ];
 
 // ─── WORKFLOW ICONS ───────────────────────────────────────────────────────────
@@ -541,35 +579,82 @@ function ChallengesSection() {
 // ─── WORKFLOWS ────────────────────────────────────────────────────────────────
 
 function WorkflowsSection() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canPrev, setCanPrev] = useState(false);
+  const [canNext, setCanNext] = useState(true);
+
+  const checkScroll = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setCanPrev(el.scrollLeft > 8);
+    setCanNext(el.scrollLeft < el.scrollWidth - el.clientWidth - 8);
+  }, []);
+
+  function slide(dir: "prev" | "next") {
+    const el = scrollRef.current;
+    if (!el) return;
+    const card = el.children[0] as HTMLElement | null;
+    const cardW = card ? card.offsetWidth + 20 : el.clientWidth / 4;
+    el.scrollBy({ left: dir === "next" ? cardW : -cardW, behavior: "smooth" });
+  }
+
   return (
-    <section className="py-8 sm:py-12 bg-gray-50">
+    <section className="py-8 sm:py-12 bg-gray-50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-8">
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1E293B] mb-2">
-            Industry Workflows Enhanced by AI
-          </h2>
-          <p className="text-gray-500 text-sm sm:text-base">
-            See how AI fits into key workflows to streamline operations and drive results.
-          </p>
+        <div className="flex items-end justify-between mb-8">
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1E293B] mb-2">
+              Industry Workflows Enhanced by AI
+            </h2>
+            <p className="text-gray-500 text-sm sm:text-base">
+              See how AI fits into key workflows to streamline operations and drive results.
+            </p>
+          </div>
+          {/* Arrow buttons */}
+          <div className="flex gap-2 flex-shrink-0 ml-6">
+            <button
+              onClick={() => slide("prev")}
+              disabled={!canPrev}
+              aria-label="Previous"
+              className="w-9 h-9 rounded-full border border-gray-200 bg-white shadow-sm flex items-center justify-center text-gray-500 hover:text-[#F97316] hover:border-[#F97316] transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+            >
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
+            </button>
+            <button
+              onClick={() => slide("next")}
+              disabled={!canNext}
+              aria-label="Next"
+              className="w-9 h-9 rounded-full border border-gray-200 bg-white shadow-sm flex items-center justify-center text-gray-500 hover:text-[#F97316] hover:border-[#F97316] transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+            >
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+            </button>
+          </div>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
+        <div
+          ref={scrollRef}
+          onScroll={checkScroll}
+          className="flex gap-5 overflow-x-auto scroll-smooth hide-scrollbar pb-2"
+        >
           {WORKFLOWS.map((wf) => (
-            <div key={wf.industry} className="bg-white rounded-2xl p-3 sm:p-5 border border-gray-100 shadow-sm">
-              <p className={`font-bold text-xs sm:text-sm mb-3 sm:mb-4 ${wf.titleColor}`}>{wf.industry}</p>
+            <div
+              key={wf.industry}
+              className="flex-none bg-white rounded-2xl p-4 sm:p-5 border border-gray-100 shadow-sm w-[calc(50%-10px)] lg:w-[calc(25%-15px)]"
+            >
+              <p className={`font-bold text-xs sm:text-sm mb-4 ${wf.titleColor}`}>{wf.industry}</p>
 
-              {/* Steps row with labels */}
-              <div className="flex items-start gap-0.5 sm:gap-1 mb-3 sm:mb-4">
+              {/* Steps row with labels — icons +35% */}
+              <div className="flex items-start gap-1 mb-4">
                 {wf.steps.map((step, i) => (
-                  <div key={step.label} className="flex items-start gap-0.5 sm:gap-1">
-                    <div className="flex flex-col items-center gap-1">
-                      <div className={`w-6 h-6 sm:w-8 sm:h-8 rounded-lg border flex items-center justify-center shrink-0 ${wf.stepBg} ${wf.stepColor}`}>
+                  <div key={step.label} className="flex items-start gap-1">
+                    <div className="flex flex-col items-center gap-1.5">
+                      <div className={`w-[32px] h-[32px] sm:w-[43px] sm:h-[43px] rounded-lg border flex items-center justify-center shrink-0 [&_svg]:w-[18px] [&_svg]:h-[18px] sm:[&_svg]:w-6 sm:[&_svg]:h-6 ${wf.stepBg} ${wf.stepColor}`}>
                         {WORKFLOW_ICONS[step.label]}
                       </div>
-                      <p className="text-[8px] sm:text-[9px] text-gray-400 text-center leading-tight w-6 sm:w-8">{step.label}</p>
+                      <p className="text-[11px] sm:text-xs text-gray-400 text-center leading-tight w-[32px] sm:w-[43px]">{step.label}</p>
                     </div>
                     {i < wf.steps.length - 1 && (
-                      <svg className="w-2 h-2 sm:w-3 sm:h-3 text-gray-300 shrink-0 mt-2 sm:mt-2.5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                      <svg className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 text-gray-300 shrink-0 mt-2.5 sm:mt-3.5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                       </svg>
                     )}
@@ -578,9 +663,9 @@ function WorkflowsSection() {
               </div>
 
               <p className="text-xs text-gray-500 mb-3 leading-relaxed">{wf.tagline}</p>
-              <a href="#explore" className={`text-xs font-semibold ${wf.linkColor} transition-colors`}>
+              <Link href={wf.href} className={`text-xs font-semibold ${wf.linkColor} transition-colors`}>
                 {wf.link} →
-              </a>
+              </Link>
             </div>
           ))}
         </div>
@@ -676,18 +761,19 @@ function TopToolsSection() {
 
         <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
           {TOP_TOOLS.map((tool) => (
-            <div
+            <Link
               key={tool.name}
-              className="bg-white border border-gray-100 rounded-xl p-3 shadow-sm hover:shadow-md hover:border-gray-200 transition-all"
+              href={tool.reviewHref}
+              className="bg-white border border-gray-100 rounded-xl p-3 shadow-sm hover:shadow-md hover:border-orange-200 transition-all block group"
             >
-              <div className={`w-10 h-10 rounded-lg ${tool.logoBg} flex items-center justify-center mb-2 shrink-0`}>
-                {tool.logoIsText ? (
-                  <span className={tool.logoClass ?? "text-white font-black text-sm"}>{tool.logo}</span>
+              <div className={`w-10 h-10 rounded-lg overflow-hidden ${TOOL_LOGO_URLS[tool.slug] ? "bg-white border border-gray-100 p-0.5" : tool.logoBg} flex items-center justify-center mb-2 shrink-0`}>
+                {TOOL_LOGO_URLS[tool.slug] ? (
+                  <Image src={TOOL_LOGO_URLS[tool.slug]} alt={tool.name} width={36} height={36} className="object-contain w-full h-full" />
                 ) : (
-                  <span className="text-base">{tool.logo}</span>
+                  <span className={tool.logoClass ?? "text-white font-black text-sm"}>{tool.logo}</span>
                 )}
               </div>
-              <p className="text-sm font-bold text-[#1E293B] mb-1">{tool.name}</p>
+              <p className="text-sm font-bold text-[#1E293B] mb-1 group-hover:text-[#F97316] transition-colors">{tool.name}</p>
               <p className="text-xs text-gray-500 line-clamp-2 mb-2">{tool.desc}</p>
               <p className="text-xs text-gray-400 mb-1">Used in:</p>
               <div className="flex gap-1">
@@ -695,7 +781,7 @@ function TopToolsSection() {
                   <Image key={ind} src={`/icons/${ind}.svg`} alt={ind} width={14} height={14} />
                 ))}
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
@@ -764,23 +850,23 @@ function BestOfSection() {
           </a>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
           {BEST_OF.map((b) => (
-            <a
+            <Link
               key={b.industry}
-              href={`/ai-tools?industry=${b.industry.toLowerCase().replace(" ", "")}`}
-              className="flex items-center gap-4 p-5 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md hover:border-gray-200 transition-all group"
+              href={b.href}
+              className="flex items-center gap-4 p-5 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md hover:border-orange-200 transition-all group"
             >
               <div className={`w-12 h-12 rounded-2xl ${b.iconBg} flex items-center justify-center shrink-0`}>
                 <Image src={b.iconSrc} alt={b.industry} width={28} height={28} />
               </div>
               <div>
-                <p className="font-bold text-[#1E293B] text-sm leading-tight">
+                <p className="font-bold text-[#1E293B] text-sm leading-tight group-hover:text-[#F97316] transition-colors">
                   Best AI Tools<br />for {b.industry}
                 </p>
                 <p className="text-xs text-gray-400 mt-0.5">{b.count} Tools</p>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </div>
