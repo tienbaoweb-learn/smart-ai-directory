@@ -43,7 +43,6 @@ const TOP_PICKS = [
     logoBg: "bg-[#8c21f1]",
     logoText: "RH",
     rating: 4.8,
-    reviews: 420,
     bestFor: "Best Overall",
     desc: "Placeholder description for REimagineHome — to be updated.",
     pricingLabel: "Freemium",
@@ -57,7 +56,6 @@ const TOP_PICKS = [
     logoBg: "bg-gray-900",
     logoText: "OF",
     rating: 4.7,
-    reviews: 310,
     bestFor: "Best for Lead Generation",
     desc: "Placeholder description for Offrs — to be updated.",
     pricingLabel: "Custom",
@@ -71,7 +69,6 @@ const TOP_PICKS = [
     logoBg: "bg-gray-700",
     logoText: "LA",
     rating: 4.6,
-    reviews: 280,
     bestFor: "Best for CRM",
     desc: "Placeholder description for Lofty AI — to be updated.",
     pricingLabel: "Freemium",
@@ -85,7 +82,6 @@ const TOP_PICKS = [
     logoBg: "bg-purple-700",
     logoText: "ST",
     rating: 4.6,
-    reviews: 230,
     bestFor: "Best for Lead Follow-up",
     desc: "Placeholder description for Structurely — to be updated.",
     pricingLabel: "Custom",
@@ -99,7 +95,6 @@ const TOP_PICKS = [
     logoBg: "bg-[#c281fa]",
     logoText: "ZS",
     rating: 4.5,
-    reviews: 190,
     bestFor: "Best for Listings",
     desc: "Placeholder description for Zillow Showcase — to be updated.",
     pricingLabel: "—",
@@ -346,7 +341,7 @@ export default function BestRealEstateToolsPage() {
                 <div className="flex items-center justify-center gap-1 mt-1">
                   <Star size={12} className="text-amber-400 fill-amber-400 shrink-0" />
                   <span className="text-[10px] sm:text-xs font-medium text-[#1E293B]">{tool.rating}</span>
-                  <span className="text-[10px] sm:text-xs text-gray-400">({tool.reviews})</span>
+                  <span className="text-[10px] sm:text-xs text-gray-400">Editorial Rating</span>
                 </div>
 
                 <p className="text-[10px] sm:text-xs text-[#8c21f1] font-medium mt-1">{tool.bestFor}</p>

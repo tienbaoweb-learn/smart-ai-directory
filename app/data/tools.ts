@@ -27,7 +27,6 @@ export interface AITool {
   bestFor: string;
   keyFeatures: string;
   rating: number;
-  reviews: number;
   industries: string[];
   isFeatured?: boolean;
   affiliateHref: string;
@@ -49,7 +48,6 @@ export const ALL_TOOLS: AITool[] = [
     bestFor: "Marketing Teams & Agencies",
     keyFeatures: "AI copywriting, blog posts, ad copy, SEO content, brand voice",
     rating: 4.6,
-    reviews: 2341,
     industries: ["furniture", "architecture", "construction", "realestate"],
     isFeatured: true,
     affiliateHref: "https://www.jasper.ai",
@@ -68,7 +66,6 @@ export const ALL_TOOLS: AITool[] = [
     bestFor: "Architects & Designers",
     keyFeatures: "AI image generation, architectural visualizations, design concepts",
     rating: 4.8,
-    reviews: 532,
     industries: ["furniture", "architecture"],
     isFeatured: true,
     affiliateHref: "#",
@@ -87,7 +84,6 @@ export const ALL_TOOLS: AITool[] = [
     bestFor: "Construction Teams",
     keyFeatures: "Site progress tracking, automated reporting, AI monitoring, BIM integration",
     rating: 4.8,
-    reviews: 420,
     industries: ["construction"],
     isFeatured: true,
     affiliateHref: "#",
@@ -106,7 +102,6 @@ export const ALL_TOOLS: AITool[] = [
     bestFor: "Interior Designers & Homeowners",
     keyFeatures: "2D & 3D floor plans, interior design, AI furniture placement, room planner",
     rating: 4.8,
-    reviews: 1243,
     industries: ["furniture", "architecture", "realestate"],
     isFeatured: true,
     affiliateHref: "#",
@@ -125,7 +120,6 @@ export const ALL_TOOLS: AITool[] = [
     bestFor: "Real Estate Agents & Brokerages",
     keyFeatures: "AI virtual staging, home redesign, lead generation, listing photos",
     rating: 4.9,
-    reviews: 412,
     industries: ["realestate", "furniture"],
     isFeatured: true,
     affiliateHref: "#",
@@ -145,7 +139,6 @@ export const ALL_TOOLS: AITool[] = [
     bestFor: "Writing, Research, Brainstorming",
     keyFeatures: "Content creation, Q&A, summarization, code generation",
     rating: 4.9,
-    reviews: 560,
     industries: ["furniture", "architecture", "construction", "realestate"],
     affiliateHref: "https://chat.openai.com",
   },
@@ -163,7 +156,6 @@ export const ALL_TOOLS: AITool[] = [
     bestFor: "Analysis, Writing, Business Tasks",
     keyFeatures: "Long context, analysis, document understanding, reasoning",
     rating: 4.8,
-    reviews: 420,
     industries: ["furniture", "architecture", "construction", "realestate"],
     affiliateHref: "https://claude.ai",
   },
@@ -181,7 +173,6 @@ export const ALL_TOOLS: AITool[] = [
     bestFor: "Notes, Docs, Project Management",
     keyFeatures: "AI writing, summaries, task management, knowledge base",
     rating: 4.7,
-    reviews: 310,
     industries: ["architecture", "construction", "realestate"],
     affiliateHref: "https://notion.so",
   },
@@ -199,7 +190,6 @@ export const ALL_TOOLS: AITool[] = [
     bestFor: "Automation, Integrations",
     keyFeatures: "Workflow automation, 6000+ apps, no-code builder",
     rating: 4.6,
-    reviews: 280,
     industries: ["furniture", "construction", "realestate"],
     affiliateHref: "https://zapier.com",
   },
@@ -217,7 +207,6 @@ export const ALL_TOOLS: AITool[] = [
     bestFor: "Research, Search, Information",
     keyFeatures: "AI search, real-time data, citations, summaries",
     rating: 4.6,
-    reviews: 210,
     industries: ["architecture", "realestate"],
     affiliateHref: "https://perplexity.ai",
   },
@@ -235,7 +224,6 @@ export const ALL_TOOLS: AITool[] = [
     bestFor: "Writing, Editing, Communication",
     keyFeatures: "Grammar check, tone detection, AI suggestions",
     rating: 4.5,
-    reviews: 190,
     industries: ["furniture", "architecture", "realestate"],
     affiliateHref: "https://grammarly.com",
   },
@@ -253,7 +241,6 @@ export const ALL_TOOLS: AITool[] = [
     bestFor: "Automation, Workflow",
     keyFeatures: "Visual automation, integrations, scenarios",
     rating: 4.4,
-    reviews: 140,
     industries: ["construction", "realestate"],
     affiliateHref: "https://make.com",
   },

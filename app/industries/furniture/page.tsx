@@ -194,10 +194,10 @@ const STEP_TOOLS_DATA = [
     headerText: "text-[#e67e22]",
     totalCount: 10,
     tools: [
-      { name: "Photoroom", rating: "4.7", reviews: "1.2K", initials: "PR", iconBg: "bg-black" },
-      { name: "Remove.bg", rating: "4.8", reviews: "890", initials: "RB", iconBg: "bg-green-600" },
-      { name: "Pebblely", rating: "4.6", reviews: "340", initials: "PB", iconBg: "bg-purple-500" },
-      { name: "Clipping Magic", rating: "4.5", reviews: "520", initials: "CM", iconBg: "bg-blue-600" },
+      { name: "Photoroom", rating: "4.7", initials: "PR", iconBg: "bg-black" },
+      { name: "Remove.bg", rating: "4.8", initials: "RB", iconBg: "bg-green-600" },
+      { name: "Pebblely", rating: "4.6", initials: "PB", iconBg: "bg-purple-500" },
+      { name: "Clipping Magic", rating: "4.5", initials: "CM", iconBg: "bg-blue-600" },
     ],
   },
   {
@@ -208,10 +208,10 @@ const STEP_TOOLS_DATA = [
     headerText: "text-amber-600",
     totalCount: 8,
     tools: [
-      { name: "Roomvo", rating: "4.8", reviews: "892", initials: "RV", iconBg: "bg-[#e67e22]" },
-      { name: "Zakeke", rating: "4.7", reviews: "634", initials: "ZK", iconBg: "bg-purple-600" },
-      { name: "Cylindo", rating: "4.6", reviews: "280", initials: "CY", iconBg: "bg-amber-600" },
-      { name: "Marxent", rating: "4.5", reviews: "190", initials: "MX", iconBg: "bg-blue-700" },
+      { name: "Roomvo", rating: "4.8", initials: "RV", iconBg: "bg-[#e67e22]" },
+      { name: "Zakeke", rating: "4.7", initials: "ZK", iconBg: "bg-purple-600" },
+      { name: "Cylindo", rating: "4.6", initials: "CY", iconBg: "bg-amber-600" },
+      { name: "Marxent", rating: "4.5", initials: "MX", iconBg: "bg-blue-700" },
     ],
   },
   {
@@ -222,10 +222,10 @@ const STEP_TOOLS_DATA = [
     headerText: "text-blue-700",
     totalCount: 11,
     tools: [
-      { name: "Jasper", rating: "4.6", reviews: "756", initials: "J", iconBg: "bg-purple-700" },
-      { name: "Copy.ai", rating: "4.6", reviews: "430", initials: "C", iconBg: "bg-blue-600" },
-      { name: "Canva AI", rating: "4.6", reviews: "2.3K", initials: "CA", iconBg: "bg-cyan-500" },
-      { name: "Writesonic", rating: "4.5", reviews: "380", initials: "WS", iconBg: "bg-emerald-600" },
+      { name: "Jasper", rating: "4.6", initials: "J", iconBg: "bg-purple-700" },
+      { name: "Copy.ai", rating: "4.6", initials: "C", iconBg: "bg-blue-600" },
+      { name: "Canva AI", rating: "4.6", initials: "CA", iconBg: "bg-cyan-500" },
+      { name: "Writesonic", rating: "4.5", initials: "WS", iconBg: "bg-emerald-600" },
     ],
   },
   {
@@ -236,10 +236,10 @@ const STEP_TOOLS_DATA = [
     headerText: "text-emerald-700",
     totalCount: 9,
     tools: [
-      { name: "Shopify Magic", rating: "4.7", reviews: "1.1K", initials: "SM", iconBg: "bg-green-600" },
-      { name: "DataFeedWatch", rating: "4.6", reviews: "410", initials: "DF", iconBg: "bg-blue-600" },
-      { name: "Jasper", rating: "4.6", reviews: "756", initials: "J", iconBg: "bg-purple-700" },
-      { name: "Canva AI", rating: "4.6", reviews: "2.3K", initials: "CA", iconBg: "bg-cyan-500" },
+      { name: "Shopify Magic", rating: "4.7", initials: "SM", iconBg: "bg-green-600" },
+      { name: "DataFeedWatch", rating: "4.6", initials: "DF", iconBg: "bg-blue-600" },
+      { name: "Jasper", rating: "4.6", initials: "J", iconBg: "bg-purple-700" },
+      { name: "Canva AI", rating: "4.6", initials: "CA", iconBg: "bg-cyan-500" },
     ],
   },
 ];
@@ -299,7 +299,7 @@ const TOP_TOOLS = [
     featured: true,
     price: "Custom",
     rating: "4.8",
-    reviews: "892",
+   
     desc: "AI-powered room visualizer that lets shoppers see furniture in their own space before buying.",
     bestFor: "Furniture Retailers, Ecommerce",
     integrations: [
@@ -318,7 +318,7 @@ const TOP_TOOLS = [
     featured: true,
     price: "~$49/month",
     rating: "4.7",
-    reviews: "634",
+   
     desc: "3D product configurator and AR visualization platform for furniture and home decor brands.",
     bestFor: "Manufacturers, Retailers",
     integrations: [
@@ -337,7 +337,7 @@ const TOP_TOOLS = [
     featured: false,
     price: "~$10/month",
     rating: "4.7",
-    reviews: "1243",
+   
     desc: "AI product photography tool to create professional furniture photos without a studio.",
     bestFor: "Ecommerce Sellers, Retailers",
     integrations: [
@@ -356,7 +356,7 @@ const TOP_TOOLS = [
     featured: false,
     price: "~$39/month",
     rating: "4.6",
-    reviews: "756",
+   
     desc: "AI writing tool to generate compelling product descriptions, ad copy, and catalog content at scale.",
     bestFor: "Retailers, Marketing Teams",
     integrations: [
@@ -375,7 +375,7 @@ const TOP_TOOLS = [
     featured: false,
     price: "~$15/month",
     rating: "4.6",
-    reviews: "2341",
+   
     desc: "AI-powered design platform to create furniture catalogs, social media visuals, and marketing materials.",
     bestFor: "Designers, Marketing Teams",
     integrations: [
@@ -774,7 +774,7 @@ function RecommendedToolsSection() {
                       <div className="flex items-center gap-1">
                         <Stars rating={tool.rating} />
                         <span className="text-[10px] sm:text-xs font-semibold text-[#1E293B]">{tool.rating}</span>
-                        <span className="hidden sm:inline text-xs text-gray-400">({tool.reviews})</span>
+                        
                       </div>
                     </div>
                   </div>
@@ -906,7 +906,7 @@ function TopToolsSection() {
                 <div className="flex items-center gap-1.5 mb-2">
                   <span className="text-amber-400 text-sm">{"★".repeat(Math.floor(parseFloat(tool.rating)))}</span>
                   <span className="text-sm font-semibold text-[#1E293B]">{tool.rating}</span>
-                  <span className="text-xs text-gray-400">({tool.reviews} reviews)</span>
+                  <span className="text-xs text-gray-400">Editorial Rating</span>
                 </div>
                 {/* Description */}
                 <p className="text-sm text-gray-500 leading-relaxed mb-2 line-clamp-3">{tool.desc}</p>

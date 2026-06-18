@@ -51,7 +51,6 @@ const topPicks = [
     slug: "jasper",
     logo: { bg: "bg-purple-600", text: "J" },
     rating: 4.6,
-    reviews: 2341,
     bestFor: "Marketing Teams & Agencies",
     description: "The leading AI writing platform for creating high-quality marketing content, blog posts, and ad copy at scale.",
     pricing: "Freemium",
@@ -69,7 +68,6 @@ const topPicks = [
     slug: "midjourney",
     logo: { bg: "bg-black", text: "MJ" },
     rating: 4.8,
-    reviews: 532,
     bestFor: "Architects & Designers",
     description: "Industry-leading AI image generation tool for creating stunning architectural visualizations and design concepts.",
     pricing: "Paid",
@@ -87,7 +85,6 @@ const topPicks = [
     slug: "buildots",
     logo: { bg: "bg-[#6484A4]", text: "BD" },
     rating: 4.8,
-    reviews: 420,
     bestFor: "Construction Teams",
     description: "AI-powered construction monitoring platform that automates site progress tracking and reporting workflows.",
     pricing: "Custom",
@@ -105,7 +102,6 @@ const topPicks = [
     slug: "planner-5d",
     logo: { bg: "bg-green-600", text: "P5" },
     rating: 4.8,
-    reviews: 1243,
     bestFor: "Interior Designers & Homeowners",
     description: "All-in-one AI design and planning tool to create professional 2D & 3D floor plans and interior layouts.",
     pricing: "Freemium",
@@ -123,7 +119,6 @@ const topPicks = [
     slug: "reimaginehome",
     logo: { bg: "bg-purple-700", text: "RH" },
     rating: 4.9,
-    reviews: 412,
     bestFor: "Real Estate Agents & Brokerages",
     description: "AI virtual staging and redesign tool that helps real estate agents generate more leads and close deals faster.",
     pricing: "Freemium",
@@ -456,7 +451,7 @@ function TopPicksSection() {
                 <StarRating rating={tool.rating} />
                 <span className="text-xs font-bold text-[#1E293B]">{tool.rating}</span>
               </div>
-              <span className="text-xs text-gray-400 mb-2">({tool.reviews})</span>
+              <p className="text-xs text-gray-400 mb-2">Editorial Rating</p>
 
               <span className="text-xs font-semibold text-blue-600 mb-2 block">{tool.bestFor}</span>
 
@@ -598,7 +593,7 @@ function AllToolsTable({
       return b.rating - a.rating;
     });
   } else if (sortBy === "Most Reviews") {
-    filtered = [...filtered].sort((a, b) => b.reviews - a.reviews);
+    filtered = [...filtered].sort((a, b) => b.rating - a.rating);
   } else if (sortBy === "Name A-Z") {
     filtered = [...filtered].sort((a, b) => a.name.localeCompare(b.name));
   }
@@ -706,7 +701,7 @@ function AllToolsTable({
                       <StarRating rating={tool.rating} />
                       <span className="font-bold text-[#1E293B] text-xs">{tool.rating}</span>
                     </div>
-                    <p className="text-gray-400 text-xs">({tool.reviews} reviews)</p>
+                    <p className="text-gray-400 text-xs">Editorial Rating</p>
                   </td>
                   {/* Industries */}
                   <td className="px-4 py-4">

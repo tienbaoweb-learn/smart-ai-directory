@@ -286,7 +286,7 @@ function ToolRow({
         <div className="flex items-center gap-2 mb-2">
           <StarRating rating={tool.rating} />
           <span className="font-bold text-[#1E293B] text-xs">{tool.rating}</span>
-          <span className="text-gray-400 text-xs">({tool.reviews} reviews)</span>
+          <span className="text-gray-400 text-xs">Editorial Rating</span>
         </div>
         <p className="text-gray-500 text-sm leading-relaxed line-clamp-2">{tool.keyFeatures}</p>
         <p className="text-gray-400 text-xs mt-1">{tool.bestFor}</p>
@@ -533,7 +533,7 @@ export default function DesignToolsPage() {
     if (sortBy === "Highest Rated") {
       tools = [...tools].sort((a, b) => b.rating - a.rating);
     } else if (sortBy === "Most Reviewed") {
-      tools = [...tools].sort((a, b) => b.reviews - a.reviews);
+      tools = [...tools].sort((a, b) => b.rating - a.rating);
     } else if (sortBy === "Name A-Z") {
       tools = [...tools].sort((a, b) => a.name.localeCompare(b.name));
     }

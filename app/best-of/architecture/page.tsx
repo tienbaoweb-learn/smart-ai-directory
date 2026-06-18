@@ -43,7 +43,6 @@ const TOP_PICKS = [
     logoBg: "bg-[#2d5cf3]",
     logoText: "VZ",
     rating: 4.8,
-    reviews: 420,
     bestFor: "Best Overall",
     desc: "Placeholder description for Vizcom — to be updated.",
     pricingLabel: "Freemium",
@@ -57,7 +56,6 @@ const TOP_PICKS = [
     logoBg: "bg-gray-900",
     logoText: "AF",
     rating: 4.7,
-    reviews: 310,
     bestFor: "Best for Site Analysis",
     desc: "Placeholder description for Autodesk Forma — to be updated.",
     pricingLabel: "Freemium",
@@ -71,7 +69,6 @@ const TOP_PICKS = [
     logoBg: "bg-gray-700",
     logoText: "TF",
     rating: 4.7,
-    reviews: 280,
     bestFor: "Best for Feasibility Studies",
     desc: "Placeholder description for TestFit — to be updated.",
     pricingLabel: "Free Plan",
@@ -85,7 +82,6 @@ const TOP_PICKS = [
     logoBg: "bg-black",
     logoText: "MJ",
     rating: 4.6,
-    reviews: 230,
     bestFor: "Best for Visualization",
     desc: "Placeholder description for Midjourney — to be updated.",
     pricingLabel: "Freemium",
@@ -99,7 +95,6 @@ const TOP_PICKS = [
     logoBg: "bg-[#6b8cfb]",
     logoText: "AD",
     rating: 4.6,
-    reviews: 190,
     bestFor: "Best for Professionals",
     desc: "Placeholder description for ArkDesign AI — to be updated.",
     pricingLabel: "—",
@@ -351,7 +346,7 @@ export default function BestArchitectureToolsPage() {
                 <div className="flex items-center justify-center gap-1 mt-1">
                   <Star size={12} className="text-amber-400 fill-amber-400 shrink-0" />
                   <span className="text-[10px] sm:text-xs font-medium text-[#1E293B]">{tool.rating}</span>
-                  <span className="text-[10px] sm:text-xs text-gray-400">({tool.reviews})</span>
+                  <span className="text-[10px] sm:text-xs text-gray-400">Editorial Rating</span>
                 </div>
 
                 <p className="text-[10px] sm:text-xs text-[#2d5cf3] font-medium mt-1">{tool.bestFor}</p>

@@ -192,10 +192,10 @@ const STEP_TOOLS_DATA = [
     headerText: "text-[#6484A4]",
     totalCount: 11,
     tools: [
-      { name: "Procore AI", rating: "4.8", reviews: "620", initials: "PC", iconBg: "bg-orange-600" },
-      { name: "ALICE Technologies", rating: "4.7", reviews: "280", initials: "AT", iconBg: "bg-blue-700" },
-      { name: "Notion AI", rating: "4.7", reviews: "640", initials: "N", iconBg: "bg-gray-900" },
-      { name: "Copy.ai", rating: "4.6", reviews: "430", initials: "C", iconBg: "bg-blue-600" },
+      { name: "Procore AI", rating: "4.8", initials: "PC", iconBg: "bg-orange-600" },
+      { name: "ALICE Technologies", rating: "4.7", initials: "AT", iconBg: "bg-blue-700" },
+      { name: "Notion AI", rating: "4.7", initials: "N", iconBg: "bg-gray-900" },
+      { name: "Copy.ai", rating: "4.6", initials: "C", iconBg: "bg-blue-600" },
     ],
   },
   {
@@ -206,10 +206,10 @@ const STEP_TOOLS_DATA = [
     headerText: "text-amber-600",
     totalCount: 9,
     tools: [
-      { name: "Buildots", rating: "4.8", reviews: "380", initials: "BT", iconBg: "bg-amber-500" },
-      { name: "OpenSpace", rating: "4.7", reviews: "310", initials: "OS", iconBg: "bg-blue-500" },
-      { name: "Doxel", rating: "4.6", reviews: "190", initials: "DX", iconBg: "bg-indigo-600" },
-      { name: "PlanGrid", rating: "4.5", reviews: "520", initials: "PG", iconBg: "bg-emerald-600" },
+      { name: "Buildots", rating: "4.8", initials: "BT", iconBg: "bg-amber-500" },
+      { name: "OpenSpace", rating: "4.7", initials: "OS", iconBg: "bg-blue-500" },
+      { name: "Doxel", rating: "4.6", initials: "DX", iconBg: "bg-indigo-600" },
+      { name: "PlanGrid", rating: "4.5", initials: "PG", iconBg: "bg-emerald-600" },
     ],
   },
   {
@@ -220,10 +220,10 @@ const STEP_TOOLS_DATA = [
     headerText: "text-blue-700",
     totalCount: 10,
     tools: [
-      { name: "Procore AI", rating: "4.8", reviews: "620", initials: "PC", iconBg: "bg-orange-600" },
-      { name: "PlanGrid", rating: "4.7", reviews: "520", initials: "PG", iconBg: "bg-emerald-600" },
-      { name: "Fieldwire", rating: "4.6", reviews: "340", initials: "FW", iconBg: "bg-blue-600" },
-      { name: "Microsoft Copilot", rating: "4.5", reviews: "890", initials: "MC", iconBg: "bg-blue-700" },
+      { name: "Procore AI", rating: "4.8", initials: "PC", iconBg: "bg-orange-600" },
+      { name: "PlanGrid", rating: "4.7", initials: "PG", iconBg: "bg-emerald-600" },
+      { name: "Fieldwire", rating: "4.6", initials: "FW", iconBg: "bg-blue-600" },
+      { name: "Microsoft Copilot", rating: "4.5", initials: "MC", iconBg: "bg-blue-700" },
     ],
   },
   {
@@ -234,10 +234,10 @@ const STEP_TOOLS_DATA = [
     headerText: "text-emerald-700",
     totalCount: 8,
     tools: [
-      { name: "Canva AI", rating: "4.9", reviews: "980", initials: "CA", iconBg: "bg-[#0CC0DF]" },
-      { name: "Notion AI", rating: "4.8", reviews: "640", initials: "N", iconBg: "bg-gray-900" },
-      { name: "Jasper", rating: "4.7", reviews: "510", initials: "J", iconBg: "bg-orange-500" },
-      { name: "Copy.ai", rating: "4.6", reviews: "430", initials: "C", iconBg: "bg-blue-600" },
+      { name: "Canva AI", rating: "4.9", initials: "CA", iconBg: "bg-[#0CC0DF]" },
+      { name: "Notion AI", rating: "4.8", initials: "N", iconBg: "bg-gray-900" },
+      { name: "Jasper", rating: "4.7", initials: "J", iconBg: "bg-orange-500" },
+      { name: "Copy.ai", rating: "4.6", initials: "C", iconBg: "bg-blue-600" },
     ],
   },
 ];
@@ -300,7 +300,7 @@ const TOP_TOOLS = [
     affiliateHref: "#",
     price: "~$500/month",
     rating: "4.8",
-    reviews: "380",
+   
     desc: "AI-powered construction monitoring platform that compares site progress against BIM models in real time.",
     bestFor: "General Contractors, Project Managers",
     integrations: [
@@ -319,7 +319,7 @@ const TOP_TOOLS = [
     affiliateHref: "#",
     price: "~$375/month",
     rating: "4.8",
-    reviews: "620",
+   
     desc: "AI-enhanced construction project management platform covering scheduling, budgets, and field collaboration.",
     bestFor: "General Contractors, Project Managers",
     integrations: [
@@ -338,7 +338,7 @@ const TOP_TOOLS = [
     affiliateHref: "#",
     price: "~$300/month",
     rating: "4.7",
-    reviews: "310",
+   
     desc: "360° site capture and AI analysis tool that automatically documents every corner of your job site.",
     bestFor: "Site Engineers, Project Managers",
     integrations: [
@@ -357,7 +357,7 @@ const TOP_TOOLS = [
     affiliateHref: "#",
     price: "~$250/month",
     rating: "4.7",
-    reviews: "280",
+   
     desc: "AI-driven construction simulation and schedule optimization that finds the fastest, lowest-cost build path.",
     bestFor: "General Contractors, Planners",
     integrations: [
@@ -376,7 +376,7 @@ const TOP_TOOLS = [
     affiliateHref: "#",
     price: "~$39/month",
     rating: "4.5",
-    reviews: "520",
+   
     desc: "Field management tool by Autodesk for managing drawings, punch lists, and RFIs on any device on-site.",
     bestFor: "Site Engineers, Subcontractors",
     integrations: [
@@ -757,7 +757,7 @@ function RecommendedToolsSection() {
                       <div className="flex items-center gap-1">
                         <Stars rating={tool.rating} />
                         <span className="text-[10px] sm:text-xs font-semibold text-[#1E293B]">{tool.rating}</span>
-                        <span className="hidden sm:inline text-xs text-gray-400">({tool.reviews})</span>
+                        
                       </div>
                     </div>
                   </div>
@@ -877,7 +877,7 @@ function TopToolsSection() {
                 <div className="flex items-center gap-1.5 mb-2">
                   <span className="text-amber-400 text-sm">{"★".repeat(Math.floor(parseFloat(tool.rating)))}</span>
                   <span className="text-sm font-semibold text-[#1E293B]">{tool.rating}</span>
-                  <span className="text-xs text-gray-400">({tool.reviews} reviews)</span>
+                  <span className="text-xs text-gray-400">Editorial Rating</span>
                 </div>
                 <p className="text-sm text-gray-500 leading-relaxed mb-2 line-clamp-3">{tool.desc}</p>
                 <div className="text-xs text-gray-500 mb-2">

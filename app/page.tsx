@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "./components/Navbar";
@@ -9,13 +9,47 @@ import Footer from "./components/Footer";
 
 // ─── DATA ───────────────────────────────────────────────────────────────────
 
+const INDUSTRY_ICONS: Record<string, React.ReactNode> = {
+  furniture: (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 text-amber-700">
+      <path d="M2 8h20v10H2z" />
+      <path d="M6 8V5a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v3" />
+      <line x1="6" y1="18" x2="6" y2="21" />
+      <line x1="18" y1="18" x2="18" y2="21" />
+      <line x1="2" y1="13" x2="22" y2="13" />
+    </svg>
+  ),
+  architecture: (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 text-slate-600">
+      <path d="M3 21h18" />
+      <path d="M5 21V7l7-4 7 4v14" />
+      <path d="M9 21v-6h6v6" />
+      <rect x="10" y="9" width="4" height="4" />
+    </svg>
+  ),
+  construction: (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 text-orange-600">
+      <rect x="2" y="6" width="20" height="12" rx="2" />
+      <path d="M12 6V2" />
+      <path d="M8 6V4" />
+      <path d="M16 6V4" />
+      <line x1="2" y1="12" x2="22" y2="12" />
+    </svg>
+  ),
+  realestate: (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 text-blue-600">
+      <path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z" />
+      <path d="M9 21V12h6v9" />
+    </svg>
+  ),
+};
+
 const INDUSTRY_CARDS = [
   {
     id: "furniture",
     href: "/industries/furniture",
     label: "Furniture",
     count: 18,
-    icon: "🪑",
     bg: "from-amber-800 to-amber-600",
     desc: "Design, visualize, and sell furniture smarter with AI.",
     img: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80",
@@ -25,7 +59,6 @@ const INDUSTRY_CARDS = [
     href: "/industries/architecture",
     label: "Architecture",
     count: 22,
-    icon: "🏛️",
     bg: "from-slate-700 to-slate-500",
     desc: "Design, plan, and visualize architecture projects with AI.",
     img: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80",
@@ -35,7 +68,6 @@ const INDUSTRY_CARDS = [
     href: "/industries/construction",
     label: "Construction",
     count: 24,
-    icon: "🏗️",
     bg: "from-orange-800 to-orange-600",
     desc: "Plan, build, and manage construction projects efficiently with AI.",
     img: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80",
@@ -45,7 +77,6 @@ const INDUSTRY_CARDS = [
     href: "/industries/real-estate",
     label: "Real Estate",
     count: 26,
-    icon: "🏙️",
     bg: "from-blue-800 to-blue-600",
     desc: "Find leads, value properties, and close deals faster with AI.",
     img: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80",
@@ -64,7 +95,6 @@ const TOOLS = [
     logoTextColor: "text-white text-lg font-black",
     desc: "AI interior design & room planning",
     rating: 4.8,
-    reviews: "3,520",
     category: "design",
   },
   {
@@ -78,7 +108,6 @@ const TOOLS = [
     logoTextColor: "text-blue-600 text-base font-black",
     desc: "AI-enhanced BIM for architectural design",
     rating: 4.7,
-    reviews: "256",
     category: "design",
   },
   {
@@ -92,7 +121,6 @@ const TOOLS = [
     logoTextColor: "text-gray-900 text-2xl",
     desc: "AI construction progress tracking & analytics",
     rating: 4.6,
-    reviews: "199",
     category: "automation",
   },
   {
@@ -106,7 +134,6 @@ const TOOLS = [
     logoTextColor: "text-gray-900 text-xs font-black tracking-tight",
     desc: "AI lead generation for real estate agents",
     rating: 4.9,
-    reviews: "412",
     category: "sales",
   },
   {
@@ -120,7 +147,6 @@ const TOOLS = [
     logoTextColor: "text-white text-sm font-black",
     desc: "AI image generation for concept visualizations",
     rating: 4.8,
-    reviews: "532",
     category: "design",
   },
   {
@@ -134,7 +160,6 @@ const TOOLS = [
     logoTextColor: "text-white text-xl font-black",
     desc: "AI property valuation & market insights",
     rating: 4.7,
-    reviews: "506",
     category: "sales",
   },
 ];
@@ -339,8 +364,8 @@ function HeroSection() {
                 />
                 <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors" />
                 <div className="relative h-full flex flex-col justify-between p-3 sm:p-5">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white flex items-center justify-center text-lg sm:text-3xl shadow-md">
-                    {card.icon}
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white flex items-center justify-center shadow-md">
+                    {INDUSTRY_ICONS[card.id]}
                   </div>
                   <div>
                     <p className="text-white font-bold text-sm sm:text-lg leading-tight">
@@ -507,13 +532,10 @@ function TopTools() {
               </p>
 
               {/* Rating — centered */}
-              <div className="flex items-center justify-center gap-1.5 mb-4">
+              <div className="flex items-center justify-center gap-1 mb-4">
                 <StarRating rating={tool.rating} />
                 <span className="text-xs font-bold text-[#1E293B]">
                   {tool.rating}
-                </span>
-                <span className="text-xs text-gray-400 truncate">
-                  ({tool.reviews})
                 </span>
               </div>
 
@@ -678,8 +700,8 @@ function ExploreByIndustry() {
 
                 {/* Center icon in white circle */}
                 <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex items-center justify-center">
-                  <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center text-3xl shadow-lg">
-                    {card.icon}
+                  <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center shadow-lg">
+                    {INDUSTRY_ICONS[card.id]}
                   </div>
                 </div>
 

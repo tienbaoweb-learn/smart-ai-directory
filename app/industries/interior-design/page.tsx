@@ -193,10 +193,10 @@ const STEP_TOOLS_DATA = [
     headerText: "text-green-700",
     totalCount: 10,
     tools: [
-      { name: "Midjourney", rating: "4.9", reviews: "1.2K", initials: "MJ", iconBg: "bg-gray-900" },
-      { name: "Canva AI", rating: "4.8", reviews: "980", initials: "CA", iconBg: "bg-[#0CC0DF]" },
-      { name: "Adobe Firefly", rating: "4.7", reviews: "540", initials: "AF", iconBg: "bg-orange-500" },
-      { name: "Moodboard AI", rating: "4.6", reviews: "210", initials: "MB", iconBg: "bg-pink-500" },
+      { name: "Midjourney", rating: "4.9", initials: "MJ", iconBg: "bg-gray-900" },
+      { name: "Canva AI", rating: "4.8", initials: "CA", iconBg: "bg-[#0CC0DF]" },
+      { name: "Adobe Firefly", rating: "4.7", initials: "AF", iconBg: "bg-orange-500" },
+      { name: "Moodboard AI", rating: "4.6", initials: "MB", iconBg: "bg-pink-500" },
     ],
   },
   {
@@ -207,10 +207,10 @@ const STEP_TOOLS_DATA = [
     headerText: "text-teal-600",
     totalCount: 8,
     tools: [
-      { name: "Planner 5D", rating: "4.8", reviews: "920", initials: "5D", iconBg: "bg-[#35966a]" },
-      { name: "RoomGPT", rating: "4.7", reviews: "680", initials: "RG", iconBg: "bg-purple-600" },
-      { name: "Homestyler", rating: "4.6", reviews: "750", initials: "HS", iconBg: "bg-teal-500" },
-      { name: "Coohom", rating: "4.6", reviews: "430", initials: "CH", iconBg: "bg-blue-600" },
+      { name: "Planner 5D", rating: "4.8", initials: "5D", iconBg: "bg-[#35966a]" },
+      { name: "RoomGPT", rating: "4.7", initials: "RG", iconBg: "bg-purple-600" },
+      { name: "Homestyler", rating: "4.6", initials: "HS", iconBg: "bg-teal-500" },
+      { name: "Coohom", rating: "4.6", initials: "CH", iconBg: "bg-blue-600" },
     ],
   },
   {
@@ -221,10 +221,10 @@ const STEP_TOOLS_DATA = [
     headerText: "text-blue-700",
     totalCount: 11,
     tools: [
-      { name: "Foyr Neo", rating: "4.8", reviews: "380", initials: "FN", iconBg: "bg-indigo-600" },
-      { name: "Coohom", rating: "4.7", reviews: "430", initials: "CH", iconBg: "bg-blue-600" },
-      { name: "Planner 5D", rating: "4.8", reviews: "920", initials: "5D", iconBg: "bg-[#35966a]" },
-      { name: "SketchUp AI", rating: "4.6", reviews: "560", initials: "SK", iconBg: "bg-red-500" },
+      { name: "Foyr Neo", rating: "4.8", initials: "FN", iconBg: "bg-indigo-600" },
+      { name: "Coohom", rating: "4.7", initials: "CH", iconBg: "bg-blue-600" },
+      { name: "Planner 5D", rating: "4.8", initials: "5D", iconBg: "bg-[#35966a]" },
+      { name: "SketchUp AI", rating: "4.6", initials: "SK", iconBg: "bg-red-500" },
     ],
   },
   {
@@ -235,10 +235,10 @@ const STEP_TOOLS_DATA = [
     headerText: "text-emerald-700",
     totalCount: 7,
     tools: [
-      { name: "Canva AI", rating: "4.9", reviews: "980", initials: "CA", iconBg: "bg-[#0CC0DF]" },
-      { name: "Gamma", rating: "4.8", reviews: "610", initials: "G", iconBg: "bg-violet-600" },
-      { name: "Jasper", rating: "4.7", reviews: "510", initials: "J", iconBg: "bg-orange-500" },
-      { name: "Beautiful.ai", rating: "4.6", reviews: "340", initials: "BA", iconBg: "bg-emerald-600" },
+      { name: "Canva AI", rating: "4.9", initials: "CA", iconBg: "bg-[#0CC0DF]" },
+      { name: "Gamma", rating: "4.8", initials: "G", iconBg: "bg-violet-600" },
+      { name: "Jasper", rating: "4.7", initials: "J", iconBg: "bg-orange-500" },
+      { name: "Beautiful.ai", rating: "4.6", initials: "BA", iconBg: "bg-emerald-600" },
     ],
   },
 ];
@@ -300,7 +300,7 @@ const TOP_TOOLS = [
     affiliateHref: "#",
     price: "~$7/month",
     rating: "4.8",
-    reviews: "920",
+   
     desc: "AI-powered floor plan and 3D design tool that lets you visualize any room in photorealistic quality within minutes.",
     bestFor: "Interior Designers, Homeowners",
     integrations: [
@@ -319,7 +319,7 @@ const TOP_TOOLS = [
     affiliateHref: "#",
     price: "~$49/month",
     rating: "4.8",
-    reviews: "380",
+   
     desc: "Professional AI interior design software that combines space planning, 3D rendering, and client presentations in one platform.",
     bestFor: "Interior Designers, Design Studios",
     integrations: [
@@ -338,7 +338,7 @@ const TOP_TOOLS = [
     affiliateHref: "#",
     price: "Free / ~$15/month",
     rating: "4.7",
-    reviews: "680",
+   
     desc: "AI room redesign tool that transforms photos of any room into stunning new interior concepts in seconds.",
     bestFor: "Freelancers, Homeowners",
     integrations: [
@@ -357,7 +357,7 @@ const TOP_TOOLS = [
     affiliateHref: "#",
     price: "~$39/month",
     rating: "4.7",
-    reviews: "430",
+   
     desc: "Professional 3D interior design and rendering platform with a massive furniture library and real-time collaboration.",
     bestFor: "Design Studios, Interior Designers",
     integrations: [
@@ -376,7 +376,7 @@ const TOP_TOOLS = [
     affiliateHref: "#",
     price: "Free / ~$9/month",
     rating: "4.6",
-    reviews: "750",
+   
     desc: "Easy-to-use online interior design tool with AI-generated room suggestions and a large product catalog.",
     bestFor: "Freelancers, Homeowners",
     integrations: [
@@ -757,7 +757,7 @@ function RecommendedToolsSection() {
                       <div className="flex items-center gap-1">
                         <Stars rating={tool.rating} />
                         <span className="text-[10px] sm:text-xs font-semibold text-[#1E293B]">{tool.rating}</span>
-                        <span className="hidden sm:inline text-xs text-gray-400">({tool.reviews})</span>
+                        
                       </div>
                     </div>
                   </div>
@@ -877,7 +877,7 @@ function TopToolsSection() {
                 <div className="flex items-center gap-1.5 mb-2">
                   <span className="text-amber-400 text-sm">{"★".repeat(Math.floor(parseFloat(tool.rating)))}</span>
                   <span className="text-sm font-semibold text-[#1E293B]">{tool.rating}</span>
-                  <span className="text-xs text-gray-400">({tool.reviews} reviews)</span>
+                  <span className="text-xs text-gray-400">Editorial Rating</span>
                 </div>
                 <p className="text-sm text-gray-500 leading-relaxed mb-2 line-clamp-3">{tool.desc}</p>
                 <div className="text-xs text-gray-500 mb-2">

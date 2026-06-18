@@ -118,6 +118,9 @@ export default function Footer() {
               Learn more →
             </Link>
           </p>
+          <p className="text-xs text-[#777F8A] leading-relaxed mt-1">
+            Ratings on this site reflect our team&apos;s independent testing and research, not aggregated user reviews.
+          </p>
         </div>
 
         {/* Copyright line */}

@@ -43,7 +43,6 @@ const TOP_PICKS = [
     logoBg: "bg-green-600",
     logoText: "P5",
     rating: 4.8,
-    reviews: 420,
     bestFor: "Best Overall",
     desc: "All-in-one design and planning tool with AI for layout and interior design.",
     pricingLabel: "Freemium",
@@ -57,7 +56,6 @@ const TOP_PICKS = [
     logoBg: "bg-gray-900",
     logoText: "RG",
     rating: 4.7,
-    reviews: 310,
     bestFor: "Best for Quick Concepts",
     desc: "Generate interior ideas instantly from room photos using AI.",
     pricingLabel: "Freemium",
@@ -71,7 +69,6 @@ const TOP_PICKS = [
     logoBg: "bg-blue-500",
     logoText: "C",
     rating: 4.7,
-    reviews: 280,
     bestFor: "Best for 3D Visualization",
     desc: "Professional 3D design and rendering platform for all interior projects.",
     pricingLabel: "Free Plan",
@@ -85,7 +82,6 @@ const TOP_PICKS = [
     logoBg: "bg-gradient-to-br from-red-400 via-yellow-400 to-green-400",
     logoText: "H",
     rating: 4.6,
-    reviews: 230,
     bestFor: "Best for Homeowners",
     desc: "User-friendly 3D interior design tool with AI and a huge model library.",
     pricingLabel: "Freemium",
@@ -99,7 +95,6 @@ const TOP_PICKS = [
     logoBg: "bg-gray-900",
     logoText: "FN",
     rating: 4.6,
-    reviews: 190,
     bestFor: "Best for Professionals",
     desc: "AI-powered interior design software with photorealistic renders.",
     pricingLabel: "—",
@@ -373,7 +368,7 @@ export default function BestInteriorDesignToolsPage() {
                 <div className="flex items-center justify-center gap-1 mt-1">
                   <Star size={12} className="text-amber-400 fill-amber-400 shrink-0" />
                   <span className="text-[10px] sm:text-xs font-medium text-[#1E293B]">{tool.rating}</span>
-                  <span className="text-[10px] sm:text-xs text-gray-400">({tool.reviews})</span>
+                  <span className="text-[10px] sm:text-xs text-gray-400">Editorial Rating</span>
                 </div>
 
                 <p className="text-[10px] sm:text-xs text-[#35966a] font-medium mt-1">{tool.bestFor}</p>

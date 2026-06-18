@@ -43,7 +43,6 @@ const TOP_PICKS = [
     logoBg: "bg-[#f27313]",
     logoText: "BD",
     rating: 4.8,
-    reviews: 420,
     bestFor: "Best Overall",
     desc: "Placeholder description for Buildots — to be updated.",
     pricingLabel: "Custom",
@@ -57,7 +56,6 @@ const TOP_PICKS = [
     logoBg: "bg-gray-900",
     logoText: "OS",
     rating: 4.7,
-    reviews: 310,
     bestFor: "Best for Site Documentation",
     desc: "Placeholder description for OpenSpace — to be updated.",
     pricingLabel: "Custom",
@@ -71,7 +69,6 @@ const TOP_PICKS = [
     logoBg: "bg-gray-700",
     logoText: "AT",
     rating: 4.6,
-    reviews: 280,
     bestFor: "Best for Scheduling",
     desc: "Placeholder description for ALICE Technologies — to be updated.",
     pricingLabel: "Custom",
@@ -85,7 +82,6 @@ const TOP_PICKS = [
     logoBg: "bg-orange-700",
     logoText: "PA",
     rating: 4.6,
-    reviews: 230,
     bestFor: "Best for Project Management",
     desc: "Placeholder description for Procore AI — to be updated.",
     pricingLabel: "Freemium",
@@ -99,7 +95,6 @@ const TOP_PICKS = [
     logoBg: "bg-[#fbac6a]",
     logoText: "PL",
     rating: 4.5,
-    reviews: 190,
     bestFor: "Best for Quality Control",
     desc: "Placeholder description for Pillar — to be updated.",
     pricingLabel: "—",
@@ -346,7 +341,7 @@ export default function BestConstructionToolsPage() {
                 <div className="flex items-center justify-center gap-1 mt-1">
                   <Star size={12} className="text-amber-400 fill-amber-400 shrink-0" />
                   <span className="text-[10px] sm:text-xs font-medium text-[#1E293B]">{tool.rating}</span>
-                  <span className="text-[10px] sm:text-xs text-gray-400">({tool.reviews})</span>
+                  <span className="text-[10px] sm:text-xs text-gray-400">Editorial Rating</span>
                 </div>
 
                 <p className="text-[10px] sm:text-xs text-[#f27313] font-medium mt-1">{tool.bestFor}</p>

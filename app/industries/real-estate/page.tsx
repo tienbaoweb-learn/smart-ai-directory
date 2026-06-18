@@ -190,10 +190,10 @@ const STEP_TOOLS_DATA = [
     headerText: "text-purple-700",
     totalCount: 10,
     tools: [
-      { name: "HouseCanary", rating: "4.8", reviews: "340", initials: "HC", iconBg: "bg-purple-600" },
-      { name: "ManyChat", rating: "4.7", reviews: "380", initials: "MC", iconBg: "bg-blue-500" },
-      { name: "Copy.ai", rating: "4.6", reviews: "430", initials: "C", iconBg: "bg-blue-600" },
-      { name: "Jasper", rating: "4.5", reviews: "510", initials: "J", iconBg: "bg-orange-500" },
+      { name: "HouseCanary", rating: "4.8", initials: "HC", iconBg: "bg-purple-600" },
+      { name: "ManyChat", rating: "4.7", initials: "MC", iconBg: "bg-blue-500" },
+      { name: "Copy.ai", rating: "4.6", initials: "C", iconBg: "bg-blue-600" },
+      { name: "Jasper", rating: "4.5", initials: "J", iconBg: "bg-orange-500" },
     ],
   },
   {
@@ -204,10 +204,10 @@ const STEP_TOOLS_DATA = [
     headerText: "text-orange-600",
     totalCount: 9,
     tools: [
-      { name: "Copy.ai", rating: "4.8", reviews: "430", initials: "C", iconBg: "bg-blue-600" },
-      { name: "Jasper", rating: "4.7", reviews: "510", initials: "J", iconBg: "bg-orange-500" },
-      { name: "ChatGPT", rating: "4.7", reviews: "2,100", initials: "GP", iconBg: "bg-[#10A37F]" },
-      { name: "Canva AI", rating: "4.6", reviews: "980", initials: "CA", iconBg: "bg-[#0CC0DF]" },
+      { name: "Copy.ai", rating: "4.8", initials: "C", iconBg: "bg-blue-600" },
+      { name: "Jasper", rating: "4.7", initials: "J", iconBg: "bg-orange-500" },
+      { name: "ChatGPT", rating: "4.7", initials: "GP", iconBg: "bg-[#10A37F]" },
+      { name: "Canva AI", rating: "4.6", initials: "CA", iconBg: "bg-[#0CC0DF]" },
     ],
   },
   {
@@ -218,10 +218,10 @@ const STEP_TOOLS_DATA = [
     headerText: "text-violet-700",
     totalCount: 8,
     tools: [
-      { name: "REimagineHome", rating: "4.8", reviews: "290", initials: "RH", iconBg: "bg-[#FF6B6B]" },
-      { name: "Virtual Staging AI", rating: "4.7", reviews: "210", initials: "VS", iconBg: "bg-violet-600" },
-      { name: "Canva AI", rating: "4.6", reviews: "980", initials: "CA", iconBg: "bg-[#0CC0DF]" },
-      { name: "Adobe Firefly", rating: "4.5", reviews: "820", initials: "AF", iconBg: "bg-red-600" },
+      { name: "REimagineHome", rating: "4.8", initials: "RH", iconBg: "bg-[#FF6B6B]" },
+      { name: "Virtual Staging AI", rating: "4.7", initials: "VS", iconBg: "bg-violet-600" },
+      { name: "Canva AI", rating: "4.6", initials: "CA", iconBg: "bg-[#0CC0DF]" },
+      { name: "Adobe Firefly", rating: "4.5", initials: "AF", iconBg: "bg-red-600" },
     ],
   },
   {
@@ -232,10 +232,10 @@ const STEP_TOOLS_DATA = [
     headerText: "text-emerald-700",
     totalCount: 9,
     tools: [
-      { name: "ManyChat", rating: "4.8", reviews: "380", initials: "MC", iconBg: "bg-blue-500" },
-      { name: "ChatGPT", rating: "4.7", reviews: "2,100", initials: "GP", iconBg: "bg-[#10A37F]" },
-      { name: "Notion AI", rating: "4.7", reviews: "640", initials: "N", iconBg: "bg-gray-900" },
-      { name: "Shopify Magic", rating: "4.5", reviews: "260", initials: "SM", iconBg: "bg-emerald-600" },
+      { name: "ManyChat", rating: "4.8", initials: "MC", iconBg: "bg-blue-500" },
+      { name: "ChatGPT", rating: "4.7", initials: "GP", iconBg: "bg-[#10A37F]" },
+      { name: "Notion AI", rating: "4.7", initials: "N", iconBg: "bg-gray-900" },
+      { name: "Shopify Magic", rating: "4.5", initials: "SM", iconBg: "bg-emerald-600" },
     ],
   },
 ];
@@ -298,7 +298,7 @@ const TOP_TOOLS = [
     affiliateHref: "#",
     price: "~$13/month",
     rating: "4.9",
-    reviews: "980",
+   
     desc: "AI-powered design platform for creating stunning property flyers, social media graphics, and presentation decks.",
     bestFor: "Agents, Property Managers, Brokerages",
     integrations: [
@@ -317,7 +317,7 @@ const TOP_TOOLS = [
     affiliateHref: "#",
     price: "~$29/month",
     rating: "4.8",
-    reviews: "290",
+   
     desc: "AI virtual staging and redesign tool that transforms empty rooms into stunning furnished spaces in seconds.",
     bestFor: "Real Estate Agents, Brokerages",
     integrations: [
@@ -336,7 +336,7 @@ const TOP_TOOLS = [
     affiliateHref: "#",
     price: "~$36/month",
     rating: "4.7",
-    reviews: "430",
+   
     desc: "AI writing tool that generates compelling property descriptions, email campaigns, and social media content.",
     bestFor: "Real Estate Agents, Property Managers",
     integrations: [
@@ -355,7 +355,7 @@ const TOP_TOOLS = [
     affiliateHref: "#",
     price: "~$79/month",
     rating: "4.7",
-    reviews: "340",
+   
     desc: "AI-powered property valuation and market analytics platform providing accurate home price estimates and trends.",
     bestFor: "Agents, Investors, Brokerages",
     integrations: [
@@ -374,7 +374,7 @@ const TOP_TOOLS = [
     affiliateHref: "#",
     price: "~$15/month",
     rating: "4.6",
-    reviews: "380",
+   
     desc: "AI chatbot platform that automates lead capture, qualification, and follow-up across Instagram, Facebook, and SMS.",
     bestFor: "Real Estate Agents, New Agents",
     integrations: [
@@ -754,7 +754,7 @@ function RecommendedToolsSection() {
                       <div className="flex items-center gap-1">
                         <Stars rating={tool.rating} />
                         <span className="text-[10px] sm:text-xs font-semibold text-[#1E293B]">{tool.rating}</span>
-                        <span className="hidden sm:inline text-xs text-gray-400">({tool.reviews})</span>
+                        
                       </div>
                     </div>
                   </div>
@@ -874,7 +874,7 @@ function TopToolsSection() {
                 <div className="flex items-center gap-1.5 mb-2">
                   <span className="text-amber-400 text-sm">{"★".repeat(Math.floor(parseFloat(tool.rating)))}</span>
                   <span className="text-sm font-semibold text-[#1E293B]">{tool.rating}</span>
-                  <span className="text-xs text-gray-400">({tool.reviews} reviews)</span>
+                  <span className="text-xs text-gray-400">Editorial Rating</span>
                 </div>
                 <p className="text-sm text-gray-500 leading-relaxed mb-2 line-clamp-3">{tool.desc}</p>
                 <div className="text-xs text-gray-500 mb-2">

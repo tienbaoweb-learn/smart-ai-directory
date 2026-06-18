@@ -191,10 +191,10 @@ const STEP_TOOLS_DATA = [
     headerText: "text-blue-700",
     totalCount: 10,
     tools: [
-      { name: "Midjourney", rating: "4.8", reviews: "532", initials: "MJ", iconBg: "bg-slate-800" },
-      { name: "ArchiVinci", rating: "4.7", reviews: "290", initials: "AV", iconBg: "bg-blue-600" },
-      { name: "Archicad AI", rating: "4.6", reviews: "410", initials: "AC", iconBg: "bg-blue-700" },
-      { name: "Adobe Firefly", rating: "4.5", reviews: "280", initials: "AF", iconBg: "bg-red-600" },
+      { name: "Midjourney", rating: "4.8", initials: "MJ", iconBg: "bg-slate-800" },
+      { name: "ArchiVinci", rating: "4.7", initials: "AV", iconBg: "bg-blue-600" },
+      { name: "Archicad AI", rating: "4.6", initials: "AC", iconBg: "bg-blue-700" },
+      { name: "Adobe Firefly", rating: "4.5", initials: "AF", iconBg: "bg-red-600" },
     ],
   },
   {
@@ -205,10 +205,10 @@ const STEP_TOOLS_DATA = [
     headerText: "text-indigo-700",
     totalCount: 8,
     tools: [
-      { name: "Archicad AI", rating: "4.9", reviews: "510", initials: "AC", iconBg: "bg-blue-700" },
-      { name: "Notion AI", rating: "4.7", reviews: "620", initials: "N", iconBg: "bg-gray-900" },
-      { name: "Copy.ai", rating: "4.6", reviews: "380", initials: "C", iconBg: "bg-blue-600" },
-      { name: "Pixelcut", rating: "4.5", reviews: "210", initials: "PX", iconBg: "bg-indigo-600" },
+      { name: "Archicad AI", rating: "4.9", initials: "AC", iconBg: "bg-blue-700" },
+      { name: "Notion AI", rating: "4.7", initials: "N", iconBg: "bg-gray-900" },
+      { name: "Copy.ai", rating: "4.6", initials: "C", iconBg: "bg-blue-600" },
+      { name: "Pixelcut", rating: "4.5", initials: "PX", iconBg: "bg-indigo-600" },
     ],
   },
   {
@@ -219,10 +219,10 @@ const STEP_TOOLS_DATA = [
     headerText: "text-teal-700",
     totalCount: 10,
     tools: [
-      { name: "D5 Render", rating: "4.9", reviews: "480", initials: "D5", iconBg: "bg-purple-600" },
-      { name: "Twinmotion AI", rating: "4.8", reviews: "350", initials: "TM", iconBg: "bg-blue-500" },
-      { name: "Veras", rating: "4.7", reviews: "290", initials: "V", iconBg: "bg-teal-500" },
-      { name: "Adobe Firefly", rating: "4.6", reviews: "420", initials: "AF", iconBg: "bg-red-600" },
+      { name: "D5 Render", rating: "4.9", initials: "D5", iconBg: "bg-purple-600" },
+      { name: "Twinmotion AI", rating: "4.8", initials: "TM", iconBg: "bg-blue-500" },
+      { name: "Veras", rating: "4.7", initials: "V", iconBg: "bg-teal-500" },
+      { name: "Adobe Firefly", rating: "4.6", initials: "AF", iconBg: "bg-red-600" },
     ],
   },
   {
@@ -233,10 +233,10 @@ const STEP_TOOLS_DATA = [
     headerText: "text-emerald-700",
     totalCount: 9,
     tools: [
-      { name: "Canva AI", rating: "4.9", reviews: "980", initials: "CA", iconBg: "bg-[#0CC0DF]" },
-      { name: "Notion AI", rating: "4.8", reviews: "640", initials: "N", iconBg: "bg-gray-900" },
-      { name: "Copy.ai", rating: "4.7", reviews: "430", initials: "C", iconBg: "bg-blue-600" },
-      { name: "ManyChat", rating: "4.5", reviews: "320", initials: "MC", iconBg: "bg-blue-500" },
+      { name: "Canva AI", rating: "4.9", initials: "CA", iconBg: "bg-[#0CC0DF]" },
+      { name: "Notion AI", rating: "4.8", initials: "N", iconBg: "bg-gray-900" },
+      { name: "Copy.ai", rating: "4.7", initials: "C", iconBg: "bg-blue-600" },
+      { name: "ManyChat", rating: "4.5", initials: "MC", iconBg: "bg-blue-500" },
     ],
   },
 ];
@@ -299,7 +299,7 @@ const TOP_TOOLS = [
     affiliateHref: "#",
     price: "~$180/month",
     rating: "4.8",
-    reviews: "960",
+   
     desc: "AI-powered BIM software for architects to create, collaborate, and document building designs intelligently.",
     bestFor: "Architects, Design Firms",
     integrations: [
@@ -318,7 +318,7 @@ const TOP_TOOLS = [
     affiliateHref: "#",
     price: "~$30/month",
     rating: "4.8",
-    reviews: "480",
+   
     desc: "Real-time rendering engine with AI features that converts 3D models into photorealistic visualizations instantly.",
     bestFor: "Architects, Visualization Studios",
     integrations: [
@@ -337,7 +337,7 @@ const TOP_TOOLS = [
     affiliateHref: "#",
     price: "~$10/month",
     rating: "4.7",
-    reviews: "1,243",
+   
     desc: "AI image generation tool used by architects for concept exploration, mood boards, and design inspiration.",
     bestFor: "Architects, Interior Designers",
     integrations: [
@@ -356,7 +356,7 @@ const TOP_TOOLS = [
     affiliateHref: "#",
     price: "~$25/month",
     rating: "4.7",
-    reviews: "290",
+   
     desc: "AI rendering tool that transforms architectural sketches and BIM models into photorealistic visuals in seconds.",
     bestFor: "Architects, Urban Planners",
     integrations: [
@@ -375,7 +375,7 @@ const TOP_TOOLS = [
     affiliateHref: "#",
     price: "~$499/year",
     rating: "4.6",
-    reviews: "350",
+   
     desc: "Real-time 3D visualization software with AI enhancements for creating stunning architectural presentations.",
     bestFor: "Architects, Visualization Studios",
     integrations: [
@@ -764,7 +764,7 @@ function RecommendedToolsSection() {
                       <div className="flex items-center gap-1">
                         <Stars rating={tool.rating} />
                         <span className="text-[10px] sm:text-xs font-semibold text-[#1E293B]">{tool.rating}</span>
-                        <span className="hidden sm:inline text-xs text-gray-400">({tool.reviews})</span>
+                        
                       </div>
                     </div>
                   </div>
@@ -888,7 +888,7 @@ function TopToolsSection() {
                 <div className="flex items-center gap-1.5 mb-2">
                   <span className="text-amber-400 text-sm">{"★".repeat(Math.floor(parseFloat(tool.rating)))}</span>
                   <span className="text-sm font-semibold text-[#1E293B]">{tool.rating}</span>
-                  <span className="text-xs text-gray-400">({tool.reviews} reviews)</span>
+                  <span className="text-xs text-gray-400">Editorial Rating</span>
                 </div>
                 <p className="text-sm text-gray-500 leading-relaxed mb-2 line-clamp-3">{tool.desc}</p>
                 <div className="text-xs text-gray-500 mb-2">
