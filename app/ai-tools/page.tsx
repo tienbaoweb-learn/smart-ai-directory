@@ -578,21 +578,21 @@ function CategoriesSection() {
         </div>
         <p className="text-gray-500 text-sm mb-8 ml-7">Find AI tools for every use case and workflow.</p>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 lg:gap-[21px]">
           {CATEGORIES.map((cat) => (
             <Link
               key={cat.name}
               href={cat.href}
-              className="flex items-center gap-3 bg-white rounded-2xl border border-gray-100 hover:border-orange-200 hover:shadow-md transition-all p-4 group"
+              className="flex items-center gap-3 lg:gap-4 bg-white rounded-2xl border border-gray-100 hover:border-orange-200 hover:shadow-md transition-all p-4 lg:p-5 group"
             >
-              <div className={`w-9 h-9 rounded-xl ${cat.color} flex items-center justify-center shrink-0`}>
+              <div className={`w-9 h-9 lg:w-[45px] lg:h-[45px] rounded-xl ${cat.color} flex items-center justify-center shrink-0 [&_svg]:lg:w-6 [&_svg]:lg:h-6`}>
                 <CategoryIcon name={cat.name} colorClass={cat.iconColor} />
               </div>
               <div className="min-w-0">
-                <p className="font-semibold text-[#1E293B] text-xs sm:text-sm leading-tight group-hover:text-[#F97316] transition-colors line-clamp-2">
+                <p className="font-semibold text-[#1E293B] text-xs sm:text-sm lg:text-base leading-tight group-hover:text-[#F97316] transition-colors line-clamp-2">
                   {cat.name}
                 </p>
-                <p className="text-gray-400 text-xs mt-0.5">{cat.count} Tools</p>
+                <p className="text-gray-400 text-xs lg:text-sm mt-0.5">{cat.count} Tools</p>
               </div>
             </Link>
           ))}
