@@ -65,7 +65,86 @@ const INDUSTRIES = [
   },
 ];
 
+const EXPLORE_INDUSTRIES = [
+  {
+    id: "interior-design",
+    label: "Interior Design",
+    img: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80",
+    iconSrc: "/icons/interior-design.svg",
+    toolCount: 42,
+    guideCount: 15,
+    workflowCount: 10,
+    desc: "AI tools for interior designers, decorators, and stylists.",
+    btnClass: "bg-rose-600 hover:bg-rose-700",
+    iconBg: "bg-rose-100",
+    href: "/industries/interior-design",
+  },
+  {
+    id: "furniture",
+    label: "Furniture",
+    img: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80",
+    iconSrc: "/icons/furniture.svg",
+    toolCount: 35,
+    guideCount: 12,
+    workflowCount: 8,
+    desc: "AI tools for furniture designers, retailers, and manufacturers.",
+    btnClass: "bg-emerald-600 hover:bg-emerald-700",
+    iconBg: "bg-emerald-100",
+    href: "/industries/furniture",
+  },
+  {
+    id: "architecture",
+    label: "Architecture",
+    img: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80",
+    iconSrc: "/icons/architecture.svg",
+    toolCount: 28,
+    guideCount: 10,
+    workflowCount: 7,
+    desc: "AI tools for architects, designers, and planning professionals.",
+    btnClass: "bg-blue-600 hover:bg-blue-700",
+    iconBg: "bg-blue-100",
+    href: "/industries/architecture",
+  },
+  {
+    id: "construction",
+    label: "Construction",
+    img: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80",
+    iconSrc: "/icons/construction.svg",
+    toolCount: 24,
+    guideCount: 9,
+    workflowCount: 6,
+    desc: "AI tools for contractors, project managers, and builders.",
+    btnClass: "bg-orange-500 hover:bg-orange-600",
+    iconBg: "bg-orange-100",
+    href: "/industries/construction",
+  },
+  {
+    id: "realestate",
+    label: "Real Estate",
+    img: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80",
+    iconSrc: "/icons/realestate.svg",
+    toolCount: 31,
+    guideCount: 11,
+    workflowCount: 9,
+    desc: "AI tools for agents, brokers, and property managers.",
+    btnClass: "bg-purple-600 hover:bg-purple-700",
+    iconBg: "bg-purple-100",
+    href: "/industries/real-estate",
+  },
+];
+
 const CHALLENGES = [
+  {
+    industry: "Interior Designers",
+    iconSrc: "/icons/interior-design.svg",
+    iconBg: "bg-rose-100",
+    points: [
+      "High cost of 3D space visualization",
+      "Time-consuming mood board creation",
+      "Managing client design revisions",
+      "Sourcing and specifying furniture",
+    ],
+  },
   {
     industry: "Furniture Businesses",
     iconSrc: "/icons/furniture.svg",
@@ -537,21 +616,67 @@ function HeroSection() {
 // ─── CHALLENGES ───────────────────────────────────────────────────────────────
 
 function ChallengesSection() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canPrev, setCanPrev] = useState(false);
+  const [canNext, setCanNext] = useState(true);
+
+  const checkScroll = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setCanPrev(el.scrollLeft > 8);
+    setCanNext(el.scrollLeft < el.scrollWidth - el.clientWidth - 8);
+  }, []);
+
+  function slide(dir: "prev" | "next") {
+    const el = scrollRef.current;
+    if (!el) return;
+    const card = el.children[0] as HTMLElement | null;
+    const cardW = card ? card.offsetWidth + 20 : el.clientWidth / 4;
+    el.scrollBy({ left: dir === "next" ? cardW : -cardW, behavior: "smooth" });
+  }
+
   return (
-    <section className="py-8 sm:py-12 bg-white">
+    <section className="py-8 sm:py-12 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-8">
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1E293B] mb-2">
-            Common Business Challenges AI Can Solve
-          </h2>
-          <p className="text-gray-500 text-sm sm:text-base">
-            Across different industries, AI helps solve critical problems and unlock new opportunities.
-          </p>
+        <div className="flex items-end justify-between mb-8">
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1E293B] mb-2">
+              Common Business Challenges AI Can Solve
+            </h2>
+            <p className="text-gray-500 text-sm sm:text-base">
+              Across different industries, AI helps solve critical problems and unlock new opportunities.
+            </p>
+          </div>
+          <div className="flex gap-2 flex-shrink-0 ml-6">
+            <button
+              onClick={() => slide("prev")}
+              disabled={!canPrev}
+              aria-label="Previous"
+              className="w-9 h-9 rounded-full border border-gray-200 bg-white shadow-sm flex items-center justify-center text-gray-500 hover:text-[#F97316] hover:border-[#F97316] transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+            >
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
+            </button>
+            <button
+              onClick={() => slide("next")}
+              disabled={!canNext}
+              aria-label="Next"
+              className="w-9 h-9 rounded-full border border-gray-200 bg-white shadow-sm flex items-center justify-center text-gray-500 hover:text-[#F97316] hover:border-[#F97316] transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+            >
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+            </button>
+          </div>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
+        <div
+          ref={scrollRef}
+          onScroll={checkScroll}
+          className="flex gap-5 overflow-x-auto scroll-smooth hide-scrollbar pb-2"
+        >
           {CHALLENGES.map((c) => (
-            <div key={c.industry} className="bg-white rounded-2xl p-3 sm:p-5 border border-gray-100 shadow-sm">
+            <div
+              key={c.industry}
+              className="flex-none bg-white rounded-2xl p-4 sm:p-5 border border-gray-100 shadow-sm w-[calc(50%-10px)] lg:w-[calc(25%-15px)]"
+            >
               <div className="flex items-center gap-3 mb-4">
                 <div className={`w-9 h-9 rounded-xl ${c.iconBg} flex items-center justify-center shrink-0`}>
                   <Image src={c.iconSrc} alt={c.industry} width={22} height={22} />
@@ -677,21 +802,68 @@ function WorkflowsSection() {
 // ─── EXPLORE INDUSTRIES ───────────────────────────────────────────────────────
 
 function ExploreSection() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canPrev, setCanPrev] = useState(false);
+  const [canNext, setCanNext] = useState(true);
+
+  const checkScroll = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setCanPrev(el.scrollLeft > 8);
+    setCanNext(el.scrollLeft < el.scrollWidth - el.clientWidth - 8);
+  }, []);
+
+  function slide(dir: "prev" | "next") {
+    const el = scrollRef.current;
+    if (!el) return;
+    const card = el.children[0] as HTMLElement | null;
+    const cardW = card ? card.offsetWidth + 20 : el.clientWidth / 4;
+    el.scrollBy({ left: dir === "next" ? cardW : -cardW, behavior: "smooth" });
+  }
+
   return (
-    <section id="explore" className="py-8 sm:py-12 bg-white">
+    <section id="explore" className="py-8 sm:py-12 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-8">
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1E293B] mb-2">
-            Explore AI Solutions for Your Industry
-          </h2>
-          <p className="text-gray-500 text-sm sm:text-base">
-            Choose your industry to discover curated tools, workflows, guides, and case studies.
-          </p>
+        <div className="flex items-end justify-between mb-8">
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1E293B] mb-2">
+              Explore AI Solutions for Your Industry
+            </h2>
+            <p className="text-gray-500 text-sm sm:text-base">
+              Choose your industry to discover curated tools, workflows, guides, and case studies.
+            </p>
+          </div>
+          <div className="flex gap-2 flex-shrink-0 ml-6">
+            <button
+              onClick={() => slide("prev")}
+              disabled={!canPrev}
+              aria-label="Previous"
+              className="w-9 h-9 rounded-full border border-gray-200 bg-white shadow-sm flex items-center justify-center text-gray-500 hover:text-[#F97316] hover:border-[#F97316] transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+            >
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
+            </button>
+            <button
+              onClick={() => slide("next")}
+              disabled={!canNext}
+              aria-label="Next"
+              className="w-9 h-9 rounded-full border border-gray-200 bg-white shadow-sm flex items-center justify-center text-gray-500 hover:text-[#F97316] hover:border-[#F97316] transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+            >
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+            </button>
+          </div>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
-          {INDUSTRIES.map((ind) => (
-            <div key={ind.id} id={ind.id} className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow group">
+        <div
+          ref={scrollRef}
+          onScroll={checkScroll}
+          className="flex gap-5 overflow-x-auto scroll-smooth hide-scrollbar pb-2"
+        >
+          {EXPLORE_INDUSTRIES.map((ind) => (
+            <div
+              key={ind.id}
+              id={ind.id}
+              className="flex-none bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow group w-[calc(50%-10px)] lg:w-[calc(25%-15px)]"
+            >
               {/* Image */}
               <div className="relative h-28 sm:h-40 w-full">
                 <Image
@@ -726,12 +898,12 @@ function ExploreSection() {
                 </div>
 
                 {/* CTA button */}
-                <a
-                  href={`/ai-tools?industry=${ind.id}`}
+                <Link
+                  href={ind.href}
                   className={`block w-full text-center text-white text-sm font-semibold py-2.5 rounded-xl transition-colors ${ind.btnClass}`}
                 >
                   Explore {ind.label} →
-                </a>
+                </Link>
               </div>
             </div>
           ))}
