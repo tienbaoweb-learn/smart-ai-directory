@@ -6,10 +6,17 @@ import Link from "next/link";
 import Navbar from "./components/Navbar";
 import Newsletter from "./components/Newsletter";
 import Footer from "./components/Footer";
+import { ALL_TOOLS } from "./data/tools";
 
 // ─── DATA ───────────────────────────────────────────────────────────────────
 
 const INDUSTRY_ICONS: Record<string, React.ReactNode> = {
+  "interior-design": (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 text-pink-600">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+      <polyline points="9 22 9 12 15 12 15 22" />
+    </svg>
+  ),
   furniture: (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 text-amber-700">
       <path d="M2 8h20v10H2z" />
@@ -83,6 +90,38 @@ const INDUSTRY_CARDS = [
   },
 ];
 
+// Hero 2×2 cards → link to Best Of pages
+const HERO_CARDS = [
+  {
+    id: "interior-design",
+    href: "/best-of/interior-design",
+    label: "Interior Design",
+    count: 20,
+    img: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80",
+  },
+  {
+    id: "architecture",
+    href: "/best-of/architecture",
+    label: "Architecture",
+    count: 22,
+    img: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80",
+  },
+  {
+    id: "construction",
+    href: "/best-of/construction",
+    label: "Construction",
+    count: 24,
+    img: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80",
+  },
+  {
+    id: "realestate",
+    href: "/best-of/real-estate",
+    label: "Real Estate",
+    count: 26,
+    img: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80",
+  },
+];
+
 const TOOLS = [
   {
     id: 1,
@@ -140,8 +179,8 @@ const TOOLS = [
     id: 5,
     slug: "midjourney",
     name: "Midjourney",
-    industry: "Architecture",
-    industryColor: "bg-slate-100 text-slate-700",
+    industry: "Interior Design",
+    industryColor: "bg-pink-100 text-pink-700",
     logoBg: "bg-gray-900",
     logoText: "MJ",
     logoTextColor: "text-white text-sm font-black",
@@ -330,7 +369,7 @@ function HeroSection() {
                 Explore AI Tools <span>→</span>
               </Link>
               <Link href="/ai-tools#top-picks" className="flex items-center justify-center gap-2 border-2 border-[#1E293B] text-[#1E293B] hover:bg-[#2B7FFF] hover:border-[#2B7FFF] hover:text-white font-bold text-base px-8 py-4 rounded-xl transition-colors">
-                See Top Picks
+                See Topics
               </Link>
             </div>
 
@@ -349,12 +388,13 @@ function HeroSection() {
             </div>
           </div>
 
-          {/* Right — 2×2 industry card grid */}
+          {/* Right — 2×2 industry card grid → Best Of pages */}
           <div className="grid grid-cols-2 gap-3 sm:gap-5">
-            {INDUSTRY_CARDS.map((card) => (
-              <div
+            {HERO_CARDS.map((card) => (
+              <Link
                 key={card.id}
-                className="relative rounded-2xl overflow-hidden cursor-pointer group h-40 sm:h-60"
+                href={card.href}
+                className="relative rounded-2xl overflow-hidden cursor-pointer group h-40 sm:h-60 block"
               >
                 <Image
                   src={card.img}
@@ -376,7 +416,7 @@ function HeroSection() {
                     </p>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -388,38 +428,42 @@ function HeroSection() {
 function StatsBar() {
   const stats = [
     {
-      value: "20K+",
-      label: "Professionals",
+      value: "200+",
+      label: "AI Tools Reviewed",
+      iconBg: "bg-[#eff4fd]",
       icon: (
         <svg className="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
         </svg>
       ),
     },
     {
-      value: "50K+",
-      label: "Monthly Visitors",
+      value: "5",
+      label: "Industries Covered",
+      iconBg: "bg-[#eff4fd]",
       icon: (
         <svg className="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2zM16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16" />
         </svg>
       ),
     },
     {
-      value: "4.9/5",
-      label: "Average Rating",
+      value: "80+",
+      label: "Hours of Testing",
+      iconBg: "bg-amber-50",
       icon: (
-        <svg className="w-6 h-6 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+        <svg className="w-6 h-6 text-amber-500" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2h-2M9 3a2 2 0 002 2h2a2 2 0 002-2M9 3a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
         </svg>
       ),
     },
     {
-      value: "100+",
-      label: "Countries",
+      value: "Weekly",
+      label: "Updated Rankings",
+      iconBg: "bg-teal-50",
       icon: (
         <svg className="w-6 h-6 text-teal-500" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
         </svg>
       ),
     },
@@ -429,7 +473,7 @@ function StatsBar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading - outside frame */}
         <p className="text-[27px] font-bold text-[#1E293B] text-center tracking-wide mb-4 sm:mb-6">
-          Trusted by Professionals Worldwide
+          Built on Real Research, Not Guesswork
         </p>
 
         {/* Stats container */}
@@ -439,7 +483,7 @@ function StatsBar() {
               <div key={s.label} className="flex gap-3 sm:gap-4 items-start">
                 {/* Icon column */}
                 <div className="flex-shrink-0">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#eff4fd] flex items-center justify-center">
+                  <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full ${s.iconBg} flex items-center justify-center`}>
                     {s.icon}
                   </div>
                 </div>
@@ -460,9 +504,15 @@ function StatsBar() {
   );
 }
 
+// Logo lookup từ app/data/tools.ts (single source of truth với review pages)
+const TOOL_LOGO_MAP = Object.fromEntries(
+  ALL_TOOLS.map((t) => [t.slug, { logoBg: t.logoBg, logoText: t.logoText, logoTextClass: t.logoTextClass }])
+);
+
 function TopTools() {
   const tabs = [
     "All",
+    "Interior Design",
     "Furniture",
     "Architecture",
     "Construction",
@@ -519,10 +569,18 @@ function TopTools() {
                 {tool.industry}
               </span>
 
-              {/* Logo — centered */}
-              <div className={`w-[62px] h-[62px] rounded-xl ${tool.logoBg} flex items-center justify-center mb-3 shrink-0`}>
-                <span className={`${tool.logoTextColor} leading-none`}>{tool.logoText}</span>
-              </div>
+              {/* Logo — từ ALL_TOOLS (auto-sync với review pages), fallback về hardcode */}
+              {(() => {
+                const src = TOOL_LOGO_MAP[tool.slug];
+                const bg = src?.logoBg ?? tool.logoBg;
+                const text = src?.logoText ?? tool.logoText;
+                const cls = src?.logoTextClass ?? tool.logoTextColor;
+                return (
+                  <div className={`w-[62px] h-[62px] rounded-xl ${bg} flex items-center justify-center mb-3 shrink-0`}>
+                    <span className={`${cls} leading-none`}>{text}</span>
+                  </div>
+                );
+              })()}
 
               {/* Name */}
               <p className="font-bold text-[#1E293B] text-sm mb-1">{tool.name}</p>

@@ -398,7 +398,7 @@ function IndustrySection() {
 
 function TopPicksSection() {
   return (
-    <section className="py-10 sm:py-14 bg-white">
+    <section id="top-picks" className="py-10 sm:py-14 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-2">
           <div className="flex items-center gap-2">

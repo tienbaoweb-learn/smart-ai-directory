@@ -348,9 +348,9 @@ export default function Navbar() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 115 11a6 6 0 0112 0z" />
               </svg>
             </button>
-            <button className="hidden sm:inline-flex items-center gap-2 bg-[#F97316] hover:bg-orange-600 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors shadow-md shadow-orange-100">
+            <Link href="/#newsletter" className="hidden sm:inline-flex items-center gap-2 bg-[#F97316] hover:bg-orange-600 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors shadow-md shadow-orange-100">
               Subscribe
-            </button>
+            </Link>
             {/* Hamburger — mobile only */}
             <button
               className="flex lg:hidden p-2 text-gray-600 hover:text-[#F97316] transition-colors rounded-md"
@@ -442,7 +442,7 @@ export default function Navbar() {
 
             {/* Subscribe button */}
             <Link
-              href="#"
+              href="/#newsletter"
               onClick={closeMobileMenu}
               className="block mt-3 mb-2 bg-[#F97316] hover:bg-orange-600 text-white text-base font-semibold text-center py-3 rounded-lg transition-colors"
             >
