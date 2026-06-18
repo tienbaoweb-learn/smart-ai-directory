@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar";
 import Newsletter from "./components/Newsletter";
 import Footer from "./components/Footer";
 import { ALL_TOOLS } from "./data/tools";
+import { TOOL_LOGO_URLS } from "./data/tool-logos";
 
 // ─── DATA ───────────────────────────────────────────────────────────────────
 
@@ -53,6 +54,15 @@ const INDUSTRY_ICONS: Record<string, React.ReactNode> = {
 
 const INDUSTRY_CARDS = [
   {
+    id: "interior-design",
+    href: "/industries/interior-design",
+    label: "Interior Design",
+    count: 20,
+    bg: "from-pink-800 to-pink-600",
+    desc: "Visualize, plan, and transform interior spaces faster with AI.",
+    img: "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600&q=80",
+  },
+  {
     id: "furniture",
     href: "/industries/furniture",
     label: "Furniture",
@@ -68,7 +78,7 @@ const INDUSTRY_CARDS = [
     count: 22,
     bg: "from-slate-700 to-slate-500",
     desc: "Design, plan, and visualize architecture projects with AI.",
-    img: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80",
+    img: "https://images.unsplash.com/photo-1492091501265-be9af13d99fc?w=600&q=80",
   },
   {
     id: "construction",
@@ -369,7 +379,7 @@ function HeroSection() {
                 Explore AI Tools <span>→</span>
               </Link>
               <Link href="/ai-tools#top-picks" className="flex items-center justify-center gap-2 border-2 border-[#1E293B] text-[#1E293B] hover:bg-[#2B7FFF] hover:border-[#2B7FFF] hover:text-white font-bold text-base px-8 py-4 rounded-xl transition-colors">
-                See Topics
+                See Top Picks
               </Link>
             </div>
 
@@ -569,18 +579,22 @@ function TopTools() {
                 {tool.industry}
               </span>
 
-              {/* Logo — từ ALL_TOOLS (auto-sync với review pages), fallback về hardcode */}
-              {(() => {
-                const src = TOOL_LOGO_MAP[tool.slug];
-                const bg = src?.logoBg ?? tool.logoBg;
-                const text = src?.logoText ?? tool.logoText;
-                const cls = src?.logoTextClass ?? tool.logoTextColor;
-                return (
-                  <div className={`w-[62px] h-[62px] rounded-xl ${bg} flex items-center justify-center mb-3 shrink-0`}>
-                    <span className={`${cls} leading-none`}>{text}</span>
-                  </div>
-                );
-              })()}
+              {/* Logo — ưu tiên logo image từ review page, fallback về colored box */}
+              {TOOL_LOGO_URLS[tool.slug] ? (
+                <div className="w-[62px] h-[62px] rounded-xl bg-white border border-gray-100 flex items-center justify-center mb-3 shrink-0 overflow-hidden p-1.5">
+                  <Image
+                    src={TOOL_LOGO_URLS[tool.slug]}
+                    alt={tool.name}
+                    width={52}
+                    height={52}
+                    className="object-contain"
+                  />
+                </div>
+              ) : (
+                <div className={`w-[62px] h-[62px] rounded-xl ${tool.logoBg} flex items-center justify-center mb-3 shrink-0`}>
+                  <span className={`${tool.logoTextColor} leading-none`}>{tool.logoText}</span>
+                </div>
+              )}
 
               {/* Name */}
               <p className="font-bold text-[#1E293B] text-sm mb-1">{tool.name}</p>
@@ -738,13 +752,13 @@ function ExploreByIndustry() {
           </p>
         </div>
 
-        {/* 4-Column Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-          {INDUSTRY_CARDS.map((card) => (
+        {/* 5-Card Grid: 2 cols mobile → 3 cols md → 5 cols lg */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
+          {INDUSTRY_CARDS.map((card, idx) => (
             <Link
               key={card.id}
               href={card.href}
-              className="rounded-2xl overflow-hidden cursor-pointer group hover:shadow-xl transition-shadow bg-white block"
+              className={`rounded-2xl overflow-hidden cursor-pointer group hover:shadow-xl transition-shadow bg-white block${idx === INDUSTRY_CARDS.length - 1 ? " col-span-2 md:col-span-1" : ""}`}
             >
               {/* Image area with centered icon */}
               <div className="relative h-36 sm:h-48">
