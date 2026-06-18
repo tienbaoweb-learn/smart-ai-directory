@@ -221,25 +221,16 @@ export default function ResourcesPage() {
               </div>
             </div>
 
-            {/* Right — illustration placeholder */}
+            {/* Right — hero illustration */}
             <div className="relative hidden lg:block">
               <div className="absolute -top-8 -right-8 w-64 h-64 bg-orange-100 rounded-full blur-3xl opacity-40" />
               <div className="absolute -bottom-8 -left-8 w-52 h-52 bg-blue-100 rounded-full blur-3xl opacity-40" />
-              {/* TODO: replace with illustration/screenshot image */}
-              <div className="relative bg-gray-100 rounded-2xl aspect-[4/3] w-full overflow-hidden flex items-center justify-center">
-                <svg
-                  className="w-16 h-16 text-gray-300"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={1}
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M13.5 12h.008v.008H13.5V12z"
-                  />
-                </svg>
+              <div className="relative rounded-2xl overflow-hidden shadow-xl">
+                <img
+                  src="/resources.webp"
+                  alt="Resources overview"
+                  className="w-full h-auto object-cover"
+                />
               </div>
             </div>
 
