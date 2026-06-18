@@ -22,10 +22,12 @@ import {
   Users,
   Wrench,
   Zap,
+  type LucideIcon,
 } from "lucide-react";
 import Navbar from "../../components/Navbar";
 import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
+import { caseStudiesData } from "../../../lib/case-studies-data";
 
 // ─── INDUSTRY CARD THEMES ─────────────────────────────────────────────────────
 
@@ -59,56 +61,12 @@ const RESULT_THEME: Record<string, { bg: string; color: string }> = {
 
 // ─── DATA ─────────────────────────────────────────────────────────────────────
 
-const FEATURED_CASES = [
-  {
-    badge: "INTERIOR DESIGN",
-    company: { name: "Studio Luxe", bg: "bg-black",      letter: "S" },
-    imageHint: "luxury living room interior",
-    title: "How Studio Luxe Cut Rendering Time by 70% with AI",
-    desc: "Using Midjourney and DALL-E 3, Studio Luxe delivers high-quality concepts in minutes instead of days.",
-    stats: [
-      { icon: Clock,       value: "70%",   label: "Time Saved"     },
-      { icon: TrendingUp,  value: "45%",   label: "More Projects"  },
-      { icon: DollarSign,  value: "$120K", label: "Annual Savings" },
-    ],
-  },
-  {
-    badge: "ARCHITECTURE",
-    company: { name: "ArchVision", bg: "bg-slate-700", letter: "A" },
-    imageHint: "modern architecture building rendering",
-    title: "ArchVision Increases Client Approvals with AI Visuals",
-    desc: "AI-generated visuals helped ArchVision improve client understanding and increase approval rate.",
-    stats: [
-      { icon: CheckCircle, value: "60%",   label: "Approval Rate"     },
-      { icon: Zap,         value: "35%",   label: "Faster Decisions"  },
-      { icon: DollarSign,  value: "$200K", label: "Revenue Impact"    },
-    ],
-  },
-  {
-    badge: "CONSTRUCTION",
-    company: { name: "BuildSmart", bg: "bg-yellow-500", letter: "B" },
-    imageHint: "construction site aerial view",
-    title: "BuildSmart Saves 1,200+ Hours Monthly with AI Automation",
-    desc: "AI automation for reports, progress tracking, and documentation saved hours every week.",
-    stats: [
-      { icon: Clock,        value: "1,200+", label: "Hours Saved"      },
-      { icon: TrendingDown, value: "30%",    label: "Cost Reduction"   },
-      { icon: DollarSign,   value: "$350K",  label: "Annual Savings"   },
-    ],
-  },
-  {
-    badge: "REAL ESTATE",
-    company: { name: "Prime Realty", bg: "bg-gray-900", letter: "P" },
-    imageHint: "modern house exterior dusk",
-    title: "Prime Realty Generates 3x More Leads with AI Marketing",
-    desc: "AI-powered content and ad automation helped Prime Realty triple their qualified leads.",
-    stats: [
-      { icon: Users,        value: "3x",    label: "More Leads"      },
-      { icon: TrendingDown, value: "50%",   label: "Lower CPL"       },
-      { icon: DollarSign,   value: "$160K", label: "Pipeline Value"  },
-    ],
-  },
-];
+const ICON_MAP: Record<string, LucideIcon> = {
+  Clock, TrendingUp, TrendingDown, DollarSign, CheckCircle, Zap, Users, BarChart3, Timer,
+};
+
+const FEATURED_CASES = caseStudiesData.filter((cs) => cs.isFeatured);
+const LATEST_CASES   = caseStudiesData.filter((cs) => !cs.isFeatured);
 
 const LATEST_CASE_BADGE: Record<string, string> = {
   "INTERIOR DESIGN": "text-purple-600 bg-purple-50",
@@ -117,14 +75,6 @@ const LATEST_CASE_BADGE: Record<string, string> = {
   "MARKETING":       "text-pink-600 bg-pink-50",
   "ARCHITECTURE":    "text-blue-600 bg-blue-50",
 };
-
-const LATEST_CASES = [
-  { badge: "INTERIOR DESIGN", title: "From 20 Hours to 2: How AI Transformed Our Design Process",          company: "Studio Nest",       tools: "Midjourney, RoomGPT",  result: "↑ 90% Time Saved",      date: "May 20, 2026" },
-  { badge: "CONSTRUCTION",    title: "AI-Powered Cost Estimation That Improved Our Bidding Accuracy",      company: "ConstructPro",      tools: "Buildots AI",          result: "↑ 38% More Accurate",   date: "May 18, 2026" },
-  { badge: "REAL ESTATE",     title: "How AI Helped Us Close $2M in Deals in Just 60 Days",               company: "Urban Nest Realty", tools: "ChatGPT + Zapier",     result: "↑ $2M Pipeline",        date: "May 16, 2026" },
-  { badge: "MARKETING",       title: "Automating Content Creation: Our AI Workflow for 10x More Output",  company: "DesignFlow",        tools: "Jasper + Canva AI",    result: "↑ 10x More Content",    date: "May 14, 2026" },
-  { badge: "ARCHITECTURE",    title: "AI Design Tools That Helped Us Win More Competitions",              company: "NextForm Studio",   tools: "Vizcom",               result: "↑ More Wins",           date: "May 12, 2026" },
-];
 
 const SIDEBAR_TOPICS_CS = [
   "AI in Architecture",
@@ -338,13 +288,12 @@ export default function CaseStudiesPage() {
               <div key={cs.title} className="border border-gray-100 rounded-xl overflow-hidden bg-white hover:shadow-md transition-shadow flex flex-col">
                 {/* Thumbnail */}
                 <div className="bg-gray-300 aspect-[4/3] relative">
-                  {/* TODO: replace with Unsplash image — hint: {cs.imageHint} */}
                   <span className={`absolute top-2 left-2 rounded-full px-2.5 py-1 text-xs font-semibold uppercase ${CASE_BADGE[cs.badge]}`}>
                     {cs.badge}
                   </span>
                   <div className="absolute bottom-2 left-2 bg-white/95 rounded-lg px-2 py-1 flex items-center gap-1.5">
-                    <span className={`w-5 h-5 rounded ${cs.company.bg} flex items-center justify-center text-white text-[10px] font-bold shrink-0`}>
-                      {cs.company.letter}
+                    <span className={`w-5 h-5 rounded ${cs.company.logo.bg} flex items-center justify-center text-white text-[10px] font-bold shrink-0`}>
+                      {cs.company.logo.text}
                     </span>
                     <span className="text-xs font-semibold text-[#1E293B]">{cs.company.name}</span>
                   </div>
@@ -353,22 +302,25 @@ export default function CaseStudiesPage() {
                 {/* Content */}
                 <div className="p-4 flex flex-col flex-1">
                   <p className="font-semibold text-sm text-[#1E293B] line-clamp-2 leading-snug">{cs.title}</p>
-                  <p className="text-xs text-gray-500 mt-1.5 line-clamp-3 leading-relaxed flex-1">{cs.desc}</p>
+                  <p className="text-xs text-gray-500 mt-1.5 line-clamp-3 leading-relaxed flex-1">{cs.description}</p>
 
                   {/* Mini stats */}
                   <div className="grid grid-cols-3 gap-2 mt-3">
-                    {cs.stats.map(({ icon: Icon, value, label }) => (
-                      <div key={label} className="flex flex-col items-center text-center">
-                        <Icon size={12} className="text-gray-400 mb-0.5" />
-                        <span className="font-bold text-sm text-[#1E293B] leading-none">{value}</span>
-                        <span className="text-[10px] text-gray-400 leading-snug mt-0.5">{label}</span>
-                      </div>
-                    ))}
+                    {cs.stats.map(({ icon: iconName, value, label }) => {
+                      const Icon = ICON_MAP[iconName] ?? Clock;
+                      return (
+                        <div key={label} className="flex flex-col items-center text-center">
+                          <Icon size={12} className="text-gray-400 mb-0.5" />
+                          <span className="font-bold text-sm text-[#1E293B] leading-none">{value}</span>
+                          <span className="text-[10px] text-gray-400 leading-snug mt-0.5">{label}</span>
+                        </div>
+                      );
+                    })}
                   </div>
 
-                  <a href="#" className="text-blue-600 text-xs font-medium mt-3 hover:underline inline-block">
+                  <Link href={cs.href} className="text-blue-600 text-xs font-medium mt-3 hover:underline inline-block">
                     Read Case Study →
-                  </a>
+                  </Link>
                 </div>
               </div>
             ))}
@@ -417,24 +369,22 @@ export default function CaseStudiesPage() {
                 {LATEST_CASES.map((item) => (
                   <li key={item.title} className="flex gap-4 items-start py-4 border-b border-gray-100 last:border-0">
                     {/* Thumbnail */}
-                    <div className="bg-gray-300 rounded-lg w-20 h-16 md:w-24 md:h-20 flex-shrink-0">
-                      {/* TODO: replace with image */}
-                    </div>
+                    <div className="bg-gray-300 rounded-lg w-20 h-16 md:w-24 md:h-20 flex-shrink-0" />
 
                     {/* Content */}
                     <div className="flex-1 min-w-0">
-                      <a href="#" className="font-semibold text-sm md:text-base text-[#1E293B] hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
+                      <Link href={item.href} className="font-semibold text-sm md:text-base text-[#1E293B] hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
                         {item.title}
-                      </a>
+                      </Link>
                       <div className="flex flex-wrap items-center gap-2 mt-1.5 text-xs">
                         <span className={`rounded-full px-2 py-0.5 font-semibold ${LATEST_CASE_BADGE[item.badge]}`}>
                           {item.badge}
                         </span>
-                        <span className="text-gray-500">{item.company}</span>
+                        <span className="text-gray-500">{item.company.name}</span>
                         <span className="text-gray-400">&bull; {item.tools}</span>
                         <span className="text-emerald-600 font-medium flex items-center gap-0.5">
                           <TrendingUp size={11} className="shrink-0" />
-                          {item.result.replace("↑ ", "")}
+                          {(item.result ?? "").replace("↑ ", "")}
                         </span>
                         <span className="text-gray-400 ml-auto hidden sm:inline">{item.date}</span>
                       </div>
