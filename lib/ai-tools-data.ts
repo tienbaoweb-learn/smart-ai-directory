@@ -13,6 +13,7 @@ export interface AIToolCard {
   bestFor: string;
   isFeatured: boolean;
   affiliateHref: string;
+  tags: string[];
 }
 
 export const aiToolCards: AIToolCard[] = [
@@ -29,6 +30,7 @@ export const aiToolCards: AIToolCard[] = [
     bestFor: "Interior Designers, Homeowners",
     isFeatured: true,
     affiliateHref: "#",
+    tags: ["productivity", "ai-image-generation"],
   },
   {
     slug: "roomgpt",
@@ -42,6 +44,7 @@ export const aiToolCards: AIToolCard[] = [
     bestFor: "Freelancers, Homeowners",
     isFeatured: false,
     affiliateHref: "#",
+    tags: ["ai-image-generation", "no-code"],
   },
   {
     slug: "coohom",
@@ -55,6 +58,7 @@ export const aiToolCards: AIToolCard[] = [
     bestFor: "Design Studios, Interior Designers",
     isFeatured: false,
     affiliateHref: "#",
+    tags: ["ai-image-generation", "productivity"],
   },
   {
     slug: "homestyler",
@@ -68,6 +72,7 @@ export const aiToolCards: AIToolCard[] = [
     bestFor: "Freelancers, Homeowners",
     isFeatured: false,
     affiliateHref: "#",
+    tags: ["ai-image-generation", "no-code"],
   },
   {
     slug: "foyr-neo",
@@ -81,6 +86,7 @@ export const aiToolCards: AIToolCard[] = [
     bestFor: "Interior Designers, Design Studios",
     isFeatured: false,
     affiliateHref: "#",
+    tags: ["ai-image-generation", "productivity"],
   },
 
   // ── Architecture ───────────────────────────────────────────────
@@ -96,6 +102,7 @@ export const aiToolCards: AIToolCard[] = [
     bestFor: "Architects, Concept Designers",
     isFeatured: true,
     affiliateHref: "#",
+    tags: ["ai-image-generation", "prompt-engineering"],
   },
   {
     slug: "autodesk-forma",
@@ -109,6 +116,7 @@ export const aiToolCards: AIToolCard[] = [
     bestFor: "Architects, Urban Planners",
     isFeatured: false,
     affiliateHref: "#",
+    tags: ["productivity", "ai-for-business"],
   },
   {
     slug: "testfit",
@@ -122,6 +130,7 @@ export const aiToolCards: AIToolCard[] = [
     bestFor: "Developers, Architects",
     isFeatured: false,
     affiliateHref: "#",
+    tags: ["productivity", "ai-for-business"],
   },
   {
     slug: "midjourney",
@@ -135,6 +144,7 @@ export const aiToolCards: AIToolCard[] = [
     bestFor: "Architects, Interior Designers",
     isFeatured: false,
     affiliateHref: "#",
+    tags: ["midjourney", "ai-image-generation", "prompt-engineering"],
   },
   {
     slug: "arkdesign-ai",
@@ -148,6 +158,7 @@ export const aiToolCards: AIToolCard[] = [
     bestFor: "Architects, Design Firms",
     isFeatured: false,
     affiliateHref: "#",
+    tags: ["ai-image-generation", "productivity"],
   },
   {
     slug: "archicad-ai",
@@ -161,6 +172,7 @@ export const aiToolCards: AIToolCard[] = [
     bestFor: "Architects, Design Firms",
     isFeatured: true,
     affiliateHref: "#",
+    tags: ["productivity", "ai-for-business"],
   },
   {
     slug: "d5-render",
@@ -174,6 +186,7 @@ export const aiToolCards: AIToolCard[] = [
     bestFor: "Architects, Visualization Studios",
     isFeatured: false,
     affiliateHref: "#",
+    tags: ["ai-image-generation", "productivity"],
   },
   {
     slug: "veras",
@@ -187,6 +200,7 @@ export const aiToolCards: AIToolCard[] = [
     bestFor: "Architects, Urban Planners",
     isFeatured: false,
     affiliateHref: "#",
+    tags: ["ai-image-generation", "productivity"],
   },
   {
     slug: "twinmotion-ai",
@@ -200,6 +214,7 @@ export const aiToolCards: AIToolCard[] = [
     bestFor: "Architects, Visualization Studios",
     isFeatured: false,
     affiliateHref: "#",
+    tags: ["ai-image-generation", "productivity"],
   },
 
   // ── Construction ───────────────────────────────────────────────
@@ -215,6 +230,7 @@ export const aiToolCards: AIToolCard[] = [
     bestFor: "General Contractors, Project Managers",
     isFeatured: true,
     affiliateHref: "#",
+    tags: ["automation", "productivity", "ai-for-business"],
   },
   {
     slug: "openspace",
@@ -228,6 +244,7 @@ export const aiToolCards: AIToolCard[] = [
     bestFor: "Site Engineers, Project Managers",
     isFeatured: false,
     affiliateHref: "#",
+    tags: ["automation", "productivity"],
   },
   {
     slug: "alice-technologies",
@@ -241,6 +258,7 @@ export const aiToolCards: AIToolCard[] = [
     bestFor: "General Contractors, Planners",
     isFeatured: false,
     affiliateHref: "#",
+    tags: ["automation", "ai-for-business"],
   },
   {
     slug: "procore-ai",
@@ -254,6 +272,7 @@ export const aiToolCards: AIToolCard[] = [
     bestFor: "General Contractors, Project Managers",
     isFeatured: false,
     affiliateHref: "#",
+    tags: ["automation", "ai-for-business", "productivity"],
   },
   {
     slug: "pillar",
@@ -267,6 +286,7 @@ export const aiToolCards: AIToolCard[] = [
     bestFor: "Site Engineers, Quality Managers",
     isFeatured: false,
     affiliateHref: "#",
+    tags: ["automation", "productivity"],
   },
   {
     slug: "plangrid",
@@ -280,6 +300,7 @@ export const aiToolCards: AIToolCard[] = [
     bestFor: "Site Engineers, Subcontractors",
     isFeatured: false,
     affiliateHref: "#",
+    tags: ["productivity", "workflow"],
   },
 
   // ── Real Estate ────────────────────────────────────────────────
@@ -295,6 +316,7 @@ export const aiToolCards: AIToolCard[] = [
     bestFor: "Real Estate Agents, Brokerages",
     isFeatured: true,
     affiliateHref: "#",
+    tags: ["ai-image-generation", "ai-for-business"],
   },
   {
     slug: "offrs",
@@ -308,6 +330,7 @@ export const aiToolCards: AIToolCard[] = [
     bestFor: "Real Estate Agents, Teams",
     isFeatured: false,
     affiliateHref: "#",
+    tags: ["ai-for-business", "automation"],
   },
   {
     slug: "lofty-ai",
@@ -321,6 +344,7 @@ export const aiToolCards: AIToolCard[] = [
     bestFor: "Real Estate Agents, Teams",
     isFeatured: false,
     affiliateHref: "#",
+    tags: ["ai-for-business", "automation"],
   },
   {
     slug: "structurely",
@@ -334,6 +358,7 @@ export const aiToolCards: AIToolCard[] = [
     bestFor: "Real Estate Agents, New Agents",
     isFeatured: false,
     affiliateHref: "#",
+    tags: ["ai-agents", "automation", "ai-for-business"],
   },
   {
     slug: "zillow-showcase",
@@ -347,6 +372,7 @@ export const aiToolCards: AIToolCard[] = [
     bestFor: "Real Estate Agents, Brokerages",
     isFeatured: false,
     affiliateHref: "#",
+    tags: ["ai-image-generation", "ai-for-business"],
   },
   {
     slug: "copy-ai",
@@ -360,6 +386,7 @@ export const aiToolCards: AIToolCard[] = [
     bestFor: "Real Estate Agents, Property Managers",
     isFeatured: false,
     affiliateHref: "#",
+    tags: ["ai-writing", "ai-for-business"],
   },
   {
     slug: "housecanary",
@@ -373,6 +400,7 @@ export const aiToolCards: AIToolCard[] = [
     bestFor: "Agents, Investors, Brokerages",
     isFeatured: false,
     affiliateHref: "#",
+    tags: ["ai-for-business", "productivity"],
   },
   {
     slug: "manychat",
@@ -386,6 +414,7 @@ export const aiToolCards: AIToolCard[] = [
     bestFor: "Real Estate Agents, New Agents",
     isFeatured: false,
     affiliateHref: "#",
+    tags: ["automation", "ai-agents", "ai-for-business"],
   },
 
   // ── Furniture ──────────────────────────────────────────────────
@@ -401,6 +430,7 @@ export const aiToolCards: AIToolCard[] = [
     bestFor: "Furniture Retailers, E-commerce",
     isFeatured: true,
     affiliateHref: "#",
+    tags: ["ai-image-generation", "no-code"],
   },
   {
     slug: "zakeke",
@@ -414,6 +444,7 @@ export const aiToolCards: AIToolCard[] = [
     bestFor: "Furniture Manufacturers, Retailers",
     isFeatured: false,
     affiliateHref: "#",
+    tags: ["ai-image-generation", "ai-for-business"],
   },
   {
     slug: "photoroom",
@@ -427,6 +458,7 @@ export const aiToolCards: AIToolCard[] = [
     bestFor: "Furniture Retailers, Marketing Teams",
     isFeatured: false,
     affiliateHref: "#",
+    tags: ["ai-image-generation", "no-code"],
   },
 
   // ── Cross-niche ────────────────────────────────────────────────
@@ -442,6 +474,7 @@ export const aiToolCards: AIToolCard[] = [
     bestFor: "Agents, Retailers, Designers, Marketers",
     isFeatured: false,
     affiliateHref: "#",
+    tags: ["ai-image-generation", "no-code", "ai-writing"],
   },
   {
     slug: "jasper",
@@ -455,5 +488,6 @@ export const aiToolCards: AIToolCard[] = [
     bestFor: "Marketing Teams, Content Creators",
     isFeatured: false,
     affiliateHref: "#",
+    tags: ["ai-writing", "ai-for-business"],
   },
 ];
