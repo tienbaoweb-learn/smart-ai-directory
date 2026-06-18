@@ -40,11 +40,37 @@ const FAQS = [
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setSubmitted(true);
+    setSending(true);
+    setError("");
+    const form = e.currentTarget;
+    const data = {
+      name: (form.elements.namedItem("name") as HTMLInputElement).value,
+      email: (form.elements.namedItem("email") as HTMLInputElement).value,
+      subject: (form.elements.namedItem("subject") as HTMLSelectElement).value,
+      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
+    };
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (res.ok) {
+        setSubmitted(true);
+      } else {
+        setError("Something went wrong. Please try again.");
+      }
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setSending(false);
+    }
   }
 
   return (
@@ -144,11 +170,15 @@ export default function ContactPage() {
                     </div>
 
                     {/* Submit */}
+                    {error && (
+                      <p className="text-sm text-red-600">{error}</p>
+                    )}
                     <button
                       type="submit"
-                      className="w-full bg-[#447df7] hover:bg-blue-600 text-white font-semibold rounded-lg py-3 text-sm transition-colors"
+                      disabled={sending}
+                      className="w-full bg-[#447df7] hover:bg-blue-600 disabled:opacity-60 text-white font-semibold rounded-lg py-3 text-sm transition-colors"
                     >
-                      Send Message
+                      {sending ? "Sending…" : "Send Message"}
                     </button>
                   </form>
                 )}

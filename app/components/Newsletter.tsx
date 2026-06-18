@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+
 export default function Newsletter({
   heading = "Get Weekly AI Tools & Workflow Ideas",
   subtitle = "Join 1000+ professionals who get practical AI tips, tool reviews, and workflows every week.",
@@ -5,6 +9,30 @@ export default function Newsletter({
   heading?: string;
   subtitle?: string;
 } = {}) {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!email) return;
+    setStatus("loading");
+    try {
+      const res = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      if (res.ok) {
+        setStatus("success");
+        setEmail("");
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
+  }
+
   return (
     <section id="newsletter" className="pt-3 pb-5 sm:pt-[17px] sm:pb-7 bg-white">
       <div className="max-w-[1215px] mx-auto px-4 sm:px-6 lg:px-8 pb-[10px]">
@@ -31,16 +59,32 @@ export default function Newsletter({
 
           {/* Right — input + button + trust badges */}
           <div className="flex-[2] w-full flex flex-col gap-3">
-            <div className="flex flex-col sm:flex-row gap-2">
-              <input
-                type="email"
-                placeholder="Enter your email address"
-                className="flex-1 px-4 py-3 rounded-xl text-sm bg-white text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white/60"
-              />
-              <button className="bg-[#1E293B] hover:bg-slate-700 text-white font-semibold px-5 py-3 rounded-xl transition-colors whitespace-nowrap text-sm">
-                Subscribe Now
-              </button>
-            </div>
+            {status === "success" ? (
+              <div className="bg-white/20 rounded-xl px-5 py-4 text-white text-sm font-semibold text-center">
+                ✓ You&apos;re subscribed! Check your inbox soon.
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email address"
+                  required
+                  className="flex-1 px-4 py-3 rounded-xl text-sm bg-white text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white/60"
+                />
+                <button
+                  type="submit"
+                  disabled={status === "loading"}
+                  className="bg-[#1E293B] hover:bg-slate-700 disabled:opacity-60 text-white font-semibold px-5 py-3 rounded-xl transition-colors whitespace-nowrap text-sm"
+                >
+                  {status === "loading" ? "Subscribing…" : "Subscribe Now"}
+                </button>
+              </form>
+            )}
+            {status === "error" && (
+              <p className="text-white/80 text-xs">Something went wrong. Please try again.</p>
+            )}
             <div className="flex flex-wrap gap-4 text-white text-xs">
               {["✓ No spam", "✓ Unsubscribe anytime", "✓ 100% Free"].map((b) => (
                 <span key={b}>{b}</span>
