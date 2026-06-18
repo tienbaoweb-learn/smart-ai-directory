@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "./components/Navbar";
@@ -107,28 +107,28 @@ const HERO_CARDS = [
     href: "/best-of/interior-design",
     label: "Interior Design",
     count: 20,
-    img: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80",
+    img: "https://plus.unsplash.com/premium_photo-1661962771640-426ce94f16c6?w=600&q=80",
   },
   {
     id: "architecture",
     href: "/best-of/architecture",
     label: "Architecture",
     count: 22,
-    img: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80",
+    img: "https://images.unsplash.com/photo-1489465033131-30f7e2025f68?w=600&q=80",
   },
   {
     id: "construction",
     href: "/best-of/construction",
     label: "Construction",
     count: 24,
-    img: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80",
+    img: "https://images.unsplash.com/photo-1512207736890-6ffed8a84e8d?w=600&q=80",
   },
   {
     id: "realestate",
     href: "/best-of/real-estate",
     label: "Real Estate",
     count: 26,
-    img: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80",
+    img: "https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=600&q=80",
   },
 ];
 
@@ -739,29 +739,74 @@ function LatestInsights() {
 
 // ─── PAGE ────────────────────────────────────────────────────────────────────
 function ExploreByIndustry() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canPrev, setCanPrev] = useState(false);
+  const [canNext, setCanNext] = useState(true);
+
+  const checkScroll = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setCanPrev(el.scrollLeft > 8);
+    setCanNext(el.scrollLeft < el.scrollWidth - el.clientWidth - 8);
+  }, []);
+
+  function slide(dir: "prev" | "next") {
+    const el = scrollRef.current;
+    if (!el) return;
+    const card = el.children[0] as HTMLElement | null;
+    const cardW = card ? card.offsetWidth + 24 : el.clientWidth / 4;
+    el.scrollBy({ left: dir === "next" ? cardW : -cardW, behavior: "smooth" });
+  }
+
   return (
-    <section id="explore" className="py-20 bg-gray-50">
+    <section id="explore" className="py-20 bg-gray-50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#1E293B] mb-4">
-            Explore AI Tools by Industry
-          </h2>
-          <p className="text-gray-500 text-base sm:text-lg max-w-xl mx-auto">
-            Find the perfect AI tools tailored to your industry needs.
-          </p>
+        <div className="flex items-end justify-between mb-12">
+          <div>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#1E293B] mb-2">
+              Explore AI Tools by Industry
+            </h2>
+            <p className="text-gray-500 text-base sm:text-lg">
+              Find the perfect AI tools tailored to your industry needs.
+            </p>
+          </div>
+          {/* Arrow buttons */}
+          <div className="flex gap-2 flex-shrink-0 ml-6">
+            <button
+              onClick={() => slide("prev")}
+              disabled={!canPrev}
+              aria-label="Previous"
+              className="w-10 h-10 rounded-full border border-gray-200 bg-white shadow-sm flex items-center justify-center text-gray-500 hover:text-[#F97316] hover:border-[#F97316] transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+            >
+              <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
+            </button>
+            <button
+              onClick={() => slide("next")}
+              disabled={!canNext}
+              aria-label="Next"
+              className="w-10 h-10 rounded-full border border-gray-200 bg-white shadow-sm flex items-center justify-center text-gray-500 hover:text-[#F97316] hover:border-[#F97316] transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+            >
+              <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+            </button>
+          </div>
         </div>
 
-        {/* 5-Card Grid: 2 cols mobile → 3 cols md → 5 cols lg */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
-          {INDUSTRY_CARDS.map((card, idx) => (
+        {/* Slider */}
+        <div
+          ref={scrollRef}
+          onScroll={checkScroll}
+          className="flex gap-6 overflow-x-auto scroll-smooth pb-2 hide-scrollbar"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" } as React.CSSProperties}
+        >
+          {INDUSTRY_CARDS.map((card) => (
             <Link
               key={card.id}
               href={card.href}
-              className={`rounded-2xl overflow-hidden cursor-pointer group hover:shadow-xl transition-shadow bg-white block${idx === INDUSTRY_CARDS.length - 1 ? " col-span-2 md:col-span-1" : ""}`}
+              className="flex-none rounded-2xl overflow-hidden cursor-pointer group hover:shadow-xl transition-shadow bg-white block w-[calc(50%-12px)] sm:w-[calc(33.333%-16px)] lg:w-[calc(25%-18px)]"
             >
               {/* Image area with centered icon */}
-              <div className="relative h-36 sm:h-48">
+              <div className="relative h-44 sm:h-52">
                 <Image
                   src={card.img}
                   alt={card.label}
