@@ -1,16 +1,24 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
 import { ALL_TOOLS, CATEGORY_LABELS } from "../data/tools";
+import { TOOL_LOGO_URLS } from "../data/tool-logos";
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
 
 const INDUSTRY_CARDS = [
+  {
+    id: "interior-design",
+    href: "/industries/interior-design",
+    label: "Interior Design",
+    desc: "Visualise & style spaces with AI-powered rendering",
+    img: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80",
+  },
   {
     id: "furniture",
     href: "/industries/furniture",
@@ -353,24 +361,70 @@ function HeroSection({
 }
 
 function IndustrySection() {
-  return (
-    <section className="py-10 sm:py-12 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1E293B] mb-1">
-          Looking for tools by industry?
-        </h2>
-        <p className="text-gray-500 text-sm sm:text-base mb-6">
-          Explore curated AI tools and workflows for your industry.
-        </p>
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canPrev, setCanPrev] = useState(false);
+  const [canNext, setCanNext] = useState(true);
 
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+  const checkScroll = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setCanPrev(el.scrollLeft > 8);
+    setCanNext(el.scrollLeft < el.scrollWidth - el.clientWidth - 8);
+  }, []);
+
+  function slide(dir: "prev" | "next") {
+    const el = scrollRef.current;
+    if (!el) return;
+    const card = el.children[0] as HTMLElement | null;
+    const cardW = card ? card.offsetWidth + 16 : el.clientWidth / 4;
+    el.scrollBy({ left: dir === "next" ? cardW : -cardW, behavior: "smooth" });
+  }
+
+  return (
+    <section className="py-10 sm:py-12 bg-gray-50 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-end justify-between mb-6">
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1E293B] mb-1">
+              Looking for tools by industry?
+            </h2>
+            <p className="text-gray-500 text-sm sm:text-base">
+              Explore curated AI tools and workflows for your industry.
+            </p>
+          </div>
+          {/* Arrows */}
+          <div className="flex gap-2 flex-shrink-0 ml-6">
+            <button
+              onClick={() => slide("prev")}
+              disabled={!canPrev}
+              aria-label="Previous"
+              className="w-9 h-9 rounded-full border border-gray-200 bg-white shadow-sm flex items-center justify-center text-gray-500 hover:text-[#F97316] hover:border-[#F97316] transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+            >
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
+            </button>
+            <button
+              onClick={() => slide("next")}
+              disabled={!canNext}
+              aria-label="Next"
+              className="w-9 h-9 rounded-full border border-gray-200 bg-white shadow-sm flex items-center justify-center text-gray-500 hover:text-[#F97316] hover:border-[#F97316] transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+            >
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+            </button>
+          </div>
+        </div>
+
+        <div
+          ref={scrollRef}
+          onScroll={checkScroll}
+          className="flex gap-4 overflow-x-auto scroll-smooth hide-scrollbar pb-2"
+        >
           {INDUSTRY_CARDS.map((card) => (
             <Link
               key={card.id}
               href={card.href}
-              className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 p-3 sm:p-4 border border-gray-100 rounded-2xl bg-white hover:border-orange-200 hover:shadow-md transition-all group"
+              className="flex-none flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 p-3 sm:p-4 border border-gray-100 rounded-2xl bg-white hover:border-orange-200 hover:shadow-md transition-all group w-[calc(50%-8px)] lg:w-[calc(25%-12px)]"
             >
-              {/* Image — full-width on mobile (+30% → h-[104px]), fixed 80px square on desktop */}
+              {/* Image */}
               <div className="relative w-full h-[104px] sm:w-20 sm:h-20 sm:shrink-0 rounded-xl overflow-hidden">
                 <Image
                   src={card.img}
@@ -380,13 +434,13 @@ function IndustrySection() {
                 />
               </div>
 
-              {/* Text — slightly larger on mobile to match the bigger card */}
-              <div className="flex-1">
+              {/* Text */}
+              <div className="flex-1 min-w-0">
                 <p className="font-bold text-[#1E293B] text-sm sm:text-base mb-0.5 leading-tight">{card.label}</p>
                 <p className="text-xs sm:text-sm text-gray-500 leading-relaxed">{card.desc}</p>
               </div>
 
-              {/* Arrow — hidden on mobile stacked layout, shown on desktop row layout */}
+              {/* Arrow */}
               <span className="hidden sm:block text-gray-400 group-hover:text-[#F97316] transition-colors shrink-0">→</span>
             </Link>
           ))}
@@ -441,9 +495,15 @@ function TopPicksSection() {
               </Link>
 
               {/* Logo */}
-              <div className={`w-16 h-16 rounded-2xl ${tool.logo.bg} flex items-center justify-center mx-auto mt-4 mb-3 shrink-0 shadow-sm`}>
-                <span className="text-white font-black text-sm">{tool.logo.text}</span>
-              </div>
+              {TOOL_LOGO_URLS[tool.slug] ? (
+                <div className="w-16 h-16 rounded-2xl overflow-hidden bg-white border border-gray-100 flex items-center justify-center mx-auto mt-4 mb-3 shrink-0 shadow-sm p-1">
+                  <Image src={TOOL_LOGO_URLS[tool.slug]} alt={tool.name} width={48} height={48} className="object-contain w-full h-full" />
+                </div>
+              ) : (
+                <div className={`w-16 h-16 rounded-2xl ${tool.logo.bg} flex items-center justify-center mx-auto mt-4 mb-3 shrink-0 shadow-sm`}>
+                  <span className="text-white font-black text-sm">{tool.logo.text}</span>
+                </div>
+              )}
 
               <p className="font-semibold text-[#1E293B] text-sm mb-1">{tool.name}</p>
 
@@ -518,7 +578,7 @@ function CategoriesSection() {
         </div>
         <p className="text-gray-500 text-sm mb-8 ml-7">Find AI tools for every use case and workflow.</p>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
           {CATEGORIES.map((cat) => (
             <Link
               key={cat.name}
@@ -659,8 +719,12 @@ function AllToolsTable({
                   {/* Tool */}
                   <td className="px-5 py-4">
                     <div className="flex items-center gap-3">
-                      <div className={`w-9 h-9 rounded-xl ${tool.logoBg} flex items-center justify-center shrink-0`}>
-                        <span className={tool.logoTextClass}>{tool.logoText}</span>
+                      <div className={`w-9 h-9 rounded-xl overflow-hidden ${TOOL_LOGO_URLS[tool.slug] ? "bg-white border border-gray-100 p-0.5" : tool.logoBg} flex items-center justify-center shrink-0`}>
+                        {TOOL_LOGO_URLS[tool.slug] ? (
+                          <Image src={TOOL_LOGO_URLS[tool.slug]} alt={tool.name} width={32} height={32} className="object-contain w-full h-full" />
+                        ) : (
+                          <span className={tool.logoTextClass}>{tool.logoText}</span>
+                        )}
                       </div>
                       <div>
                         <p className="font-bold text-[#1E293B] text-sm">{tool.name}</p>
@@ -759,8 +823,12 @@ function AllToolsTable({
           {filtered.map((tool) => (
             <div key={tool.name} className="border border-gray-100 rounded-2xl p-5 hover:shadow-md transition-all">
               <div className="flex items-start gap-3 mb-3">
-                <div className={`w-10 h-10 rounded-xl ${tool.logoBg} flex items-center justify-center shrink-0`}>
-                  <span className={tool.logoTextClass}>{tool.logoText}</span>
+                <div className={`w-10 h-10 rounded-xl overflow-hidden ${TOOL_LOGO_URLS[tool.slug] ? "bg-white border border-gray-100 p-0.5" : tool.logoBg} flex items-center justify-center shrink-0`}>
+                  {TOOL_LOGO_URLS[tool.slug] ? (
+                    <Image src={TOOL_LOGO_URLS[tool.slug]} alt={tool.name} width={36} height={36} className="object-contain w-full h-full" />
+                  ) : (
+                    <span className={tool.logoTextClass}>{tool.logoText}</span>
+                  )}
                 </div>
                 <div className="flex-1">
                   <div className="flex items-start justify-between gap-2">
