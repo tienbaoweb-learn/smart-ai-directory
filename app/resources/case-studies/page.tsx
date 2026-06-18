@@ -195,12 +195,8 @@ export default function CaseStudiesPage() {
               <div className="absolute -top-10 -right-10 w-64 h-64 bg-purple-100 rounded-full blur-3xl opacity-40" />
               <div className="absolute -bottom-10 -left-10 w-52 h-52 bg-orange-100 rounded-full blur-3xl opacity-40" />
 
-              {/* Main image placeholder */}
-              {/* TODO: replace with Unsplash image "modern living room interior" */}
-              <div className="relative bg-gray-200 rounded-2xl aspect-[4/3] w-full overflow-hidden flex items-center justify-center">
-                <svg className="w-16 h-16 text-gray-300" fill="none" stroke="currentColor" strokeWidth={1} viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M13.5 12h.008v.008H13.5V12z" />
-                </svg>
+              <div className="relative rounded-2xl overflow-hidden shadow-xl">
+                <img src="/casestudies.webp" alt="Case Studies illustration" className="w-full h-auto object-cover" />
               </div>
 
               {/* Decorative card 1 — stats stack (top-left) */}
