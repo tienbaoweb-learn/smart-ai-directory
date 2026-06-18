@@ -30,6 +30,7 @@ import {
 import Navbar from "../../components/Navbar";
 import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
+import { comparisonsData } from "../../../lib/comparisons-data";
 
 // ─── CATEGORY CARD THEMES ─────────────────────────────────────────────────────
 
@@ -64,88 +65,8 @@ const FEAT_BADGE: Record<string, string> = {
   MARKETING:    "bg-orange-500 text-white",
 };
 
-const FEATURED_COMPARISONS = [
-  {
-    badge: "WRITING",
-    a: { name: "ChatGPT",  bg: "bg-emerald-500", letter: "G"  },
-    b: { name: "Claude",   bg: "bg-orange-600",  letter: "C"  },
-    title: "ChatGPT vs Claude",
-    desc: "Which AI assistant is better for writing, research, and analysis?",
-    meta: "Updated May 20, 2026 • 10 min read",
-  },
-  {
-    badge: "DESIGN",
-    a: { name: "Midjourney", bg: "bg-gray-900",    letter: "MJ" },
-    b: { name: "DALL·E 3",   bg: "bg-orange-400",  letter: "D3" },
-    title: "Midjourney vs DALL·E 3",
-    desc: "Compare image quality, styles, pricing, and commercial use.",
-    meta: "Updated May 18, 2026 • 9 min read",
-  },
-  {
-    badge: "PRODUCTIVITY",
-    a: { name: "Notion AI",   bg: "bg-gray-900",    letter: "N"  },
-    b: { name: "ClickUp AI",  bg: "bg-purple-600",  letter: "CU" },
-    title: "Notion AI vs ClickUp AI",
-    desc: "Features, pricing, and which one fits your workflow.",
-    meta: "Updated May 15, 2026 • 8 min read",
-  },
-  {
-    badge: "MARKETING",
-    a: { name: "Jasper",   bg: "bg-blue-700",    letter: "J"  },
-    b: { name: "Copy.ai",  bg: "bg-emerald-400", letter: "CA" },
-    title: "Jasper vs Copy.ai",
-    desc: "Which AI writing tool helps you create better marketing content?",
-    meta: "Updated May 12, 2026 • 8 min read",
-  },
-];
-
-const LATEST_COMPARISONS = [
-  {
-    title: "Canva AI vs Adobe Firefly",
-    sub: "Which design tool is better for your creative projects?",
-    category: "Design & Visuals",
-    a: { bg: "bg-cyan-500",    letter: "CA" },
-    b: { bg: "bg-red-600",     letter: "AF" },
-    focus: "Image generation, editing, brand kits, templates",
-    updated: "May 20, 2026 • 9 min read",
-  },
-  {
-    title: "Zapier vs Make",
-    sub: "Which automation platform offers more power and value?",
-    category: "Automation",
-    a: { bg: "bg-orange-500",  letter: "ZP" },
-    b: { bg: "bg-purple-600",  letter: "MK" },
-    focus: "Integrations, pricing, ease of use",
-    updated: "May 19, 2026 • 10 min read",
-  },
-  {
-    title: "Synthesia vs Pictory",
-    sub: "Best AI video generator for business content?",
-    category: "Video & Audio",
-    a: { bg: "bg-blue-600",    letter: "SY" },
-    b: { bg: "bg-purple-500",  letter: "PT" },
-    focus: "Video quality, avatars, pricing, templates",
-    updated: "May 17, 2026 • 8 min read",
-  },
-  {
-    title: "Grammarly vs ProWritingAid",
-    sub: "Which writing assistant improves your content the most?",
-    category: "Writing",
-    a: { bg: "bg-green-600",   letter: "GR" },
-    b: { bg: "bg-slate-700",   letter: "PW" },
-    focus: "Grammar, style, readability, plagiarism",
-    updated: "May 16, 2026 • 7 min read",
-  },
-  {
-    title: "Trello vs Asana",
-    sub: "Which project management tool scales with your team?",
-    category: "Project Management",
-    a: { bg: "bg-blue-500",    letter: "TR" },
-    b: { bg: "bg-red-500",     letter: "AS" },
-    focus: "Task management, reporting, pricing",
-    updated: "May 14, 2026 • 9 min read",
-  },
-];
+const FEATURED_COMPARISONS = comparisonsData.filter((c) => c.isFeatured);
+const LATEST_COMPARISONS   = comparisonsData.filter((c) => !c.isFeatured);
 
 const SIDEBAR_TOPICS_CMP = [
   "Getting Started with AI",
@@ -511,31 +432,30 @@ export default function ComparisonsPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {FEATURED_COMPARISONS.map((c) => (
-              <div key={c.title} className="border border-gray-100 rounded-xl overflow-hidden bg-white hover:shadow-md transition-shadow flex flex-col">
+              <Link key={c.slug} href={c.href} className="border border-gray-100 rounded-xl overflow-hidden bg-white hover:shadow-md transition-shadow flex flex-col">
                 {/* Thumbnail */}
                 <div className="bg-gray-900 aspect-[4/3] relative flex items-center justify-center gap-3">
-                  {/* TODO: replace with custom graphic */}
                   <span className={`absolute top-2 left-2 rounded-full px-2.5 py-1 text-xs font-semibold uppercase ${FEAT_BADGE[c.badge]}`}>
                     {c.badge}
                   </span>
-                  <div className={`w-12 h-12 rounded-full ${c.a.bg} flex items-center justify-center shrink-0`}>
-                    <span className="text-white text-xs font-bold">{c.a.letter}</span>
+                  <div className={`w-12 h-12 rounded-full ${c.toolA.logo.bg} flex items-center justify-center shrink-0`}>
+                    <span className="text-white text-xs font-bold">{c.toolA.logo.text}</span>
                   </div>
                   <div className="w-8 h-8 rounded-full bg-white text-gray-900 flex items-center justify-center text-xs font-bold shrink-0">
                     vs
                   </div>
-                  <div className={`w-12 h-12 rounded-full ${c.b.bg} flex items-center justify-center shrink-0`}>
-                    <span className="text-white text-xs font-bold">{c.b.letter}</span>
+                  <div className={`w-12 h-12 rounded-full ${c.toolB.logo.bg} flex items-center justify-center shrink-0`}>
+                    <span className="text-white text-xs font-bold">{c.toolB.logo.text}</span>
                   </div>
                 </div>
 
                 {/* Content */}
                 <div className="p-4 flex flex-col flex-1">
                   <p className="font-semibold text-sm text-[#1E293B]">{c.title}</p>
-                  <p className="text-xs text-gray-500 mt-1 line-clamp-2 leading-relaxed flex-1">{c.desc}</p>
-                  <p className="text-xs text-gray-400 mt-2">{c.meta}</p>
+                  <p className="text-xs text-gray-500 mt-1 line-clamp-2 leading-relaxed flex-1">{c.description}</p>
+                  <p className="text-xs text-gray-400 mt-2">Updated {c.date} • {c.readTime}</p>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -565,22 +485,22 @@ export default function ComparisonsPage() {
                   </thead>
                   <tbody>
                     {LATEST_COMPARISONS.map((row) => (
-                      <tr key={row.title} className="border-t border-gray-100 hover:bg-gray-50 transition-colors">
+                      <tr key={row.slug} className="border-t border-gray-100 hover:bg-gray-50 transition-colors">
                         {/* Comparison */}
                         <td className="py-3 px-4">
-                          <a href="#" className="font-medium text-sm text-[#1E293B] hover:text-blue-600 transition-colors block">
+                          <Link href={row.href} className="font-medium text-sm text-[#1E293B] hover:text-blue-600 transition-colors block">
                             {row.title}
-                          </a>
-                          <p className="text-xs text-gray-500 mt-0.5 line-clamp-1">{row.sub}</p>
+                          </Link>
+                          <p className="text-xs text-gray-500 mt-0.5 line-clamp-1">{row.description}</p>
                         </td>
                         {/* Tools */}
                         <td className="py-3 px-4">
                           <div className="flex items-center gap-1">
-                            <span className={`w-6 h-6 rounded ${row.a.bg} flex items-center justify-center`}>
-                              <span className="text-white text-[9px] font-bold">{row.a.letter}</span>
+                            <span className={`w-6 h-6 rounded ${row.toolA.logo.bg} flex items-center justify-center`}>
+                              <span className="text-white text-[9px] font-bold">{row.toolA.logo.text}</span>
                             </span>
-                            <span className={`w-6 h-6 rounded ${row.b.bg} flex items-center justify-center`}>
-                              <span className="text-white text-[9px] font-bold">{row.b.letter}</span>
+                            <span className={`w-6 h-6 rounded ${row.toolB.logo.bg} flex items-center justify-center`}>
+                              <span className="text-white text-[9px] font-bold">{row.toolB.logo.text}</span>
                             </span>
                           </div>
                         </td>
@@ -589,7 +509,7 @@ export default function ComparisonsPage() {
                           <span className="line-clamp-2">{row.focus}</span>
                         </td>
                         {/* Updated */}
-                        <td className="py-3 px-4 text-xs text-gray-400 whitespace-nowrap">{row.updated}</td>
+                        <td className="py-3 px-4 text-xs text-gray-400 whitespace-nowrap">{row.date} • {row.readTime}</td>
                       </tr>
                     ))}
                   </tbody>
