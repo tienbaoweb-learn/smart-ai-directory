@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import {
   Armchair,
@@ -28,6 +29,7 @@ import Navbar from "../../components/Navbar";
 import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
 import { caseStudiesData } from "../../../lib/case-studies-data";
+import { caseStudies } from "../../../lib/case-studies-content";
 
 // ─── INDUSTRY CARD THEMES ─────────────────────────────────────────────────────
 
@@ -47,6 +49,7 @@ const CASE_BADGE: Record<string, string> = {
   "ARCHITECTURE":    "bg-blue-600 text-white",
   "CONSTRUCTION":    "bg-orange-500 text-white",
   "REAL ESTATE":     "bg-emerald-600 text-white",
+  "FURNITURE":       "bg-teal-600 text-white",
 };
 
 // ─── RESULTS CARD THEMES ──────────────────────────────────────────────────────
@@ -65,8 +68,28 @@ const ICON_MAP: Record<string, LucideIcon> = {
   Clock, TrendingUp, TrendingDown, DollarSign, CheckCircle, Zap, Users, BarChart3, Timer,
 };
 
-const FEATURED_CASES = caseStudiesData.filter((cs) => cs.isFeatured);
-const LATEST_CASES   = caseStudiesData.filter((cs) => !cs.isFeatured);
+// Real furniture case study (first featured card) — replaces the old "Studio Luxe" placeholder.
+const furnitureCase = caseStudies[0];
+const FEATURED_REAL = {
+  title: furnitureCase.title,
+  description: furnitureCase.excerpt,
+  badge: "FURNITURE",
+  thumbnail: furnitureCase.thumbnail,
+  company: { name: "Lumera Studio", logo: { bg: "bg-teal-600", text: "LS" } },
+  stats: [
+    { icon: "DollarSign",   value: "-70%",  label: "Photo Costs"    },
+    { icon: "Clock",        value: "20min", label: "Visualization"  },
+    { icon: "TrendingDown", value: "6 days", label: "Sales Cycle"   },
+  ],
+  href: `/resources/case-studies/${furnitureCase.slug}`,
+};
+
+// TODO: replace with real data
+const FEATURED_PLACEHOLDERS = caseStudiesData.filter(
+  (cs) => cs.isFeatured && cs.slug !== "how-studio-luxe-cut-rendering-time",
+);
+
+const LATEST_CASES = caseStudiesData.filter((cs) => !cs.isFeatured);
 
 const LATEST_CASE_BADGE: Record<string, string> = {
   "INTERIOR DESIGN": "text-purple-600 bg-purple-50",
@@ -280,10 +303,54 @@ export default function CaseStudiesPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {FEATURED_CASES.map((cs) => (
+            {/* Real card — furniture case study */}
+            <div className="border border-gray-100 rounded-xl overflow-hidden bg-white hover:shadow-md transition-shadow flex flex-col">
+              <div className="aspect-[2/1] relative bg-gray-100">
+                <Image
+                  src={FEATURED_REAL.thumbnail}
+                  alt={FEATURED_REAL.title}
+                  fill
+                  className="object-cover"
+                />
+                <span className={`absolute top-2 left-2 rounded-full px-2.5 py-1 text-xs font-semibold uppercase ${CASE_BADGE[FEATURED_REAL.badge]}`}>
+                  {FEATURED_REAL.badge}
+                </span>
+                <div className="absolute bottom-2 left-2 bg-white/95 rounded-lg px-2 py-1 flex items-center gap-1.5">
+                  <span className={`w-5 h-5 rounded ${FEATURED_REAL.company.logo.bg} flex items-center justify-center text-white text-[10px] font-bold shrink-0`}>
+                    {FEATURED_REAL.company.logo.text}
+                  </span>
+                  <span className="text-xs font-semibold text-[#1E293B]">{FEATURED_REAL.company.name}</span>
+                </div>
+              </div>
+
+              <div className="p-4 flex flex-col flex-1">
+                <p className="font-semibold text-sm text-[#1E293B] line-clamp-2 leading-snug">{FEATURED_REAL.title}</p>
+                <p className="text-xs text-gray-500 mt-1.5 line-clamp-3 leading-relaxed flex-1">{FEATURED_REAL.description}</p>
+
+                <div className="grid grid-cols-3 gap-2 mt-3">
+                  {FEATURED_REAL.stats.map(({ icon: iconName, value, label }) => {
+                    const Icon = ICON_MAP[iconName] ?? Clock;
+                    return (
+                      <div key={label} className="flex flex-col items-center text-center">
+                        <Icon size={12} className="text-gray-400 mb-0.5" />
+                        <span className="font-bold text-sm text-[#1E293B] leading-none">{value}</span>
+                        <span className="text-[10px] text-gray-400 leading-snug mt-0.5">{label}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                <Link href={FEATURED_REAL.href} className="text-blue-600 text-xs font-medium mt-3 hover:underline inline-block">
+                  Read Case Study →
+                </Link>
+              </div>
+            </div>
+
+            {/* TODO: replace with real data */}
+            {FEATURED_PLACEHOLDERS.map((cs) => (
               <div key={cs.title} className="border border-gray-100 rounded-xl overflow-hidden bg-white hover:shadow-md transition-shadow flex flex-col">
                 {/* Thumbnail */}
-                <div className="bg-gray-300 aspect-[4/3] relative">
+                <div className="bg-gray-300 aspect-[2/1] relative">
                   <span className={`absolute top-2 left-2 rounded-full px-2.5 py-1 text-xs font-semibold uppercase ${CASE_BADGE[cs.badge]}`}>
                     {cs.badge}
                   </span>
