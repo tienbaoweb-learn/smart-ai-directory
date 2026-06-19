@@ -276,7 +276,7 @@ export default function GuidesPage() {
             {FEATURED_GUIDES.map((g) => (
               <div key={g.slug} className="border border-gray-100 rounded-xl overflow-hidden bg-white hover:shadow-md transition-shadow flex flex-col">
                 {/* Thumbnail */}
-                <div className="bg-gray-300 aspect-[4/3] relative">
+                <div className="bg-gray-300 aspect-[2/1] relative">
                   <span className={`absolute top-2 left-2 rounded-full px-2.5 py-1 text-xs font-semibold uppercase ${FEAT_BADGE[g.badge]}`}>
                     {g.badge}
                   </span>

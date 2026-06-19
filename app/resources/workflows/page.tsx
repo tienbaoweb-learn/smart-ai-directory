@@ -315,7 +315,7 @@ export default function WorkflowsPage() {
             {COLLECTIONS.map((col) => (
               <div key={col.title} className="border border-gray-100 rounded-xl overflow-hidden bg-white hover:shadow-md transition-shadow flex flex-col">
                 {/* Thumbnail — workflow diagram decoration */}
-                <div className="bg-gray-900 aspect-[4/3] relative overflow-hidden">
+                <div className="bg-gray-900 aspect-[2/1] relative overflow-hidden">
                   {/* TODO: replace with custom graphic */}
                   {COLL_ICON_POSITIONS.map((pos, i) => (
                     <div
