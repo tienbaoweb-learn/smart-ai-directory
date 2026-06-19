@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import {
   Armchair,
@@ -28,6 +27,8 @@ import {
 import Navbar from "../../components/Navbar";
 import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
+import ResourceCard from "../../components/ResourceCard";
+import ResourceListRow from "../../components/ResourceListRow";
 import { caseStudiesData } from "../../../lib/case-studies-data";
 import { caseStudies } from "../../../lib/case-studies-content";
 
@@ -304,29 +305,26 @@ export default function CaseStudiesPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Real card — furniture case study */}
-            <div className="border border-gray-100 rounded-xl overflow-hidden bg-white hover:shadow-md transition-shadow flex flex-col">
-              <div className="aspect-[2/1] relative bg-gray-100">
-                <Image
-                  src={FEATURED_REAL.thumbnail}
-                  alt={FEATURED_REAL.title}
-                  fill
-                  className="object-cover"
-                />
-                <span className={`absolute top-2 left-2 rounded-full px-2.5 py-1 text-xs font-semibold uppercase ${CASE_BADGE[FEATURED_REAL.badge]}`}>
-                  {FEATURED_REAL.badge}
-                </span>
-                <div className="absolute bottom-2 left-2 bg-white/95 rounded-lg px-2 py-1 flex items-center gap-1.5">
-                  <span className={`w-5 h-5 rounded ${FEATURED_REAL.company.logo.bg} flex items-center justify-center text-white text-[10px] font-bold shrink-0`}>
-                    {FEATURED_REAL.company.logo.text}
+            <ResourceCard
+              href={FEATURED_REAL.href}
+              thumbnailSrc={FEATURED_REAL.thumbnail}
+              thumbnailBgClassName="bg-gray-100"
+              thumbnailContent={
+                <>
+                  <span className={`absolute top-2 left-2 rounded-full px-2.5 py-1 text-xs font-semibold uppercase ${CASE_BADGE[FEATURED_REAL.badge]}`}>
+                    {FEATURED_REAL.badge}
                   </span>
-                  <span className="text-xs font-semibold text-[#1E293B]">{FEATURED_REAL.company.name}</span>
-                </div>
-              </div>
-
-              <div className="p-4 flex flex-col flex-1">
-                <p className="font-semibold text-sm text-[#1E293B] line-clamp-2 leading-snug">{FEATURED_REAL.title}</p>
-                <p className="text-xs text-gray-500 mt-1.5 line-clamp-3 leading-relaxed flex-1">{FEATURED_REAL.description}</p>
-
+                  <div className="absolute bottom-2 left-2 bg-white/95 rounded-lg px-2 py-1 flex items-center gap-1.5">
+                    <span className={`w-5 h-5 rounded ${FEATURED_REAL.company.logo.bg} flex items-center justify-center text-white text-[10px] font-bold shrink-0`}>
+                      {FEATURED_REAL.company.logo.text}
+                    </span>
+                    <span className="text-xs font-semibold text-[#1E293B]">{FEATURED_REAL.company.name}</span>
+                  </div>
+                </>
+              }
+              title={FEATURED_REAL.title}
+              description={FEATURED_REAL.description}
+              footer={
                 <div className="grid grid-cols-3 gap-2 mt-3">
                   {FEATURED_REAL.stats.map(({ icon: iconName, value, label }) => {
                     const Icon = ICON_MAP[iconName] ?? Clock;
@@ -339,35 +337,31 @@ export default function CaseStudiesPage() {
                     );
                   })}
                 </div>
-
-                <Link href={FEATURED_REAL.href} className="text-blue-600 text-xs font-medium mt-3 hover:underline inline-block">
-                  Read Case Study →
-                </Link>
-              </div>
-            </div>
+              }
+              linkText="Read Case Study →"
+            />
 
             {/* TODO: replace with real data */}
             {FEATURED_PLACEHOLDERS.map((cs) => (
-              <div key={cs.title} className="border border-gray-100 rounded-xl overflow-hidden bg-white hover:shadow-md transition-shadow flex flex-col">
-                {/* Thumbnail */}
-                <div className="bg-gray-300 aspect-[2/1] relative">
-                  <span className={`absolute top-2 left-2 rounded-full px-2.5 py-1 text-xs font-semibold uppercase ${CASE_BADGE[cs.badge]}`}>
-                    {cs.badge}
-                  </span>
-                  <div className="absolute bottom-2 left-2 bg-white/95 rounded-lg px-2 py-1 flex items-center gap-1.5">
-                    <span className={`w-5 h-5 rounded ${cs.company.logo.bg} flex items-center justify-center text-white text-[10px] font-bold shrink-0`}>
-                      {cs.company.logo.text}
+              <ResourceCard
+                key={cs.title}
+                href={cs.href}
+                thumbnailContent={
+                  <>
+                    <span className={`absolute top-2 left-2 rounded-full px-2.5 py-1 text-xs font-semibold uppercase ${CASE_BADGE[cs.badge]}`}>
+                      {cs.badge}
                     </span>
-                    <span className="text-xs font-semibold text-[#1E293B]">{cs.company.name}</span>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-4 flex flex-col flex-1">
-                  <p className="font-semibold text-sm text-[#1E293B] line-clamp-2 leading-snug">{cs.title}</p>
-                  <p className="text-xs text-gray-500 mt-1.5 line-clamp-3 leading-relaxed flex-1">{cs.description}</p>
-
-                  {/* Mini stats */}
+                    <div className="absolute bottom-2 left-2 bg-white/95 rounded-lg px-2 py-1 flex items-center gap-1.5">
+                      <span className={`w-5 h-5 rounded ${cs.company.logo.bg} flex items-center justify-center text-white text-[10px] font-bold shrink-0`}>
+                        {cs.company.logo.text}
+                      </span>
+                      <span className="text-xs font-semibold text-[#1E293B]">{cs.company.name}</span>
+                    </div>
+                  </>
+                }
+                title={cs.title}
+                description={cs.description}
+                footer={
                   <div className="grid grid-cols-3 gap-2 mt-3">
                     {cs.stats.map(({ icon: iconName, value, label }) => {
                       const Icon = ICON_MAP[iconName] ?? Clock;
@@ -380,12 +374,9 @@ export default function CaseStudiesPage() {
                       );
                     })}
                   </div>
-
-                  <Link href={cs.href} className="text-blue-600 text-xs font-medium mt-3 hover:underline inline-block">
-                    Read Case Study →
-                  </Link>
-                </div>
-              </div>
+                }
+                linkText="Read Case Study →"
+              />
             ))}
           </div>
         </div>
@@ -430,29 +421,23 @@ export default function CaseStudiesPage() {
 
               <ul>
                 {LATEST_CASES.map((item) => (
-                  <li key={item.title} className="flex gap-4 items-start py-4 border-b border-gray-100 last:border-0">
-                    {/* Thumbnail */}
-                    <div className="bg-gray-300 rounded-lg w-20 md:w-24 aspect-[2/1] relative overflow-hidden flex-shrink-0" />
-
-                    {/* Content */}
-                    <div className="flex-1 min-w-0">
-                      <Link href={item.href} className="font-semibold text-sm md:text-base text-[#1E293B] hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
-                        {item.title}
-                      </Link>
-                      <div className="flex flex-wrap items-center gap-2 mt-1.5 text-xs">
-                        <span className={`rounded-full px-2 py-0.5 font-semibold ${LATEST_CASE_BADGE[item.badge]}`}>
-                          {item.badge}
-                        </span>
+                  <ResourceListRow
+                    key={item.title}
+                    href={item.href}
+                    title={item.title}
+                    badge={{ label: item.badge, className: LATEST_CASE_BADGE[item.badge] }}
+                    metaContent={
+                      <>
                         <span className="text-gray-500">{item.company.name}</span>
                         <span className="text-gray-400">&bull; {item.tools}</span>
                         <span className="text-emerald-600 font-medium flex items-center gap-0.5">
                           <TrendingUp size={11} className="shrink-0" />
                           {(item.result ?? "").replace("↑ ", "")}
                         </span>
-                        <span className="text-gray-400 ml-auto hidden sm:inline">{item.date}</span>
-                      </div>
-                    </div>
-                  </li>
+                      </>
+                    }
+                    date={item.date}
+                  />
                 ))}
               </ul>
 
