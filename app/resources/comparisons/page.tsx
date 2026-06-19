@@ -30,6 +30,7 @@ import {
 import Navbar from "../../components/Navbar";
 import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
+import ResourceCard from "../../components/ResourceCard";
 import { comparisonsData } from "../../../lib/comparisons-data";
 
 // ─── CATEGORY CARD THEMES ─────────────────────────────────────────────────────
@@ -432,30 +433,34 @@ export default function ComparisonsPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {FEATURED_COMPARISONS.map((c) => (
-              <Link key={c.slug} href={c.href} className="border border-gray-100 rounded-xl overflow-hidden bg-white hover:shadow-md transition-shadow flex flex-col">
-                {/* Thumbnail */}
-                <div className="bg-gray-900 aspect-[2/1] relative flex items-center justify-center gap-3">
-                  <span className={`absolute top-2 left-2 rounded-full px-2.5 py-1 text-xs font-semibold uppercase ${FEAT_BADGE[c.badge]}`}>
-                    {c.badge}
-                  </span>
-                  <div className={`w-12 h-12 rounded-full ${c.toolA.logo.bg} flex items-center justify-center shrink-0`}>
-                    <span className="text-white text-xs font-bold">{c.toolA.logo.text}</span>
-                  </div>
-                  <div className="w-8 h-8 rounded-full bg-white text-gray-900 flex items-center justify-center text-xs font-bold shrink-0">
-                    vs
-                  </div>
-                  <div className={`w-12 h-12 rounded-full ${c.toolB.logo.bg} flex items-center justify-center shrink-0`}>
-                    <span className="text-white text-xs font-bold">{c.toolB.logo.text}</span>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-4 flex flex-col flex-1">
-                  <p className="font-semibold text-sm text-[#1E293B]">{c.title}</p>
-                  <p className="text-xs text-gray-500 mt-1 line-clamp-2 leading-relaxed flex-1">{c.description}</p>
-                  <p className="text-xs text-gray-400 mt-2">Updated {c.date} • {c.readTime}</p>
-                </div>
-              </Link>
+              <ResourceCard
+                key={c.slug}
+                href={c.href}
+                wholeCardLink
+                thumbnailBgClassName="bg-gray-900"
+                thumbnailExtraClassName="flex items-center justify-center gap-3"
+                thumbnailContent={
+                  <>
+                    <span className={`absolute top-2 left-2 rounded-full px-2.5 py-1 text-xs font-semibold uppercase ${FEAT_BADGE[c.badge]}`}>
+                      {c.badge}
+                    </span>
+                    <div className={`w-12 h-12 rounded-full ${c.toolA.logo.bg} flex items-center justify-center shrink-0`}>
+                      <span className="text-white text-xs font-bold">{c.toolA.logo.text}</span>
+                    </div>
+                    <div className="w-8 h-8 rounded-full bg-white text-gray-900 flex items-center justify-center text-xs font-bold shrink-0">
+                      vs
+                    </div>
+                    <div className={`w-12 h-12 rounded-full ${c.toolB.logo.bg} flex items-center justify-center shrink-0`}>
+                      <span className="text-white text-xs font-bold">{c.toolB.logo.text}</span>
+                    </div>
+                  </>
+                }
+                title={c.title}
+                titleClassName="font-semibold text-sm text-[#1E293B]"
+                description={c.description}
+                descriptionClassName="text-xs text-gray-500 mt-1 line-clamp-2 leading-relaxed flex-1"
+                footer={<p className="text-xs text-gray-400 mt-2">Updated {c.date} • {c.readTime}</p>}
+              />
             ))}
           </div>
         </div>
