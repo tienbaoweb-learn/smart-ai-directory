@@ -21,8 +21,8 @@ export type ToolFrontmatter = {
   category: ToolCategory;
   excerpt: string;
   rating: number;
-  pricing: string;
-  pricingType: PricingType;
+  pricing?: string;
+  pricingType?: PricingType;
   affiliateLink: string;
   websiteUrl: string;
   logoUrl: string;

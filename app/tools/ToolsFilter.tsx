@@ -111,9 +111,11 @@ export default function ToolsFilter({ tools }: { tools: Tool[] }) {
                   <span className={`text-[10px] font-semibold uppercase px-2 py-0.5 rounded-full ${CATEGORY_COLORS[f.category] ?? "bg-gray-100 text-gray-600"}`}>
                     {f.category}
                   </span>
-                  <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${PRICING_COLORS[f.pricingType] ?? "bg-gray-100 text-gray-600"}`}>
-                    {f.pricingType}
-                  </span>
+                  {f.pricingType && (
+                    <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${PRICING_COLORS[f.pricingType] ?? "bg-gray-100 text-gray-600"}`}>
+                      {f.pricingType}
+                    </span>
+                  )}
                 </div>
 
                 {/* Excerpt */}
@@ -123,7 +125,7 @@ export default function ToolsFilter({ tools }: { tools: Tool[] }) {
 
                 {/* Pricing + CTA */}
                 <div className="flex items-center justify-between mt-auto pt-3 border-t border-gray-100">
-                  <span className="text-xs font-medium text-gray-500">{f.pricing}</span>
+                  <span className="text-xs font-medium text-gray-500">{f.pricing ?? "See pricing"}</span>
                   <Link
                     href={`/tools/${tool.slug}`}
                     className="text-xs font-semibold text-blue-600 hover:underline"

@@ -183,8 +183,8 @@ function nameToSlug(name: string): string {
 // ── Pricing plan generator ─────────────────────────────────────────────────────
 
 function generatePricingPlans(
-  pricingType: PricingType,
-  pricing: string,
+  pricingType: PricingType | undefined,
+  pricing: string | undefined,
   toolName: string,
 ): {
   name: string;
@@ -195,6 +195,7 @@ function generatePricingPlans(
   features: string[];
   highlighted: boolean;
 }[] {
+  if (!pricingType || !pricing) return [];
   const numMatch = pricing.match(/[\d.]+/);
   const basePrice = numMatch ? parseFloat(numMatch[0]) : 29;
 
@@ -359,14 +360,14 @@ function generateFAQs(f: ToolFrontmatter, toolName: string): FAQItem[] {
   const freeAnswer: Record<string, string> = {
     Free: `Yes — ${toolName} is completely free with no credit card required.`,
     Freemium: `Yes, ${toolName} offers a free tier with limited features. Paid plans unlock more.`,
-    Paid: `No, ${toolName} is a paid tool. Pricing starts at ${f.pricing}.`,
+    Paid: `No, ${toolName} is a paid tool. Check their website for current pricing.`,
     Custom: `${toolName} uses custom pricing. Contact their sales team for a quote.`,
   };
   return [
     {
       question: `Is ${toolName} free to use?`,
       answer:
-        freeAnswer[f.pricingType] ??
+        (f.pricingType && freeAnswer[f.pricingType]) ??
         `Check ${toolName}'s website for current pricing.`,
     },
     {
@@ -390,7 +391,7 @@ function generateFAQs(f: ToolFrontmatter, toolName: string): FAQItem[] {
           ? `${toolName} is completely free — no trial needed.`
           : f.pricingType === "Freemium"
             ? `Yes, ${toolName} has a free tier available indefinitely. Paid plans may include a trial period too.`
-            : `${toolName} typically offers a free trial. Visit their website for the latest offer.`,
+            : `${toolName} typically offers a free trial or demo. Visit their website for the latest offer.`,
     },
   ];
 }
@@ -551,7 +552,11 @@ export default async function ToolReviewPage({
   const formattedDate = formatDate(f.lastUpdated);
   const affiliateHref = f.affiliateLink || f.websiteUrl;
   const overallRating = Math.round(f.rating * 2 * 10) / 10; // 0-5 → 0-10
+  const hasPricing = Boolean(f.pricingType && f.pricing);
   const pricingPlans = generatePricingPlans(f.pricingType, f.pricing, toolName);
+  const tocItems = hasPricing
+    ? TOC_ITEMS
+    : TOC_ITEMS.filter((item) => item.href !== "pricing");
   const faqs = generateFAQs(f, toolName);
   const catSlug = f.category.toLowerCase().replace(/\s+/g, "-");
   const prosDisplay =
@@ -582,7 +587,7 @@ export default async function ToolReviewPage({
       name: toolName,
       logo: { bg: logoBg, text: logoText },
       bestFor: f.bestFor[0] ?? f.category,
-      startingPrice: f.pricing,
+      startingPrice: f.pricing ?? "Contact for pricing",
       aiQuality: f.rating,
       features: Math.min(5, parseFloat((f.rating - 0.1).toFixed(1))),
       support: Math.min(5, parseFloat((f.rating - 0.2).toFixed(1))),
@@ -747,12 +752,14 @@ export default async function ToolReviewPage({
                 >
                   Try {toolName} Free →
                 </a>
-                <a
-                  href="#pricing"
-                  className="border border-gray-300 hover:bg-gray-50 text-[#1E293B] font-medium rounded-lg px-6 py-2.5 text-sm transition-colors"
-                >
-                  View Pricing
-                </a>
+                {hasPricing && (
+                  <a
+                    href="#pricing"
+                    className="border border-gray-300 hover:bg-gray-50 text-[#1E293B] font-medium rounded-lg px-6 py-2.5 text-sm transition-colors"
+                  >
+                    View Pricing
+                  </a>
+                )}
               </div>
 
               {f.affiliateDisclosure && (
@@ -805,9 +812,11 @@ export default async function ToolReviewPage({
                       {toolName}
                     </span>
                   </div>
-                  <span className="bg-gray-100 text-gray-600 text-[10px] font-medium rounded-full px-2.5 py-1">
-                    {f.pricingType === "Free" ? "Free" : `From ${f.pricing}`}
-                  </span>
+                  {hasPricing && (
+                    <span className="bg-gray-100 text-gray-600 text-[10px] font-medium rounded-full px-2.5 py-1">
+                      {f.pricingType === "Free" ? "Free" : `From ${f.pricing}`}
+                    </span>
+                  )}
                 </div>
 
                 {/* Mockup body */}
@@ -929,21 +938,29 @@ export default async function ToolReviewPage({
               <p className="text-xs text-gray-500 uppercase font-medium tracking-wide">
                 Pricing
               </p>
-              <p className="text-xs text-gray-400 mt-1">Starts at</p>
-              <div className="flex items-baseline gap-1 mt-0.5 flex-wrap">
-                <span className="text-2xl font-bold text-blue-600">
-                  {f.pricingType === "Free" ? "$0" : f.pricing}
-                </span>
-                <span className="text-xs text-gray-500">
-                  {f.pricingType === "Free"
-                    ? "(Free)"
-                    : f.pricingType === "Freemium"
-                      ? "/mo (paid plans)"
-                      : f.pricingType === "Custom"
-                        ? "(custom pricing)"
-                        : "/mo"}
-                </span>
-              </div>
+              {hasPricing ? (
+                <>
+                  <p className="text-xs text-gray-400 mt-1">Starts at</p>
+                  <div className="flex items-baseline gap-1 mt-0.5 flex-wrap">
+                    <span className="text-2xl font-bold text-blue-600">
+                      {f.pricingType === "Free" ? "$0" : f.pricing}
+                    </span>
+                    <span className="text-xs text-gray-500">
+                      {f.pricingType === "Free"
+                        ? "(Free)"
+                        : f.pricingType === "Freemium"
+                          ? "/mo (paid plans)"
+                          : f.pricingType === "Custom"
+                            ? "(custom pricing)"
+                            : "/mo"}
+                    </span>
+                  </div>
+                </>
+              ) : (
+                <p className="text-sm text-gray-600 mt-1">
+                  See current pricing on the {toolName} website.
+                </p>
+              )}
             </div>
 
             {/* Bottom Line */}
@@ -978,7 +995,7 @@ export default async function ToolReviewPage({
                   On This Page
                 </p>
                 <nav>
-                  {TOC_ITEMS.map(({ label, href }) => (
+                  {tocItems.map(({ label, href }) => (
                     <a
                       key={href}
                       href={`#${href}`}
@@ -1086,17 +1103,19 @@ export default async function ToolReviewPage({
               )}
 
               {/* Pricing */}
-              <div id="pricing" className="scroll-mt-24">
-                <PricingPlans
-                  toolName={toolName}
-                  plans={pricingPlans}
-                  affiliateHref={affiliateHref}
-                />
-                <p className="text-xs text-gray-400 text-center mt-3">
-                  Prices shown are indicative. Always verify current pricing on
-                  the {toolName} website.
-                </p>
-              </div>
+              {hasPricing && (
+                <div id="pricing" className="scroll-mt-24">
+                  <PricingPlans
+                    toolName={toolName}
+                    plans={pricingPlans}
+                    affiliateHref={affiliateHref}
+                  />
+                  <p className="text-xs text-gray-400 text-center mt-3">
+                    Prices shown are indicative. Always verify current pricing
+                    on the {toolName} website.
+                  </p>
+                </div>
+              )}
 
               {/* Pros & Cons */}
               <div id="pros-cons" className="scroll-mt-24">
@@ -1395,7 +1414,9 @@ export default async function ToolReviewPage({
                       <Check size={11} className="shrink-0" />
                       {f.pricingType === "Free" || f.pricingType === "Freemium"
                         ? "Free plan available"
-                        : "14-day money-back guarantee"}
+                        : hasPricing
+                          ? "14-day money-back guarantee"
+                          : "Visit website for full details"}
                     </p>
                   </div>
                 </div>
