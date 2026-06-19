@@ -23,6 +23,8 @@ import {
 import Navbar from "../../components/Navbar";
 import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
+import ResourceCard from "../../components/ResourceCard";
+import ResourceListRow from "../../components/ResourceListRow";
 import { guidesData } from "../../../lib/guides-data";
 
 // ─── CATEGORY CARD THEMES ─────────────────────────────────────────────────────
@@ -274,27 +276,24 @@ export default function GuidesPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {FEATURED_GUIDES.map((g) => (
-              <div key={g.slug} className="border border-gray-100 rounded-xl overflow-hidden bg-white hover:shadow-md transition-shadow flex flex-col">
-                {/* Thumbnail */}
-                <div className="bg-gray-300 aspect-[2/1] relative">
+              <ResourceCard
+                key={g.slug}
+                href={g.href}
+                thumbnailContent={
                   <span className={`absolute top-2 left-2 rounded-full px-2.5 py-1 text-xs font-semibold uppercase ${FEAT_BADGE[g.badge]}`}>
                     {g.badge}
                   </span>
-                </div>
-
-                {/* Content */}
-                <div className="p-4 flex flex-col flex-1">
-                  <p className="font-semibold text-sm text-[#1E293B] line-clamp-2 leading-snug">{g.title}</p>
-                  <p className="text-xs text-gray-500 mt-1.5 line-clamp-3 leading-relaxed flex-1">{g.description}</p>
+                }
+                title={g.title}
+                description={g.description}
+                footer={
                   <div className="flex items-center gap-1 mt-2 text-xs text-gray-500">
                     <Clock size={11} className="shrink-0" />
                     <span>{g.readTime}</span>
                   </div>
-                  <Link href={g.href} className="text-blue-600 text-xs font-medium mt-3 hover:underline inline-block">
-                    Read Guide →
-                  </Link>
-                </div>
-              </div>
+                }
+                linkText="Read Guide →"
+              />
             ))}
           </div>
         </div>
@@ -339,28 +338,22 @@ export default function GuidesPage() {
 
               <ul>
                 {LATEST_GUIDES_DATA.map((item) => (
-                  <li key={item.slug} className="flex gap-4 items-start py-4 border-b border-gray-100 last:border-0">
-                    {/* Thumbnail */}
-                    <div className="bg-gray-300 rounded-lg w-20 md:w-24 aspect-[2/1] relative overflow-hidden flex-shrink-0" />
-
-                    {/* Content */}
-                    <div className="flex-1 min-w-0">
-                      <Link href={item.href} className="font-semibold text-sm md:text-base text-[#1E293B] hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
-                        {item.title}
-                      </Link>
-                      <div className="flex flex-wrap items-center gap-2 mt-1.5 text-xs">
-                        <span className={`rounded-full px-2 py-0.5 font-semibold ${LATEST_BADGE[item.badge]}`}>
-                          {item.badge}
-                        </span>
+                  <ResourceListRow
+                    key={item.slug}
+                    href={item.href}
+                    title={item.title}
+                    badge={{ label: item.badge, className: LATEST_BADGE[item.badge] }}
+                    metaContent={
+                      <>
                         <span className="text-gray-500">{item.category}</span>
                         <span className="text-gray-500 flex items-center gap-1">
                           <Clock size={11} className="shrink-0" />
                           {item.readTime}
                         </span>
-                        <span className="text-gray-400 ml-auto hidden sm:inline">{item.date}</span>
-                      </div>
-                    </div>
-                  </li>
+                      </>
+                    }
+                    date={item.date}
+                  />
                 ))}
               </ul>
 
