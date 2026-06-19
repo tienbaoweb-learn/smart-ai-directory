@@ -313,7 +313,7 @@ export default function WorkflowsPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {COLLECTIONS.map((col) => (
-              <div key={col.title} className="border border-gray-100 rounded-xl overflow-hidden bg-white hover:shadow-md transition-shadow flex flex-col">
+              <Link href="#" key={col.title} className="border border-gray-100 rounded-xl overflow-hidden bg-white hover:shadow-md transition-shadow flex flex-col">
                 {/* Thumbnail — workflow diagram decoration */}
                 <div className="bg-gray-900 aspect-[2/1] relative overflow-hidden">
                   {/* TODO: replace with custom graphic */}
@@ -349,11 +349,11 @@ export default function WorkflowsPage() {
                     </div>
                   </div>
 
-                  <a href="#" className="text-blue-600 text-sm font-medium mt-2 hover:underline inline-block">
+                  <span className="text-blue-600 text-sm font-medium mt-2 inline-block">
                     View Collection →
-                  </a>
+                  </span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

@@ -314,7 +314,7 @@ export default function CaseStudiesPage() {
                   <span className={`absolute top-2 left-2 rounded-full px-2.5 py-1 text-xs font-semibold uppercase ${CASE_BADGE[FEATURED_REAL.badge]}`}>
                     {FEATURED_REAL.badge}
                   </span>
-                  <div className="absolute bottom-2 left-2 bg-white/95 rounded-lg px-2 py-1 flex items-center gap-1.5">
+                  <div className="absolute bottom-2 right-2 bg-white/95 rounded-lg px-2 py-1 flex items-center gap-1.5">
                     <span className={`w-5 h-5 rounded ${FEATURED_REAL.company.logo.bg} flex items-center justify-center text-white text-[10px] font-bold shrink-0`}>
                       {FEATURED_REAL.company.logo.text}
                     </span>
@@ -351,7 +351,7 @@ export default function CaseStudiesPage() {
                     <span className={`absolute top-2 left-2 rounded-full px-2.5 py-1 text-xs font-semibold uppercase ${CASE_BADGE[cs.badge]}`}>
                       {cs.badge}
                     </span>
-                    <div className="absolute bottom-2 left-2 bg-white/95 rounded-lg px-2 py-1 flex items-center gap-1.5">
+                    <div className="absolute bottom-2 right-2 bg-white/95 rounded-lg px-2 py-1 flex items-center gap-1.5">
                       <span className={`w-5 h-5 rounded ${cs.company.logo.bg} flex items-center justify-center text-white text-[10px] font-bold shrink-0`}>
                         {cs.company.logo.text}
                       </span>

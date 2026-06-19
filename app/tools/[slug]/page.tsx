@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import remarkGfm from "remark-gfm";
 import {
   Building2,
   Calendar,
@@ -48,6 +49,7 @@ import {
 import FAQAccordion, {
   type FAQItem,
 } from "../../components/tools/FAQAccordion";
+import PricingPlans from "../../components/tools/PricingPlans";
 
 // ── generateStaticParams + generateMetadata ────────────────────────────────────
 
@@ -480,6 +482,52 @@ const mdxComponents = {
     <strong className="font-semibold text-[#1E293B]" {...props}>
       {children}
     </strong>
+  ),
+  code: ({ children, ...props }: HTMLAttributes<HTMLElement>) => (
+    <code
+      className="bg-gray-100 text-[#1E293B] rounded px-1.5 py-0.5 text-[0.85em] font-mono"
+      {...props}
+    >
+      {children}
+    </code>
+  ),
+  table: ({ children, ...props }: HTMLAttributes<HTMLTableElement>) => (
+    <div className="overflow-x-auto my-4 border border-gray-100 rounded-lg">
+      <table className="w-full text-sm border-collapse" {...props}>
+        {children}
+      </table>
+    </div>
+  ),
+  thead: ({ children, ...props }: HTMLAttributes<HTMLTableSectionElement>) => (
+    <thead className="bg-gray-50" {...props}>
+      {children}
+    </thead>
+  ),
+  tr: ({ children, ...props }: HTMLAttributes<HTMLTableRowElement>) => (
+    <tr className="border-b border-gray-100 last:border-0" {...props}>
+      {children}
+    </tr>
+  ),
+  th: ({ children, ...props }: HTMLAttributes<HTMLTableCellElement>) => (
+    <th
+      className="text-left font-semibold text-[#1E293B] px-3 py-2 whitespace-nowrap"
+      {...props}
+    >
+      {children}
+    </th>
+  ),
+  td: ({ children, ...props }: HTMLAttributes<HTMLTableCellElement>) => (
+    <td className="text-gray-600 px-3 py-2" {...props}>
+      {children}
+    </td>
+  ),
+  ol: ({ children, ...props }: HTMLAttributes<HTMLOListElement>) => (
+    <ol
+      className="list-decimal list-inside space-y-1 text-gray-600 mb-4 ml-2"
+      {...props}
+    >
+      {children}
+    </ol>
   ),
 };
 
@@ -971,7 +1019,11 @@ export default async function ToolReviewPage({
                 <h2 className="text-2xl font-bold text-[#1E293B] mb-3">
                   What Is {toolName}?
                 </h2>
-                <MDXRemote source={content} components={mdxComponents} />
+                <MDXRemote
+                  source={content}
+                  components={mdxComponents}
+                  options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
+                />
               </div>
 
               {/* Key Features — derived from pros */}
@@ -1035,87 +1087,11 @@ export default async function ToolReviewPage({
 
               {/* Pricing */}
               <div id="pricing" className="scroll-mt-24">
-                <div className="flex flex-wrap justify-between items-center gap-3 mb-4">
-                  <h2 className="text-2xl font-bold text-[#1E293B]">
-                    {toolName} Pricing
-                  </h2>
-                  <div className="flex gap-1 bg-gray-100 rounded-lg p-1 text-xs">
-                    <span className="bg-white shadow-sm rounded-md px-3 py-1.5 font-medium text-[#1E293B]">
-                      Pay Monthly
-                    </span>
-                    <span className="px-3 py-1.5 text-gray-500">
-                      Pay Yearly (Save 20%)
-                    </span>
-                  </div>
-                </div>
-                <div
-                  className={`grid gap-4 ${
-                    pricingPlans.length === 1
-                      ? "grid-cols-1 max-w-xs"
-                      : pricingPlans.length === 2
-                        ? "grid-cols-1 md:grid-cols-2"
-                        : "grid-cols-1 md:grid-cols-3"
-                  }`}
-                >
-                  {pricingPlans.map((plan) => (
-                    <div
-                      key={plan.name}
-                      className={`rounded-xl p-5 bg-white relative ${
-                        plan.highlighted
-                          ? "border-2 border-blue-600"
-                          : "border border-gray-100"
-                      }`}
-                    >
-                      {plan.highlighted && (
-                        <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-[10px] font-semibold rounded-full px-2.5 py-0.5 whitespace-nowrap">
-                          Most Popular
-                        </span>
-                      )}
-                      <p className="font-semibold text-sm text-gray-500">
-                        {plan.name}
-                      </p>
-                      <div className="flex items-baseline gap-1 mt-1">
-                        <span className="text-2xl font-bold text-[#1E293B]">
-                          {plan.price}
-                        </span>
-                        {plan.period && (
-                          <span className="text-sm text-gray-400">
-                            {plan.period}
-                          </span>
-                        )}
-                      </div>
-                      <p className="text-xs text-gray-500 mt-1">
-                        {plan.description}
-                      </p>
-                      <a
-                        href={affiliateHref}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`block w-full mt-3 rounded-lg py-2 text-sm font-medium text-center transition-colors ${
-                          plan.highlighted
-                            ? "bg-blue-600 hover:bg-blue-700 text-white"
-                            : "border border-gray-300 hover:bg-gray-50 text-[#1E293B]"
-                        }`}
-                      >
-                        {plan.ctaText}
-                      </a>
-                      <ul className="mt-4 space-y-1.5">
-                        {plan.features.map((feature) => (
-                          <li
-                            key={feature}
-                            className="flex items-center gap-1.5 text-xs text-gray-600"
-                          >
-                            <Check
-                              size={12}
-                              className="text-emerald-500 shrink-0"
-                            />
-                            {feature}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
+                <PricingPlans
+                  toolName={toolName}
+                  plans={pricingPlans}
+                  affiliateHref={affiliateHref}
+                />
                 <p className="text-xs text-gray-400 text-center mt-3">
                   Prices shown are indicative. Always verify current pricing on
                   the {toolName} website.
@@ -1384,7 +1360,13 @@ export default async function ToolReviewPage({
                       <h2 className="text-xl md:text-2xl font-bold">
                         Our {toolName} Verdict
                       </h2>
-                      <p className="text-sm opacity-90 mt-1 max-w-md">
+                      <div className="flex items-center gap-1.5 mt-1.5">
+                        <StarRow rating={f.rating} size={14} />
+                        <span className="text-sm font-semibold">
+                          {f.rating.toFixed(1)}/5
+                        </span>
+                      </div>
+                      <p className="text-sm opacity-90 mt-1.5 max-w-md">
                         {f.excerpt}
                       </p>
                       <div className="flex flex-wrap gap-3 mt-2">

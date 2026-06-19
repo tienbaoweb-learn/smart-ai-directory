@@ -64,7 +64,7 @@ const EDITOR_PICKS: {
     toolLogoBg: "bg-black",
     toolLogoChar: "V",
     description: "Innovative AI concept design platform.",
-    href: "/ai-tools/design",
+    href: "/ai-tools/vizcom",
   },
   {
     badge: "Most Innovative",
@@ -74,7 +74,7 @@ const EDITOR_PICKS: {
     toolLogoBg: "bg-slate-700",
     toolLogoChar: "P",
     description: "Next-gen AI video generation platform.",
-    href: "/ai-tools/design",
+    href: "/ai-tools/pika-labs",
   },
   {
     badge: "Best Value",
@@ -84,7 +84,7 @@ const EDITOR_PICKS: {
     toolLogoBg: "bg-black",
     toolLogoChar: "N",
     description: "Powerful AI assistant at an affordable price.",
-    href: "/ai-tools/productivity",
+    href: "/ai-tools/notion-ai",
   },
   {
     badge: "Highest ROI",
@@ -94,7 +94,7 @@ const EDITOR_PICKS: {
     toolLogoBg: "bg-yellow-500",
     toolLogoChar: "B",
     description: "Proven to save time and reduce costs.",
-    href: "/ai-tools/automation",
+    href: "/ai-tools/buildots",
   },
 ];
 
@@ -905,12 +905,12 @@ export default function BestOfPage() {
                   </p>
 
                   {/* Link */}
-                  <a
+                  <Link
                     href={pick.href}
                     className="text-xs text-blue-600 font-medium hover:underline mt-3 inline-block"
                   >
                     Read why →
-                  </a>
+                  </Link>
                 </div>
               );
             })}

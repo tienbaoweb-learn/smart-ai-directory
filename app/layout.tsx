@@ -22,7 +22,11 @@ export const metadata: Metadata = {
     google: "Z4JIndYC-yoGI9FOu3WU7sEkqzZgR9i8-d5nWGTzyyA",
   },
   icons: {
-    icon: "/favicon.svg",
+    icon: [
+      { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-192.png", sizes: "192x192", type: "image/png" },
+    ],
+    apple: "/favicon-192.png",
   },
   openGraph: {
     title: "SmartAI for Work - AI Tools Directory",
@@ -70,7 +74,7 @@ const schemaOrganization = {
   "@type": "Organization",
   name: "SmartAI for Work",
   url: "https://smartaiforwork.com",
-  logo: "https://smartaiforwork.com/favicon.svg",
+  logo: "https://smartaiforwork.com/favicon-512.png",
   description:
     "AI Tools Directory for Furniture, Architecture, Construction, and Real Estate industries.",
   sameAs: [],

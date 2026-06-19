@@ -4,8 +4,6 @@ import type { ReactNode } from "react";
 
 export interface ResourceCardProps {
   href: string;
-  /** When true, the entire card is the link (no separate "read more" link rendered). */
-  wholeCardLink?: boolean;
   thumbnailSrc?: string;
   thumbnailAlt?: string;
   /** Placeholder background when thumbnailSrc is not provided. Default: "bg-gray-300". */
@@ -20,7 +18,7 @@ export interface ResourceCardProps {
   descriptionClassName?: string;
   /** Stats grid / meta row / plain text rendered below the description. */
   footer: ReactNode;
-  /** Bottom link text. Ignored when wholeCardLink is true. */
+  /** Bottom call-to-action text. The whole card is already a link, so this is rendered as styled text, not a nested link. */
   linkText?: string;
 }
 
@@ -29,7 +27,6 @@ const DEFAULT_DESCRIPTION_CLASS = "text-xs text-gray-500 mt-1.5 line-clamp-3 lea
 
 export default function ResourceCard({
   href,
-  wholeCardLink = false,
   thumbnailSrc,
   thumbnailAlt,
   thumbnailBgClassName = "bg-gray-300",
@@ -56,10 +53,10 @@ export default function ResourceCard({
       <p className={titleClassName ?? DEFAULT_TITLE_CLASS}>{title}</p>
       <p className={descriptionClassName ?? DEFAULT_DESCRIPTION_CLASS}>{description}</p>
       {footer}
-      {!wholeCardLink && (
-        <Link href={href} className="text-blue-600 text-xs font-medium mt-3 hover:underline inline-block">
-          {linkText ?? "Read more →"}
-        </Link>
+      {linkText && (
+        <span className="text-blue-600 text-xs font-medium mt-3 inline-block">
+          {linkText}
+        </span>
       )}
     </div>
   );
@@ -67,19 +64,10 @@ export default function ResourceCard({
   const cardClassName =
     "border border-gray-100 rounded-xl overflow-hidden bg-white hover:shadow-md transition-shadow flex flex-col";
 
-  if (wholeCardLink) {
-    return (
-      <Link href={href} className={cardClassName}>
-        {thumbnail}
-        {content}
-      </Link>
-    );
-  }
-
   return (
-    <div className={cardClassName}>
+    <Link href={href} className={cardClassName}>
       {thumbnail}
       {content}
-    </div>
+    </Link>
   );
 }

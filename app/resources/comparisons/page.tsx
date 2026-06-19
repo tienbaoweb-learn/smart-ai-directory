@@ -436,7 +436,6 @@ export default function ComparisonsPage() {
               <ResourceCard
                 key={c.slug}
                 href={c.href}
-                wholeCardLink
                 thumbnailBgClassName="bg-gray-900"
                 thumbnailExtraClassName="flex items-center justify-center gap-3"
                 thumbnailContent={
