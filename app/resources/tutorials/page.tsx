@@ -24,6 +24,8 @@ import {
 import Navbar from "../../components/Navbar";
 import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
+import ResourceCard from "../../components/ResourceCard";
+import ResourceListRow from "../../components/ResourceListRow";
 import { tutorialsData } from "../../../lib/tutorials-data";
 
 // ─── CATEGORY CARD THEMES ─────────────────────────────────────────────────────
@@ -281,27 +283,24 @@ export default function TutorialsPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {FEATURED_TUTORIALS.map((t) => (
-              <div key={t.slug} className="border border-gray-100 rounded-xl overflow-hidden bg-white hover:shadow-md transition-shadow flex flex-col">
-                {/* Thumbnail */}
-                <div className="bg-gray-300 aspect-[2/1] relative">
+              <ResourceCard
+                key={t.slug}
+                href={t.href}
+                thumbnailContent={
                   <span className={`absolute top-2 left-2 rounded-full px-2.5 py-1 text-xs font-semibold uppercase ${FEAT_BADGE[t.badge]}`}>
                     {t.badge}
                   </span>
-                </div>
-
-                {/* Content */}
-                <div className="p-4 flex flex-col flex-1">
-                  <p className="font-semibold text-sm text-[#1E293B] line-clamp-2 leading-snug">{t.title}</p>
-                  <p className="text-xs text-gray-500 mt-1.5 line-clamp-3 leading-relaxed flex-1">{t.description}</p>
+                }
+                title={t.title}
+                description={t.description}
+                footer={
                   <div className="flex items-center gap-1 mt-2 text-xs text-gray-500">
                     <Clock size={11} className="shrink-0" />
                     <span>{t.duration} • {t.steps} steps</span>
                   </div>
-                  <Link href={t.href} className="text-blue-600 text-xs font-medium mt-3 hover:underline inline-block">
-                    Start Tutorial →
-                  </Link>
-                </div>
-              </div>
+                }
+                linkText="Start Tutorial →"
+              />
             ))}
           </div>
         </div>
@@ -346,19 +345,13 @@ export default function TutorialsPage() {
 
               <ul>
                 {LATEST_TUTORIALS_DATA.map((item) => (
-                  <li key={item.slug} className="flex gap-4 items-start py-4 border-b border-gray-100 last:border-0">
-                    {/* Thumbnail */}
-                    <div className="bg-gray-300 rounded-lg w-20 md:w-24 aspect-[2/1] relative overflow-hidden flex-shrink-0" />
-
-                    {/* Content */}
-                    <div className="flex-1 min-w-0">
-                      <Link href={item.href} className="font-semibold text-sm md:text-base text-[#1E293B] hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
-                        {item.title}
-                      </Link>
-                      <div className="flex flex-wrap items-center gap-2 mt-1.5 text-xs">
-                        <span className={`rounded-full px-2 py-0.5 font-semibold ${LATEST_BADGE[item.badge]}`}>
-                          {item.badge}
-                        </span>
+                  <ResourceListRow
+                    key={item.slug}
+                    href={item.href}
+                    title={item.title}
+                    badge={{ label: item.badge, className: LATEST_BADGE[item.badge] }}
+                    metaContent={
+                      <>
                         <span className="text-gray-500 flex items-center gap-1">
                           <Clock size={11} className="shrink-0" />
                           {item.duration} • {item.steps} steps
@@ -366,10 +359,10 @@ export default function TutorialsPage() {
                         <span className={`rounded-full px-2 py-0.5 font-semibold ${LEVEL_BADGE[item.level]}`}>
                           {item.level}
                         </span>
-                        <span className="text-gray-400 ml-auto hidden sm:inline">{item.date}</span>
-                      </div>
-                    </div>
-                  </li>
+                      </>
+                    }
+                    date={item.date}
+                  />
                 ))}
               </ul>
 
