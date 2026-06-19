@@ -432,7 +432,7 @@ export default function CaseStudiesPage() {
                 {LATEST_CASES.map((item) => (
                   <li key={item.title} className="flex gap-4 items-start py-4 border-b border-gray-100 last:border-0">
                     {/* Thumbnail */}
-                    <div className="bg-gray-300 rounded-lg w-20 h-16 md:w-24 md:h-20 flex-shrink-0" />
+                    <div className="bg-gray-300 rounded-lg w-20 md:w-24 aspect-[2/1] relative overflow-hidden flex-shrink-0" />
 
                     {/* Content */}
                     <div className="flex-1 min-w-0">

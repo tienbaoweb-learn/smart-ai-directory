@@ -357,7 +357,7 @@ export default function ResourcesPage() {
                     return (
                       <li key={item.title} className="flex gap-4 items-start py-4 border-b border-gray-100 last:border-0">
                         {/* Thumbnail */}
-                        <div className="bg-gray-800 rounded-lg w-20 h-16 sm:w-24 sm:h-20 flex-shrink-0">
+                        <div className="bg-gray-800 rounded-lg w-20 sm:w-24 aspect-[2/1] relative overflow-hidden flex-shrink-0">
                           {/* TODO: replace with image */}
                         </div>
 
