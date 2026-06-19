@@ -311,7 +311,7 @@ export default function ResourcesPage() {
                   {FEATURED_GUIDES.map((guide) => (
                     <a key={guide.title} href="#" className="group flex flex-col">
                       {/* Thumbnail */}
-                      <div className="bg-gray-800 rounded-xl aspect-[4/3] relative overflow-hidden">
+                      <div className="bg-gray-800 rounded-xl aspect-[2/1] relative overflow-hidden">
                         {/* TODO: replace with image */}
                         <span
                           className={`absolute top-2 left-2 rounded-full px-2 py-0.5 text-xs font-semibold uppercase ${GUIDE_BADGE[guide.badge]}`}

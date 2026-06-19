@@ -434,7 +434,7 @@ export default function ComparisonsPage() {
             {FEATURED_COMPARISONS.map((c) => (
               <Link key={c.slug} href={c.href} className="border border-gray-100 rounded-xl overflow-hidden bg-white hover:shadow-md transition-shadow flex flex-col">
                 {/* Thumbnail */}
-                <div className="bg-gray-900 aspect-[4/3] relative flex items-center justify-center gap-3">
+                <div className="bg-gray-900 aspect-[2/1] relative flex items-center justify-center gap-3">
                   <span className={`absolute top-2 left-2 rounded-full px-2.5 py-1 text-xs font-semibold uppercase ${FEAT_BADGE[c.badge]}`}>
                     {c.badge}
                   </span>
