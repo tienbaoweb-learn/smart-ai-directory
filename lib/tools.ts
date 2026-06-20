@@ -14,11 +14,29 @@ export type ToolCategory =
 
 export type PricingType = "Free" | "Freemium" | "Paid" | "Custom";
 
+export type IndustrySlug =
+  | "architecture"
+  | "construction"
+  | "furniture"
+  | "interior-design"
+  | "real-estate";
+
+export type AiToolsCategory =
+  | "design"
+  | "content-marketing"
+  | "automation"
+  | "sales"
+  | "productivity";
+
 export type ToolFrontmatter = {
   toolName?: string;
   title: string;
   slug: string;
   category: ToolCategory;
+  industries?: IndustrySlug[];
+  aiToolsCategory?: AiToolsCategory;
+  bestOf?: IndustrySlug[];
+  tags?: string[];
   excerpt: string;
   rating: number;
   pricing?: string;
@@ -97,4 +115,26 @@ export function getFeaturedTools(): Tool[] {
 
 export function getAllToolSlugs(): string[] {
   return getAllTools().map((t) => t.slug);
+}
+
+export function getToolsByIndustry(industry: IndustrySlug): Tool[] {
+  return getAllTools().filter((t) =>
+    t.frontmatter.industries?.includes(industry)
+  );
+}
+
+export function getToolsByAiCategory(category: AiToolsCategory): Tool[] {
+  return getAllTools().filter(
+    (t) => t.frontmatter.aiToolsCategory === category
+  );
+}
+
+export function getBestOfTools(industry: IndustrySlug): Tool[] {
+  return getAllTools()
+    .filter((t) => t.frontmatter.bestOf?.includes(industry))
+    .sort((a, b) => b.frontmatter.rating - a.frontmatter.rating);
+}
+
+export function getToolsByTag(tag: string): Tool[] {
+  return getAllTools().filter((t) => t.frontmatter.tags?.includes(tag));
 }

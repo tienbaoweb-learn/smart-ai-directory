@@ -305,11 +305,22 @@ function ToolRow({
           <p className="text-gray-400 text-xs">{tool.pricingDetail}</p>
         </div>
         <div className="flex sm:flex-col gap-2">
-          <span className="text-xs font-semibold border border-gray-200 text-gray-400 px-3 py-1.5 rounded-lg whitespace-nowrap cursor-default">
-            Review Coming Soon
-          </span>
+          {tool.hasReview ? (
+            <Link
+              href={`/tools/${tool.slug}`}
+              className="text-xs font-semibold border border-gray-200 text-gray-600 hover:border-gray-300 px-3 py-1.5 rounded-lg whitespace-nowrap transition-colors"
+            >
+              Read Review
+            </Link>
+          ) : (
+            <span className="text-xs font-semibold border border-gray-200 text-gray-400 px-3 py-1.5 rounded-lg whitespace-nowrap cursor-default">
+              Review Coming Soon
+            </span>
+          )}
           <a
-            href="#"
+            href={tool.affiliateHref}
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-xs font-semibold bg-[#2B7FFF] hover:bg-blue-600 text-white px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap"
           >
             Visit Website →
