@@ -1,11 +1,13 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import Navbar from "../../components/Navbar";
 import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
 import { ALL_TOOLS, CATEGORY_LABELS } from "../../data/tools";
+import { TOOL_LOGO_URLS } from "../../data/tool-logos";
 
 // ─── CONSTANTS ────────────────────────────────────────────────────────────────
 
@@ -270,8 +272,12 @@ function ToolRow({
   return (
     <div className="flex flex-col sm:flex-row gap-4 p-5 bg-white border border-gray-100 rounded-2xl hover:border-orange-200 hover:shadow-sm transition-all">
       {/* Logo */}
-      <div className={`w-14 h-14 rounded-xl ${tool.logoBg} flex items-center justify-center shrink-0`}>
-        <span className={tool.logoTextClass}>{tool.logoText}</span>
+      <div className={`w-14 h-14 rounded-xl overflow-hidden ${TOOL_LOGO_URLS[tool.slug] ? "bg-white border border-gray-100 p-1" : tool.logoBg} flex items-center justify-center shrink-0`}>
+        {TOOL_LOGO_URLS[tool.slug] ? (
+          <Image src={TOOL_LOGO_URLS[tool.slug]} alt={tool.name} width={56} height={56} className="object-contain w-full h-full" />
+        ) : (
+          <span className={tool.logoTextClass}>{tool.logoText}</span>
+        )}
       </div>
 
       {/* Main info */}

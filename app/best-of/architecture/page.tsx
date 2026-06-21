@@ -24,6 +24,7 @@ import {
 import Navbar from "../../components/Navbar";
 import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
+import { TOOL_LOGO_URLS } from "../../data/tool-logos";
 
 // ─── RANK BADGE STYLES ────────────────────────────────────────────────────────
 
@@ -41,6 +42,7 @@ const TOP_PICKS = [
   {
     rank: 1,
     name: "D5 Render",
+    slug: "d5-render",
     logoBg: "bg-[#2d5cf3]",
     logoText: "D5",
     rating: 4.7,
@@ -54,6 +56,7 @@ const TOP_PICKS = [
   {
     rank: 2,
     name: "Midjourney",
+    slug: "midjourney",
     logoBg: "bg-gray-900",
     logoText: "M",
     rating: 4.6,
@@ -67,6 +70,7 @@ const TOP_PICKS = [
   {
     rank: 3,
     name: "Planner 5D",
+    slug: "planner-5d",
     logoBg: "bg-gray-700",
     logoText: "P5",
     rating: 4.4,
@@ -80,6 +84,7 @@ const TOP_PICKS = [
   {
     rank: 4,
     name: "ideal.house",
+    slug: "ideal-house",
     logoBg: "bg-black",
     logoText: "IH",
     rating: 4.2,
@@ -95,11 +100,11 @@ const TOP_PICKS = [
 // ─── COMPARE TABLE DATA ───────────────────────────────────────────────────────
 
 const COMPARE_TOOLS = [
-  { name: "Vizcom", href: "/ai-tools/vizcom",         logoBg: "bg-[#2d5cf3]", logoText: "VZ", bestFor: "Concept Design",       ease: 9.5, features: 9.3, quality: 9.4, price: 9.2, overall: 9.4 },
-  { name: "Autodesk Forma", href: "/ai-tools/autodesk-forma", logoBg: "bg-gray-900",  logoText: "AF", bestFor: "Site Analysis",        ease: 8.9, features: 9.1, quality: 9.0, price: 8.5, overall: 8.9 },
-  { name: "TestFit", href: "/ai-tools/testfit",        logoBg: "bg-gray-700",  logoText: "TF", bestFor: "Feasibility Studies",  ease: 8.7, features: 9.0, quality: 8.8, price: 8.6, overall: 8.8 },
-  { name: "Midjourney", href: "/ai-tools/midjourney",     logoBg: "bg-black",     logoText: "MJ", bestFor: "Visualization",        ease: 9.2, features: 8.8, quality: 9.1, price: 8.7, overall: 8.9 },
-  { name: "ArkDesign AI", href: "/ai-tools/arkdesign-ai",   logoBg: "bg-[#6b8cfb]", logoText: "AD", bestFor: "Professional Use",    ease: 8.5, features: 8.7, quality: 8.6, price: 8.2, overall: 8.5 },
+  { name: "Vizcom", slug: "vizcom", href: "/ai-tools/vizcom",         logoBg: "bg-[#2d5cf3]", logoText: "VZ", bestFor: "Concept Design",       ease: 9.5, features: 9.3, quality: 9.4, price: 9.2, overall: 9.4 },
+  { name: "Autodesk Forma", slug: "autodesk-forma", href: "/ai-tools/autodesk-forma", logoBg: "bg-gray-900",  logoText: "AF", bestFor: "Site Analysis",        ease: 8.9, features: 9.1, quality: 9.0, price: 8.5, overall: 8.9 },
+  { name: "TestFit", slug: "testfit", href: "/ai-tools/testfit",        logoBg: "bg-gray-700",  logoText: "TF", bestFor: "Feasibility Studies",  ease: 8.7, features: 9.0, quality: 8.8, price: 8.6, overall: 8.8 },
+  { name: "Midjourney", slug: "midjourney", href: "/ai-tools/midjourney",     logoBg: "bg-black",     logoText: "MJ", bestFor: "Visualization",        ease: 9.2, features: 8.8, quality: 9.1, price: 8.7, overall: 8.9 },
+  { name: "ArkDesign AI", slug: "arkdesign-ai", href: "/ai-tools/arkdesign-ai",   logoBg: "bg-[#6b8cfb]", logoText: "AD", bestFor: "Professional Use",    ease: 8.5, features: 8.7, quality: 8.6, price: 8.2, overall: 8.5 },
 ];
 
 const MAX_OVERALL = Math.max(...COMPARE_TOOLS.map((t) => t.overall));
@@ -325,8 +330,12 @@ export default function BestArchitectureToolsPage() {
                   {tool.rank}
                 </span>
 
-                <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg ${tool.logoBg} flex items-center justify-center mt-5 shrink-0`}>
-                  <span className="text-white text-sm font-bold">{tool.logoText}</span>
+                <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg overflow-hidden ${TOOL_LOGO_URLS[tool.slug] ? "bg-white border border-gray-100 p-1" : tool.logoBg} flex items-center justify-center mt-5 shrink-0`}>
+                  {TOOL_LOGO_URLS[tool.slug] ? (
+                    <Image src={TOOL_LOGO_URLS[tool.slug]} alt={tool.name} width={48} height={48} className="object-contain w-full h-full" />
+                  ) : (
+                    <span className="text-white text-sm font-bold">{tool.logoText}</span>
+                  )}
                 </div>
 
                 <p className="font-semibold text-sm text-[#1E293B] mt-2">{tool.name}</p>
@@ -411,8 +420,12 @@ export default function BestArchitectureToolsPage() {
                     <tr key={tool.name} className="border-t border-gray-100 hover:bg-gray-50 transition-colors">
                       <td className="py-3 px-4">
                         <div className="flex items-center gap-2.5">
-                          <span className={`w-8 h-8 rounded-lg ${tool.logoBg} flex items-center justify-center text-white text-xs font-bold shrink-0`}>
-                            {tool.logoText}
+                          <span className={`w-8 h-8 rounded-lg overflow-hidden ${TOOL_LOGO_URLS[tool.slug] ? "bg-white border border-gray-100 p-0.5" : tool.logoBg} flex items-center justify-center text-white text-xs font-bold shrink-0`}>
+                            {TOOL_LOGO_URLS[tool.slug] ? (
+                              <Image src={TOOL_LOGO_URLS[tool.slug]} alt={tool.name} width={32} height={32} className="object-contain w-full h-full" />
+                            ) : (
+                              tool.logoText
+                            )}
                           </span>
                           <span className="font-medium text-[#1E293B] whitespace-nowrap">{tool.name}</span>
                         </div>
@@ -459,23 +472,27 @@ export default function BestArchitectureToolsPage() {
 
           <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-4">
             {[
-              { label: "Best for Concept Design",       labelClass: "text-[#2d5cf3]",  logoBg: "bg-[#2d5cf3]", logoText: "VZ", name: "Vizcom",         desc: "AI-powered concept sketching and rendering.",    href: "/ai-tools/vizcom",
+              { label: "Best for Concept Design",       labelClass: "text-[#2d5cf3]",  logoBg: "bg-[#2d5cf3]", logoText: "VZ", name: "Vizcom",     slug: "vizcom",         desc: "AI-powered concept sketching and rendering.",    href: "/ai-tools/vizcom",
     affiliateHref: "#" },
-              { label: "Best for Site Analysis",         labelClass: "text-purple-600", logoBg: "bg-gray-900",  logoText: "AF", name: "Autodesk Forma", desc: "Data-driven site and climate analysis.",         href: "/ai-tools/autodesk-forma",
+              { label: "Best for Site Analysis",         labelClass: "text-purple-600", logoBg: "bg-gray-900",  logoText: "AF", name: "Autodesk Forma", slug: "autodesk-forma", desc: "Data-driven site and climate analysis.",         href: "/ai-tools/autodesk-forma",
     affiliateHref: "#" },
-              { label: "Best for 3D Rendering",          labelClass: "text-blue-600",   logoBg: "bg-black",     logoText: "MJ", name: "Midjourney",     desc: "Photorealistic architectural visualizations.",   href: "/ai-tools/midjourney",
+              { label: "Best for 3D Rendering",          labelClass: "text-blue-600",   logoBg: "bg-black",     logoText: "MJ", name: "Midjourney", slug: "midjourney",     desc: "Photorealistic architectural visualizations.",   href: "/ai-tools/midjourney",
     affiliateHref: "#" },
-              { label: "Best for Client Presentations",  labelClass: "text-red-500",    logoBg: "bg-[#2d5cf3]", logoText: "VZ", name: "Vizcom",         desc: "Stunning visuals that impress clients.",         href: "/ai-tools/vizcom",
+              { label: "Best for Client Presentations",  labelClass: "text-red-500",    logoBg: "bg-[#2d5cf3]", logoText: "VZ", name: "Vizcom",     slug: "vizcom",         desc: "Stunning visuals that impress clients.",         href: "/ai-tools/vizcom",
     affiliateHref: "#" },
-              { label: "Best for Feasibility Studies",   labelClass: "text-orange-600", logoBg: "bg-gray-700",  logoText: "TF", name: "TestFit",        desc: "Rapid feasibility analysis for any site.",      href: "/ai-tools/testfit",
+              { label: "Best for Feasibility Studies",   labelClass: "text-orange-600", logoBg: "bg-gray-700",  logoText: "TF", name: "TestFit",    slug: "testfit",        desc: "Rapid feasibility analysis for any site.",      href: "/ai-tools/testfit",
     affiliateHref: "#" },
-              { label: "Best for Visualization",         labelClass: "text-indigo-600", logoBg: "bg-[#6b8cfb]", logoText: "AD", name: "ArkDesign AI",  desc: "AI-enhanced architecture visualization tools.", href: "/ai-tools/arkdesign-ai",
+              { label: "Best for Visualization",         labelClass: "text-indigo-600", logoBg: "bg-[#6b8cfb]", logoText: "AD", name: "ArkDesign AI", slug: "arkdesign-ai", desc: "AI-enhanced architecture visualization tools.", href: "/ai-tools/arkdesign-ai",
     affiliateHref: "#" },
             ].map((card) => (
               <div key={card.label} className="border border-gray-100 rounded-xl p-4 bg-white text-center flex flex-col items-center hover:shadow-md transition-shadow">
                 <p className={`text-xs font-semibold leading-snug ${card.labelClass}`}>{card.label}</p>
-                <div className={`w-10 h-10 rounded-lg ${card.logoBg} flex items-center justify-center mt-2 shrink-0`}>
-                  <span className="text-white text-xs font-bold">{card.logoText}</span>
+                <div className={`w-10 h-10 rounded-lg overflow-hidden ${TOOL_LOGO_URLS[card.slug] ? "bg-white border border-gray-100 p-1" : card.logoBg} flex items-center justify-center mt-2 shrink-0`}>
+                  {TOOL_LOGO_URLS[card.slug] ? (
+                    <Image src={TOOL_LOGO_URLS[card.slug]} alt={card.name} width={40} height={40} className="object-contain w-full h-full" />
+                  ) : (
+                    <span className="text-white text-xs font-bold">{card.logoText}</span>
+                  )}
                 </div>
                 <p className="font-semibold text-sm text-[#1E293B] mt-2">{card.name}</p>
                 <p className="text-xs text-gray-600 mt-1 leading-relaxed line-clamp-2 flex-1">{card.desc}</p>

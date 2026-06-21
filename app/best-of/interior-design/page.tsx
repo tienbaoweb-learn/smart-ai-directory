@@ -24,6 +24,7 @@ import {
 import Navbar from "../../components/Navbar";
 import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
+import { TOOL_LOGO_URLS } from "../../data/tool-logos";
 
 // ─── RANK BADGE STYLES (full Tailwind classes — no dynamic concatenation) ────
 
@@ -41,6 +42,7 @@ const TOP_PICKS = [
   {
     rank: 1,
     name: "Midjourney",
+    slug: "midjourney",
     logoBg: "bg-[#2d5cf3]",
     logoText: "M",
     rating: 4.6,
@@ -54,6 +56,7 @@ const TOP_PICKS = [
   {
     rank: 2,
     name: "Collov AI",
+    slug: "collov-ai",
     logoBg: "bg-gray-900",
     logoText: "CA",
     rating: 4.4,
@@ -67,6 +70,7 @@ const TOP_PICKS = [
   {
     rank: 3,
     name: "Planner 5D",
+    slug: "planner-5d",
     logoBg: "bg-gray-700",
     logoText: "P5",
     rating: 4.4,
@@ -80,6 +84,7 @@ const TOP_PICKS = [
   {
     rank: 4,
     name: "AI Home Design",
+    slug: "aihomedesign",
     logoBg: "bg-black",
     logoText: "AH",
     rating: 4.3,
@@ -93,6 +98,7 @@ const TOP_PICKS = [
   {
     rank: 5,
     name: "Homedesigns.ai",
+    slug: "homedesigns",
     logoBg: "bg-[#6b8cfb]",
     logoText: "HA",
     rating: 4.3,
@@ -108,11 +114,11 @@ const TOP_PICKS = [
 // ─── COMPARE TABLE DATA ───────────────────────────────────────────────────────
 
 const COMPARE_TOOLS = [
-  { name: "Planner 5D", href: "/ai-tools/planner-5d", logoBg: "bg-green-600",  logoText: "P5", bestFor: "All-in-one Design",  ease: 9.2, features: 9.0, quality: 9.1, price: 8.8, overall: 9.0 },
-  { name: "RoomGPT", href: "/ai-tools/roomgpt",    logoBg: "bg-gray-900",   logoText: "RG", bestFor: "Quick Concepts",     ease: 9.6, features: 8.2, quality: 8.3, price: 8.6, overall: 8.7 },
-  { name: "Coohom", href: "/ai-tools/coohom",     logoBg: "bg-blue-500",   logoText: "C",  bestFor: "3D Visualization",   ease: 8.7, features: 9.3, quality: 9.2, price: 8.1, overall: 8.8 },
-  { name: "Homestyler", href: "/ai-tools/homestyler", logoBg: "bg-gradient-to-br from-red-400 via-yellow-400 to-green-400", logoText: "H", bestFor: "Homeowners", ease: 9.1, features: 8.4, quality: 8.6, price: 9.0, overall: 8.7 },
-  { name: "Foyr Neo", href: "/ai-tools/foyr-neo",   logoBg: "bg-gray-900",   logoText: "FN", bestFor: "Professional Use",   ease: 8.3, features: 9.1, quality: 9.3, price: 7.9, overall: 8.6 },
+  { name: "Planner 5D", slug: "planner-5d", href: "/ai-tools/planner-5d", logoBg: "bg-green-600",  logoText: "P5", bestFor: "All-in-one Design",  ease: 9.2, features: 9.0, quality: 9.1, price: 8.8, overall: 9.0 },
+  { name: "RoomGPT", slug: "roomgpt", href: "/ai-tools/roomgpt",    logoBg: "bg-gray-900",   logoText: "RG", bestFor: "Quick Concepts",     ease: 9.6, features: 8.2, quality: 8.3, price: 8.6, overall: 8.7 },
+  { name: "Coohom", slug: "coohom", href: "/ai-tools/coohom",     logoBg: "bg-blue-500",   logoText: "C",  bestFor: "3D Visualization",   ease: 8.7, features: 9.3, quality: 9.2, price: 8.1, overall: 8.8 },
+  { name: "Homestyler", slug: "homestyler", href: "/ai-tools/homestyler", logoBg: "bg-gradient-to-br from-red-400 via-yellow-400 to-green-400", logoText: "H", bestFor: "Homeowners", ease: 9.1, features: 8.4, quality: 8.6, price: 9.0, overall: 8.7 },
+  { name: "Foyr Neo", slug: "foyr-neo", href: "/ai-tools/foyr-neo",   logoBg: "bg-gray-900",   logoText: "FN", bestFor: "Professional Use",   ease: 8.3, features: 9.1, quality: 9.3, price: 7.9, overall: 8.6 },
 ];
 
 const MAX_OVERALL = Math.max(...COMPARE_TOOLS.map((t) => t.overall));
@@ -360,8 +366,12 @@ export default function BestInteriorDesignToolsPage() {
                   {tool.rank}
                 </span>
 
-                <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg ${tool.logoBg} flex items-center justify-center mt-5 shrink-0`}>
-                  <span className="text-white text-sm font-bold">{tool.logoText}</span>
+                <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg overflow-hidden ${TOOL_LOGO_URLS[tool.slug] ? "bg-white border border-gray-100 p-1" : tool.logoBg} flex items-center justify-center mt-5 shrink-0`}>
+                  {TOOL_LOGO_URLS[tool.slug] ? (
+                    <Image src={TOOL_LOGO_URLS[tool.slug]} alt={tool.name} width={48} height={48} className="object-contain w-full h-full" />
+                  ) : (
+                    <span className="text-white text-sm font-bold">{tool.logoText}</span>
+                  )}
                 </div>
 
                 <p className="font-semibold text-sm text-[#1E293B] mt-2">{tool.name}</p>
@@ -450,8 +460,12 @@ export default function BestInteriorDesignToolsPage() {
                       {/* Tool */}
                       <td className="py-3 px-4">
                         <div className="flex items-center gap-2.5">
-                          <span className={`w-8 h-8 rounded-lg ${tool.logoBg} flex items-center justify-center text-white text-xs font-bold shrink-0`}>
-                            {tool.logoText}
+                          <span className={`w-8 h-8 rounded-lg overflow-hidden ${TOOL_LOGO_URLS[tool.slug] ? "bg-white border border-gray-100 p-0.5" : tool.logoBg} flex items-center justify-center text-white text-xs font-bold shrink-0`}>
+                            {TOOL_LOGO_URLS[tool.slug] ? (
+                              <Image src={TOOL_LOGO_URLS[tool.slug]} alt={tool.name} width={32} height={32} className="object-contain w-full h-full" />
+                            ) : (
+                              tool.logoText
+                            )}
                           </span>
                           <span className="font-medium text-[#1E293B] whitespace-nowrap">{tool.name}</span>
                         </div>
@@ -502,23 +516,27 @@ export default function BestInteriorDesignToolsPage() {
           {/* Cards */}
           <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-4">
             {[
-              { label: "Best for Concept Inspiration",   labelClass: "text-blue-600",    logoBg: "bg-gray-900",  logoText: "RG", name: "RoomGPT",    desc: "Instant ideas from photos.",                      href: "/ai-tools/roomgpt",
+              { label: "Best for Concept Inspiration",   labelClass: "text-blue-600",    logoBg: "bg-gray-900",  logoText: "RG", name: "RoomGPT",    slug: "roomgpt",    desc: "Instant ideas from photos.",                      href: "/ai-tools/roomgpt",
     affiliateHref: "#" },
-              { label: "Best for Space Planning",         labelClass: "text-[#35966a]",   logoBg: "bg-green-600", logoText: "P5", name: "Planner 5D", desc: "Smart layouts and space optimization.",            href: "/ai-tools/planner-5d",
+              { label: "Best for Space Planning",         labelClass: "text-[#35966a]",   logoBg: "bg-green-600", logoText: "P5", name: "Planner 5D", slug: "planner-5d", desc: "Smart layouts and space optimization.",            href: "/ai-tools/planner-5d",
     affiliateHref: "#" },
-              { label: "Best for 3D Rendering",           labelClass: "text-purple-600",  logoBg: "bg-blue-500",  logoText: "C",  name: "Coohom",     desc: "High-quality 3D renders in minutes.",             href: "/ai-tools/coohom",
+              { label: "Best for 3D Rendering",           labelClass: "text-purple-600",  logoBg: "bg-blue-500",  logoText: "C",  name: "Coohom",     slug: "coohom",     desc: "High-quality 3D renders in minutes.",             href: "/ai-tools/coohom",
     affiliateHref: "#" },
-              { label: "Best for Client Presentations",   labelClass: "text-red-500",     logoBg: "bg-gray-900",  logoText: "FN", name: "Foyr Neo",   desc: "Stunning visuals that impress clients.",          href: "/ai-tools/foyr-neo",
+              { label: "Best for Client Presentations",   labelClass: "text-red-500",     logoBg: "bg-gray-900",  logoText: "FN", name: "Foyr Neo",   slug: "foyr-neo",   desc: "Stunning visuals that impress clients.",          href: "/ai-tools/foyr-neo",
     affiliateHref: "#" },
-              { label: "Best for Material & Furniture",   labelClass: "text-orange-600",  logoBg: "bg-gradient-to-br from-red-400 via-yellow-400 to-green-400", logoText: "H", name: "Homestyler", desc: "Huge library of models and materials.", href: "/ai-tools/homestyler",
+              { label: "Best for Material & Furniture",   labelClass: "text-orange-600",  logoBg: "bg-gradient-to-br from-red-400 via-yellow-400 to-green-400", logoText: "H", name: "Homestyler", slug: "homestyler", desc: "Huge library of models and materials.", href: "/ai-tools/homestyler",
     affiliateHref: "#" },
-              { label: "Best for Ecommerce Content",      labelClass: "text-indigo-600",  logoBg: "bg-gray-900",  logoText: "FN", name: "Foyr Neo",   desc: "Create product visuals and catalog images.",      href: "/ai-tools/foyr-neo",
+              { label: "Best for Ecommerce Content",      labelClass: "text-indigo-600",  logoBg: "bg-gray-900",  logoText: "FN", name: "Foyr Neo",   slug: "foyr-neo",   desc: "Create product visuals and catalog images.",      href: "/ai-tools/foyr-neo",
     affiliateHref: "#" },
             ].map((card) => (
               <div key={card.label} className="border border-gray-100 rounded-xl p-4 bg-white text-center flex flex-col items-center hover:shadow-md transition-shadow">
                 <p className={`text-xs font-semibold leading-snug ${card.labelClass}`}>{card.label}</p>
-                <div className={`w-10 h-10 rounded-lg ${card.logoBg} flex items-center justify-center mt-2 shrink-0`}>
-                  <span className="text-white text-xs font-bold">{card.logoText}</span>
+                <div className={`w-10 h-10 rounded-lg overflow-hidden ${TOOL_LOGO_URLS[card.slug] ? "bg-white border border-gray-100 p-1" : card.logoBg} flex items-center justify-center mt-2 shrink-0`}>
+                  {TOOL_LOGO_URLS[card.slug] ? (
+                    <Image src={TOOL_LOGO_URLS[card.slug]} alt={card.name} width={40} height={40} className="object-contain w-full h-full" />
+                  ) : (
+                    <span className="text-white text-xs font-bold">{card.logoText}</span>
+                  )}
                 </div>
                 <p className="font-semibold text-sm text-[#1E293B] mt-2">{card.name}</p>
                 <p className="text-xs text-gray-600 mt-1 leading-relaxed line-clamp-2 flex-1">{card.desc}</p>

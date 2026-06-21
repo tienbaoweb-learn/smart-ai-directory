@@ -24,6 +24,7 @@ import {
 import Navbar from "../../components/Navbar";
 import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
+import { TOOL_LOGO_URLS } from "../../data/tool-logos";
 
 // ─── RANK BADGE STYLES ────────────────────────────────────────────────────────
 
@@ -41,6 +42,7 @@ const TOP_PICKS = [
   {
     rank: 1,
     name: "Insightful",
+    slug: "insightful",
     logoBg: "bg-[#2d5cf3]",
     logoText: "I",
     rating: 4.8,
@@ -54,6 +56,7 @@ const TOP_PICKS = [
   {
     rank: 2,
     name: "Signeasy",
+    slug: "signeasy",
     logoBg: "bg-gray-900",
     logoText: "S",
     rating: 4.4,
@@ -67,6 +70,7 @@ const TOP_PICKS = [
   {
     rank: 3,
     name: "Team Pulse",
+    slug: "team-pulse",
     logoBg: "bg-gray-700",
     logoText: "TP",
     rating: 4.0,
@@ -307,8 +311,12 @@ export default function BestConstructionToolsPage() {
                   {tool.rank}
                 </span>
 
-                <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg ${tool.logoBg} flex items-center justify-center mt-5 shrink-0`}>
-                  <span className="text-white text-sm font-bold">{tool.logoText}</span>
+                <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg overflow-hidden ${TOOL_LOGO_URLS[tool.slug] ? "bg-white border border-gray-100 p-1" : tool.logoBg} flex items-center justify-center mt-5 shrink-0`}>
+                  {TOOL_LOGO_URLS[tool.slug] ? (
+                    <Image src={TOOL_LOGO_URLS[tool.slug]} alt={tool.name} width={48} height={48} className="object-contain w-full h-full" />
+                  ) : (
+                    <span className="text-white text-sm font-bold">{tool.logoText}</span>
+                  )}
                 </div>
 
                 <p className="font-semibold text-sm text-[#1E293B] mt-2">{tool.name}</p>
