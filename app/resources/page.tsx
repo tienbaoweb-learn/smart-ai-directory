@@ -15,6 +15,7 @@ import {
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
+import { guidesData } from "../../lib/guides-data";
 
 // ─── CATEGORY CARD THEMES ─────────────────────────────────────────────────────
 
@@ -33,9 +34,9 @@ const CATEGORY_THEME: Record<
 // ─── FEATURED GUIDE BADGE STYLES ─────────────────────────────────────────────
 
 const GUIDE_BADGE: Record<string, string> = {
-  GUIDE:    "bg-blue-600 text-white",
-  TUTORIAL: "bg-emerald-600 text-white",
-  WORKFLOW: "bg-orange-500 text-white",
+  ARCHITECTURE:  "bg-sky-600 text-white",
+  CONSTRUCTION:  "bg-amber-600 text-white",
+  "REAL ESTATE": "bg-emerald-600 text-white",
 };
 
 // ─── FREE RESOURCE ICON THEMES ────────────────────────────────────────────────
@@ -49,29 +50,19 @@ const FREE_RES_THEME: Record<string, { bg: string; color: string; icon: "text" |
 
 // ─── DATA ─────────────────────────────────────────────────────────────────────
 
-const FEATURED_GUIDES = [
-  {
-    badge: "GUIDE",
-    title: "How to Use ChatGPT to 10x Your Productivity",
-    desc: "A complete guide with proven prompts, workflows, and real examples.",
-    date: "May 18, 2026",
-    read: "12 min read",
-  },
-  {
-    badge: "TUTORIAL",
-    title: "Build Your First AI Automation (No Code)",
-    desc: "Automate repetitive tasks using Make, Zapier, and AI in under 30 minutes.",
-    date: "May 16, 2026",
-    read: "8 min read",
-  },
-  {
-    badge: "WORKFLOW",
-    title: "10 AI Workflows That Save 10+ Hours Per Week",
-    desc: "Ready-to-use workflows for content, marketing, sales, and operations.",
-    date: "May 14, 2026",
-    read: "10 min read",
-  },
-];
+const FEATURED_SLUGS = ["architecture-ai-tools", "construction-ai-tools", "real-estate-ai-tools"];
+
+const FEATURED_GUIDES = FEATURED_SLUGS.map((slug) => {
+  const g = guidesData.find((guide) => guide.slug === slug)!;
+  return {
+    badge: g.badge,
+    title: g.title,
+    desc: g.description,
+    date: g.date,
+    read: g.readTime,
+    href: g.href,
+  };
+});
 
 const SIDEBAR_TOPICS = [
   "Getting Started with AI",
@@ -309,7 +300,7 @@ export default function ResourcesPage() {
                 {/* 3 cards */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   {FEATURED_GUIDES.map((guide) => (
-                    <a key={guide.title} href="#" className="group flex flex-col">
+                    <Link key={guide.title} href={guide.href} className="group flex flex-col">
                       {/* Thumbnail */}
                       <div className="bg-gray-800 rounded-xl aspect-[2/1] relative overflow-hidden">
                         {/* TODO: replace with image */}
@@ -329,7 +320,7 @@ export default function ResourcesPage() {
                       <p className="text-xs text-gray-400 mt-2">
                         {guide.date} &bull; {guide.read}
                       </p>
-                    </a>
+                    </Link>
                   ))}
                 </div>
               </div>
