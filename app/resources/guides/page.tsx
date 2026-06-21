@@ -41,10 +41,10 @@ const CAT_THEME: Record<string, { iconBg: string; iconColor: string }> = {
 // ─── FEATURED GUIDE BADGE STYLES ─────────────────────────────────────────────
 
 const FEAT_BADGE: Record<string, string> = {
-  STRATEGY:   "bg-blue-600 text-white",
-  MARKETING:  "bg-orange-500 text-white",
-  OPERATIONS: "bg-teal-600 text-white",
-  BEGINNER:   "bg-emerald-500 text-white",
+  ARCHITECTURE:       "bg-sky-600 text-white",
+  CONSTRUCTION:       "bg-amber-600 text-white",
+  "INTERIOR DESIGN":  "bg-pink-600 text-white",
+  "REAL ESTATE":      "bg-emerald-600 text-white",
 };
 
 // ─── RESULT CARD THEMES ───────────────────────────────────────────────────────
