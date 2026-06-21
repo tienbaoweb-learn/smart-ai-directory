@@ -11,9 +11,12 @@ export interface GuideFaqItem {
 }
 
 export interface GuideContentBlock {
-  type: "paragraph" | "heading" | "comparison-table" | "faq" | "disclaimer";
+  type: "paragraph" | "heading" | "image" | "comparison-table" | "faq" | "disclaimer";
   text?: string;
   level?: 2 | 3; // cho heading
+  src?: string; // cho image
+  alt?: string;
+  caption?: string;
   rows?: GuideComparisonRow[]; // cho comparison-table
   note?: string; // ghi chú nhỏ dưới comparison-table
   items?: GuideFaqItem[]; // cho faq
@@ -27,6 +30,7 @@ export interface GuideDetail {
   readingTime: string;
   publishedDate: string;
   thumbnail: string | null;
+  heroImage?: string;
   excerpt: string;
   content: GuideContentBlock[];
   tags: string[];
@@ -41,7 +45,8 @@ export const guidesContent: GuideDetail[] = [
     bestFor: "Solo architects, small to mid-size studios",
     readingTime: "8 min",
     publishedDate: "2026-06-01",
-    thumbnail: null,
+    thumbnail: "/images/guides/architecture-ai-tools-thumb.webp",
+    heroImage: "/images/guides/architecture-ai-tools-hero.webp",
     excerpt:
       "If you're an architect, you don't have time to test twenty different AI tools to find the three that actually fit into your workflow. This guide groups the most-recommended tools by the four areas where architects lose the most time.",
     tags: ["AI tools for architects", "AI rendering software", "architecture visualization", "AI for architecture firms", "AI site analysis"],
@@ -49,6 +54,7 @@ export const guidesContent: GuideDetail[] = [
       { type: "paragraph", text: "If you're an architect, you don't have time to test twenty different AI tools to find the three that actually fit into your workflow. You have client meetings, permit submissions, and a render that was due yesterday." },
       { type: "paragraph", text: "This guide cuts through the noise. According to the Chaos State of ArchViz Report, roughly 44% of architects now use AI for concept imagery — it's no longer experimental, it's standard practice. We've grouped the most-recommended tools by the four areas where architects lose the most time: concept visualization, planning and feasibility, documentation, and site research." },
       { type: "paragraph", text: "No hype, no \"AI will replace architects\" talk. Just an objective look at which tools are actually being used in 2026, and where each one fits into a real architecture workflow." },
+      { type: "image", src: "/images/guides/architecture-ai-tools-1.webp", alt: "Architect reviewing an AI-generated building render", caption: "AI rendering tools turn a massing model into a client-ready visual in minutes." },
 
       { type: "heading", level: 2, text: "The 4 Pain Points Eating Into Your Time" },
       { type: "paragraph", text: "Before getting into tools, it's worth naming exactly where the time goes." },
@@ -82,6 +88,7 @@ export const guidesContent: GuideDetail[] = [
       { type: "heading", level: 3, text: "For site research: AI-assisted GIS and zoning tools" },
       { type: "paragraph", text: "The newest and most underused category on this list. These tools extract zoning restrictions, setback rules, and environmental data from municipal records and site documents automatically, rather than requiring manual research." },
       { type: "paragraph", text: "Giraffe has been highlighted for its GIS mapping and ability to synthesize zoning and environmental data into feasibility models for urban planning and early site analysis. Other tools in this space, like Modelur, offer zoning analysis as a plugin directly inside SketchUp." },
+      { type: "image", src: "/images/guides/architecture-ai-tools-2.webp", alt: "Generative design tool showing site massing and unit layout options", caption: "Generative planning tools turn site parameters into compliant layout options in minutes." },
 
       { type: "heading", level: 2, text: "Quick Comparison" },
       { type: "comparison-table",
@@ -127,7 +134,8 @@ export const guidesContent: GuideDetail[] = [
     bestFor: "General contractors, specialty contractors, construction project managers",
     readingTime: "8 min",
     publishedDate: "2026-06-01",
-    thumbnail: null,
+    thumbnail: "/images/guides/construction-ai-tools-thumb.webp",
+    heroImage: "/images/guides/construction-ai-tools-hero.webp",
     excerpt:
       "If you're running estimates, chasing submittals, or walking a job site, you don't have time to evaluate twenty different construction AI platforms. This guide breaks down the tools by the four areas where firms lose the most time.",
     tags: ["AI tools for construction", "construction estimating software", "AI takeoff tools", "construction project management AI", "construction site monitoring"],
@@ -135,6 +143,7 @@ export const guidesContent: GuideDetail[] = [
       { type: "paragraph", text: "If you're running estimates, chasing submittals, or walking a job site, you don't have time to evaluate twenty different construction AI platforms. You need to know which tools actually solve the problems eating into your week." },
       { type: "paragraph", text: "This guide breaks down AI tools for construction by the four areas where firms lose the most time: estimating and takeoffs, scheduling, site visibility and progress tracking, and project management/documentation. Construction professionals report spending roughly 35% of their time on non-productive activities like searching for project information — these are the categories where AI is making the biggest dent in that number." },
       { type: "paragraph", text: "No hype. Just an objective look at which tools are actually being used by contractors in 2026, and where each one fits." },
+      { type: "image", src: "/images/guides/construction-ai-tools-1.webp", alt: "Construction project manager using a tablet to review AI takeoff data on site", caption: "AI takeoff tools turn hours of manual quantity counting into minutes." },
 
       { type: "heading", level: 2, text: "The 4 Pain Points Eating Into Your Time" },
       { type: "heading", level: 3, text: "1. Estimating and takeoffs" },
@@ -168,6 +177,7 @@ export const guidesContent: GuideDetail[] = [
       { type: "paragraph", text: "Procore AI is built directly into the widely used Procore platform, applying AI across the project management workflows many firms already run on." },
       { type: "paragraph", text: "Mastt extracts data from contracts, invoices, and payment documents to automate workflows, reduce manual entry, and flag compliance requirements — particularly aimed at teams managing large capital project portfolios." },
       { type: "paragraph", text: "Autodesk Construction Cloud's Construction IQ delivers risk insights and predictive analytics across a project portfolio, automatically prioritizing high-risk items in document logs." },
+      { type: "image", src: "/images/guides/construction-ai-tools-2.webp", alt: "360-degree site capture mapped onto a BIM model for progress tracking", caption: "Site visibility tools map a walkthrough capture directly onto floor plans or BIM models." },
 
       { type: "heading", level: 2, text: "Quick Comparison" },
       { type: "comparison-table",
@@ -214,7 +224,8 @@ export const guidesContent: GuideDetail[] = [
     bestFor: "Independent designers, small design studios, design-adjacent real estate professionals",
     readingTime: "8 min",
     publishedDate: "2026-06-01",
-    thumbnail: null,
+    thumbnail: "/images/guides/interior-design-ai-tools-thumb.webp",
+    heroImage: "/images/guides/interior-design-ai-tools-hero.webp",
     excerpt:
       "If you're an interior designer, you don't have time to test the dozens of AI tools claiming to be \"the best\" this year. This guide groups them by what they actually do well, from fast restyling to professional 3D rendering.",
     tags: ["AI tools for interior design", "AI room redesign", "virtual staging AI", "AI floor plan tools", "interior design rendering software"],
@@ -222,6 +233,7 @@ export const guidesContent: GuideDetail[] = [
       { type: "paragraph", text: "If you're an interior designer, you don't have time to test the dozens of AI tools claiming to be \"the best\" this year. Some restyle a photo in seconds. Others rebuild a full floor plan. A few connect straight to a real furniture catalog so a concept becomes shoppable. Picking the wrong one for the job wastes time and client trust." },
       { type: "paragraph", text: "This guide groups AI interior design tools by what they actually do well: fast visual restyling and inspiration, layout and space planning, client-ready shoppable presentations, and professional-grade 3D rendering. The AI interior design market is projected to approach $7 billion by 2032, and the tools have matured accordingly — the bar has shifted from \"can it generate a pretty picture\" to \"can it actually support a real design workflow.\"" },
       { type: "paragraph", text: "No hype. Just an objective look at which tools are being used in 2026, and where each one fits." },
+      { type: "image", src: "/images/guides/interior-design-ai-tools-1.webp", alt: "Interior designer comparing an AI-restyled room redesign on a laptop", caption: "Fast restyle tools turn a room photo into a styled concept in seconds." },
 
       { type: "heading", level: 2, text: "The 4 Pain Points Eating Into Your Time" },
       { type: "heading", level: 3, text: "1. Communicating concepts quickly" },
@@ -251,6 +263,7 @@ export const guidesContent: GuideDetail[] = [
 
       { type: "heading", level: 3, text: "For professional-grade 3D rendering" },
       { type: "paragraph", text: "Foyr Neo is commonly recommended in this category for professionals who need a large model library and more traditional 3D rendering control rather than a one-click AI restyle. Tools in this tier generally involve more of a learning curve than the fast restyle apps, but offer the precision needed for client-facing deliverables and construction-adjacent work, like kitchen and bathroom renovation planning where material and fixture accuracy matters." },
+      { type: "image", src: "/images/guides/interior-design-ai-tools-2.webp", alt: "Professional 3D rendering of a furnished living room with detailed lighting and materials", caption: "Dedicated 3D rendering tools offer finer control over materials and lighting for client-facing deliverables." },
 
       { type: "heading", level: 2, text: "Quick Comparison" },
       { type: "comparison-table",
@@ -294,7 +307,8 @@ export const guidesContent: GuideDetail[] = [
     bestFor: "Agents, brokers, property managers, small real estate teams",
     readingTime: "8 min",
     publishedDate: "2026-06-01",
-    thumbnail: null,
+    thumbnail: "/images/guides/real-estate-ai-tools-thumb.webp",
+    heroImage: "/images/guides/real-estate-ai-tools-hero.webp",
     excerpt:
       "If you're a real estate agent or run a small brokerage, you don't have time to test every AI tool on the market. This guide breaks down the tools by the four areas where agents and small teams lose the most time.",
     tags: ["AI tools for real estate", "real estate AI CRM", "AI listing content", "virtual staging AI", "real estate lead generation AI"],
@@ -302,6 +316,7 @@ export const guidesContent: GuideDetail[] = [
       { type: "paragraph", text: "If you're a real estate agent or run a small brokerage, you don't have time to test every AI tool on the market. You need to know which ones actually move the needle on leads, listings, and closings." },
       { type: "paragraph", text: "This guide breaks down AI tools for real estate by the four areas where agents and small teams lose the most time: lead capture and qualification, marketing and listing content, transaction and CRM workflows, and market analysis. Most top-producing agents in 2026 aren't using a single all-in-one platform — they're running two to four specialized tools stacked across these workflow stages." },
       { type: "paragraph", text: "No hype. Just an objective look at which tools are actually being used by agents and brokerages in 2026, and where each one fits." },
+      { type: "image", src: "/images/guides/real-estate-ai-tools-1.webp", alt: "Real estate agent reviewing an AI lead-qualification dashboard", caption: "Conversational AI intake tools capture budget, timeline, and motivation before a human ever picks up the phone." },
 
       { type: "heading", level: 2, text: "The 4 Pain Points Eating Into Your Time" },
       { type: "heading", level: 3, text: "1. Lead capture and qualification" },
@@ -334,6 +349,7 @@ export const guidesContent: GuideDetail[] = [
       { type: "paragraph", text: "Pulling comparable sales, tracking market trends, and producing valuations has traditionally meant hours of manual research per property. AI tools in this space process large volumes of property and market data automatically." },
       { type: "paragraph", text: "HouseCanary and RealScout are frequently named in this category for market research and comps, helping agents and investors get a faster, data-backed read on property value and local trends." },
       { type: "paragraph", text: "For commercial real estate specifically, document-heavy work like lease abstraction has its own dedicated AI category. Tools like V7 Go and Re-Leased Credia are built to extract key dates, financial terms, and clauses directly from lease documents — addressing a real bottleneck, since asset managers report spending an average of 4–8 hours manually abstracting a single commercial lease." },
+      { type: "image", src: "/images/guides/real-estate-ai-tools-2.webp", alt: "AI-augmented CRM dashboard showing a real estate transaction pipeline", caption: "AI-augmented CRMs track leads through the pipeline and automate follow-ups." },
 
       { type: "heading", level: 2, text: "Quick Comparison" },
       { type: "comparison-table",

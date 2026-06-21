@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import Link from "next/link";
 import { Briefcase, Calendar, Clock } from "lucide-react";
 
@@ -56,6 +57,25 @@ function ContentBlock({ block }: { block: GuideContentBlock }) {
 
     case "paragraph":
       return <p className="text-gray-600 leading-relaxed mb-4">{block.text}</p>;
+
+    case "image":
+      return (
+        <figure className="my-6">
+          <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden border border-gray-100">
+            <Image
+              src={block.src ?? ""}
+              alt={block.alt ?? ""}
+              fill
+              className="object-cover"
+            />
+          </div>
+          {block.caption && (
+            <figcaption className="text-xs text-gray-400 text-center mt-2">
+              {block.caption}
+            </figcaption>
+          )}
+        </figure>
+      );
 
     case "comparison-table":
       return (
@@ -153,6 +173,20 @@ export default async function GuideDetailPage({
           </nav>
         </div>
       </div>
+
+      {/* ── Hero image ── */}
+      {guide.heroImage && (
+        <div className="relative w-full h-56 sm:h-80 lg:h-[420px]">
+          <Image
+            src={guide.heroImage}
+            alt={guide.title}
+            fill
+            priority
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
+        </div>
+      )}
 
       {/* ── Title + meta ── */}
       <section className="py-8 sm:py-10 border-b border-gray-100">
