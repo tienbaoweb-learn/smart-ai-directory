@@ -5,6 +5,7 @@ export interface Guide {
   category: string;
   badge: string;
   imageHint: string;
+  thumbnail: string;
   readTime: string;
   date: string;
   tags: string[];
@@ -21,6 +22,7 @@ export const guidesData: Guide[] = [
     category: "Architecture",
     badge: "ARCHITECTURE",
     imageHint: "architect reviewing AI-generated building render",
+    thumbnail: "/images/guides/architecture-ai-tools-thumb.webp",
     readTime: "8 min read",
     date: "Jun 21, 2026",
     tags: ["ai-image-generation", "ai-for-business"],
@@ -34,6 +36,7 @@ export const guidesData: Guide[] = [
     category: "Construction",
     badge: "CONSTRUCTION",
     imageHint: "construction site manager using tablet on site",
+    thumbnail: "/images/guides/construction-ai-tools-thumb.webp",
     readTime: "8 min read",
     date: "Jun 21, 2026",
     tags: ["automation", "ai-for-business"],
@@ -47,6 +50,7 @@ export const guidesData: Guide[] = [
     category: "Interior Design",
     badge: "INTERIOR DESIGN",
     imageHint: "interior designer comparing AI room redesigns",
+    thumbnail: "/images/guides/interior-design-ai-tools-thumb.webp",
     readTime: "8 min read",
     date: "Jun 21, 2026",
     tags: ["ai-image-generation", "productivity"],
@@ -60,6 +64,7 @@ export const guidesData: Guide[] = [
     category: "Real Estate",
     badge: "REAL ESTATE",
     imageHint: "real estate agent reviewing AI lead dashboard",
+    thumbnail: "/images/guides/real-estate-ai-tools-thumb.webp",
     readTime: "8 min read",
     date: "Jun 21, 2026",
     tags: ["ai-writing", "ai-for-business"],
