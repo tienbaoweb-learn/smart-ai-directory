@@ -363,8 +363,8 @@ const TRENDING_PAIRS = [
     b: { name: "D5 Render",   bg: "bg-blue-500",  initials: "D5" },
   },
   {
-    a: { name: "Planner 5D",  bg: "bg-green-500",  initials: "5D" },
-    b: { name: "Homestyler",  bg: "bg-purple-500", initials: "HS" },
+    a: { name: "Planner 5D",  bg: "bg-green-500",  initials: "P5" },
+    b: { name: "Homestyler",  bg: "bg-purple-500", initials: "H" },
   },
   {
     a: { name: "Archicad AI", bg: "bg-blue-600",   initials: "AC" },

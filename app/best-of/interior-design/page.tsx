@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import {
   Award,
@@ -240,14 +241,14 @@ export default function BestInteriorDesignToolsPage() {
 
             {/* Right — image + decorative overlays */}
             <div className="relative hidden lg:block">
-              {/* Main image placeholder */}
-              {/* TODO: replace with Unsplash image "modern interior design living room" */}
+              {/* Main image */}
               <div className="relative bg-gray-200 rounded-2xl aspect-[4/3] w-full overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <svg className="w-16 h-16 text-gray-300" fill="none" stroke="currentColor" strokeWidth={1} viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M13.5 12h.008v.008H13.5V12z" />
-                  </svg>
-                </div>
+                <Image
+                  src="https://plus.unsplash.com/premium_photo-1661962771640-426ce94f16c6?fm=jpg&q=80&w=1200"
+                  alt="Modern luxury living interior, 3D rendering concept"
+                  fill
+                  className="object-cover"
+                />
               </div>
 
               {/* Overlay card 1 — Design Faster (top-left) */}

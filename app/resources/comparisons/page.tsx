@@ -88,7 +88,7 @@ const TRENDING_PAIRS = [
     b: { name: "ManyChat",      bg: "bg-purple-500",  letter: "MC" },
   },
   {
-    a: { name: "REimagineHome", bg: "bg-purple-700",  letter: "RI" },
+    a: { name: "REimagineHome", bg: "bg-purple-700",  letter: "RH" },
     b: { name: "Copy.ai",       bg: "bg-yellow-500",  letter: "CP" },
   },
 ];

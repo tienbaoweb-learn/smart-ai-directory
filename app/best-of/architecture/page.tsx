@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import {
   Award,
@@ -41,7 +42,7 @@ const TOP_PICKS = [
     rank: 1,
     name: "D5 Render",
     logoBg: "bg-[#2d5cf3]",
-    logoText: "DR",
+    logoText: "D5",
     rating: 4.7,
     bestFor: "Architecture firms producing client presentations and design approvals",
     desc: "D5 Render is a real-time ray tracing renderer used by 80% architecture professionals, cutting rendering time from 12-18 hours (V-Ray) to 1-2 hours with higher quality results. It integrates natively with SketchUp, Revit, Rhino, ARCHICAD, and Blender via live-sync — with a free version and Pro from $38/month.",
@@ -226,13 +227,13 @@ export default function BestArchitectureToolsPage() {
 
             {/* Right — image + decorative overlays */}
             <div className="relative hidden lg:block">
-              {/* TODO: replace with Unsplash image "modern architecture building exterior" */}
               <div className="relative bg-gray-200 rounded-2xl aspect-[4/3] w-full overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <svg className="w-16 h-16 text-gray-300" fill="none" stroke="currentColor" strokeWidth={1} viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M13.5 12h.008v.008H13.5V12z" />
-                  </svg>
-                </div>
+                <Image
+                  src="https://images.unsplash.com/photo-1489465033131-30f7e2025f68?fm=jpg&q=80&w=1200"
+                  alt="Worm's-eye view of a glass building"
+                  fill
+                  className="object-cover"
+                />
               </div>
 
               {/* Overlay card 1 — Design Faster (top-left) */}

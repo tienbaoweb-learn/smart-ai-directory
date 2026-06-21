@@ -317,7 +317,7 @@ const TOP_TOOLS = [
     desc: "D5 Render is a real-time ray tracing renderer used by 80% architecture professionals, cutting rendering time from 12-18 hours (V-Ray) to 1-2 hours with higher quality results. It integrates natively with SketchUp, Revit, Rhino, ARCHICAD, and Blender via live-sync — with a free version and Pro from $38/month.",
     bestFor: "Architecture firms producing client presentations and design approvals",
     integrations: [] as { label: string; bg: string; title: string }[],
-    initials: "DR",
+    initials: "D5",
     iconBg: "bg-purple-600",
     iconText: "text-white",
   },

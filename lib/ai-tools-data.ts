@@ -508,7 +508,7 @@ export const aiToolCards: AIToolCard[] = [
     slug: "alli-ai",
     name: "Alli AI",
     shortDesc: "Automated SEO platform that finds and deploys on-page fixes directly to your site.",
-    logo: { bg: "bg-emerald-600", text: "AI" },
+    logo: { bg: "bg-orange-600", text: "AA" },
     editorialRating: 4.3,
     category: "Cross-niche",
     pricing: "From $249/month",

@@ -125,7 +125,7 @@ export const comparisonsData: Comparison[] = [
     description: "Which writing assistant improves your content the most?",
     category: "Writing",
     badge: "WRITING",
-    toolA: { name: "Grammarly",     logo: { bg: "bg-green-600", text: "GR" } },
+    toolA: { name: "Grammarly",     logo: { bg: "bg-[#15C39A]", text: "G" } },
     toolB: { name: "ProWritingAid", logo: { bg: "bg-slate-700", text: "PW" } },
     focus: "Grammar, style, readability, plagiarism",
     date: "May 16, 2026",

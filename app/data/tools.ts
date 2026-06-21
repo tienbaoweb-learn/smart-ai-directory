@@ -341,7 +341,7 @@ export const ALL_TOOLS: AITool[] = [
     slug: "d5-render",
     company: "by D5 Render",
     logoBg: "bg-blue-600",
-    logoText: "DR",
+    logoText: "D5",
     logoTextClass: "text-white font-black text-xs",
     category: "design",
     industry: "Architecture",

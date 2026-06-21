@@ -351,14 +351,14 @@ function EmptyState({ onReset }: { onReset: () => void }) {
 // ─── COMPARE SECTION ─────────────────────────────────────────────────────────
 
 const COMPARE_SLOTS = [
-  { name: "Buildots",   bg: "bg-slate-800",   initials: "BL" },
+  { name: "Buildots",   bg: "bg-slate-800",   initials: "BD" },
   { name: "Procore AI", bg: "bg-orange-600",  initials: "PC" },
   { name: "OpenSpace",  bg: "bg-blue-600",    initials: "OS" },
 ];
 
 const TRENDING_PAIRS = [
   {
-    a: { name: "Buildots",      bg: "bg-slate-800",  initials: "BL" },
+    a: { name: "Buildots",      bg: "bg-slate-800",  initials: "BD" },
     b: { name: "Procore AI",    bg: "bg-orange-600", initials: "PC" },
   },
   {

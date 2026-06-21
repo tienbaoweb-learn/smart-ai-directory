@@ -207,10 +207,10 @@ const STEP_TOOLS_DATA = [
     headerText: "text-teal-600",
     totalCount: 8,
     tools: [
-      { name: "Planner 5D", rating: "4.8", initials: "5D", iconBg: "bg-[#35966a]" },
+      { name: "Planner 5D", rating: "4.8", initials: "P5", iconBg: "bg-[#35966a]" },
       { name: "RoomGPT", rating: "4.7", initials: "RG", iconBg: "bg-purple-600" },
-      { name: "Homestyler", rating: "4.6", initials: "HS", iconBg: "bg-teal-500" },
-      { name: "Coohom", rating: "4.6", initials: "CH", iconBg: "bg-blue-600" },
+      { name: "Homestyler", rating: "4.6", initials: "H", iconBg: "bg-teal-500" },
+      { name: "Coohom", rating: "4.6", initials: "C", iconBg: "bg-blue-600" },
     ],
   },
   {
@@ -222,8 +222,8 @@ const STEP_TOOLS_DATA = [
     totalCount: 11,
     tools: [
       { name: "Foyr Neo", rating: "4.8", initials: "FN", iconBg: "bg-indigo-600" },
-      { name: "Coohom", rating: "4.7", initials: "CH", iconBg: "bg-blue-600" },
-      { name: "Planner 5D", rating: "4.8", initials: "5D", iconBg: "bg-[#35966a]" },
+      { name: "Coohom", rating: "4.7", initials: "C", iconBg: "bg-blue-600" },
+      { name: "Planner 5D", rating: "4.8", initials: "P5", iconBg: "bg-[#35966a]" },
       { name: "SketchUp AI", rating: "4.6", initials: "SK", iconBg: "bg-red-500" },
     ],
   },
@@ -303,7 +303,7 @@ const TOP_TOOLS = [
     desc: "D5 Render is a real-time ray tracing renderer used by 80% architecture professionals, cutting rendering time from 12-18 hours (V-Ray) to 1-2 hours with higher quality results. It integrates natively with SketchUp, Revit, Rhino, ARCHICAD, and Blender via live-sync — with a free version and Pro from $38/month.",
     bestFor: "Architecture firms producing client presentations and design approvals",
     integrations: [] as { label: string; bg: string; title: string }[],
-    initials: "DR",
+    initials: "D5",
     iconBg: "bg-blue-700",
     iconText: "text-white",
   },

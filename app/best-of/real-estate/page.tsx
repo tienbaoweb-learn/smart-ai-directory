@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import {
   Award,
@@ -208,13 +209,13 @@ export default function BestRealEstateToolsPage() {
 
             {/* Right — image + overlays */}
             <div className="relative hidden lg:block">
-              {/* TODO: replace with Unsplash image "modern house exterior at night" */}
               <div className="relative bg-gray-200 rounded-2xl aspect-[4/3] w-full overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <svg className="w-16 h-16 text-gray-300" fill="none" stroke="currentColor" strokeWidth={1} viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M13.5 12h.008v.008H13.5V12z" />
-                  </svg>
-                </div>
+                <Image
+                  src="https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?fm=jpg&q=80&w=1200"
+                  alt="White and red wooden house next to a gray magnifying glass"
+                  fill
+                  className="object-cover"
+                />
               </div>
 
               {/* Overlay card 1 — Generate Leads */}

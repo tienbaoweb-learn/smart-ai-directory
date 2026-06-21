@@ -354,7 +354,7 @@ function EmptyState({ onReset }: { onReset: () => void }) {
 const COMPARE_SLOTS = [
   { name: "Offrs",        bg: "bg-green-600",   initials: "OF" },
   { name: "Revaluate",    bg: "bg-red-600",     initials: "RV" },
-  { name: "REimagineHome",bg: "bg-violet-600",  initials: "RI" },
+  { name: "REimagineHome",bg: "bg-violet-600",  initials: "RH" },
 ];
 
 const TRENDING_PAIRS = [
@@ -367,7 +367,7 @@ const TRENDING_PAIRS = [
     b: { name: "ManyChat",      bg: "bg-indigo-500", initials: "MC" },
   },
   {
-    a: { name: "REimagineHome", bg: "bg-violet-600", initials: "RI" },
+    a: { name: "REimagineHome", bg: "bg-violet-600", initials: "RH" },
     b: { name: "Copy.ai",       bg: "bg-purple-600", initials: "CP" },
   },
 ];
