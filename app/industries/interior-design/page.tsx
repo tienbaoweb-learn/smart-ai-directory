@@ -6,6 +6,7 @@ import Link from "next/link";
 import Navbar from "../../components/Navbar";
 import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
+import { TOOL_LOGO_URLS } from "../../data/tool-logos";
 
 // ─── DATA ─────────────────────────────────────────────────────────────────────
 
@@ -184,7 +185,9 @@ const STEPS = [
   },
 ];
 
-const STEP_TOOLS_DATA = [
+type StepTool = { name: string; slug?: string; rating: string; initials: string; iconBg: string };
+
+const STEP_TOOLS_DATA: { step: string; tab: string; stepNum: number; badgeColor: string; headerText: string; totalCount: number; tools: StepTool[] }[] = [
   {
     step: "Concept & Mood Board",
     tab: "Concept",
@@ -193,7 +196,7 @@ const STEP_TOOLS_DATA = [
     headerText: "text-green-700",
     totalCount: 10,
     tools: [
-      { name: "Midjourney", rating: "4.9", initials: "MJ", iconBg: "bg-gray-900" },
+      { name: "Midjourney", slug: "midjourney", rating: "4.9", initials: "MJ", iconBg: "bg-gray-900" },
       { name: "Canva AI", rating: "4.8", initials: "CA", iconBg: "bg-[#0CC0DF]" },
       { name: "Adobe Firefly", rating: "4.7", initials: "AF", iconBg: "bg-orange-500" },
       { name: "Moodboard AI", rating: "4.6", initials: "MB", iconBg: "bg-pink-500" },
@@ -207,7 +210,7 @@ const STEP_TOOLS_DATA = [
     headerText: "text-teal-600",
     totalCount: 8,
     tools: [
-      { name: "Planner 5D", rating: "4.8", initials: "P5", iconBg: "bg-[#35966a]" },
+      { name: "Planner 5D", slug: "planner-5d", rating: "4.8", initials: "P5", iconBg: "bg-[#35966a]" },
       { name: "RoomGPT", rating: "4.7", initials: "RG", iconBg: "bg-purple-600" },
       { name: "Homestyler", rating: "4.6", initials: "H", iconBg: "bg-teal-500" },
       { name: "Coohom", rating: "4.6", initials: "C", iconBg: "bg-blue-600" },
@@ -223,7 +226,7 @@ const STEP_TOOLS_DATA = [
     tools: [
       { name: "Foyr Neo", rating: "4.8", initials: "FN", iconBg: "bg-indigo-600" },
       { name: "Coohom", rating: "4.7", initials: "C", iconBg: "bg-blue-600" },
-      { name: "Planner 5D", rating: "4.8", initials: "P5", iconBg: "bg-[#35966a]" },
+      { name: "Planner 5D", slug: "planner-5d", rating: "4.8", initials: "P5", iconBg: "bg-[#35966a]" },
       { name: "SketchUp AI", rating: "4.6", initials: "SK", iconBg: "bg-red-500" },
     ],
   },
@@ -772,21 +775,28 @@ function RecommendedToolsSection() {
                 <p className={`text-xs sm:text-sm font-bold ${stepData.headerText} truncate`}>{stepData.step}</p>
               </div>
               <div className="divide-y divide-gray-50">
-                {stepData.tools.map((tool) => (
+                {stepData.tools.map((tool) => {
+                  const logoUrl = tool.slug ? TOOL_LOGO_URLS[tool.slug] : undefined;
+                  return (
                   <div key={tool.name} className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3">
-                    <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg ${tool.iconBg} flex items-center justify-center text-white text-[9px] sm:text-[10px] font-black shrink-0`}>
-                      {tool.initials}
+                    <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg overflow-hidden ${logoUrl ? "bg-white border border-gray-100 p-0.5" : tool.iconBg} flex items-center justify-center text-white text-[9px] sm:text-[10px] font-black shrink-0`}>
+                      {logoUrl ? (
+                        <Image src={logoUrl} alt={tool.name} width={32} height={32} className="object-contain w-full h-full" />
+                      ) : (
+                        tool.initials
+                      )}
                     </div>
                     <div className="min-w-0">
                       <p className="text-xs sm:text-sm font-semibold text-[#1E293B] truncate">{tool.name}</p>
                       <div className="flex items-center gap-1">
                         <Stars rating={tool.rating} />
                         <span className="text-[10px] sm:text-xs font-semibold text-[#1E293B]">{tool.rating}</span>
-                        
+
                       </div>
                     </div>
                   </div>
-                ))}
+                  );
+                })}
               </div>
               <div className="px-3 sm:px-4 py-2.5 sm:py-3 border-t border-gray-100">
                 <a href="/ai-tools" className={`text-[10px] sm:text-xs font-semibold ${stepData.headerText} hover:opacity-80 transition-opacity`}>
@@ -889,8 +899,12 @@ function TopToolsSection() {
                   </div>
                 </div>
                 <div className="flex items-center gap-3 mb-2">
-                  <div className={`w-12 h-12 rounded-xl ${tool.iconBg} flex items-center justify-center text-sm font-black ${tool.iconText} shrink-0`}>
-                    {tool.initials}
+                  <div className={`w-12 h-12 rounded-xl overflow-hidden ${TOOL_LOGO_URLS[tool.reviewHref.replace("/tools/", "")] ? "bg-white border border-gray-100 p-1.5" : tool.iconBg} flex items-center justify-center text-sm font-black ${tool.iconText} shrink-0`}>
+                    {TOOL_LOGO_URLS[tool.reviewHref.replace("/tools/", "")] ? (
+                      <Image src={TOOL_LOGO_URLS[tool.reviewHref.replace("/tools/", "")]} alt={tool.name} width={48} height={48} className="object-contain w-full h-full" />
+                    ) : (
+                      tool.initials
+                    )}
                   </div>
                   <div>
                     <p className="font-bold text-base text-[#1E293B] leading-tight">{tool.name}</p>

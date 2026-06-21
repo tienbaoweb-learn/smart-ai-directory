@@ -6,6 +6,7 @@ import Link from "next/link";
 import Navbar from "../../components/Navbar";
 import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
+import { TOOL_LOGO_URLS } from "../../data/tool-logos";
 
 // ─── DATA ─────────────────────────────────────────────────────────────────────
 
@@ -889,8 +890,12 @@ function TopToolsSection() {
                   </div>
                 </div>
                 <div className="flex items-center gap-3 mb-2">
-                  <div className={`w-12 h-12 rounded-xl ${tool.iconBg} flex items-center justify-center text-sm font-black ${tool.iconText} shrink-0`}>
-                    {tool.initials}
+                  <div className={`w-12 h-12 rounded-xl overflow-hidden ${TOOL_LOGO_URLS[tool.reviewHref.replace("/tools/", "")] ? "bg-white border border-gray-100 p-1.5" : tool.iconBg} flex items-center justify-center text-sm font-black ${tool.iconText} shrink-0`}>
+                    {TOOL_LOGO_URLS[tool.reviewHref.replace("/tools/", "")] ? (
+                      <Image src={TOOL_LOGO_URLS[tool.reviewHref.replace("/tools/", "")]} alt={tool.name} width={48} height={48} className="object-contain w-full h-full" />
+                    ) : (
+                      tool.initials
+                    )}
                   </div>
                   <div>
                     <p className="font-bold text-base text-[#1E293B] leading-tight">{tool.name}</p>
