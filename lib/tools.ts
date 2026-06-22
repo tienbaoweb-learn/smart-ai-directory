@@ -44,6 +44,7 @@ export type ToolFrontmatter = {
   affiliateLink: string;
   websiteUrl: string;
   logoUrl: string;
+  dashboardImage?: string;
   pros: string[];
   cons: string[];
   bestFor: string[];

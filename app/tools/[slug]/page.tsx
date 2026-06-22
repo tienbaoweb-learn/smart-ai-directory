@@ -18,6 +18,7 @@ import {
   Mail,
   MapPin,
   Megaphone,
+  Monitor,
   Search,
   Share2,
   ShieldCheck,
@@ -145,15 +146,6 @@ const TOC_ITEMS = [
   { label: "Comparison", href: "comparison" },
   { label: "Final Verdict", href: "final-verdict" },
   { label: "FAQ", href: "faq" },
-];
-
-const SIDEBAR_ITEMS: { icon: LucideIcon; label: string }[] = [
-  { icon: Sparkles, label: "Overview" },
-  { icon: Layers, label: "Features" },
-  { icon: FileText, label: "Documents" },
-  { icon: Zap, label: "Workflows" },
-  { icon: Users, label: "Team" },
-  { icon: Globe, label: "Integrations" },
 ];
 
 // ── Helpers ────────────────────────────────────────────────────────────────────
@@ -776,113 +768,73 @@ export default async function ToolReviewPage({
               )}
             </div>
 
-            {/* Right: Dashboard mockup */}
-            <div className="relative flex justify-center lg:justify-end">
-              <div
-                className="absolute -right-8 -top-8 w-48 h-48 rounded-full opacity-20 blur-3xl pointer-events-none"
-                style={{
-                  background:
-                    "radial-gradient(circle, #F97316 0%, #3b82f6 100%)",
-                }}
-              />
-              <div className="relative bg-white border border-gray-200 rounded-2xl shadow-xl p-4 w-full max-w-md">
-                {/* Mockup header */}
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-2">
-                    {f.logoUrl ? (
-                      <div className="w-6 h-6 rounded-md overflow-hidden bg-white border border-gray-100 flex items-center justify-center">
-                        <Image
-                          src={f.logoUrl}
-                          alt={toolName}
-                          width={24}
-                          height={24}
-                          className="object-contain"
-                        />
+            {/* Right: Dashboard screenshot */}
+            <div className="relative flex flex-col justify-center lg:justify-end">
+              <div className="relative w-full">
+                {/* Decorative blur circles */}
+                <div className="absolute -top-4 -right-4 w-48 h-48 bg-orange-200 rounded-full opacity-20 blur-3xl pointer-events-none" />
+                <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-blue-200 rounded-full opacity-20 blur-3xl pointer-events-none" />
+
+                {/* Main image container */}
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-gray-100 md:shadow-2xl md:rounded-2xl">
+                  {/*
+                    DASHBOARD SCREENSHOT GUIDE:
+                    - File path: public/images/tools/[slug]-dashboard.webp
+                    - Recommended size: 1200x800px hoặc tỷ lệ 3:2
+                    - Max file size: 150KB (dùng squoosh.app để compress)
+                    - Format: WebP (tốt hơn PNG/JPG về size)
+                    - Chụp từ: trial account hoặc press kit chính thức của tool
+                    - Frontmatter field: dashboardImage: "/images/tools/[slug]-dashboard.webp"
+                  */}
+                  {f.dashboardImage ? (
+                    <Image
+                      src={f.dashboardImage}
+                      alt={`${toolName} dashboard screenshot`}
+                      width={720}
+                      height={480}
+                      className="w-full h-auto object-cover object-top"
+                      priority
+                    />
+                  ) : (
+                    <div className="bg-gray-100 aspect-[3/2] flex flex-col items-center justify-center gap-3">
+                      <div className="w-12 h-12 rounded-xl bg-gray-200 flex items-center justify-center">
+                        <Monitor className="w-6 h-6 text-gray-400" />
                       </div>
-                    ) : (
-                      <div
-                        className={`w-6 h-6 rounded-md ${logoBg} flex items-center justify-center`}
-                      >
-                        <span className="text-white font-bold text-[9px]">
-                          {logoText}
-                        </span>
-                      </div>
-                    )}
-                    <span className="text-xs font-semibold text-gray-800">
-                      {toolName}
-                    </span>
-                  </div>
+                      <p className="text-sm text-gray-400">
+                        Screenshot coming soon
+                      </p>
+                    </div>
+                  )}
+
                   {hasPricing && (
-                    <span className="bg-gray-100 text-gray-600 text-[10px] font-medium rounded-full px-2.5 py-1">
-                      {f.pricingType === "Free" ? "Free" : `From ${f.pricing}`}
-                    </span>
+                    <div className="absolute top-3 right-3 bg-white/95 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm border border-gray-100">
+                      <p className="text-xs text-gray-500">From</p>
+                      <p className="text-sm font-semibold text-gray-900">
+                        {f.pricingType === "Free" ? "Free" : f.pricing}
+                      </p>
+                    </div>
                   )}
                 </div>
 
-                {/* Mockup body */}
-                <div className="flex gap-3">
-                  <div className="w-20 shrink-0 flex flex-col gap-1 border-r border-gray-100 pr-3">
-                    {SIDEBAR_ITEMS.map(({ icon: Icon, label }) => (
-                      <div
-                        key={label}
-                        className="flex flex-col items-center gap-0.5 py-1.5 rounded-lg hover:bg-gray-50 cursor-pointer"
-                      >
-                        <Icon size={12} className="text-gray-400" />
-                        <span className="text-[9px] text-gray-400 text-center leading-none">
-                          {label}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-xs font-bold text-gray-800 leading-snug mb-1">
-                      AI-Powered Tools for{" "}
-                      <span className="text-blue-700">{f.category}</span>
-                    </p>
-                    <p className="text-[10px] text-gray-500 leading-relaxed mb-2">
-                      {f.excerpt.length > 80
-                        ? `${f.excerpt.slice(0, 80)}…`
-                        : f.excerpt}
-                    </p>
-                    <div className="flex gap-1.5 mb-3">
-                      <span className="bg-blue-600 text-white text-[9px] font-medium rounded-md px-2.5 py-1 whitespace-nowrap">
-                        Get Started
-                      </span>
-                      <span className="border border-gray-300 text-gray-600 text-[9px] font-medium rounded-md px-2.5 py-1 whitespace-nowrap">
-                        Get a Demo
-                      </span>
-                    </div>
-                    <p className="text-[9px] font-semibold text-gray-500 mb-1.5 uppercase tracking-wide">
+                {/* Best For tags */}
+                {f.bestFor.length > 0 && (
+                  <div className="mt-3 bg-white border border-gray-100 rounded-xl px-4 py-3 shadow-sm block md:hidden">
+                    <p className="text-[10px] uppercase font-semibold text-gray-400 tracking-wide mb-2">
                       Best For
                     </p>
-                    <div className="flex flex-wrap gap-1">
+                    <div className="flex flex-wrap gap-1.5">
                       {f.bestFor.slice(0, 4).map((item) => (
-                        <div
+                        <span
                           key={item}
-                          className="bg-gray-50 border border-gray-100 rounded-lg px-1.5 py-0.5 flex items-center gap-0.5"
+                          className="flex items-center gap-1 text-[11px] text-gray-600 bg-gray-50 rounded-full px-2 py-0.5"
                         >
-                          <Sparkles
-                            size={8}
-                            className="text-blue-400 shrink-0"
-                          />
-                          <span className="text-[8px] text-gray-500 whitespace-nowrap truncate max-w-[64px]">
-                            {item}
-                          </span>
-                        </div>
+                          <span className="w-1.5 h-1.5 rounded-full bg-blue-500 inline-block shrink-0" />
+                          {item}
+                        </span>
                       ))}
                     </div>
                   </div>
-                </div>
-
-                <div
-                  className="absolute -bottom-3 -right-3 w-9 h-9 rounded-full shadow-lg flex items-center justify-center"
-                  style={{
-                    background:
-                      "linear-gradient(135deg, #3b82f6 0%, #F97316 100%)",
-                  }}
-                >
-                  <Sparkles size={14} className="text-white" />
-                </div>
+                )}
               </div>
             </div>
           </div>

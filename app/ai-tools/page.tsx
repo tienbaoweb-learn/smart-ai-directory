@@ -422,10 +422,10 @@ function IndustrySection() {
             <Link
               key={card.id}
               href={card.href}
-              className="flex-none flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 p-3 sm:p-4 border border-gray-100 rounded-2xl bg-white hover:border-orange-200 hover:shadow-md transition-all group w-[calc(50%-8px)] lg:w-[calc(25%-12px)]"
+              className="flex-none flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 p-3 sm:p-4 lg:p-5 border border-gray-100 rounded-2xl bg-white hover:border-orange-200 hover:shadow-md transition-all group w-[calc(50%-8px)] lg:w-[calc(32.5%-12px)]"
             >
               {/* Image */}
-              <div className="relative w-full h-[104px] sm:w-20 sm:h-20 sm:shrink-0 rounded-xl overflow-hidden">
+              <div className="relative w-full h-[104px] sm:w-20 sm:h-20 lg:w-36 lg:h-24 sm:shrink-0 rounded-xl overflow-hidden">
                 <Image
                   src={card.img}
                   alt={card.label}
@@ -436,8 +436,8 @@ function IndustrySection() {
 
               {/* Text */}
               <div className="flex-1 min-w-0">
-                <p className="font-bold text-[#1E293B] text-sm sm:text-base mb-0.5 leading-tight">{card.label}</p>
-                <p className="text-xs sm:text-sm text-gray-500 leading-relaxed">{card.desc}</p>
+                <p className="font-bold text-[#1E293B] text-sm sm:text-base lg:text-lg mb-0.5 leading-tight">{card.label}</p>
+                <p className="text-xs sm:text-sm lg:text-base text-gray-500 leading-relaxed">{card.desc}</p>
               </div>
 
               {/* Arrow */}
