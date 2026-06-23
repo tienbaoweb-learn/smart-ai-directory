@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState, useRef, useCallback, useEffect } from "react";
+import React, { Suspense, useState, useRef, useCallback, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
@@ -656,6 +657,8 @@ function AllToolsTable({
     filtered = [...filtered].sort((a, b) => b.rating - a.rating);
   } else if (sortBy === "Name A-Z") {
     filtered = [...filtered].sort((a, b) => a.name.localeCompare(b.name));
+  } else if (sortBy === "Newest") {
+    filtered = [...filtered].reverse();
   }
 
   const INITIAL_VISIBLE = 15;
@@ -670,10 +673,10 @@ function AllToolsTable({
   const hasMore = visibleCount < filtered.length;
 
   const pricingOptions = ["All Pricing", "Freemium", "Paid"];
-  const sortOptions = ["Highest Rated", "Most Reviews", "Name A-Z"];
+  const sortOptions = ["Highest Rated", "Most Reviews", "Newest", "Name A-Z"];
 
   return (
-    <section className="py-10 sm:py-14 bg-white">
+    <section id="all-ai-tools" className="py-10 sm:py-14 bg-white scroll-mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header row */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6">
@@ -705,7 +708,7 @@ function AllToolsTable({
               onChange={(e) => setSortBy(e.target.value)}
               className="text-sm border border-gray-200 rounded-xl px-3 py-2 text-gray-700 bg-white focus:outline-none focus:border-orange-300 cursor-pointer"
             >
-              {sortOptions.map((s) => <option key={s}>Sort by: {s}</option>)}
+              {sortOptions.map((s) => <option key={s} value={s}>Sort by: {s}</option>)}
             </select>
           </div>
         </div>
@@ -915,11 +918,21 @@ function AllToolsTable({
 
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
 
-export default function AIToolsPage() {
+function AIToolsPageContent() {
+  const searchParams = useSearchParams();
   const [searchQuery, setSearchQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("All Categories");
   const [pricingFilter, setPricingFilter] = useState("All Pricing");
   const [sortBy, setSortBy] = useState("Highest Rated");
+
+  useEffect(() => {
+    const sortParam = searchParams.get("sort");
+    if (sortParam === "top-rated") setSortBy("Highest Rated");
+    else if (sortParam === "newest") setSortBy("Newest");
+
+    const pricingParam = searchParams.get("pricing");
+    if (pricingParam === "free") setPricingFilter("Freemium");
+  }, [searchParams]);
 
   return (
     <div className="min-h-screen bg-white font-sans text-slate-900">
@@ -940,5 +953,13 @@ export default function AIToolsPage() {
       <Newsletter />
       <Footer />
     </div>
+  );
+}
+
+export default function AIToolsPage() {
+  return (
+    <Suspense fallback={null}>
+      <AIToolsPageContent />
+    </Suspense>
   );
 }

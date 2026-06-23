@@ -34,9 +34,9 @@ const DROPDOWNS: Record<string, { minWidth: string; sections: DropdownSection[] 
         title: "BROWSE TOOLS",
         items: [
           { icon: Layers,    label: "All AI Tools",   href: "/ai-tools" },
-          { icon: Star,      label: "Top Rated",      href: "/ai-tools?sort=top-rated" },
-          { icon: Sparkles,  label: "New Arrivals",   href: "/ai-tools?sort=newest" },
-          { icon: Tag,       label: "Free Tools",     href: "/ai-tools?pricing=free" },
+          { icon: Star,      label: "Top Rated",      href: "/ai-tools?sort=top-rated#all-ai-tools" },
+          { icon: Sparkles,  label: "New Arrivals",   href: "/ai-tools?sort=newest#all-ai-tools" },
+          { icon: Tag,       label: "Free Tools",     href: "/ai-tools?pricing=free#all-ai-tools" },
         ],
       },
       {
@@ -159,9 +159,9 @@ const MOBILE_NAV: MobileNavItem[] = [
     href: "/ai-tools",
     sub: [
       { icon: Layers,    label: "All AI Tools",   href: "/ai-tools" },
-      { icon: Star,      label: "Top Rated",      href: "/ai-tools?sort=top-rated" },
-      { icon: Sparkles,  label: "New Arrivals",   href: "/ai-tools?sort=newest" },
-      { icon: Tag,       label: "Free Tools",     href: "/ai-tools?pricing=free" },
+      { icon: Star,      label: "Top Rated",      href: "/ai-tools?sort=top-rated#all-ai-tools" },
+      { icon: Sparkles,  label: "New Arrivals",   href: "/ai-tools?sort=newest#all-ai-tools" },
+      { icon: Tag,       label: "Free Tools",     href: "/ai-tools?pricing=free#all-ai-tools" },
       { icon: PenLine,    label: "AI Content & Marketing",       href: "/ai-tools/content-marketing",  dividerLabel: "BY CATEGORY" },
       { icon: Palette,    label: "AI Design & Visualization",    href: "/ai-tools/design" },
       { icon: Workflow,   label: "AI Automation & Workflow",     href: "/ai-tools/automation" },
