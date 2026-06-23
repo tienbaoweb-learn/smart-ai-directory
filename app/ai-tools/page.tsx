@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
@@ -658,6 +658,17 @@ function AllToolsTable({
     filtered = [...filtered].sort((a, b) => a.name.localeCompare(b.name));
   }
 
+  const INITIAL_VISIBLE = 15;
+  const LOAD_MORE_STEP = 10;
+  const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE);
+
+  useEffect(() => {
+    setVisibleCount(INITIAL_VISIBLE);
+  }, [searchQuery, categoryFilter, pricingFilter]);
+
+  const visibleTools = filtered.slice(0, visibleCount);
+  const hasMore = visibleCount < filtered.length;
+
   const pricingOptions = ["All Pricing", "Freemium", "Paid"];
   const sortOptions = ["Highest Rated", "Most Reviews", "Name A-Z"];
 
@@ -714,7 +725,7 @@ function AllToolsTable({
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
-              {filtered.map((tool) => (
+              {visibleTools.map((tool) => (
                 <tr key={tool.name} className="hover:bg-gray-50/70 transition-colors">
                   {/* Tool */}
                   <td className="px-5 py-4">
@@ -820,7 +831,7 @@ function AllToolsTable({
 
         {/* Card list — mobile */}
         <div className="lg:hidden space-y-4">
-          {filtered.map((tool) => (
+          {visibleTools.map((tool) => (
             <div key={tool.name} className="border border-gray-100 rounded-2xl p-5 hover:shadow-md transition-all">
               <div className="flex items-start gap-3 mb-3">
                 <div className={`w-10 h-10 rounded-xl overflow-hidden ${TOOL_LOGO_URLS[tool.slug] ? "bg-white border border-gray-100 p-0.5" : tool.logoBg} flex items-center justify-center shrink-0`}>
@@ -884,10 +895,18 @@ function AllToolsTable({
           )}
         </div>
 
-        <div className="text-center mt-8">
-          <a href="#" className="inline-flex items-center gap-1 text-[#2B7FFF] text-sm font-semibold hover:opacity-80">
+        <div className="flex items-center justify-center gap-6 mt-8">
+          {hasMore && (
+            <button
+              onClick={() => setVisibleCount((c) => c + LOAD_MORE_STEP)}
+              className="inline-flex items-center gap-1 text-[#2B7FFF] text-sm font-semibold hover:opacity-80"
+            >
+              View more tools
+            </button>
+          )}
+          <Link href="/all-reviews" className="inline-flex items-center gap-1 text-[#2B7FFF] text-sm font-semibold hover:opacity-80">
             View all tools →
-          </a>
+          </Link>
         </div>
       </div>
     </section>
