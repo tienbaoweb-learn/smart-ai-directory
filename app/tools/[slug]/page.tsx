@@ -1,3 +1,5 @@
+import fs from "fs";
+import path from "path";
 import type { Metadata } from "next";
 import type { HTMLAttributes } from "react";
 import { notFound } from "next/navigation";
@@ -42,11 +44,13 @@ import {
   PricingTable,
 } from "../../components/mdx/MDXComponents";
 import {
+  getAllTools,
   getAllToolSlugs,
   getToolBySlug,
   type ToolFrontmatter,
   type PricingType,
 } from "../../../lib/tools";
+import { TOOL_LOGO_URLS } from "../../data/tool-logos";
 import FAQAccordion, {
   type FAQItem,
 } from "../../components/tools/FAQAccordion";
@@ -564,10 +568,29 @@ export default async function ToolReviewPage({
       ? f.cons
       : ["Can be expensive at scale", "Learning curve for advanced features"];
 
+  // ── Alternative logo resolver ──────────────────────────────────────────────
+  // Match an alternative's name to its own review article and reuse that
+  // article's logo, so the logos stay in sync with the actual reviews. Falls
+  // back to "" (→ colored initials) when there's no matching article/logo file.
+  const allTools = getAllTools();
+  function resolveAltLogo(name: string): string {
+    const target = nameToSlug(name);
+    const match = allTools.find(
+      (t) =>
+        t.slug === target ||
+        nameToSlug(t.frontmatter.toolName || t.frontmatter.title) === target,
+    );
+    if (!match) return "";
+    const logo = TOOL_LOGO_URLS[match.slug] ?? match.frontmatter.logoUrl ?? "";
+    if (!logo) return "";
+    return fs.existsSync(path.join(process.cwd(), "public", logo)) ? logo : "";
+  }
+
   // ── Alternative cards (derived from string[]) ─────────────────────────────
   const altCards = f.alternatives.map((name, i) => ({
     name,
     logo: { bg: ALT_COLORS[i % ALT_COLORS.length], text: getInitials(name) },
+    logoUrl: resolveAltLogo(name),
     rating: Math.max(3.8, parseFloat((4.5 - i * 0.1).toFixed(1))),
     bestFor: `Alternative to ${toolName}`,
     href: `/tools/${nameToSlug(name)}`,
@@ -578,6 +601,7 @@ export default async function ToolReviewPage({
     {
       name: toolName,
       logo: { bg: logoBg, text: logoText },
+      logoUrl: f.logoUrl ?? "",
       bestFor: f.bestFor[0] ?? f.category,
       startingPrice: f.pricing ?? "Contact for pricing",
       aiQuality: f.rating,
@@ -590,6 +614,7 @@ export default async function ToolReviewPage({
     ...f.alternatives.slice(0, 4).map((name, i) => ({
       name,
       logo: { bg: ALT_COLORS[i % ALT_COLORS.length], text: getInitials(name) },
+      logoUrl: resolveAltLogo(name),
       bestFor: f.category,
       startingPrice: "Contact for pricing",
       aiQuality: Math.max(
@@ -1136,13 +1161,25 @@ export default async function ToolReviewPage({
                         key={alt.name}
                         className="border border-gray-100 rounded-xl p-4 bg-white text-center hover:shadow-sm transition-shadow"
                       >
-                        <div
-                          className={`w-10 h-10 rounded-lg ${alt.logo.bg} flex items-center justify-center mx-auto`}
-                        >
-                          <span className="text-white font-bold text-xs">
-                            {alt.logo.text}
-                          </span>
-                        </div>
+                        {alt.logoUrl ? (
+                          <div className="w-10 h-10 rounded-lg overflow-hidden bg-white border border-gray-100 flex items-center justify-center mx-auto p-1">
+                            <Image
+                              src={alt.logoUrl}
+                              alt={alt.name}
+                              width={40}
+                              height={40}
+                              className="object-contain w-full h-full"
+                            />
+                          </div>
+                        ) : (
+                          <div
+                            className={`w-10 h-10 rounded-lg ${alt.logo.bg} flex items-center justify-center mx-auto`}
+                          >
+                            <span className="text-white font-bold text-xs">
+                              {alt.logo.text}
+                            </span>
+                          </div>
+                        )}
                         <p className="font-semibold text-sm text-[#1E293B] mt-2">
                           {alt.name}
                         </p>
@@ -1242,14 +1279,14 @@ export default async function ToolReviewPage({
                           >
                             <td className="py-3 px-4">
                               <div className="flex items-center gap-2">
-                                {row.isCurrent && f.logoUrl ? (
-                                  <div className="w-7 h-7 rounded-md overflow-hidden bg-white border border-gray-100 flex items-center justify-center shrink-0">
+                                {row.logoUrl ? (
+                                  <div className="w-7 h-7 rounded-md overflow-hidden bg-white border border-gray-100 flex items-center justify-center shrink-0 p-0.5">
                                     <Image
-                                      src={f.logoUrl}
-                                      alt={toolName}
+                                      src={row.logoUrl}
+                                      alt={row.name}
                                       width={28}
                                       height={28}
-                                      className="object-contain"
+                                      className="object-contain w-full h-full"
                                     />
                                   </div>
                                 ) : (
