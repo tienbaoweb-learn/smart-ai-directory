@@ -261,32 +261,35 @@ const ARTICLES = [
   {
     tag: "GUIDE",
     tagColor: "bg-blue-100 text-blue-700",
-    title: "10 AI Interior Design Tools That Save You Hours Every Week",
+    title: "Best AI Tools for Interior Design in 2026 (Tested & Compared)",
     excerpt:
-      "Discover the best AI tools for furniture design and interior visualization.",
-    date: "May 20, 2026",
-    readTime: "7 min read",
-    thumbImg: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80",
-  },
-  {
-    tag: "COMPARISON",
-    tagColor: "bg-teal-100 text-teal-700",
-    title: "ChatGPT vs Claude: Which AI Assistant Is Better for Your Business?",
-    excerpt:
-      "We compare ChatGPT and Claude to help you choose the right AI assistant for your workflow.",
-    date: "May 18, 2026",
+      "Fast restyling, layout planning, shoppable presentations, and professional rendering tools grouped by real design workflow needs.",
+    date: "Jun 21, 2026",
     readTime: "8 min read",
-    thumbImg: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80",
+    thumbImg: "/images/guides/interior-design-ai-tools-thumb.webp",
+    href: "/resources/guides/interior-design-ai-tools",
   },
   {
-    tag: "TOOLS",
-    tagColor: "bg-purple-100 text-purple-700",
-    title: "Best AI Tools for Real Estate in 2026 [Tried & Tested]",
+    tag: "GUIDE",
+    tagColor: "bg-blue-100 text-blue-700",
+    title: "Best AI Tools for Real Estate in 2026 (Tested & Compared)",
     excerpt:
-      "The top AI tools helping real estate professionals find leads and close more deals.",
-    date: "May 15, 2026",
+      "Lead capture, listing content, CRM workflows, and market analysis tools grouped by where agents and small teams lose the most time.",
+    date: "Jun 21, 2026",
+    readTime: "8 min read",
+    thumbImg: "/images/guides/real-estate-ai-tools-thumb.webp",
+    href: "/resources/guides/real-estate-ai-tools",
+  },
+  {
+    tag: "CASE STUDY",
+    tagColor: "bg-purple-100 text-purple-700",
+    title: "How ArchVision Cut Client Revision Cycles from 3 Weeks to 3 Days Using AI Rendering",
+    excerpt:
+      "An architecture studio replaced manual rendering rounds with AI visualization, cutting client revision cycles from weeks to days.",
+    date: "Jun 20, 2026",
     readTime: "6 min read",
-    thumbImg: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80",
+    thumbImg: "/images/case-studies/archvision-case-study-thumbnail.webp",
+    href: "/resources/case-studies/case-study-architecture-archvision",
   },
 ];
 
@@ -677,19 +680,20 @@ function LatestInsights() {
               guides.
             </p>
           </div>
-          <a
-            href="#"
+          <Link
+            href="/resources"
             className="bg-gradient-to-r from-[#F97316] via-[#F59E0B] to-[#0EA5E9] bg-clip-text text-transparent text-sm font-semibold hover:opacity-80 hidden sm:block whitespace-nowrap"
           >
             View all articles →
-          </a>
+          </Link>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {ARTICLES.map((a, i) => (
-            <article
+            <Link
+              href={a.href}
               key={i}
-              className="border border-gray-100 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow group cursor-pointer"
+              className="border border-gray-100 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow group cursor-pointer block"
             >
               {/* Thumbnail */}
               <div className="relative h-44 overflow-hidden bg-gray-100">
@@ -719,17 +723,17 @@ function LatestInsights() {
                   <span>{a.readTime}</span>
                 </div>
               </div>
-            </article>
+            </Link>
           ))}
         </div>
 
         <div className="text-center mt-8 sm:hidden">
-          <a
-            href="#"
+          <Link
+            href="/resources"
             className="bg-gradient-to-r from-[#F97316] via-[#F59E0B] to-[#0EA5E9] bg-clip-text text-transparent text-sm font-semibold hover:opacity-80"
           >
             View all articles →
-          </a>
+          </Link>
         </div>
       </div>
     </section>
