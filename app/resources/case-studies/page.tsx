@@ -69,26 +69,75 @@ const ICON_MAP: Record<string, LucideIcon> = {
   Clock, TrendingUp, TrendingDown, DollarSign, CheckCircle, Zap, Users, BarChart3, Timer,
 };
 
-// Real furniture case study (first featured card) — replaces the old "Studio Luxe" placeholder.
-const furnitureCase = caseStudies[0];
-const FEATURED_REAL = {
-  title: furnitureCase.title,
-  description: furnitureCase.excerpt,
-  badge: "FURNITURE",
-  thumbnail: furnitureCase.thumbnail,
-  company: { name: "Lumera Studio", logo: { bg: "bg-teal-600", text: "LS" } },
-  stats: [
-    { icon: "DollarSign",   value: "-70%",  label: "Photo Costs"    },
-    { icon: "Clock",        value: "20min", label: "Visualization"  },
-    { icon: "TrendingDown", value: "6 days", label: "Sales Cycle"   },
-  ],
-  href: `/resources/case-studies/${furnitureCase.slug}`,
-};
+// Real case studies (Featured Case Studies section) — all 5 entries from lib/case-studies-content.ts.
+// Replaces every placeholder previously shown here (furniture was migrated in an earlier pass;
+// architecture/construction/interior-design/real-estate were imported from content/drafts/).
+function findCase(slug: string) {
+  const cs = caseStudies.find((c) => c.slug === slug);
+  if (!cs) throw new Error(`Missing case study: ${slug}`);
+  return cs;
+}
 
-// TODO: replace with real data
-const FEATURED_PLACEHOLDERS = caseStudiesData.filter(
-  (cs) => cs.isFeatured && cs.slug !== "how-studio-luxe-cut-rendering-time",
-);
+const FEATURED_REAL_CASES = [
+  {
+    cs: findCase("furniture-ai-tools"),
+    badge: "FURNITURE",
+    company: { name: "Lumera Studio", logo: { bg: "bg-teal-600", text: "LS" } },
+    stats: [
+      { icon: "DollarSign",   value: "-70%",   label: "Photo Costs"   },
+      { icon: "Clock",        value: "20min",  label: "Visualization" },
+      { icon: "TrendingDown", value: "6 days", label: "Sales Cycle"   },
+    ],
+  },
+  {
+    cs: findCase("case-study-architecture-archvision"),
+    badge: "ARCHITECTURE",
+    company: { name: "ArchVision", logo: { bg: "bg-blue-700", text: "AV" } },
+    stats: [
+      { icon: "Clock",      value: "3-4 days", label: "Approval Time" },
+      { icon: "TrendingUp", value: "73%",      label: "Approval Rate" },
+      { icon: "DollarSign", value: "+€200K",   label: "Revenue Impact" },
+    ],
+  },
+  {
+    cs: findCase("case-study-construction-buildsmart"),
+    badge: "CONSTRUCTION",
+    company: { name: "BuildSmart", logo: { bg: "bg-amber-600", text: "BS" } },
+    stats: [
+      { icon: "Clock",      value: "1,200+", label: "Hours Saved/mo" },
+      { icon: "TrendingUp", value: "31%",    label: "Bid Win Rate"   },
+      { icon: "DollarSign", value: "$350K",  label: "Annual Savings" },
+    ],
+  },
+  {
+    cs: findCase("case-study-interior-design-studio-nova"),
+    badge: "INTERIOR DESIGN",
+    company: { name: "Studio Nova", logo: { bg: "bg-pink-600", text: "SN" } },
+    stats: [
+      { icon: "Clock",      value: "8-10 days", label: "Approval Time"   },
+      { icon: "TrendingUp", value: "~2x",       label: "Revenue/Designer" },
+      { icon: "Users",      value: "5",         label: "Active Projects" },
+    ],
+  },
+  {
+    cs: findCase("case-study-real-estate-prime-realty"),
+    badge: "REAL ESTATE",
+    company: { name: "Prime Realty", logo: { bg: "bg-emerald-600", text: "PR" } },
+    stats: [
+      { icon: "Users",        value: "94",     label: "Qualified Leads/mo" },
+      { icon: "TrendingDown", value: "$92",    label: "Cost per Lead"      },
+      { icon: "DollarSign",   value: "$4.7M",  label: "Pipeline Value"     },
+    ],
+  },
+].map(({ cs, badge, company, stats }) => ({
+  title: cs.title,
+  description: cs.excerpt,
+  badge,
+  thumbnail: cs.thumbnail,
+  company,
+  stats,
+  href: `/resources/case-studies/${cs.slug}`,
+}));
 
 const LATEST_CASES = caseStudiesData.filter((cs) => !cs.isFeatured);
 
@@ -304,48 +353,12 @@ export default function CaseStudiesPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* Real card — furniture case study */}
-            <ResourceCard
-              href={FEATURED_REAL.href}
-              thumbnailSrc={FEATURED_REAL.thumbnail}
-              thumbnailBgClassName="bg-gray-100"
-              thumbnailContent={
-                <>
-                  <span className={`absolute top-2 left-2 rounded-full px-2.5 py-1 text-xs font-semibold uppercase ${CASE_BADGE[FEATURED_REAL.badge]}`}>
-                    {FEATURED_REAL.badge}
-                  </span>
-                  <div className="absolute bottom-2 right-2 bg-white/95 rounded-lg px-2 py-1 flex items-center gap-1.5">
-                    <span className={`w-5 h-5 rounded ${FEATURED_REAL.company.logo.bg} flex items-center justify-center text-white text-[10px] font-bold shrink-0`}>
-                      {FEATURED_REAL.company.logo.text}
-                    </span>
-                    <span className="text-xs font-semibold text-[#1E293B]">{FEATURED_REAL.company.name}</span>
-                  </div>
-                </>
-              }
-              title={FEATURED_REAL.title}
-              description={FEATURED_REAL.description}
-              footer={
-                <div className="grid grid-cols-3 gap-2 mt-3">
-                  {FEATURED_REAL.stats.map(({ icon: iconName, value, label }) => {
-                    const Icon = ICON_MAP[iconName] ?? Clock;
-                    return (
-                      <div key={label} className="flex flex-col items-center text-center">
-                        <Icon size={12} className="text-gray-400 mb-0.5" />
-                        <span className="font-bold text-sm text-[#1E293B] leading-none">{value}</span>
-                        <span className="text-[10px] text-gray-400 leading-snug mt-0.5">{label}</span>
-                      </div>
-                    );
-                  })}
-                </div>
-              }
-              linkText="Read Case Study →"
-            />
-
-            {/* TODO: replace with real data */}
-            {FEATURED_PLACEHOLDERS.map((cs) => (
+            {FEATURED_REAL_CASES.map((cs) => (
               <ResourceCard
-                key={cs.title}
+                key={cs.href}
                 href={cs.href}
+                thumbnailSrc={cs.thumbnail}
+                thumbnailBgClassName="bg-gray-100"
                 thumbnailContent={
                   <>
                     <span className={`absolute top-2 left-2 rounded-full px-2.5 py-1 text-xs font-semibold uppercase ${CASE_BADGE[cs.badge]}`}>
