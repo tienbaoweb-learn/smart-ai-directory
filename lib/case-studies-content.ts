@@ -76,7 +76,7 @@ export const caseStudies: CaseStudy[] = [
     market: "Residential + boutique commercial, Western Europe",
     timeFrame: "4 months",
     thumbnail: "/images/case-studies/archvision-case-study-thumbnail.webp",
-    heroImage: "/images/case-studies/archvision-case-study-1.webp",
+    heroImage: "/images/guides/architecture-ai-tools-hero.webp",
     excerpt:
       "A six-person architecture studio replaced slow, expensive external rendering with AI tools inside Revit, cutting concept approval time from 3-4 weeks to 3-4 days and lifting client approval rates from 40% to 73%.",
     tags: ["AI tools for architects", "AI rendering software", "Veras AI", "architecture visualization", "client approval workflow"],
@@ -129,7 +129,7 @@ export const caseStudies: CaseStudy[] = [
     market: "Multifamily residential, North America",
     timeFrame: "6 months",
     thumbnail: "/images/case-studies/buildsmart-case-study-thumbnail.webp",
-    heroImage: "/images/case-studies/buildsmart-case-study-1.webp",
+    heroImage: "/images/guides/construction-ai-tools-hero.webp",
     excerpt:
       "A 45-person general contractor replaced manual quantity takeoffs with AI estimating, scheduling, and site-monitoring tools — cutting takeoff time by up to 90% and more than doubling their monthly bid volume.",
     tags: ["AI tools for construction", "AI takeoff software", "Togal.AI", "construction estimating", "ALICE Technologies", "OpenSpace"],
@@ -185,7 +185,7 @@ export const caseStudies: CaseStudy[] = [
     market: "High-end residential, United States",
     timeFrame: "4 months",
     thumbnail: "/images/case-studies/studio-nova-case-study-thumbnail.webp",
-    heroImage: "/images/case-studies/studio-nova-case-study-1.webp",
+    heroImage: "/images/guides/interior-design-ai-tools-hero.webp",
     excerpt:
       "A three-person interior design studio used AI visualization and shoppable staging to compress an 8-week concept approval process down to 10 days, nearly doubling revenue per designer.",
     tags: ["AI tools for interior design", "InteriorAI", "AI room visualization", "interior design client approval", "design studio workflow"],
@@ -241,7 +241,7 @@ export const caseStudies: CaseStudy[] = [
     market: "Residential mid-to-luxury, North America",
     timeFrame: "5 months",
     thumbnail: "/images/case-studies/prime-realty-case-study-thumbnail.webp",
-    heroImage: "/images/case-studies/prime-realty-case-study-1.webp",
+    heroImage: "/images/guides/real-estate-ai-tools-hero.webp",
     excerpt:
       "A 12-agent boutique brokerage used AI lead nurture, virtual staging, and copywriting tools to triple qualified leads per month and cut lead response time from over 4 hours to under 10 minutes.",
     tags: ["AI tools for real estate", "real estate lead generation", "Ylopo AI", "virtual staging AI", "real estate marketing automation"],
