@@ -30,7 +30,7 @@ export async function generateMetadata({
       title: cs.title,
       description: cs.excerpt,
       type: "article",
-      url: `https://smartaiforwork.com/resources/case-studies/${slug}`,
+      url: `https://www.smartaiforwork.com/resources/case-studies/${slug}`,
       images: [{ url: cs.thumbnail }],
     },
   };

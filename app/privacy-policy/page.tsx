@@ -166,7 +166,7 @@ export default function PrivacyPolicyPage() {
             </p>
             <ul className="space-y-1 text-gray-600 text-sm">
               <li><span className="font-semibold text-[#1E293B]">SmartAIforWork</span></li>
-              <li>Website: <a href="https://smartaiforwork.com" className="text-blue-600 hover:underline">smartaiforwork.com</a></li>
+              <li>Website: <a href="https://www.smartaiforwork.com" className="text-blue-600 hover:underline">smartaiforwork.com</a></li>
               <li>Email: <a href="mailto:privacy@smartaiforwork.com" className="text-blue-600 hover:underline">privacy@smartaiforwork.com</a></li>
               <li>
                 Contact form:{" "}

@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://smartaiforwork.com"),
+  metadataBase: new URL("https://www.smartaiforwork.com"),
   title: "SmartAI for Work - AI Tools Directory",
   description:
     "Discover handpicked AI tools for furniture, architecture, construction, and real estate.",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     title: "SmartAI for Work - AI Tools Directory",
     description:
       "Discover handpicked AI tools for furniture, architecture, construction, and real estate.",
-    url: "https://smartaiforwork.com",
+    url: "https://www.smartaiforwork.com",
     type: "website",
     images: [
       {
@@ -56,14 +56,14 @@ const schemaWebSite = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: "SmartAI for Work",
-  url: "https://smartaiforwork.com",
+  url: "https://www.smartaiforwork.com",
   description:
     "Discover handpicked AI tools for furniture, architecture, construction, and real estate professionals.",
   potentialAction: {
     "@type": "SearchAction",
     target: {
       "@type": "EntryPoint",
-      urlTemplate: "https://smartaiforwork.com/tools?q={search_term_string}",
+      urlTemplate: "https://www.smartaiforwork.com/tools?q={search_term_string}",
     },
     "query-input": "required name=search_term_string",
   },
@@ -73,8 +73,8 @@ const schemaOrganization = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "SmartAI for Work",
-  url: "https://smartaiforwork.com",
-  logo: "https://smartaiforwork.com/favicon-512.png",
+  url: "https://www.smartaiforwork.com",
+  logo: "https://www.smartaiforwork.com/favicon-512.png",
   description:
     "AI Tools Directory for Furniture, Architecture, Construction, and Real Estate industries.",
   sameAs: [],
@@ -91,7 +91,7 @@ const schemaItemList = {
   name: "Top AI Tools for Work",
   description:
     "Handpicked AI tools for furniture design, architecture, construction management, and real estate.",
-  url: "https://smartaiforwork.com",
+  url: "https://www.smartaiforwork.com",
   numberOfItems: 6,
   itemListElement: [
     {
@@ -102,7 +102,7 @@ const schemaItemList = {
         name: "Planner 5D",
         applicationCategory: "DesignApplication",
         operatingSystem: "Web, iOS, Android",
-        url: "https://smartaiforwork.com/tools/planner-5d",
+        url: "https://www.smartaiforwork.com/tools/planner-5d",
         description: "AI interior design & room planning tool for furniture professionals.",
         aggregateRating: { "@type": "AggregateRating", ratingValue: "4.8", reviewCount: "3520" },
       },
@@ -115,7 +115,7 @@ const schemaItemList = {
         name: "Archicad AI",
         applicationCategory: "DesignApplication",
         operatingSystem: "Web, Windows, macOS",
-        url: "https://smartaiforwork.com/tools/archicad-ai",
+        url: "https://www.smartaiforwork.com/tools/archicad-ai",
         description: "AI-enhanced BIM software for architectural design and documentation.",
         aggregateRating: { "@type": "AggregateRating", ratingValue: "4.7", reviewCount: "256" },
       },
@@ -128,7 +128,7 @@ const schemaItemList = {
         name: "Buildots",
         applicationCategory: "BusinessApplication",
         operatingSystem: "Web, iOS",
-        url: "https://smartaiforwork.com/tools/buildots",
+        url: "https://www.smartaiforwork.com/tools/buildots",
         description: "AI construction progress tracking and analytics platform.",
         aggregateRating: { "@type": "AggregateRating", ratingValue: "4.6", reviewCount: "199" },
       },
@@ -141,7 +141,7 @@ const schemaItemList = {
         name: "Offrs",
         applicationCategory: "BusinessApplication",
         operatingSystem: "Web",
-        url: "https://smartaiforwork.com/tools/offrs",
+        url: "https://www.smartaiforwork.com/tools/offrs",
         description: "AI lead generation platform for real estate agents.",
         aggregateRating: { "@type": "AggregateRating", ratingValue: "4.9", reviewCount: "412" },
       },
@@ -154,7 +154,7 @@ const schemaItemList = {
         name: "Midjourney",
         applicationCategory: "DesignApplication",
         operatingSystem: "Web",
-        url: "https://smartaiforwork.com/tools/midjourney",
+        url: "https://www.smartaiforwork.com/tools/midjourney",
         description: "AI image generation for architectural concept visualizations.",
         aggregateRating: { "@type": "AggregateRating", ratingValue: "4.8", reviewCount: "532" },
       },
@@ -167,7 +167,7 @@ const schemaItemList = {
         name: "Revaluate",
         applicationCategory: "BusinessApplication",
         operatingSystem: "Web",
-        url: "https://smartaiforwork.com/tools/revaluate",
+        url: "https://www.smartaiforwork.com/tools/revaluate",
         description: "AI property valuation and market insights for real estate professionals.",
         aggregateRating: { "@type": "AggregateRating", ratingValue: "4.7", reviewCount: "506" },
       },

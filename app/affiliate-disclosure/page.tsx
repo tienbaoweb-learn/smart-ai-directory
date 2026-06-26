@@ -150,7 +150,7 @@ export default function AffiliateDisclosurePage() {
                   smartaiforwork.com/contact
                 </Link>
               </li>
-              <li>Website: <a href="https://smartaiforwork.com" className="text-blue-600 hover:underline">smartaiforwork.com</a></li>
+              <li>Website: <a href="https://www.smartaiforwork.com" className="text-blue-600 hover:underline">smartaiforwork.com</a></li>
             </ul>
           </section>
 

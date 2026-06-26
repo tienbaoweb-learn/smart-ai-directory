@@ -78,7 +78,7 @@ export async function generateMetadata({
       title: `${f.title} Review`,
       description: f.excerpt,
       type: "article",
-      url: `https://smartaiforwork.com/tools/${slug}`,
+      url: `https://www.smartaiforwork.com/tools/${slug}`,
     },
   };
 }
