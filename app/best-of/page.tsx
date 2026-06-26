@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -397,6 +398,20 @@ const TRUST_BADGES = [
 ];
 
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
+
+export const metadata: Metadata = {
+  title: "Best AI Tools by Industry: Architecture, Construction, Real Estate",
+  description:
+    "Hand-ranked best AI tools for architects, construction teams, interior designers, and real estate professionals — reviewed and compared.",
+  alternates: { canonical: "/best-of" },
+  openGraph: {
+    title: "Best AI Tools by Industry | SmartAI for Work",
+    description:
+      "Hand-ranked best AI tools for architects, construction teams, interior designers, and real estate professionals.",
+    url: "/best-of",
+    type: "website",
+  },
+};
 
 export default function BestOfPage() {
   return (

@@ -1,6 +1,15 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+
+export const metadata: Metadata = {
+  title: "Affiliate Disclosure | SmartAI for Work",
+  description:
+    "SmartAI for Work may earn a commission from affiliate links. Learn how this supports our independent AI tool reviews.",
+  alternates: { canonical: "/affiliate-disclosure" },
+  robots: { index: true, follow: true },
+};
 
 export default function AffiliateDisclosurePage() {
   return (

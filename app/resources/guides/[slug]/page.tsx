@@ -26,6 +26,7 @@ export async function generateMetadata({
   return {
     title: `${guide.title} | SmartAIforWork`,
     description: guide.excerpt,
+    alternates: { canonical: `/resources/guides/${slug}` },
     openGraph: {
       title: guide.title,
       description: guide.excerpt,
@@ -143,8 +144,44 @@ export default async function GuideDetailPage({
   const guide = guidesContent.find((g) => g.slug === slug);
   if (!guide) notFound();
 
+  const faqItems = guide.content.flatMap((block) =>
+    block.type === "faq" ? block.items ?? [] : []
+  );
+  const faqSchema = faqItems.length
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: faqItems.map((item) => ({
+          "@type": "Question",
+          name: item.question,
+          acceptedAnswer: { "@type": "Answer", text: item.answer },
+        })),
+      }
+    : null;
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://www.smartaiforwork.com/" },
+      { "@type": "ListItem", position: 2, name: "Resources", item: "https://www.smartaiforwork.com/resources" },
+      { "@type": "ListItem", position: 3, name: "Guides", item: "https://www.smartaiforwork.com/resources/guides" },
+      { "@type": "ListItem", position: 4, name: guide.title, item: `https://www.smartaiforwork.com/resources/guides/${slug}` },
+    ],
+  };
+
   return (
     <div className="min-h-screen bg-white font-sans text-[#1E293B]">
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <Navbar />
 
       {/* ── Breadcrumb ── */}

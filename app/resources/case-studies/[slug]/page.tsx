@@ -26,6 +26,7 @@ export async function generateMetadata({
   return {
     title: `${cs.title} | SmartAIforWork`,
     description: cs.excerpt,
+    alternates: { canonical: `/resources/case-studies/${slug}` },
     openGraph: {
       title: cs.title,
       description: cs.excerpt,
@@ -150,8 +151,23 @@ export default async function CaseStudyDetailPage({
   const cs = caseStudies.find((c) => c.slug === slug);
   if (!cs) notFound();
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://www.smartaiforwork.com/" },
+      { "@type": "ListItem", position: 2, name: "Resources", item: "https://www.smartaiforwork.com/resources" },
+      { "@type": "ListItem", position: 3, name: "Case Studies", item: "https://www.smartaiforwork.com/resources/case-studies" },
+      { "@type": "ListItem", position: 4, name: cs.title, item: `https://www.smartaiforwork.com/resources/case-studies/${slug}` },
+    ],
+  };
+
   return (
     <div className="min-h-screen bg-white font-sans text-[#1E293B]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <Navbar />
 
       {/* ── Breadcrumb ── */}

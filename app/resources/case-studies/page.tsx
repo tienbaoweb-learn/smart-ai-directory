@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import {
   Armchair,
@@ -183,6 +184,20 @@ const INDUSTRIES = [
 ];
 
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
+
+export const metadata: Metadata = {
+  title: "AI Case Studies: Real Results in Furniture, Architecture & Real Estate",
+  description:
+    "Real-world AI case studies with measurable results for furniture, architecture, construction, and real estate businesses.",
+  alternates: { canonical: "/resources/case-studies" },
+  openGraph: {
+    title: "AI Case Studies | SmartAI for Work",
+    description:
+      "Real-world AI case studies with measurable results for furniture, architecture, construction, and real estate businesses.",
+    url: "/resources/case-studies",
+    type: "website",
+  },
+};
 
 export default function CaseStudiesPage() {
   return (

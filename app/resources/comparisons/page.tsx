@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import {
   AlertCircle,
@@ -107,6 +108,20 @@ const CATEGORIES = [
 ];
 
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
+
+export const metadata: Metadata = {
+  title: "Compare AI Tools Side-by-Side | SmartAI for Work",
+  description:
+    "Compare top AI tools for furniture, architecture, construction, and real estate side-by-side — features, pricing, and which one wins for each use case.",
+  alternates: { canonical: "/resources/comparisons" },
+  openGraph: {
+    title: "Compare AI Tools Side-by-Side | SmartAI for Work",
+    description:
+      "Compare top AI tools for furniture, architecture, construction, and real estate side-by-side — features, pricing, and which one wins for each use case.",
+    url: "/resources/comparisons",
+    type: "website",
+  },
+};
 
 export default function ComparisonsPage() {
   return (

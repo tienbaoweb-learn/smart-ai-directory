@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -114,6 +115,20 @@ const SIDEBAR_TOPICS = [
 ];
 
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
+
+export const metadata: Metadata = {
+  title: "AI Tutorials: Learn to Use AI Tools Step by Step",
+  description:
+    "Step-by-step AI tutorials for furniture, architecture, construction, and real estate professionals — from setup to advanced workflows.",
+  alternates: { canonical: "/resources/tutorials" },
+  openGraph: {
+    title: "AI Tutorials | SmartAI for Work",
+    description:
+      "Step-by-step AI tutorials for furniture, architecture, construction, and real estate professionals — from setup to advanced workflows.",
+    url: "/resources/tutorials",
+    type: "website",
+  },
+};
 
 export default function TutorialsPage() {
   return (

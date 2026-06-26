@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -168,6 +169,20 @@ const SIDEBAR_TOPICS = [
 ];
 
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
+
+export const metadata: Metadata = {
+  title: "AI News & Trends for Furniture, Architecture & Real Estate",
+  description:
+    "The latest AI news and trends shaping furniture, architecture, construction, and real estate — curated for industry professionals.",
+  alternates: { canonical: "/resources/ai-news" },
+  openGraph: {
+    title: "AI News & Trends | SmartAI for Work",
+    description:
+      "The latest AI news and trends shaping furniture, architecture, construction, and real estate — curated for industry professionals.",
+    url: "/resources/ai-news",
+    type: "website",
+  },
+};
 
 export default function AINewsPage() {
   return (

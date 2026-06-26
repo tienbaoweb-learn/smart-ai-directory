@@ -74,6 +74,7 @@ export async function generateMetadata({
   return {
     title: `${f.title} Review (2026) | SmartAIforWork`,
     description: f.excerpt,
+    alternates: { canonical: `/tools/${slug}` },
     openGraph: {
       title: `${f.title} Review`,
       description: f.excerpt,
@@ -663,8 +664,67 @@ export default async function ToolReviewPage({
     },
   ];
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: { "@type": "Answer", text: faq.answer },
+    })),
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://www.smartaiforwork.com/" },
+      { "@type": "ListItem", position: 2, name: "AI Tools", item: "https://www.smartaiforwork.com/tools" },
+      { "@type": "ListItem", position: 3, name: f.category, item: `https://www.smartaiforwork.com/ai-tools` },
+      { "@type": "ListItem", position: 4, name: `${f.title} Review`, item: `https://www.smartaiforwork.com/tools/${slug}` },
+    ],
+  };
+
+  const reviewSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: toolName,
+    applicationCategory: f.category,
+    description: f.excerpt,
+    ...(f.websiteUrl ? { url: f.websiteUrl } : {}),
+    review: {
+      "@type": "Review",
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: overallRating,
+        bestRating: 10,
+        worstRating: 0,
+      },
+      author: { "@type": "Organization", name: "SmartAI for Work" },
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: overallRating,
+      bestRating: 10,
+      worstRating: 0,
+      ratingCount: 1,
+    },
+  };
+
   return (
     <div className="min-h-screen bg-white font-sans text-[#1E293B]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewSchema) }}
+      />
       <Navbar />
 
       {/* ── Breadcrumb ── */}

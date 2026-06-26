@@ -1,6 +1,15 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+
+export const metadata: Metadata = {
+  title: "Terms of Use | SmartAI for Work",
+  description:
+    "Review the terms and conditions for using the SmartAI for Work AI tools directory.",
+  alternates: { canonical: "/terms-of-use" },
+  robots: { index: true, follow: true },
+};
 
 export default function TermsOfUsePage() {
   return (

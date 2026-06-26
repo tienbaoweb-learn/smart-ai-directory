@@ -8,6 +8,14 @@ export const metadata = {
   title: "AI Tool Reviews | SmartAIforWork",
   description:
     "Independent, hands-on reviews of AI tools for Furniture, Architecture, Construction, and Real Estate professionals.",
+  alternates: { canonical: "/tools" },
+  openGraph: {
+    title: "AI Tool Reviews | SmartAI for Work",
+    description:
+      "Independent, hands-on reviews of AI tools for Furniture, Architecture, Construction, and Real Estate professionals.",
+    url: "/tools",
+    type: "website",
+  },
 };
 
 export default function ToolsIndexPage() {

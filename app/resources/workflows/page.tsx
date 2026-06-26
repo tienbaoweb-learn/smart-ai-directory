@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -127,6 +128,20 @@ const BIZ_FUNCTIONS = [
 ];
 
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
+
+export const metadata: Metadata = {
+  title: "AI Workflows That Save Time & Deliver Results",
+  description:
+    "Proven AI workflows for furniture, architecture, construction, and real estate teams to save time and deliver better results.",
+  alternates: { canonical: "/resources/workflows" },
+  openGraph: {
+    title: "AI Workflows | SmartAI for Work",
+    description:
+      "Proven AI workflows for furniture, architecture, construction, and real estate teams to save time and deliver better results.",
+    url: "/resources/workflows",
+    type: "website",
+  },
+};
 
 export default function WorkflowsPage() {
   return (

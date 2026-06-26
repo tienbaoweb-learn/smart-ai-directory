@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -107,6 +108,20 @@ const SIDEBAR_TOPICS = [
 ];
 
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
+
+export const metadata: Metadata = {
+  title: "AI Guides: Step-by-Step Help for Industry Professionals",
+  description:
+    "In-depth AI guides to help furniture, architecture, construction, and real estate professionals choose and implement the right AI tools.",
+  alternates: { canonical: "/resources/guides" },
+  openGraph: {
+    title: "AI Guides | SmartAI for Work",
+    description:
+      "In-depth AI guides to help furniture, architecture, construction, and real estate professionals choose and implement the right AI tools.",
+    url: "/resources/guides",
+    type: "website",
+  },
+};
 
 export default function GuidesPage() {
   return (

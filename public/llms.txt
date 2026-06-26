@@ -1,0 +1,50 @@
+# SmartAI for Work
+
+> AI Tools Directory for the Furniture, Architecture, Construction, and Real Estate industries. Independent, hands-on reviews and comparisons to help professionals choose the right AI tools for their work.
+
+SmartAI for Work (https://www.smartaiforwork.com) is curated by an editorial team that tests AI tools and publishes original ratings, pros/cons, pricing breakdowns, and use-case guidance specific to four industries: furniture, architecture, construction, and real estate.
+
+## Tool Reviews
+
+- [All AI Tool Reviews](https://www.smartaiforwork.com/all-reviews): Complete library of tested, scored AI tool reviews.
+- [AI Tools Directory](https://www.smartaiforwork.com/tools): Browse and filter all reviewed AI tools.
+- [Best AI Tools by Industry](https://www.smartaiforwork.com/best-of): Hand-ranked top picks per industry.
+
+## By Industry
+
+- [Industries Overview](https://www.smartaiforwork.com/industries)
+- [AI Tools for Architecture Firms](https://www.smartaiforwork.com/industries/architecture)
+- [AI Tools for Construction Companies](https://www.smartaiforwork.com/industries/construction)
+- [AI Tools for Furniture Businesses](https://www.smartaiforwork.com/industries/furniture)
+- [AI Tools for Interior Designers](https://www.smartaiforwork.com/industries/interior-design)
+- [AI Tools for Real Estate Professionals](https://www.smartaiforwork.com/industries/real-estate)
+
+## By Use Case
+
+- [AI Tools Overview](https://www.smartaiforwork.com/ai-tools)
+- [Design & Visualization Tools](https://www.smartaiforwork.com/ai-tools/design)
+- [Sales & Lead Generation Tools](https://www.smartaiforwork.com/ai-tools/sales)
+- [Content & Marketing Tools](https://www.smartaiforwork.com/ai-tools/content-marketing)
+- [Automation & Workflow Tools](https://www.smartaiforwork.com/ai-tools/automation)
+- [Productivity & Management Tools](https://www.smartaiforwork.com/ai-tools/productivity)
+
+## Resources
+
+- [Resources Hub](https://www.smartaiforwork.com/resources)
+- [Guides](https://www.smartaiforwork.com/resources/guides): Step-by-step help choosing and implementing AI tools.
+- [Tutorials](https://www.smartaiforwork.com/resources/tutorials)
+- [Case Studies](https://www.smartaiforwork.com/resources/case-studies): Real-world results with measurable outcomes.
+- [Comparisons](https://www.smartaiforwork.com/resources/comparisons): Side-by-side AI tool comparisons.
+- [Workflows](https://www.smartaiforwork.com/resources/workflows)
+- [AI News](https://www.smartaiforwork.com/resources/ai-news)
+- [AI Glossary](https://www.smartaiforwork.com/ai-glossary): Plain-English definitions of AI terminology.
+
+## About
+
+- [About Us](https://www.smartaiforwork.com/about-us)
+- [Contact](https://www.smartaiforwork.com/contact)
+- [Affiliate Disclosure](https://www.smartaiforwork.com/affiliate-disclosure): SmartAI for Work may earn a commission from affiliate links on tool review pages.
+
+## Sitemap
+
+Full machine-readable list of pages: https://www.smartaiforwork.com/sitemap.xml

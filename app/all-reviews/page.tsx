@@ -9,6 +9,14 @@ export const metadata: Metadata = {
   title: "All AI Tool Reviews (2026) | SmartAI for Work",
   description:
     "Browse our complete library of AI tool reviews — tested, scored, and compared for furniture, architecture, construction, and real estate teams.",
+  alternates: { canonical: "/all-reviews" },
+  openGraph: {
+    title: "All AI Tool Reviews (2026) | SmartAI for Work",
+    description:
+      "Browse our complete library of AI tool reviews — tested, scored, and compared for furniture, architecture, construction, and real estate teams.",
+    url: "/all-reviews",
+    type: "website",
+  },
 };
 
 // Industry slug → sidebar category label.

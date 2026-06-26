@@ -1,7 +1,22 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
+
+export const metadata: Metadata = {
+  title: "About SmartAI for Work | AI Tools Directory",
+  description:
+    "SmartAI for Work bridges the gap between AI innovation and industry professionals in furniture, architecture, construction, and real estate.",
+  alternates: { canonical: "/about-us" },
+  openGraph: {
+    title: "About SmartAI for Work | AI Tools Directory",
+    description:
+      "SmartAI for Work bridges the gap between AI innovation and industry professionals in furniture, architecture, construction, and real estate.",
+    url: "/about-us",
+    type: "website",
+  },
+};
 
 export default function AboutPage() {
   return (

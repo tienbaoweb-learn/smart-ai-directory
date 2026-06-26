@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import {
   BookOpen,
@@ -121,6 +122,20 @@ const POPULAR_TOPICS = [
 ];
 
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
+
+export const metadata: Metadata = {
+  title: "AI Resources Hub: Guides, News, Case Studies & Comparisons",
+  description:
+    "Learn, build, and grow with AI: guides, tutorials, news, case studies, workflows, and tool comparisons for furniture, architecture, construction, and real estate.",
+  alternates: { canonical: "/resources" },
+  openGraph: {
+    title: "AI Resources Hub | SmartAI for Work",
+    description:
+      "Learn, build, and grow with AI: guides, tutorials, news, case studies, workflows, and tool comparisons for furniture, architecture, construction, and real estate.",
+    url: "/resources",
+    type: "website",
+  },
+};
 
 export default function ResourcesPage() {
   return (
