@@ -5,6 +5,9 @@ import readingTime from "reading-time";
 
 const TOOLS_DIR = path.join(process.cwd(), "content/tools");
 
+// Authoring template, not a real tool review — must never be publicly routable.
+const EXCLUDED_SLUGS = new Set(["sample-tool"]);
+
 export type ToolCategory =
   | "Furniture"
   | "Architecture"
@@ -83,7 +86,8 @@ function getMdxFiles(): string[] {
   if (!fs.existsSync(TOOLS_DIR)) return [];
   return fs
     .readdirSync(TOOLS_DIR)
-    .filter((f) => f.endsWith(".mdx") || f.endsWith(".md"));
+    .filter((f) => f.endsWith(".mdx") || f.endsWith(".md"))
+    .filter((f) => !EXCLUDED_SLUGS.has(f.replace(/\.mdx?$/, "")));
 }
 
 export function getAllTools(): Tool[] {

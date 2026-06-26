@@ -11,9 +11,6 @@ export const metadata: Metadata = {
     "Browse our complete library of AI tool reviews — tested, scored, and compared for furniture, architecture, construction, and real estate teams.",
 };
 
-// Slugs that are templates/placeholders, not real published reviews.
-const EXCLUDED_SLUGS = new Set(["sample-tool"]);
-
 // Industry slug → sidebar category label.
 const INDUSTRY_LABELS: Record<string, string> = {
   architecture: "Architecture",
@@ -74,7 +71,6 @@ function resolveLogo(slug: string, frontmatterLogo?: string): string {
 export default function AllReviewsPage() {
   // Pull the real review articles so cards (and their logos) stay in sync with each review.
   const tools: ReviewTool[] = getAllTools()
-    .filter((t) => !EXCLUDED_SLUGS.has(t.slug))
     .map((t) => {
       const f = t.frontmatter;
       return {
