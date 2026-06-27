@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -9,7 +10,6 @@ import {
   ChevronRight,
   ClipboardList,
   Clock,
-  FileText,
   Grid3x3,
   Headset,
   LayoutGrid,
@@ -24,16 +24,18 @@ import {
   Send,
   Settings,
   Settings2,
-  Star,
   TrendingUp,
-  Users,
   Workflow,
   Wrench,
 } from "lucide-react";
 import Navbar from "../../components/Navbar";
 import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
-import { workflowsData } from "../../../lib/workflows-data";
+import {
+  workflowsData,
+  workflowToolLogoUrl,
+  WORKFLOW_TOOLS,
+} from "../../../lib/workflows-data";
 
 // ─── BUSINESS FUNCTION CARD THEMES ───────────────────────────────────────────
 
@@ -50,20 +52,38 @@ const BIZ_THEME: Record<string, { iconBg: string; iconColor: string }> = {
   "All Workflows":          { iconBg: "bg-gray-100",  iconColor: "text-gray-500"   },
 };
 
+// ─── DERIVED COUNTS (from real workflow data) ──────────────────────────────────
+
+const TOTAL_WORKFLOWS = workflowsData.length;
+
+const CATEGORY_COUNTS = workflowsData.reduce<Record<string, number>>((acc, w) => {
+  acc[w.category] = (acc[w.category] ?? 0) + 1;
+  return acc;
+}, {});
+
+const INDUSTRY_COUNTS = workflowsData.reduce<Record<string, number>>((acc, w) => {
+  acc[w.industry] = (acc[w.industry] ?? 0) + 1;
+  return acc;
+}, {});
+
+const BUSINESS_FUNCTION_COUNT = Object.keys(CATEGORY_COUNTS).length;
+const INDUSTRY_COUNT = Object.keys(INDUSTRY_COUNTS).length;
+const wfLabel = (n: number) => `${n} Workflow${n === 1 ? "" : "s"}`;
+
 // ─── DATA ─────────────────────────────────────────────────────────────────────
 
 const STATS = [
-  { icon: Workflow,    count: "100+",    label: "Workflows"          },
-  { icon: Briefcase,  count: "20+",     label: "Business Functions" },
-  { icon: LayoutGrid, count: "10+",     label: "Industries"         },
-  { icon: Calendar,   count: "Updated", label: "Every Week"         },
+  { icon: Workflow,   count: `${TOTAL_WORKFLOWS}`,        label: "Workflows"          },
+  { icon: Briefcase,  count: `${BUSINESS_FUNCTION_COUNT}`, label: "Business Functions" },
+  { icon: LayoutGrid, count: `${INDUSTRY_COUNT}`,          label: "Industries"         },
+  { icon: Calendar,   count: "Free",                       label: "To Use"             },
 ];
 
 const WORKFLOW_STEPS = [
-  { icon: MessageSquare, bg: "bg-blue-50",   color: "text-blue-600",   label: "Research", tool: "ChatGPT" },
-  { icon: PenLine,       bg: "bg-orange-50", color: "text-orange-500", label: "Draft",    tool: "Claude"  },
-  { icon: Palette,       bg: "bg-sky-50",    color: "text-sky-600",    label: "Design",   tool: "Canva AI"},
-  { icon: Send,          bg: "bg-purple-50", color: "text-purple-600", label: "Publish",  tool: "Buffer"  },
+  { icon: MessageSquare, bg: "bg-blue-50",   color: "text-blue-600",   label: "Research", tool: "ChatGPT"   },
+  { icon: PenLine,       bg: "bg-orange-50", color: "text-orange-500", label: "Draft",    tool: "Jasper AI" },
+  { icon: Palette,       bg: "bg-sky-50",    color: "text-sky-600",    label: "Design",   tool: "Midjourney"},
+  { icon: Send,          bg: "bg-purple-50", color: "text-purple-600", label: "Publish",  tool: "PushAlert" },
 ];
 
 const CHECKLIST = [
@@ -73,12 +93,14 @@ const CHECKLIST = [
   "Tips to improve results",
 ];
 
-const COLLECTIONS = [
-  { title: "Content Creation Workflows",  desc: "End-to-end workflows to ideate, create, edit and publish content.", count: "8",  rating: "4.8" },
-  { title: "AI Automation Workflows",     desc: "Automate repetitive tasks and streamline your operations.",          count: "10", rating: "4.7" },
-  { title: "Lead Generation Workflows",   desc: "Find, engage and convert more high-quality leads.",                  count: "7",  rating: "4.9" },
-  { title: "Productivity Boost Workflows",desc: "Get more done in less time with AI-powered productivity flows.",     count: "9",  rating: "4.6" },
-];
+// Industry collections — counts derived from real workflow data, links go to the
+// matching industry hub page.
+const INDUSTRY_COLLECTIONS = [
+  { key: "furniture",    title: "Furniture & Interior", desc: "Concept-to-client design, product listings and onboarding workflows.", href: "/industries/furniture"   },
+  { key: "architecture", title: "Architecture",         desc: "Visualization pipelines and SEO content workflows for AEC firms.",      href: "/industries/architecture" },
+  { key: "construction", title: "Construction",         desc: "Progress reporting and contractor lead-generation workflows.",          href: "/industries/construction" },
+  { key: "realestate",   title: "Real Estate",          desc: "Listing, outreach, social media and support automation workflows.",     href: "/industries/real-estate"  },
+].map((c) => ({ ...c, count: INDUSTRY_COUNTS[c.key] ?? 0 }));
 
 // decorative icon positions for collection card thumbnails
 const COLL_ICON_POSITIONS = [
@@ -98,34 +120,75 @@ const HOW_STEPS = [
   { icon: CheckCircle2,   bg: "bg-emerald-50",color: "text-emerald-600",title: "4. Get Results",         desc: "Save time and achieve better outcomes."                     },
 ];
 
-const SIDEBAR_TOPICS_WF = [
-  "Getting Started with AI Workflows",
-  "AI Automation for Businesses",
-  "Content Creation Workflows",
-  "Lead Generation Workflows",
-  "Project Management Workflows",
-];
+// Popular topics → real workflow detail pages.
+const SIDEBAR_TOPICS_WF = workflowsData.slice(0, 5).map((w) => ({ label: w.title, href: w.href }));
 
-const FREE_RESOURCES_WF = [
-  { title: "AI Workflow Starter Kit",         iconColor: "text-red-500",    iconBg: "bg-red-50"    },
-  { title: "Top 50 AI Prompts for Workflows", iconColor: "text-blue-600",   iconBg: "bg-blue-50"   },
-  { title: "Workflow Automation Checklist",   iconColor: "text-emerald-600",iconBg: "bg-emerald-50"},
-  { title: "Zapier Integration Guide",        iconColor: "text-orange-500", iconBg: "bg-orange-50" },
-];
+// Popular tools → real review pages for the tools used across these workflows.
+const POPULAR_TOOLS_WF = [
+  WORKFLOW_TOOLS["chatgpt"],
+  WORKFLOW_TOOLS["midjourney"],
+  WORKFLOW_TOOLS["jasper-ai"],
+  WORKFLOW_TOOLS["notion-ai"],
+].map((t) => ({ ...t, logoUrl: workflowToolLogoUrl(t.slug) }));
 
+
+// Business-function icons (ordered). Only functions that actually have at least
+// one workflow are shown, with counts derived from the real data.
+const BIZ_FUNCTION_ICONS: Array<{ label: string; icon: typeof PenLine }> = [
+  { label: "Content Creation",        icon: PenLine       },
+  { label: "Marketing",               icon: Megaphone     },
+  { label: "Sales & Lead Generation", icon: TrendingUp    },
+  { label: "Project Management",      icon: ClipboardList },
+  { label: "Design & Creative",       icon: Palette       },
+  { label: "Operations",              icon: Settings      },
+  { label: "Customer Support",        icon: Headset       },
+];
 
 const BIZ_FUNCTIONS = [
-  { label: "Content Creation",        icon: PenLine,      sub: "18 Workflows"  },
-  { label: "Marketing",               icon: Megaphone,    sub: "16 Workflows"  },
-  { label: "Sales & Lead Generation", icon: TrendingUp,   sub: "14 Workflows"  },
-  { label: "Project Management",      icon: ClipboardList,sub: "12 Workflows"  },
-  { label: "Design & Creative",       icon: Palette,      sub: "12 Workflows"  },
-  { label: "Research & Analysis",     icon: Search,       sub: "10 Workflows"  },
-  { label: "Operations",              icon: Settings,     sub: "10 Workflows"  },
-  { label: "Human Resources",         icon: Users,        sub: "8 Workflows"   },
-  { label: "Customer Support",        icon: Headset,      sub: "8 Workflows"   },
-  { label: "All Workflows",           icon: Grid3x3,      sub: "100+ Workflows"},
+  ...BIZ_FUNCTION_ICONS.filter(({ label }) => CATEGORY_COUNTS[label]).map(({ label, icon }) => ({
+    label,
+    icon,
+    sub: wfLabel(CATEGORY_COUNTS[label]),
+  })),
+  { label: "All Workflows", icon: Grid3x3, sub: wfLabel(TOTAL_WORKFLOWS) },
 ];
+
+// ─── TOOL LOGO (synced with review pages) ──────────────────────────────────────
+
+function WfToolLogo({
+  logoUrl,
+  bg,
+  text,
+  name,
+  size = 36,
+  rounded = "rounded-lg",
+}: {
+  logoUrl: string;
+  bg: string;
+  text: string;
+  name: string;
+  size?: number;
+  rounded?: string;
+}) {
+  if (logoUrl) {
+    return (
+      <div
+        className={`${rounded} overflow-hidden bg-white border border-gray-100 flex items-center justify-center shrink-0 p-0.5`}
+        style={{ width: size, height: size }}
+      >
+        <Image src={logoUrl} alt={name} width={size} height={size} className="object-contain w-full h-full" />
+      </div>
+    );
+  }
+  return (
+    <div
+      className={`${rounded} ${bg} text-white font-bold flex items-center justify-center shrink-0`}
+      style={{ width: size, height: size, fontSize: Math.round(size * 0.34) }}
+    >
+      {text}
+    </div>
+  );
+}
 
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
 
@@ -297,7 +360,7 @@ export default function WorkflowsPage() {
               return (
                 <a
                   key={label}
-                  href="#"
+                  href="#latest-workflows"
                   className="border border-gray-100 rounded-xl p-4 bg-white hover:shadow-md transition-shadow flex flex-col"
                 >
                   <div className={`w-10 h-10 rounded-lg ${theme.iconBg} flex items-center justify-center shrink-0`}>
@@ -313,25 +376,21 @@ export default function WorkflowsPage() {
         </div>
       </section>
 
-      {/* ── SECTION 3: Popular Workflow Collections ── */}
+      {/* ── SECTION 3: Workflows by Industry ── */}
       <section className="py-14 sm:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-end mb-6">
             <div>
-              <h2 className="text-2xl md:text-3xl font-bold text-[#1E293B]">Popular Workflow Collections</h2>
-              <p className="text-sm text-gray-500 mt-1">Curated collections for common goals and outcomes.</p>
+              <h2 className="text-2xl md:text-3xl font-bold text-[#1E293B]">Workflows by Industry</h2>
+              <p className="text-sm text-gray-500 mt-1">Built for furniture, architecture, construction and real estate teams.</p>
             </div>
-            <a href="#" className="hidden md:inline-block text-blue-600 text-sm font-medium hover:underline shrink-0">
-              View all collections →
-            </a>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {COLLECTIONS.map((col) => (
-              <Link href="#" key={col.title} className="border border-gray-100 rounded-xl overflow-hidden bg-white hover:shadow-md transition-shadow flex flex-col">
+            {INDUSTRY_COLLECTIONS.map((col, idx) => (
+              <Link href={col.href} key={col.key} className="border border-gray-100 rounded-xl overflow-hidden bg-white hover:shadow-md transition-shadow flex flex-col">
                 {/* Thumbnail — workflow diagram decoration */}
                 <div className="bg-gray-900 aspect-[2/1] relative overflow-hidden">
-                  {/* TODO: replace with custom graphic */}
                   {COLL_ICON_POSITIONS.map((pos, i) => (
                     <div
                       key={i}
@@ -343,6 +402,9 @@ export default function WorkflowsPage() {
                   {/* connector lines */}
                   <div className="absolute top-8 left-[3.75rem] w-8 h-px bg-gray-500" />
                   <div className="absolute top-8 left-[7.5rem] w-8 h-px bg-gray-500" />
+                  <span className="absolute bottom-2 right-2 text-[10px] font-semibold uppercase tracking-wide text-white/70">
+                    0{idx + 1}
+                  </span>
                 </div>
 
                 {/* Content */}
@@ -353,19 +415,12 @@ export default function WorkflowsPage() {
                   <div className="flex justify-between items-center mt-3">
                     <div>
                       <p className="font-semibold text-sm text-[#1E293B]">{col.count}</p>
-                      <p className="text-xs text-gray-400">Workflows</p>
-                    </div>
-                    <div className="text-right">
-                      <div className="flex items-center justify-end gap-0.5">
-                        <Star size={12} className="text-amber-400 fill-amber-400" />
-                        <p className="font-semibold text-sm text-[#1E293B]">{col.rating}</p>
-                      </div>
-                      <p className="text-xs text-gray-400">Avg. Rating</p>
+                      <p className="text-xs text-gray-400">{col.count === 1 ? "Workflow" : "Workflows"}</p>
                     </div>
                   </div>
 
                   <span className="text-blue-600 text-sm font-medium mt-2 inline-block">
-                    View Collection →
+                    Explore {col.title} tools →
                   </span>
                 </div>
               </Link>
@@ -382,21 +437,16 @@ export default function WorkflowsPage() {
               <h2 className="text-2xl md:text-3xl font-bold text-[#1E293B]">Featured Workflows</h2>
               <p className="text-sm text-gray-500 mt-1">Step-by-step workflows trusted by professionals.</p>
             </div>
-            <a href="#" className="hidden md:inline-block text-blue-600 text-sm font-medium hover:underline shrink-0">
-              View all featured workflows →
-            </a>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {FEATURED_WORKFLOWS.map((wf) => (
               <Link key={wf.slug} href={wf.href} className="border border-gray-100 rounded-xl p-4 bg-white hover:shadow-md transition-shadow flex flex-col">
-                {/* Icon chain */}
+                {/* Icon chain — real tool logos */}
                 <div className="flex items-center gap-1.5 mb-3">
                   {wf.toolsUsed.map((tool, idx) => (
                     <div key={idx} className="flex items-center gap-1.5">
-                      <div className={`w-9 h-9 rounded-lg ${tool.bg} flex items-center justify-center shrink-0`}>
-                        <Workflow size={15} className="text-white" />
-                      </div>
+                      <WfToolLogo logoUrl={tool.logoUrl} bg={tool.bg} text={tool.text} name={tool.name} size={36} />
                       {idx < wf.toolsUsed.length - 1 && (
                         <ArrowRight size={12} className="text-gray-300 shrink-0" />
                       )}
@@ -465,15 +515,12 @@ export default function WorkflowsPage() {
               </div>
 
               {/* ── SECTION 6: Latest Workflows ── */}
-              <div className="mt-8">
+              <div className="mt-8 scroll-mt-24" id="latest-workflows">
                 <div className="flex justify-between items-end mb-4">
                   <div>
                     <h2 className="text-2xl font-bold text-[#1E293B]">Latest Workflows</h2>
-                    <p className="text-sm text-gray-500 mt-1">New and trending workflows added every week.</p>
+                    <p className="text-sm text-gray-500 mt-1">The most recent workflows added to the library.</p>
                   </div>
-                  <a href="#" className="hidden md:inline-block text-blue-600 text-sm font-medium hover:underline shrink-0">
-                    View all workflows →
-                  </a>
                 </div>
 
                 <div className="overflow-x-auto border border-gray-100 rounded-xl bg-white shadow-sm">
@@ -494,8 +541,14 @@ export default function WorkflowsPage() {
                           {/* Workflow */}
                           <td className="py-3 px-4">
                             <div className="flex items-start gap-2.5">
-                              <div className={`w-8 h-8 rounded-lg ${row.iconBg} flex items-center justify-center shrink-0 mt-0.5`}>
-                                <Workflow size={14} className="text-white" />
+                              <div className="mt-0.5">
+                                <WfToolLogo
+                                  logoUrl={row.toolsUsed[0]?.logoUrl ?? ""}
+                                  bg={row.toolsUsed[0]?.bg ?? row.iconBg}
+                                  text={row.toolsUsed[0]?.text ?? ""}
+                                  name={row.toolsUsed[0]?.name ?? row.title}
+                                  size={32}
+                                />
                               </div>
                               <div className="min-w-0">
                                 <Link href={row.href} className="font-medium text-sm text-[#1E293B] hover:text-blue-600 transition-colors block leading-snug">
@@ -513,9 +566,15 @@ export default function WorkflowsPage() {
                           <td className="py-3 px-4">
                             <div className="flex items-center gap-1">
                               {row.toolsUsed.map((tool, i) => (
-                                <div key={i} className={`w-6 h-6 rounded ${tool.bg} flex items-center justify-center`}>
-                                  <Workflow size={10} className="text-white" />
-                                </div>
+                                <WfToolLogo
+                                  key={i}
+                                  logoUrl={tool.logoUrl}
+                                  bg={tool.bg}
+                                  text={tool.text}
+                                  name={tool.name}
+                                  size={24}
+                                  rounded="rounded"
+                                />
                               ))}
                             </div>
                           </td>
@@ -528,62 +587,62 @@ export default function WorkflowsPage() {
                     </tbody>
                   </table>
                 </div>
-
-                <a href="#" className="text-blue-600 text-sm font-medium mt-4 hover:underline block text-center">
-                  View all workflows →
-                </a>
               </div>
             </div>
 
             {/* ── RIGHT COL: Sidebar ── */}
             <div className="lg:col-span-1">
 
-              {/* Box 1: Popular Topics */}
+              {/* Box 1: Popular Workflows */}
               <div className="border border-gray-100 rounded-xl p-5 bg-white mb-6">
-                <h3 className="font-bold text-base text-[#1E293B] mb-3">Popular Topics</h3>
+                <h3 className="font-bold text-base text-[#1E293B] mb-3">Popular Workflows</h3>
                 <ul>
                   {SIDEBAR_TOPICS_WF.map((topic) => (
-                    <li key={topic}>
-                      <a
-                        href="#"
-                        className="flex justify-between items-center text-sm text-gray-700 hover:text-blue-600 py-1.5 border-b border-gray-100 last:border-0 transition-colors"
+                    <li key={topic.href}>
+                      <Link
+                        href={topic.href}
+                        className="flex justify-between items-center gap-2 text-sm text-gray-700 hover:text-blue-600 py-1.5 border-b border-gray-100 last:border-0 transition-colors"
                       >
-                        <span>{topic}</span>
+                        <span className="line-clamp-1">{topic.label}</span>
                         <ChevronRight size={14} className="shrink-0 text-gray-400" />
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
                 <a
-                  href="#"
+                  href="#latest-workflows"
                   className="block w-full border border-blue-600 text-blue-600 rounded-lg py-2 text-sm font-medium text-center mt-3 hover:bg-blue-50 transition-colors"
                 >
-                  View all topics
+                  Browse all workflows
                 </a>
               </div>
 
-              {/* Box 2: Free Resources */}
+              {/* Box 2: Popular Tools */}
               <div className="border border-gray-100 rounded-xl p-5 bg-white">
-                <h3 className="font-bold text-base text-[#1E293B] mb-3">Free Resources</h3>
+                <h3 className="font-bold text-base text-[#1E293B] mb-3">Popular Tools</h3>
                 <ul>
-                  {FREE_RESOURCES_WF.map((res) => (
-                    <li key={res.title} className="flex items-center gap-3 py-2 border-b border-gray-100 last:border-0">
-                      <div className={`w-8 h-8 rounded-lg ${res.iconBg} flex items-center justify-center shrink-0`}>
-                        <FileText size={15} className={res.iconColor} />
-                      </div>
-                      <div className="min-w-0">
-                        <p className="text-sm font-medium text-gray-800 leading-snug truncate">{res.title}</p>
-                        <p className="text-xs text-gray-400">PDF</p>
-                      </div>
+                  {POPULAR_TOOLS_WF.map((tool) => (
+                    <li key={tool.slug} className="border-b border-gray-100 last:border-0">
+                      <Link
+                        href={`/tools/${tool.slug}`}
+                        className="flex items-center gap-3 py-2 group"
+                      >
+                        <WfToolLogo logoUrl={tool.logoUrl} bg={tool.logoBg} text={tool.logoText} name={tool.name} size={32} />
+                        <div className="min-w-0 flex-1">
+                          <p className="text-sm font-medium text-gray-800 leading-snug truncate group-hover:text-blue-600 transition-colors">{tool.name}</p>
+                          <p className="text-xs text-gray-400">Read review</p>
+                        </div>
+                        <ChevronRight size={14} className="shrink-0 text-gray-400" />
+                      </Link>
                     </li>
                   ))}
                 </ul>
-                <a
-                  href="#"
+                <Link
+                  href="/all-reviews"
                   className="block w-full border border-gray-300 rounded-lg py-2 text-sm font-medium text-center mt-3 text-gray-700 hover:bg-gray-50 transition-colors"
                 >
-                  Download all resources
-                </a>
+                  View all reviews
+                </Link>
               </div>
 
             </div>

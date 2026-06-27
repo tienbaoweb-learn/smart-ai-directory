@@ -35,4 +35,16 @@ export const TOOL_LOGO_URLS: Record<string, string> = {
   "sofabrain":        "/images/tools/sofabrain.png",
   "team-pulse":       "/images/tools/team-pulse.png",
   "warmupinbox":      "/images/tools/warmupinbox.png",
+  // Logos paired with their review pages (paths mirror each tool's MDX logoUrl).
+  "chatgpt":          "/images/tools/chatgpt.png",
+  "claude":           "/images/tools/claude.png",
+  "notion-ai":        "/images/tools/notion-ai.png",
+  "grammarly":        "/images/tools/grammarly.png",
+  "perplexity-ai":    "/images/tools/perplexity.png",
+  "buildots":         "/images/tools/buildots.png",
+  "make":             "/images/tools/make.png",
+  "pushalert":        "/images/tools/pushalert.png",
+  "help-center":      "/images/tools/help-center.png",
+  "rendar-ai":        "/images/tools/rendar-ai.png",
+  "grok":             "/images/tools/grok.png",
 };

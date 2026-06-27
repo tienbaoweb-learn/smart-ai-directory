@@ -587,6 +587,17 @@ export default async function ToolReviewPage({
     return fs.existsSync(path.join(process.cwd(), "public", logo)) ? logo : "";
   }
 
+  // ── Main tool logo ─────────────────────────────────────────────────────────
+  // Resolve the current tool's logo the same way as alternatives: prefer the
+  // shared TOOL_LOGO_URLS map, then the article frontmatter, then fall back to
+  // colored initials. This keeps a tool's logo consistent everywhere even when
+  // its frontmatter logoUrl is empty but an image exists in /public/images/tools.
+  const mainLogoUrl = (() => {
+    const logo = TOOL_LOGO_URLS[slug] ?? f.logoUrl ?? "";
+    if (!logo) return "";
+    return fs.existsSync(path.join(process.cwd(), "public", logo)) ? logo : "";
+  })();
+
   // ── Alternative cards (derived from string[]) ─────────────────────────────
   const altCards = f.alternatives.map((name, i) => ({
     name,
@@ -602,7 +613,7 @@ export default async function ToolReviewPage({
     {
       name: toolName,
       logo: { bg: logoBg, text: logoText },
-      logoUrl: f.logoUrl ?? "",
+      logoUrl: mainLogoUrl,
       bestFor: f.bestFor[0] ?? f.category,
       startingPrice: f.pricing ?? "Contact for pricing",
       aiQuality: f.rating,
@@ -757,10 +768,10 @@ export default async function ToolReviewPage({
             <div>
               {/* Logo chip */}
               <div className="flex items-center gap-2 mb-4">
-                {f.logoUrl ? (
+                {mainLogoUrl ? (
                   <div className="w-9 h-9 rounded-lg overflow-hidden shrink-0 bg-white border border-gray-100 flex items-center justify-center">
                     <Image
-                      src={f.logoUrl}
+                      src={mainLogoUrl}
                       alt={toolName}
                       width={36}
                       height={36}
@@ -1217,9 +1228,10 @@ export default async function ToolReviewPage({
                 {altCards.length > 0 ? (
                   <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
                     {altCards.map((alt) => (
-                      <div
+                      <Link
                         key={alt.name}
-                        className="border border-gray-100 rounded-xl p-4 bg-white text-center hover:shadow-sm transition-shadow"
+                        href={alt.href}
+                        className="group border border-gray-100 rounded-xl p-4 bg-white text-center hover:shadow-md hover:border-blue-200 transition-all block"
                       >
                         {alt.logoUrl ? (
                           <div className="w-10 h-10 rounded-lg overflow-hidden bg-white border border-gray-100 flex items-center justify-center mx-auto p-1">
@@ -1252,13 +1264,10 @@ export default async function ToolReviewPage({
                         <p className="text-xs text-gray-500 mt-1 line-clamp-2 leading-snug">
                           {alt.bestFor}
                         </p>
-                        <Link
-                          href={alt.href}
-                          className="inline-block text-blue-600 text-xs font-medium mt-2 hover:underline"
-                        >
+                        <span className="inline-block text-blue-600 text-xs font-medium mt-2 group-hover:underline">
                           Read Review →
-                        </Link>
-                      </div>
+                        </span>
+                      </Link>
                     ))}
                   </div>
                 ) : (
