@@ -197,7 +197,7 @@ export default async function CaseStudyDetailPage({
         </div>
       </div>
 
-      {/* ── Hero image ── */}
+      {/* ── Hero image (with category + title overlaid) ── */}
       {cs.heroImage && (
         <div className="relative w-full h-56 sm:h-80 lg:h-[420px]">
           <Image
@@ -207,20 +207,34 @@ export default async function CaseStudyDetailPage({
             priority
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0">
+            <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-6 sm:pb-8 lg:pb-10">
+              <span className="inline-block bg-orange-500 text-white text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full mb-3">
+                {cs.industry}
+              </span>
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight drop-shadow-md">
+                {cs.title}
+              </h1>
+            </div>
+          </div>
         </div>
       )}
 
-      {/* ── Title + meta ── */}
+      {/* ── Title (fallback when no hero) + meta ── */}
       <section className="py-8 sm:py-10 border-b border-gray-100">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <span className="inline-block bg-orange-50 text-orange-600 text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full mb-4">
-            {cs.industry}
-          </span>
+          {!cs.heroImage && (
+            <>
+              <span className="inline-block bg-orange-50 text-orange-600 text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full mb-4">
+                {cs.industry}
+              </span>
 
-          <h1 className="text-3xl md:text-4xl font-bold text-[#1E293B] leading-tight">
-            {cs.title}
-          </h1>
+              <h1 className="text-3xl md:text-4xl font-bold text-[#1E293B] leading-tight">
+                {cs.title}
+              </h1>
+            </>
+          )}
 
           <p className="text-gray-600 mt-3 leading-relaxed">{cs.excerpt}</p>
 
