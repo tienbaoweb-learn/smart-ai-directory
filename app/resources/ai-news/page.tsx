@@ -23,6 +23,7 @@ import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
 import ResourceCard from "../../components/ResourceCard";
 import ResourceListRow from "../../components/ResourceListRow";
+import { aiNewsPosts, NEWS_TYPE_LABEL } from "../../../lib/ai-news-data";
 
 // ─── CATEGORY CARD THEMES ─────────────────────────────────────────────────────
 
@@ -351,7 +352,35 @@ export default function AINewsPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {FEATURED_NEWS.map((g) => (
+            {/* First card — real data from aiNewsPosts[0] */}
+            {(() => {
+              const post = aiNewsPosts[0];
+              return (
+                <ResourceCard
+                  key={post.slug}
+                  href={`/resources/ai-news/${post.slug}`}
+                  thumbnailSrc={post.thumbnail}
+                  thumbnailAlt={post.title}
+                  thumbnailContent={
+                    <span className={`absolute top-2 left-2 rounded-full px-2.5 py-1 text-xs font-semibold uppercase ${FEAT_BADGE.TREND}`}>
+                      {NEWS_TYPE_LABEL[post.newsType]}
+                    </span>
+                  }
+                  title={post.title}
+                  description={post.excerpt}
+                  footer={
+                    <div className="flex items-center gap-1 mt-2 text-xs text-gray-500">
+                      <Clock size={11} className="shrink-0" />
+                      <span>{post.publishedDate} • {post.readingTime} read</span>
+                    </div>
+                  }
+                  linkText="Read Article →"
+                />
+              );
+            })()}
+
+            {/* TODO: replace with real data */}
+            {FEATURED_NEWS.slice(1).map((g) => (
               <ResourceCard
                 key={g.title}
                 href="#"
