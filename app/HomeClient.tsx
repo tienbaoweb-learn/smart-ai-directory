@@ -7,7 +7,6 @@ import Navbar from "./components/Navbar";
 import Newsletter from "./components/Newsletter";
 import Footer from "./components/Footer";
 import { ALL_TOOLS } from "./data/tools";
-import { TOOL_LOGO_URLS } from "./data/tool-logos";
 
 // ─── DATA ───────────────────────────────────────────────────────────────────
 
@@ -132,86 +131,26 @@ const HERO_CARDS = [
   },
 ];
 
-const TOOLS = [
-  {
-    id: 1,
-    slug: "planner-5d",
-    name: "Planner 5D",
-    industry: "Furniture",
-    industryColor: "bg-amber-100 text-amber-700",
-    logoBg: "bg-green-500",
-    logoText: "5d",
-    logoTextColor: "text-white text-lg font-black",
-    desc: "AI interior design & room planning",
-    rating: 4.8,
-    category: "design",
-  },
-  {
-    id: 2,
-    slug: "archicad-ai",
-    name: "Archicad AI",
-    industry: "Architecture",
-    industryColor: "bg-slate-100 text-slate-700",
-    logoBg: "bg-white border border-gray-200",
-    logoText: "AC",
-    logoTextColor: "text-blue-600 text-base font-black",
-    desc: "AI-enhanced BIM for architectural design",
-    rating: 4.7,
-    category: "design",
-  },
-  {
-    id: 3,
-    slug: "buildots",
-    name: "Buildots",
-    industry: "Construction",
-    industryColor: "bg-orange-100 text-orange-700",
-    logoBg: "bg-white border border-gray-200",
-    logoText: "●",
-    logoTextColor: "text-gray-900 text-2xl",
-    desc: "AI construction progress tracking & analytics",
-    rating: 4.6,
-    category: "automation",
-  },
-  {
-    id: 4,
-    slug: "offrs",
-    name: "Offrs",
-    industry: "Real Estate",
-    industryColor: "bg-blue-100 text-blue-700",
-    logoBg: "bg-white border border-gray-200",
-    logoText: "offrs",
-    logoTextColor: "text-gray-900 text-xs font-black tracking-tight",
-    desc: "AI lead generation for real estate agents",
-    rating: 4.9,
-    category: "sales",
-  },
-  {
-    id: 5,
-    slug: "midjourney",
-    name: "Midjourney",
-    industry: "Interior Design",
-    industryColor: "bg-pink-100 text-pink-700",
-    logoBg: "bg-gray-900",
-    logoText: "MJ",
-    logoTextColor: "text-white text-sm font-black",
-    desc: "AI image generation for concept visualizations",
-    rating: 4.8,
-    category: "design",
-  },
-  {
-    id: 6,
-    slug: "revaluate",
-    name: "Revaluate",
-    industry: "Real Estate",
-    industryColor: "bg-blue-100 text-blue-700",
-    logoBg: "bg-red-600",
-    logoText: "R",
-    logoTextColor: "text-white text-xl font-black",
-    desc: "AI property valuation & market insights",
-    rating: 4.7,
-    category: "sales",
-  },
-];
+// One tool card in the "Top AI Tools Across Industries" section.
+// Built server-side in app/page.tsx from the real review articles.
+export type HomeTool = {
+  slug: string;
+  name: string;
+  rating: number;
+  desc: string;
+  industries: string[]; // display labels this tool belongs to
+  logoUrl: string; // resolved logo (empty → colored-initials fallback)
+  logoText: string; // initials for the fallback box
+};
+
+// Industry display label → tag colors.
+const INDUSTRY_TAG_COLOR: Record<string, string> = {
+  "Interior Design": "bg-pink-100 text-pink-700",
+  Furniture: "bg-amber-100 text-amber-700",
+  Architecture: "bg-slate-100 text-slate-700",
+  Construction: "bg-orange-100 text-orange-700",
+  "Real Estate": "bg-blue-100 text-blue-700",
+};
 
 const BENEFIT_ICONS = [
   // Clock - Save Time
@@ -522,7 +461,9 @@ const TOOL_LOGO_MAP = Object.fromEntries(
   ALL_TOOLS.map((t) => [t.slug, { logoBg: t.logoBg, logoText: t.logoText, logoTextClass: t.logoTextClass }])
 );
 
-function TopTools() {
+const TOP_TOOLS_PER_TAB = 6;
+
+function TopTools({ tools }: { tools: HomeTool[] }) {
   const tabs = [
     "All",
     "Interior Design",
@@ -533,8 +474,12 @@ function TopTools() {
   ];
   const [active, setActive] = useState("All");
 
-  const filtered =
-    active === "All" ? TOOLS : TOOLS.filter((t) => t.industry === active);
+  // Tools arrive pre-sorted by rating; filter per industry and take the top N.
+  const filtered = (
+    active === "All"
+      ? tools
+      : tools.filter((t) => t.industries.includes(active))
+  ).slice(0, TOP_TOOLS_PER_TAB);
 
   return (
     <section id="top-tools" className="pt-[41px] pb-16 sm:pt-[52px] sm:pb-20 bg-white">
@@ -572,21 +517,25 @@ function TopTools() {
 
         {/* Tool grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-4">
-          {filtered.map((tool) => (
+          {filtered.map((tool) => {
+            // Tag shows the active industry, or the tool's primary one under "All".
+            const tagLabel = active === "All" ? tool.industries[0] : active;
+            const tagColor = INDUSTRY_TAG_COLOR[tagLabel] ?? "bg-gray-100 text-gray-700";
+            return (
             <div
-              key={tool.id}
+              key={tool.slug}
               className="relative border border-gray-100 rounded-2xl p-[15px] sm:p-[26px] pt-[42px] sm:pt-[47px] hover:shadow-lg hover:border-orange-100 transition-all group flex flex-col items-center text-center"
             >
               {/* Industry tag — absolute top-left, 5% from border */}
-              <span className={`absolute top-[5%] left-[5%] text-xs font-semibold px-2 py-0.5 rounded-full ${tool.industryColor}`}>
-                {tool.industry}
+              <span className={`absolute top-[5%] left-[5%] text-xs font-semibold px-2 py-0.5 rounded-full ${tagColor}`}>
+                {tagLabel}
               </span>
 
               {/* Logo — ưu tiên logo image từ review page, fallback về colored box */}
-              {TOOL_LOGO_URLS[tool.slug] ? (
+              {tool.logoUrl ? (
                 <div className="w-[62px] h-[62px] rounded-xl bg-white border border-gray-100 flex items-center justify-center mb-3 shrink-0 overflow-hidden p-1.5">
                   <Image
-                    src={TOOL_LOGO_URLS[tool.slug]}
+                    src={tool.logoUrl}
                     alt={tool.name}
                     width={52}
                     height={52}
@@ -594,8 +543,8 @@ function TopTools() {
                   />
                 </div>
               ) : (
-                <div className={`w-[62px] h-[62px] rounded-xl ${tool.logoBg} flex items-center justify-center mb-3 shrink-0`}>
-                  <span className={`${tool.logoTextColor} leading-none`}>{tool.logoText}</span>
+                <div className="w-[62px] h-[62px] rounded-xl bg-slate-700 flex items-center justify-center mb-3 shrink-0">
+                  <span className="text-white text-sm font-black leading-none">{tool.logoText}</span>
                 </div>
               )}
 
@@ -615,13 +564,14 @@ function TopTools() {
               </div>
 
               <Link
-                href={`/ai-tools/${tool.slug}`}
+                href={`/tools/${tool.slug}`}
                 className="w-full border border-[#F97316] text-[#F97316] group-hover:bg-[#F97316] group-hover:text-white font-semibold text-sm py-2.5 rounded-xl transition-colors block text-center"
               >
                 View Details
               </Link>
             </div>
-          ))}
+            );
+          })}
         </div>
 
         <div className="text-center mt-8 sm:hidden">
@@ -849,7 +799,7 @@ function ExploreByIndustry() {
   );
 }
 
-export default function HomePage() {
+export default function HomePage({ topTools }: { topTools: HomeTool[] }) {
   useEffect(() => {
     const elements = document.querySelectorAll<HTMLElement>(".reveal");
     const observer = new IntersectionObserver(
@@ -874,7 +824,7 @@ export default function HomePage() {
       <HeroSection />
       <StatsBar />
       <ExploreByIndustry />
-      <TopTools />
+      <TopTools tools={topTools} />
       <HowAIHelps />
       <LatestInsights />
       <Newsletter />
