@@ -298,7 +298,13 @@ function HeroSection({
             </div>
 
             {/* Search bar */}
-            <div className="flex gap-2 mb-5">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                document.getElementById("all-ai-tools")?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="flex gap-2 mb-5"
+            >
               <div className="flex-1 flex items-center gap-2 bg-white border border-gray-200 rounded-xl px-4 py-3 shadow-sm focus-within:border-orange-300 transition-colors">
                 <svg className="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 115 11a6 6 0 0112 0z" />
@@ -311,10 +317,13 @@ function HeroSection({
                   className="flex-1 text-sm text-gray-700 placeholder-gray-400 bg-transparent focus:outline-none"
                 />
               </div>
-              <button className="bg-[#F97316] hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-xl transition-colors text-sm shrink-0 shadow-md shadow-orange-100">
+              <button
+                type="submit"
+                className="bg-[#F97316] hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-xl transition-colors text-sm shrink-0 shadow-md shadow-orange-100"
+              >
                 Search
               </button>
-            </div>
+            </form>
 
             {/* Popular searches */}
             <div className="flex flex-wrap items-center gap-2">

@@ -139,8 +139,13 @@ function BreadcrumbSection() {
 
 const POPULAR_SEARCHES = ["3D Rendering", "Interior Design", "Midjourney", "D5 Render", "Visualization"];
 
-function HeroSection() {
-  const [searchQuery, setSearchQuery] = useState("");
+function HeroSection({
+  searchQuery,
+  setSearchQuery,
+}: {
+  searchQuery: string;
+  setSearchQuery: (v: string) => void;
+}) {
   const avgRating =
     DESIGN_TOOLS.length > 0
       ? (DESIGN_TOOLS.reduce((sum, t) => sum + t.rating, 0) / DESIGN_TOOLS.length).toFixed(1)
@@ -226,7 +231,13 @@ function HeroSection() {
         </div>
 
         {/* Search bar */}
-        <div className="flex gap-3 mb-5 max-w-[610px]">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            document.getElementById("all-tools")?.scrollIntoView({ behavior: "smooth" });
+          }}
+          className="flex gap-3 mb-5 max-w-[610px]"
+        >
           <div className="flex-1 flex items-center gap-2 bg-white border border-gray-200 rounded-xl px-4 py-3 shadow-sm focus-within:border-orange-300 transition-colors">
             <svg className="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 115 11a6 6 0 0112 0z" />
@@ -239,10 +250,13 @@ function HeroSection() {
               className="flex-1 text-sm text-gray-700 placeholder-gray-400 bg-transparent focus:outline-none"
             />
           </div>
-          <button className="bg-[#F97316] hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-xl transition-colors text-sm shrink-0 shadow-md shadow-orange-100">
+          <button
+            type="submit"
+            className="bg-[#F97316] hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-xl transition-colors text-sm shrink-0 shadow-md shadow-orange-100"
+          >
             Search
           </button>
-        </div>
+        </form>
 
         {/* Popular searches */}
         <div className="flex flex-wrap items-center gap-2">
@@ -511,6 +525,7 @@ function ExploreOtherCategories() {
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
 
 export default function DesignToolsPage() {
+  const [searchQuery, setSearchQuery] = useState("");
   const [industryFilter, setIndustryFilter] = useState("All");
   const [pricingFilters, setPricingFilters] = useState<string[]>([]);
   const [ratingFilter, setRatingFilter] = useState("all");
@@ -556,7 +571,7 @@ export default function DesignToolsPage() {
     }
 
     return tools;
-  }, [industryFilter, pricingFilters, ratingFilter, sortBy]);
+  }, [searchQuery, industryFilter, pricingFilters, ratingFilter, sortBy]);
 
   const hasActiveFilters =
     industryFilter !== "All" || pricingFilters.length > 0 || ratingFilter !== "all";
@@ -565,10 +580,10 @@ export default function DesignToolsPage() {
     <div className="min-h-screen bg-white font-sans text-slate-900">
       <Navbar />
       <BreadcrumbSection />
-      <HeroSection />
+      <HeroSection searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
       {/* Two-column layout */}
-      <section className="py-10 sm:py-14 bg-white">
+      <section id="all-tools" className="py-10 sm:py-14 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
 
