@@ -3,7 +3,7 @@
 import { useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import type { AITool } from "../data/tools";
+import { CATEGORY_LABELS, type AITool, type ToolCategory } from "../data/tools";
 import { TOOL_LOGO_URLS } from "../data/tool-logos";
 
 const MAX_SELECT = 3;
@@ -54,23 +54,45 @@ function StarRow({ rating }: { rating: number }) {
 }
 
 export default function CompareTools({ tools }: { tools: AITool[] }) {
+  // When the tools span multiple categories (e.g. on the comparisons hub),
+  // show a category selector so users only compare tools in the same group.
+  const categories = useMemo(
+    () => Array.from(new Set(tools.map((t) => t.category))) as ToolCategory[],
+    [tools],
+  );
+  const multiCategory = categories.length > 1;
+
+  const [activeCat, setActiveCat] = useState<ToolCategory>(categories[0]);
   const [selected, setSelected] = useState<AITool[]>([]);
   const [pickerSlot, setPickerSlot] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
   const resultRef = useRef<HTMLDivElement>(null);
 
-  // Trending pairs auto-built from the top-rated tools in this category.
+  // The set of tools the comparison operates on (filtered by category if needed).
+  const workingTools = useMemo(
+    () => (multiCategory ? tools.filter((t) => t.category === activeCat) : tools),
+    [tools, multiCategory, activeCat],
+  );
+
+  // Trending pairs auto-built from the top-rated tools in the working set.
   const trendingPairs = useMemo(() => {
-    const ranked = [...tools].sort((a, b) => b.rating - a.rating).slice(0, 6);
+    const ranked = [...workingTools].sort((a, b) => b.rating - a.rating).slice(0, 6);
     const pairs: [AITool, AITool][] = [];
     for (let i = 0; i + 1 < ranked.length && pairs.length < 3; i += 2) {
       pairs.push([ranked[i], ranked[i + 1]]);
     }
     return pairs;
-  }, [tools]);
+  }, [workingTools]);
+
+  function changeCategory(cat: ToolCategory) {
+    setActiveCat(cat);
+    setSelected([]);
+    setPickerSlot(null);
+    setShowResult(false);
+  }
 
   const selectedSlugs = new Set(selected.map((t) => t.slug));
-  const available = tools.filter((t) => !selectedSlugs.has(t.slug));
+  const available = workingTools.filter((t) => !selectedSlugs.has(t.slug));
 
   function addTool(tool: AITool) {
     setSelected((prev) =>
@@ -141,24 +163,14 @@ export default function CompareTools({ tools }: { tools: AITool[] }) {
     },
     {
       label: "",
-      render: (t) =>
-        t.hasReview ? (
-          <Link
-            href={`/tools/${t.slug}`}
-            className="inline-block text-xs font-semibold border border-gray-200 text-gray-600 hover:border-gray-300 px-3 py-1.5 rounded-lg transition-colors"
-          >
-            Read Review →
-          </Link>
-        ) : (
-          <a
-            href={t.affiliateHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block text-xs font-semibold bg-[#2B7FFF] hover:bg-blue-600 text-white px-3 py-1.5 rounded-lg transition-colors"
-          >
-            Visit Website →
-          </a>
-        ),
+      render: (t) => (
+        <Link
+          href={`/tools/${t.slug}`}
+          className="inline-block text-xs font-semibold border border-gray-200 text-gray-600 hover:border-gray-300 px-3 py-1.5 rounded-lg transition-colors"
+        >
+          Read Review →
+        </Link>
+      ),
     },
   ];
 
@@ -179,6 +191,29 @@ export default function CompareTools({ tools }: { tools: AITool[] }) {
           </div>
 
           <div className="p-6 bg-white">
+            {/* ── Category selector (only when tools span multiple categories) ── */}
+            {multiCategory && (
+              <div className="flex flex-wrap items-center gap-2 mb-4">
+                <span className="text-sm font-semibold text-[#1E293B]">Category:</span>
+                <div className="relative">
+                  <select
+                    value={activeCat}
+                    onChange={(e) => changeCategory(e.target.value as ToolCategory)}
+                    className="appearance-none border border-gray-200 rounded-lg pl-3 pr-8 py-2 text-sm text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-[#F97316] cursor-pointer"
+                  >
+                    {categories.map((c) => (
+                      <option key={c} value={c}>
+                        {CATEGORY_LABELS[c] ?? c}
+                      </option>
+                    ))}
+                  </select>
+                  <svg className="w-4 h-4 absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+              </div>
+            )}
+
             {/* ── Tool selector row ── */}
             <p className="text-sm font-semibold text-[#1E293B] mb-3">
               Add up to {MAX_SELECT} AI tools to compare

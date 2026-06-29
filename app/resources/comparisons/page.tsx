@@ -16,9 +16,7 @@ import {
   MessageSquare,
   Palette,
   PenLine,
-  Plus,
   RefreshCw,
-  Scale,
   Send,
   Settings,
   Star,
@@ -33,6 +31,8 @@ import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
 import ResourceCard from "../../components/ResourceCard";
 import { comparisonsData } from "../../../lib/comparisons-data";
+import { ALL_TOOLS } from "../../data/tools";
+import CompareTools from "../../ai-tools/CompareTools";
 
 // ─── CATEGORY CARD THEMES ─────────────────────────────────────────────────────
 
@@ -67,8 +67,26 @@ const FEAT_BADGE: Record<string, string> = {
   MARKETING:    "bg-orange-500 text-white",
 };
 
-const FEATURED_COMPARISONS = comparisonsData.filter((c) => c.isFeatured);
-const LATEST_COMPARISONS   = comparisonsData.filter((c) => !c.isFeatured);
+// Only surface comparisons whose BOTH tools exist in our catalog (ALL_TOOLS).
+// Comparisons that reference tools we don't carry are filtered out.
+const normToolKey = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "");
+const stripAiSuffix = (s: string) => s.replace(/ai$/, "");
+const EXISTING_TOOL_KEYS = new Set<string>();
+for (const t of ALL_TOOLS) {
+  for (const key of [normToolKey(t.name), normToolKey(t.slug)]) {
+    EXISTING_TOOL_KEYS.add(key);
+    EXISTING_TOOL_KEYS.add(stripAiSuffix(key));
+  }
+}
+const toolExists = (name: string) => {
+  const n = normToolKey(name);
+  return EXISTING_TOOL_KEYS.has(n) || EXISTING_TOOL_KEYS.has(stripAiSuffix(n));
+};
+const hasBothTools = (c: { toolA: { name: string }; toolB: { name: string } }) =>
+  toolExists(c.toolA.name) && toolExists(c.toolB.name);
+
+const FEATURED_COMPARISONS = comparisonsData.filter((c) => c.isFeatured && hasBothTools(c));
+const LATEST_COMPARISONS   = comparisonsData.filter((c) => !c.isFeatured && hasBothTools(c));
 
 const SIDEBAR_TOPICS_CMP = [
   "Getting Started with AI",
@@ -77,21 +95,6 @@ const SIDEBAR_TOPICS_CMP = [
   "AI Automation Workflows",
   "AI Agents Explained",
   "No-code AI Tools",
-];
-
-const TRENDING_PAIRS = [
-  {
-    a: { name: "Offrs",         bg: "bg-emerald-600", letter: "OF" },
-    b: { name: "Revaluate",     bg: "bg-gray-900",    letter: "RV" },
-  },
-  {
-    a: { name: "HouseCanary",   bg: "bg-blue-600",    letter: "HC" },
-    b: { name: "ManyChat",      bg: "bg-purple-500",  letter: "MC" },
-  },
-  {
-    a: { name: "REimagineHome", bg: "bg-purple-700",  letter: "RH" },
-    b: { name: "Copy.ai",       bg: "bg-yellow-500",  letter: "CP" },
-  },
 ];
 
 const CATEGORIES = [
@@ -345,93 +348,8 @@ export default function ComparisonsPage() {
         </div>
       </section>
 
-      {/* ── SECTION 3: Compare AI Tools — Find the Right Fit ── */}
-      <section className="py-14 sm:py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-          {/* Header bar */}
-          <div className="flex items-center gap-2 bg-blue-50 rounded-xl p-4 mb-6">
-            <Scale size={20} className="text-blue-600 shrink-0" />
-            <p className="font-bold text-base text-[#1E293B]">
-              Compare AI Tools: Find the Right Fit for Your Needs
-            </p>
-          </div>
-
-          {/* Label */}
-          <p className="text-sm font-medium text-gray-700 mb-3">Add AI tools for comparison</p>
-
-          {/* 3 add-tool slots */}
-          <div className="bg-gray-50 rounded-xl p-6 md:p-8">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {[1, 2, 3].map((n) => (
-                <div
-                  key={n}
-                  className="border-2 border-dashed border-gray-300 rounded-xl flex flex-col items-center justify-center py-8 text-gray-400 cursor-pointer hover:border-blue-400 hover:text-blue-400 transition-colors"
-                >
-                  <div className="w-10 h-10 border border-gray-300 rounded-full flex items-center justify-center">
-                    <Plus size={18} />
-                  </div>
-                  <span className="text-sm mt-2">+ Add tool</span>
-                </div>
-              ))}
-            </div>
-
-            {/* Compare button — right aligned */}
-            <div className="flex justify-end mt-4">
-              <button className="bg-orange-500 hover:bg-orange-600 text-white font-medium rounded-lg px-6 py-2.5 text-sm transition-colors">
-                Compare AI Tools
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── SECTION 4: Today's Trending AI Tools: A Comparison ── */}
-      <section className="py-14 sm:py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-xl md:text-2xl font-bold text-[#1E293B] mb-4">
-            Today&apos;s Trending AI Tools: A Comparison
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {TRENDING_PAIRS.map(({ a, b }) => (
-              <div key={`${a.name}-${b.name}`} className="border border-gray-100 rounded-xl overflow-hidden bg-white">
-                {/* Tools header */}
-                <div className="p-5 flex items-center justify-center gap-4">
-                  {/* Tool A */}
-                  <div className="flex flex-col items-center">
-                    <div className={`w-10 h-10 rounded-full ${a.bg} flex items-center justify-center`}>
-                      <span className="text-white text-xs font-bold">{a.letter}</span>
-                    </div>
-                    <p className="text-xs font-semibold text-[#1E293B] mt-1 text-center">{a.name}</p>
-                  </div>
-
-                  {/* VS badge */}
-                  <div className="w-8 h-8 rounded-full bg-gray-900 text-white flex items-center justify-center text-[10px] font-bold shrink-0">
-                    vs
-                  </div>
-
-                  {/* Tool B */}
-                  <div className="flex flex-col items-center">
-                    <div className={`w-10 h-10 rounded-full ${b.bg} flex items-center justify-center`}>
-                      <span className="text-white text-xs font-bold">{b.letter}</span>
-                    </div>
-                    <p className="text-xs font-semibold text-[#1E293B] mt-1 text-center">{b.name}</p>
-                  </div>
-                </div>
-
-                {/* CTA */}
-                <a
-                  href="#"
-                  className="block w-full bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold text-center py-2.5 transition-colors"
-                >
-                  Compare AI&apos;s
-                </a>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* ── Compare AI Tools (interactive) ── */}
+      <CompareTools tools={ALL_TOOLS} />
 
       {/* ── SECTION 5: Featured Comparisons ── */}
       <section className="py-14 sm:py-16">
