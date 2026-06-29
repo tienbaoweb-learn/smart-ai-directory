@@ -46,6 +46,7 @@ import {
 import {
   getAllTools,
   getAllToolSlugs,
+  getRelatedTools,
   getToolBySlug,
   type ToolFrontmatter,
   type PricingType,
@@ -527,6 +528,34 @@ const mdxComponents = {
       {children}
     </ol>
   ),
+  a: ({
+    href,
+    children,
+    ...props
+  }: HTMLAttributes<HTMLAnchorElement> & { href?: string }) => {
+    const isInternal = href?.startsWith("/");
+    if (isInternal) {
+      return (
+        <Link
+          href={href as string}
+          className="text-blue-600 font-medium hover:underline"
+        >
+          {children}
+        </Link>
+      );
+    }
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer nofollow"
+        className="text-blue-600 font-medium hover:underline"
+        {...props}
+      >
+        {children}
+      </a>
+    );
+  },
 };
 
 // ── Page ──────────────────────────────────────────────────────────────────────
@@ -555,7 +584,6 @@ export default async function ToolReviewPage({
     ? TOC_ITEMS
     : TOC_ITEMS.filter((item) => item.href !== "pricing");
   const faqs = generateFAQs(f, toolName);
-  const catSlug = f.category.toLowerCase().replace(/\s+/g, "-");
   const prosDisplay =
     f.pros.length > 0
       ? f.pros
@@ -650,28 +678,69 @@ export default async function ToolReviewPage({
     })),
   ];
 
+  // ── Related tools + hub (dual-axis internal linking) ───────────────────────
+  const { hub: relatedHub, siblings: relatedSiblings } = getRelatedTools(
+    slug,
+    4,
+  );
+  // Where this review links "up" to: its Best Of / AI Tools hub, else AI Tools.
+  const hubHref = relatedHub?.href ?? "/ai-tools";
+  const hubLabel = relatedHub?.label ?? "AI Tools";
+
+  // Industry pillar guide for the review's niche (when one exists), so each
+  // review links back to the editorial guide that frames its category.
+  const INDUSTRY_GUIDES: Partial<
+    Record<string, { title: string; href: string }>
+  > = {
+    architecture: {
+      title: "Best AI Tools for Architects in 2026",
+      href: "/resources/guides/architecture-ai-tools",
+    },
+    construction: {
+      title: "Best AI Tools for Construction in 2026",
+      href: "/resources/guides/construction-ai-tools",
+    },
+    "interior-design": {
+      title: "Best AI Tools for Interior Design in 2026",
+      href: "/resources/guides/interior-design-ai-tools",
+    },
+    "real-estate": {
+      title: "Best AI Tools for Real Estate in 2026",
+      href: "/resources/guides/real-estate-ai-tools",
+    },
+  };
+  const pillarGuide = f.bestOf?.length ? INDUSTRY_GUIDES[f.bestOf[0]] : undefined;
+
   // ── Related articles (generated) ───────────────────────────────────────────
   const relatedArticles = [
-    {
-      category: "GUIDE",
-      title: `Best AI Tools for ${f.category} in 2026`,
-      description: `Discover the top AI tools transforming the ${f.category} industry.`,
-      ctaText: "Read Guide →",
-      href: `/best-of/${catSlug}`,
-    },
+    pillarGuide
+      ? {
+          category: "GUIDE",
+          title: pillarGuide.title,
+          description: `Our editorial guide to the AI tools we recommend, including ${toolName}.`,
+          ctaText: "Read Guide →",
+          href: pillarGuide.href,
+        }
+      : {
+          category: "GUIDE",
+          title: `Best ${hubLabel} for Professionals in 2026`,
+          description: `Discover the top AI tools we recommend in ${hubLabel}.`,
+          ctaText: "View Hub →",
+          href: hubHref,
+        },
     {
       category: "COMPARISON",
       title: `${toolName} vs Top Alternatives: Full Comparison`,
       description: `Side-by-side breakdown of ${toolName} and its main competitors.`,
-      ctaText: "View Comparison →",
-      href: "#",
+      ctaText: "View Comparisons →",
+      href: "/resources/comparisons",
     },
     {
-      category: "REVIEW",
-      title: `How to Use ${toolName} to Save Time in ${f.category}`,
-      description: `Step-by-step guide for getting the most out of ${toolName}.`,
-      ctaText: "Read More →",
-      href: "#",
+      category: "GUIDE",
+      title: `Hands-on Guides & Workflows`,
+      description: `Step-by-step playbooks for getting the most out of tools like ${toolName}.`,
+      ctaText: "Browse Guides →",
+      href: "/resources/guides",
     },
   ];
 
@@ -1218,12 +1287,12 @@ export default async function ToolReviewPage({
                   <h2 className="text-2xl font-bold text-[#1E293B]">
                     Top {toolName} Alternatives
                   </h2>
-                  <a
-                    href="#"
+                  <Link
+                    href={hubHref}
                     className="text-blue-600 text-sm font-medium hover:underline"
                   >
                     View all alternatives →
-                  </a>
+                  </Link>
                 </div>
                 {altCards.length > 0 ? (
                   <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -1540,6 +1609,71 @@ export default async function ToolReviewPage({
                   })}
                 </div>
               </div>
+
+              {/* Related Tools in {hub} — dual-axis internal linking */}
+              {relatedSiblings.length > 0 && (
+                <div className="scroll-mt-24">
+                  <div className="flex flex-wrap justify-between items-center gap-2 mb-4">
+                    <h2 className="text-2xl font-bold text-[#1E293B]">
+                      Related Tools in {hubLabel}
+                    </h2>
+                    <Link
+                      href={hubHref}
+                      className="text-blue-600 text-sm font-medium hover:underline"
+                    >
+                      See all the best {hubLabel} →
+                    </Link>
+                  </div>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                    {relatedSiblings.map((rel) => {
+                      const relName =
+                        rel.frontmatter.toolName ||
+                        rel.frontmatter.title.split(":")[0].trim();
+                      const relLogo = resolveAltLogo(relName);
+                      return (
+                        <Link
+                          key={rel.slug}
+                          href={`/tools/${rel.slug}`}
+                          className="group border border-gray-100 rounded-xl p-4 bg-white hover:shadow-md hover:border-blue-200 transition-all block"
+                        >
+                          {relLogo ? (
+                            <div className="w-10 h-10 rounded-lg overflow-hidden bg-white border border-gray-100 flex items-center justify-center p-1">
+                              <Image
+                                src={relLogo}
+                                alt={relName}
+                                width={40}
+                                height={40}
+                                className="object-contain w-full h-full"
+                              />
+                            </div>
+                          ) : (
+                            <div className="w-10 h-10 rounded-lg bg-slate-700 flex items-center justify-center">
+                              <span className="text-white font-bold text-xs">
+                                {getInitials(relName)}
+                              </span>
+                            </div>
+                          )}
+                          <p className="font-semibold text-sm text-[#1E293B] mt-2 leading-snug">
+                            {relName}
+                          </p>
+                          <div className="flex items-center gap-1.5 mt-1">
+                            <StarRow rating={rel.frontmatter.rating} size={11} />
+                            <span className="text-xs text-gray-500">
+                              {rel.frontmatter.rating.toFixed(1)}
+                            </span>
+                          </div>
+                          <p className="text-xs text-gray-500 mt-1 line-clamp-2 leading-snug">
+                            {rel.frontmatter.excerpt}
+                          </p>
+                          <span className="inline-block text-blue-600 text-xs font-medium mt-2 group-hover:underline">
+                            Read Review →
+                          </span>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

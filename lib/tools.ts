@@ -143,3 +143,86 @@ export function getBestOfTools(industry: IndustrySlug): Tool[] {
 export function getToolsByTag(tag: string): Tool[] {
   return getAllTools().filter((t) => t.frontmatter.tags?.includes(tag));
 }
+
+// ── Internal linking: dual-axis hub + sibling resolution ─────────────────────
+//
+// Reviews cluster on one of two axes:
+//   1. Industry niche  — tools curated into a Best Of hub (frontmatter.bestOf).
+//   2. AI Tools category — everything else, grouped by frontmatter.aiToolsCategory.
+//
+// Each review links "up" to its hub and "across" to sibling reviews in the same
+// group. Siblings are chosen with a rating-sorted ring so EVERY tool in a group
+// is linked from `count` others — this structurally prevents orphan pages.
+
+export type RelatedHub = { label: string; href: string };
+
+const INDUSTRY_HUBS: Record<IndustrySlug, RelatedHub> = {
+  architecture: { label: "Architecture", href: "/best-of/architecture" },
+  construction: { label: "Construction", href: "/best-of/construction" },
+  "interior-design": {
+    label: "Interior Design",
+    href: "/best-of/interior-design",
+  },
+  "real-estate": { label: "Real Estate", href: "/best-of/real-estate" },
+  // Furniture has no Best Of hub — fall back to its Industries landing page.
+  furniture: { label: "Furniture", href: "/industries/furniture" },
+};
+
+const AI_CATEGORY_HUBS: Record<AiToolsCategory, RelatedHub> = {
+  design: { label: "AI Design Tools", href: "/ai-tools/design" },
+  "content-marketing": {
+    label: "AI Content & Marketing Tools",
+    href: "/ai-tools/content-marketing",
+  },
+  automation: { label: "AI Automation Tools", href: "/ai-tools/automation" },
+  sales: { label: "AI Sales Tools", href: "/ai-tools/sales" },
+  productivity: {
+    label: "AI Productivity Tools",
+    href: "/ai-tools/productivity",
+  },
+};
+
+export function getRelatedTools(
+  slug: string,
+  count = 4
+): { hub: RelatedHub | null; siblings: Tool[] } {
+  const all = getAllTools();
+  const current = all.find((t) => t.slug === slug);
+  if (!current) return { hub: null, siblings: [] };
+
+  // A single deterministic primary key per tool keeps every group symmetric:
+  // each member rings over the exact same set, so coverage is guaranteed and no
+  // review is left orphaned. Industry tools key on their first Best Of industry;
+  // cross-niche tools key on their AI Tools category.
+  const primaryKey = (fm: ToolFrontmatter): string =>
+    fm.bestOf && fm.bestOf.length > 0
+      ? `industry:${fm.bestOf[0]}`
+      : `aicat:${fm.aiToolsCategory ?? "uncategorized"}`;
+
+  const f = current.frontmatter;
+  const hub: RelatedHub | null =
+    f.bestOf && f.bestOf.length > 0
+      ? (INDUSTRY_HUBS[f.bestOf[0]] ?? null)
+      : f.aiToolsCategory
+        ? (AI_CATEGORY_HUBS[f.aiToolsCategory] ?? null)
+        : null;
+
+  const key = primaryKey(f);
+  const group = all.filter((t) => primaryKey(t.frontmatter) === key);
+
+  // Rating-sorted ring → full coverage, deterministic, no self-reference.
+  const sorted = [...group].sort(
+    (a, b) =>
+      b.frontmatter.rating - a.frontmatter.rating ||
+      a.slug.localeCompare(b.slug)
+  );
+  const idx = sorted.findIndex((t) => t.slug === slug);
+  const siblings: Tool[] = [];
+  if (idx !== -1) {
+    for (let k = 1; k <= sorted.length - 1 && siblings.length < count; k++) {
+      siblings.push(sorted[(idx + k) % sorted.length]);
+    }
+  }
+
+  return { hub, siblings };
+}

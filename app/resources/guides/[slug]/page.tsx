@@ -8,6 +8,7 @@ import Navbar from "../../../components/Navbar";
 import Newsletter from "../../../components/Newsletter";
 import Footer from "../../../components/Footer";
 import { guidesContent, type GuideContentBlock } from "../../../../lib/guides-content";
+import { getToolBySlug } from "../../../../lib/tools";
 
 // ── generateStaticParams + generateMetadata ────────────────────────────────────
 
@@ -94,7 +95,18 @@ function ContentBlock({ block }: { block: GuideContentBlock }) {
               <tbody>
                 {(block.rows ?? []).map((row) => (
                   <tr key={row.tool} className="border-t border-gray-100">
-                    <td className="py-3 px-4 text-[#1E293B] font-medium whitespace-nowrap">{row.tool}</td>
+                    <td className="py-3 px-4 text-[#1E293B] font-medium whitespace-nowrap">
+                      {row.slug ? (
+                        <Link
+                          href={`/tools/${row.slug}`}
+                          className="text-blue-600 hover:underline"
+                        >
+                          {row.tool}
+                        </Link>
+                      ) : (
+                        row.tool
+                      )}
+                    </td>
                     <td className="py-3 px-4 text-gray-500">{row.category}</td>
                     <td className="py-3 px-4 text-gray-500">{row.bestFor}</td>
                     <td className="py-3 px-4 text-gray-500">{row.notes}</td>
@@ -120,6 +132,49 @@ function ContentBlock({ block }: { block: GuideContentBlock }) {
           ))}
         </div>
       );
+
+    case "related-reviews": {
+      const reviews = (block.reviews ?? [])
+        .map((slug) => getToolBySlug(slug))
+        .filter((t): t is NonNullable<typeof t> => t !== null);
+      if (reviews.length === 0) return null;
+      return (
+        <div className="my-8">
+          {block.text && (
+            <h2 className="text-2xl font-bold text-[#1E293B] mt-8 mb-3">
+              {block.text}
+            </h2>
+          )}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {reviews.map((t) => {
+              const name =
+                t.frontmatter.toolName ||
+                t.frontmatter.title.split(":")[0].trim();
+              return (
+                <Link
+                  key={t.slug}
+                  href={`/tools/${t.slug}`}
+                  className="group border border-gray-100 rounded-xl p-4 bg-white hover:shadow-md hover:border-blue-200 transition-all block"
+                >
+                  <p className="font-semibold text-sm text-[#1E293B] group-hover:text-blue-600">
+                    {name} Review
+                  </p>
+                  <p className="text-xs text-gray-500 mt-1 line-clamp-2 leading-snug">
+                    {t.frontmatter.excerpt}
+                  </p>
+                  <span className="inline-block text-blue-600 text-xs font-medium mt-2 group-hover:underline">
+                    Read full review →
+                  </span>
+                </Link>
+              );
+            })}
+          </div>
+          {block.note && (
+            <p className="text-xs text-gray-400 mt-2 italic">{block.note}</p>
+          )}
+        </div>
+      );
+    }
 
     case "disclaimer":
       return (
