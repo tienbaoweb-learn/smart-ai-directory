@@ -750,7 +750,20 @@ function WorkflowSection() {
   );
 }
 
-function RecommendedToolsSection() {
+// Where each step's "View all" button points: either an in-page Use Case
+// filter on "Top Tools for Real Estate Professionals", or another category page.
+const STEP_TARGETS: Record<string, { useCase: string } | { href: string }> = {
+  "Lead Generation": { useCase: "Lead Generation" },
+  "Property Listings": { href: "/ai-tools/content-marketing" },
+  "Virtual Staging": { useCase: "Virtual Staging" },
+  "Close Deals": { href: "/ai-tools/sales" },
+};
+
+function RecommendedToolsSection({
+  onSelectUseCase,
+}: {
+  onSelectUseCase: (useCase: string) => void;
+}) {
   const [activeTab, setActiveTab] = useState("All Steps");
 
   const visibleSteps =
@@ -812,9 +825,22 @@ function RecommendedToolsSection() {
                 ))}
               </div>
               <div className="px-3 sm:px-4 py-2.5 sm:py-3 border-t border-gray-100">
-                <a href="/ai-tools" className={`text-[10px] sm:text-xs font-semibold ${stepData.headerText} hover:opacity-80 transition-opacity`}>
-                  View all {stepData.totalCount} tools →
-                </a>
+                {(() => {
+                  const target = STEP_TARGETS[stepData.step];
+                  const cls = `text-[10px] sm:text-xs font-semibold ${stepData.headerText} hover:opacity-80 transition-opacity`;
+                  if (target && "useCase" in target) {
+                    return (
+                      <button type="button" onClick={() => onSelectUseCase(target.useCase)} className={cls}>
+                        View all {stepData.totalCount} tools →
+                      </button>
+                    );
+                  }
+                  return (
+                    <a href={target?.href ?? "/ai-tools"} className={cls}>
+                      View all {stepData.totalCount} tools →
+                    </a>
+                  );
+                })()}
               </div>
             </div>
           ))}
@@ -824,8 +850,13 @@ function RecommendedToolsSection() {
   );
 }
 
-function TopToolsSection() {
-  const [useCases, setUseCases] = useState<string[]>([]);
+function TopToolsSection({
+  useCases,
+  setUseCases,
+}: {
+  useCases: string[];
+  setUseCases: (v: string[]) => void;
+}) {
   const [pricingTypes, setPricingTypes] = useState<string[]>([]);
   const [bestForFilters, setBestForFilters] = useState<string[]>([]);
   const [integrations, setIntegrations] = useState<string[]>([]);
@@ -862,7 +893,7 @@ function TopToolsSection() {
   }
 
   return (
-    <section className="py-12 sm:py-16 bg-white">
+    <section id="top-tools" className="scroll-mt-24 py-12 sm:py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-8">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1E293B]">
@@ -1062,6 +1093,17 @@ function BestOfSection() {
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
 
 export default function RealEstatePage() {
+  // Shared so the "Recommended Tools" step cards can pre-select a Use Case
+  // filter in the "Top Tools for Real Estate Professionals" section.
+  const [useCases, setUseCases] = useState<string[]>([]);
+
+  function selectUseCase(useCase: string) {
+    setUseCases([useCase]);
+    requestAnimationFrame(() =>
+      document.getElementById("top-tools")?.scrollIntoView({ behavior: "smooth", block: "start" }),
+    );
+  }
+
   return (
     <>
       <Navbar />
@@ -1070,8 +1112,8 @@ export default function RealEstatePage() {
         <HeroSection />
         <ChallengesSection />
         <WorkflowSection />
-        <RecommendedToolsSection />
-        <TopToolsSection />
+        <RecommendedToolsSection onSelectUseCase={selectUseCase} />
+        <TopToolsSection useCases={useCases} setUseCases={setUseCases} />
         <RealResultsSection />
         <BestOfSection />
       </main>

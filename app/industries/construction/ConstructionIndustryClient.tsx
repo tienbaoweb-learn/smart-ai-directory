@@ -420,7 +420,7 @@ const TOOL_FILTER_META: Record<
   string,
   { useCases: string[]; bestForTags: string[]; integrationTags: string[] }
 > = {
-  "Insightful": { useCases: ["Project Planning","Progress Tracking","Documentation"], bestForTags: ["Project Managers","General Contractors"], integrationTags: ["Others"] },
+  "Insightful": { useCases: ["Project Planning","Site Monitoring","Progress Tracking","Documentation"], bestForTags: ["Project Managers","General Contractors"], integrationTags: ["Others"] },
   "D5 Render": { useCases: ["BIM & Modeling","Documentation"], bestForTags: ["Project Managers","Site Engineers"], integrationTags: ["Revit","AutoCAD","Others"] },
   "Joiin": { useCases: ["Cost Estimation","Documentation"], bestForTags: ["Project Managers","General Contractors"], integrationTags: ["Others"] },
   "Midjourney": { useCases: ["Documentation"], bestForTags: ["Project Managers"], integrationTags: ["Others"] },
@@ -753,8 +753,13 @@ function WorkflowSection() {
   );
 }
 
-function RecommendedToolsSection() {
+function RecommendedToolsSection({
+  onSelectUseCase,
+}: {
+  onSelectUseCase: (useCase: string) => void;
+}) {
   const [activeTab, setActiveTab] = useState("All Steps");
+  const useCaseLabels = new Set(USE_CASES.map((u) => u.label));
 
   const visibleSteps =
     activeTab === "All Steps"
@@ -815,9 +820,19 @@ function RecommendedToolsSection() {
                 ))}
               </div>
               <div className="px-3 sm:px-4 py-2.5 sm:py-3 border-t border-gray-100">
-                <a href="/ai-tools" className={`text-[10px] sm:text-xs font-semibold ${stepData.headerText} hover:opacity-80 transition-opacity`}>
-                  View all {stepData.totalCount} tools →
-                </a>
+                {useCaseLabels.has(stepData.step) ? (
+                  <button
+                    type="button"
+                    onClick={() => onSelectUseCase(stepData.step)}
+                    className={`text-[10px] sm:text-xs font-semibold ${stepData.headerText} hover:opacity-80 transition-opacity`}
+                  >
+                    View all {stepData.totalCount} tools →
+                  </button>
+                ) : (
+                  <a href="/ai-tools" className={`text-[10px] sm:text-xs font-semibold ${stepData.headerText} hover:opacity-80 transition-opacity`}>
+                    View all {stepData.totalCount} tools →
+                  </a>
+                )}
               </div>
             </div>
           ))}
@@ -827,8 +842,13 @@ function RecommendedToolsSection() {
   );
 }
 
-function TopToolsSection() {
-  const [useCases, setUseCases] = useState<string[]>([]);
+function TopToolsSection({
+  useCases,
+  setUseCases,
+}: {
+  useCases: string[];
+  setUseCases: (v: string[]) => void;
+}) {
   const [pricingTypes, setPricingTypes] = useState<string[]>([]);
   const [bestForFilters, setBestForFilters] = useState<string[]>([]);
   const [integrations, setIntegrations] = useState<string[]>([]);
@@ -865,7 +885,7 @@ function TopToolsSection() {
   }
 
   return (
-    <section className="py-12 sm:py-16 bg-white">
+    <section id="top-tools" className="scroll-mt-24 py-12 sm:py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-8">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1E293B]">
@@ -1065,6 +1085,17 @@ function BestOfSection() {
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
 
 export default function ConstructionPage() {
+  // Shared so the "Recommended Tools" step cards can pre-select a Use Case
+  // filter in the "Top Tools for Construction Companies" section.
+  const [useCases, setUseCases] = useState<string[]>([]);
+
+  function selectUseCase(useCase: string) {
+    setUseCases([useCase]);
+    requestAnimationFrame(() =>
+      document.getElementById("top-tools")?.scrollIntoView({ behavior: "smooth", block: "start" }),
+    );
+  }
+
   return (
     <>
       <Navbar />
@@ -1073,8 +1104,8 @@ export default function ConstructionPage() {
         <HeroSection />
         <ChallengesSection />
         <WorkflowSection />
-        <RecommendedToolsSection />
-        <TopToolsSection />
+        <RecommendedToolsSection onSelectUseCase={selectUseCase} />
+        <TopToolsSection useCases={useCases} setUseCases={setUseCases} />
         <RealResultsSection />
         <BestOfSection />
       </main>

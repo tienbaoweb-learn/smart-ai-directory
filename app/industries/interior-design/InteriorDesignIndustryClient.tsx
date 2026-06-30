@@ -755,7 +755,20 @@ function WorkflowSection() {
   );
 }
 
-function RecommendedToolsSection() {
+// Which Use Case filter(s) each step's "View all" pre-selects on
+// "Top Tools for Interior Designers".
+const STEP_USE_CASES: Record<string, string[]> = {
+  "Concept & Mood Board": ["Concept Design", "Mood Board"],
+  "Space Planning": ["Space Planning"],
+  "3D Rendering": ["3D Rendering"],
+  "Client Presentation": ["Client Presentation"],
+};
+
+function RecommendedToolsSection({
+  onSelectUseCases,
+}: {
+  onSelectUseCases: (useCases: string[]) => void;
+}) {
   const [activeTab, setActiveTab] = useState("All Steps");
 
   const visibleSteps =
@@ -834,9 +847,19 @@ function RecommendedToolsSection() {
                 })}
               </div>
               <div className="px-3 sm:px-4 py-2.5 sm:py-3 border-t border-gray-100">
-                <a href="/ai-tools" className={`text-[10px] sm:text-xs font-semibold ${stepData.headerText} hover:opacity-80 transition-opacity`}>
-                  View all {stepData.totalCount} tools →
-                </a>
+                {STEP_USE_CASES[stepData.step] ? (
+                  <button
+                    type="button"
+                    onClick={() => onSelectUseCases(STEP_USE_CASES[stepData.step])}
+                    className={`text-[10px] sm:text-xs font-semibold ${stepData.headerText} hover:opacity-80 transition-opacity`}
+                  >
+                    View all {stepData.totalCount} tools →
+                  </button>
+                ) : (
+                  <a href="/ai-tools" className={`text-[10px] sm:text-xs font-semibold ${stepData.headerText} hover:opacity-80 transition-opacity`}>
+                    View all {stepData.totalCount} tools →
+                  </a>
+                )}
               </div>
             </div>
           ))}
@@ -846,8 +869,13 @@ function RecommendedToolsSection() {
   );
 }
 
-function TopToolsSection() {
-  const [useCases, setUseCases] = useState<string[]>([]);
+function TopToolsSection({
+  useCases,
+  setUseCases,
+}: {
+  useCases: string[];
+  setUseCases: (v: string[]) => void;
+}) {
   const [pricingTypes, setPricingTypes] = useState<string[]>([]);
   const [bestForFilters, setBestForFilters] = useState<string[]>([]);
   const [integrations, setIntegrations] = useState<string[]>([]);
@@ -884,7 +912,7 @@ function TopToolsSection() {
   }
 
   return (
-    <section className="py-12 sm:py-16 bg-white">
+    <section id="top-tools" className="scroll-mt-24 py-12 sm:py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-8">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1E293B]">
@@ -1084,6 +1112,17 @@ function BestOfSection() {
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
 
 export default function InteriorDesignPage() {
+  // Shared so the "Recommended Tools" step cards can pre-select Use Case
+  // filter(s) in the "Top Tools for Interior Designers" section.
+  const [useCases, setUseCases] = useState<string[]>([]);
+
+  function selectUseCases(labels: string[]) {
+    setUseCases(labels);
+    requestAnimationFrame(() =>
+      document.getElementById("top-tools")?.scrollIntoView({ behavior: "smooth", block: "start" }),
+    );
+  }
+
   return (
     <>
       <Navbar />
@@ -1092,8 +1131,8 @@ export default function InteriorDesignPage() {
         <HeroSection />
         <ChallengesSection />
         <WorkflowSection />
-        <RecommendedToolsSection />
-        <TopToolsSection />
+        <RecommendedToolsSection onSelectUseCases={selectUseCases} />
+        <TopToolsSection useCases={useCases} setUseCases={setUseCases} />
         <RealResultsSection />
         <BestOfSection />
       </main>

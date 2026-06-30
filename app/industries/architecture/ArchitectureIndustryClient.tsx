@@ -264,6 +264,7 @@ const USE_CASES = [
   { label: "Concept Design", count: 22 },
   { label: "BIM Modeling", count: 18 },
   { label: "3D Rendering", count: 28 },
+  { label: "Visualization", count: 26 },
   { label: "Client Presentation", count: 20 },
   { label: "Site Analysis", count: 14 },
   { label: "Documentation", count: 16 },
@@ -423,12 +424,12 @@ const TOOL_FILTER_META: Record<
   { useCases: string[]; bestForTags: string[]; integrationTags: string[] }
 > = {
   "Insightful":    { useCases: ["Project Management", "Documentation"],                              bestForTags: ["Architects", "Construction Managers"],       integrationTags: ["Others"] },
-  "D5 Render":     { useCases: ["3D Rendering", "Client Presentation", "Concept Design"],            bestForTags: ["Architects", "Interior Designers", "Students"], integrationTags: ["Revit", "SketchUp", "Rhino"] },
-  "Midjourney":    { useCases: ["Concept Design", "Client Presentation"],                            bestForTags: ["Interior Designers", "Architects", "Students"], integrationTags: ["Adobe CC"] },
+  "D5 Render":     { useCases: ["3D Rendering", "Visualization", "BIM Modeling", "Client Presentation", "Concept Design"], bestForTags: ["Architects", "Interior Designers", "Students"], integrationTags: ["Revit", "SketchUp", "Rhino"] },
+  "Midjourney":    { useCases: ["Concept Design", "Visualization", "Client Presentation"],            bestForTags: ["Interior Designers", "Architects", "Students"], integrationTags: ["Adobe CC"] },
   "CustomGPT.ai":  { useCases: ["Documentation", "Project Management"],                              bestForTags: ["Architects", "Construction Managers"],       integrationTags: ["Others"] },
   "Jasper AI":     { useCases: ["Documentation", "Client Presentation"],                            bestForTags: ["Architects", "Students"],                    integrationTags: ["Adobe CC", "Others"] },
   "Buzz.ai":       { useCases: ["Project Management", "Client Presentation"],                        bestForTags: ["Architects", "Construction Managers"],       integrationTags: ["Others"] },
-  "Planner 5D":    { useCases: ["Concept Design", "3D Rendering", "Client Presentation", "Documentation"], bestForTags: ["Interior Designers", "Architects", "Students"], integrationTags: ["Others"] },
+  "Planner 5D":    { useCases: ["Concept Design", "3D Rendering", "Visualization", "Client Presentation", "Documentation"], bestForTags: ["Interior Designers", "Architects", "Students"], integrationTags: ["Others"] },
   "SearchAtlas":   { useCases: ["Documentation", "Project Management"],                              bestForTags: ["Architects"],                                integrationTags: ["Others"] },
 };
 
@@ -764,7 +765,11 @@ function WorkflowSection() {
   );
 }
 
-function RecommendedToolsSection() {
+function RecommendedToolsSection({
+  onSelectUseCase,
+}: {
+  onSelectUseCase: (useCase: string) => void;
+}) {
   const [activeTab, setActiveTab] = useState("All Steps");
 
   const visibleSteps =
@@ -833,9 +838,13 @@ function RecommendedToolsSection() {
                 })}
               </div>
               <div className="px-3 sm:px-4 py-2.5 sm:py-3 border-t border-gray-100">
-                <a href="/ai-tools" className={`text-[10px] sm:text-xs font-semibold ${stepData.headerText} hover:opacity-80 transition-opacity`}>
+                <button
+                  type="button"
+                  onClick={() => onSelectUseCase(stepData.step)}
+                  className={`text-[10px] sm:text-xs font-semibold ${stepData.headerText} hover:opacity-80 transition-opacity`}
+                >
                   View all {stepData.totalCount} tools →
-                </a>
+                </button>
               </div>
             </div>
           ))}
@@ -845,8 +854,13 @@ function RecommendedToolsSection() {
   );
 }
 
-function TopToolsSection() {
-  const [useCases, setUseCases] = useState<string[]>([]);
+function TopToolsSection({
+  useCases,
+  setUseCases,
+}: {
+  useCases: string[];
+  setUseCases: (v: string[]) => void;
+}) {
   const [pricingTypes, setPricingTypes] = useState<string[]>([]);
   const [bestForFilters, setBestForFilters] = useState<string[]>([]);
   const [integrations, setIntegrations] = useState<string[]>([]);
@@ -891,7 +905,7 @@ function TopToolsSection() {
   }
 
   return (
-    <section className="py-12 sm:py-16 bg-white">
+    <section id="top-tools" className="scroll-mt-24 py-12 sm:py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-8">
           <div>
@@ -1099,6 +1113,17 @@ function BestOfSection() {
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
 
 export default function ArchitecturePage() {
+  // Shared so the "Recommended Tools" step cards can pre-select a Use Case
+  // filter in the "Top Tools for Architecture Firms" section.
+  const [useCases, setUseCases] = useState<string[]>([]);
+
+  function selectUseCase(useCase: string) {
+    setUseCases([useCase]);
+    requestAnimationFrame(() =>
+      document.getElementById("top-tools")?.scrollIntoView({ behavior: "smooth", block: "start" }),
+    );
+  }
+
   return (
     <>
       <Navbar />
@@ -1107,8 +1132,8 @@ export default function ArchitecturePage() {
         <HeroSection />
         <ChallengesSection />
         <WorkflowSection />
-        <RecommendedToolsSection />
-        <TopToolsSection />
+        <RecommendedToolsSection onSelectUseCase={selectUseCase} />
+        <TopToolsSection useCases={useCases} setUseCases={setUseCases} />
         <RealResultsSection />
         <BestOfSection />
       </main>
