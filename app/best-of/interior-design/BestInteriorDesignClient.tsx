@@ -118,7 +118,7 @@ const COMPARE_TOOLS = [
   { name: "RoomGPT", slug: "roomgpt", href: "/ai-tools/roomgpt",    logoBg: "bg-gray-900",   logoText: "RG", bestFor: "Quick Concepts",     ease: 9.6, features: 8.2, quality: 8.3, price: 8.6, overall: 8.7 },
   { name: "Coohom", slug: "coohom", href: "/ai-tools/coohom",     logoBg: "bg-blue-500",   logoText: "C",  bestFor: "3D Visualization",   ease: 8.7, features: 9.3, quality: 9.2, price: 8.1, overall: 8.8 },
   { name: "Homestyler", slug: "homestyler", href: "/ai-tools/homestyler", logoBg: "bg-gradient-to-br from-red-400 via-yellow-400 to-green-400", logoText: "H", bestFor: "Homeowners", ease: 9.1, features: 8.4, quality: 8.6, price: 9.0, overall: 8.7 },
-  { name: "Foyr Neo", slug: "foyr-neo", href: "/ai-tools/foyr-neo",   logoBg: "bg-gray-900",   logoText: "FN", bestFor: "Professional Use",   ease: 8.3, features: 9.1, quality: 9.3, price: 7.9, overall: 8.6 },
+  { name: "Foyr", slug: "foyr", href: "/tools/foyr",   logoBg: "bg-gray-900",   logoText: "FN", bestFor: "Professional Use",   ease: 8.3, features: 9.1, quality: 9.3, price: 7.9, overall: 8.6 },
 ];
 
 const MAX_OVERALL = Math.max(...COMPARE_TOOLS.map((t) => t.overall));
@@ -136,11 +136,11 @@ const FAQ_ITEMS = [
   },
   {
     q: "Can these tools create photorealistic renders?",
-    a: "Yes. Coohom and Foyr Neo specialise in photorealistic 3D rendering, delivering high-quality visuals suitable for professional client presentations.",
+    a: "Yes. Coohom and Foyr specialise in photorealistic 3D rendering, delivering high-quality visuals suitable for professional client presentations.",
   },
   {
     q: "Do these tools work on Mac and Windows?",
-    a: "Most tools in this list are browser-based and work on any platform. Foyr Neo and Coohom also offer desktop applications for both Mac and Windows.",
+    a: "Most tools in this list are browser-based and work on any platform. Foyr and Coohom also offer desktop applications for both Mac and Windows.",
   },
 ];
 
@@ -522,11 +522,11 @@ export default function BestInteriorDesignToolsPage() {
     affiliateHref: "#" },
               { label: "Best for 3D Rendering",           labelClass: "text-purple-600",  logoBg: "bg-blue-500",  logoText: "C",  name: "Coohom",     slug: "coohom",     desc: "High-quality 3D renders in minutes.",             href: "/ai-tools/coohom",
     affiliateHref: "#" },
-              { label: "Best for Client Presentations",   labelClass: "text-red-500",     logoBg: "bg-gray-900",  logoText: "FN", name: "Foyr Neo",   slug: "foyr-neo",   desc: "Stunning visuals that impress clients.",          href: "/ai-tools/foyr-neo",
+              { label: "Best for Client Presentations",   labelClass: "text-red-500",     logoBg: "bg-gray-900",  logoText: "FN", name: "Foyr",   slug: "foyr",   desc: "Stunning visuals that impress clients.",          href: "/tools/foyr",
     affiliateHref: "#" },
               { label: "Best for Material & Furniture",   labelClass: "text-orange-600",  logoBg: "bg-gradient-to-br from-red-400 via-yellow-400 to-green-400", logoText: "H", name: "Homestyler", slug: "homestyler", desc: "Huge library of models and materials.", href: "/ai-tools/homestyler",
     affiliateHref: "#" },
-              { label: "Best for Ecommerce Content",      labelClass: "text-indigo-600",  logoBg: "bg-gray-900",  logoText: "FN", name: "Foyr Neo",   slug: "foyr-neo",   desc: "Create product visuals and catalog images.",      href: "/ai-tools/foyr-neo",
+              { label: "Best for Ecommerce Content",      labelClass: "text-indigo-600",  logoBg: "bg-gray-900",  logoText: "FN", name: "Foyr",   slug: "foyr",   desc: "Create product visuals and catalog images.",      href: "/tools/foyr",
     affiliateHref: "#" },
             ].map((card) => (
               <div key={card.label} className="border border-gray-100 rounded-xl p-4 bg-white text-center flex flex-col items-center hover:shadow-md transition-shadow">
