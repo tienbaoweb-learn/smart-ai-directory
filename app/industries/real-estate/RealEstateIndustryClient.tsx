@@ -413,6 +413,31 @@ const TOP_TOOLS = [
   },
 ];
 
+// Filter metadata per tool (keyed by name) — drives the left-column filters.
+const TOOL_FILTER_META: Record<
+  string,
+  { useCases: string[]; bestForTags: string[]; integrationTags: string[] }
+> = {
+  "Insightful": { useCases: ["Client Follow-up","Market Analysis"], bestForTags: ["Brokerages","Property Managers"], integrationTags: ["Others"] },
+  "Joiin": { useCases: ["Market Analysis","Property Valuation"], bestForTags: ["Real Estate Investors","Brokerages"], integrationTags: ["Others"] },
+  "Midjourney": { useCases: ["Virtual Staging","Social Media"], bestForTags: ["Real Estate Agents","New Agents"], integrationTags: ["Others"] },
+  "CustomGPT.ai": { useCases: ["Client Follow-up","Listing Copywriting"], bestForTags: ["Real Estate Agents","Brokerages"], integrationTags: ["Others"] },
+  "Homesage AI": { useCases: ["Property Valuation","Market Analysis"], bestForTags: ["Real Estate Agents","Real Estate Investors"], integrationTags: ["Others"] },
+  "Jasper AI": { useCases: ["Listing Copywriting","Social Media"], bestForTags: ["Real Estate Agents","New Agents"], integrationTags: ["Others"] },
+  "Buzz.ai": { useCases: ["Lead Generation","Client Follow-up"], bestForTags: ["Real Estate Agents","Brokerages"], integrationTags: ["Others"] },
+  "Collov AI": { useCases: ["Virtual Staging"], bestForTags: ["Real Estate Agents","Property Managers"], integrationTags: ["Others"] },
+};
+
+function pricingTypeOf(price: string): "Free" | "Freemium" | "Paid" {
+  const p = price.toLowerCase();
+  if (p.includes("free")) return /\$|month|premium|pro/.test(p) ? "Freemium" : "Free";
+  return "Paid";
+}
+function priceValueOf(price: string): number | null {
+  const m = price.match(/\$\s*(\d+(?:\.\d+)?)/);
+  return m ? Math.round(Number(m[1])) : null;
+}
+
 // ─── REAL RESULTS DATA ────────────────────────────────────────────────────────
 
 const CASE_STUDIES = [
@@ -805,6 +830,7 @@ function TopToolsSection() {
   const [bestForFilters, setBestForFilters] = useState<string[]>([]);
   const [integrations, setIntegrations] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState(200);
+  const [sortBy, setSortBy] = useState("Featured");
 
   function toggle(list: string[], setList: (v: string[]) => void, label: string) {
     setList(list.includes(label) ? list.filter((x) => x !== label) : [...list, label]);
@@ -818,6 +844,23 @@ function TopToolsSection() {
     setPriceRange(200);
   }
 
+  // Apply the left-column filters.
+  let visibleTools = TOP_TOOLS.filter((tool) => {
+    const meta = TOOL_FILTER_META[tool.name] ?? { useCases: [], bestForTags: [], integrationTags: [] };
+    if (useCases.length && !useCases.some((u) => meta.useCases.includes(u))) return false;
+    if (pricingTypes.length && !pricingTypes.includes(pricingTypeOf(tool.price))) return false;
+    if (bestForFilters.length && !bestForFilters.some((b) => meta.bestForTags.includes(b))) return false;
+    if (integrations.length && !integrations.some((i) => meta.integrationTags.includes(i))) return false;
+    const pv = priceValueOf(tool.price);
+    if (pv !== null && pv > priceRange) return false;
+    return true;
+  });
+  if (sortBy === "Highest Rated" || sortBy === "Most Reviews") {
+    visibleTools = [...visibleTools].sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating));
+  } else if (sortBy === "Lowest Price") {
+    visibleTools = [...visibleTools].sort((a, b) => (priceValueOf(a.price) ?? Infinity) - (priceValueOf(b.price) ?? Infinity));
+  }
+
   return (
     <section className="py-12 sm:py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -828,7 +871,7 @@ function TopToolsSection() {
           <div className="flex items-center gap-2 shrink-0">
             <span className="text-sm text-gray-500">Sort by:</span>
             <div className="relative">
-              <select className="appearance-none bg-white border border-gray-200 rounded-lg text-sm font-semibold text-[#1E293B] pl-3 pr-8 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600/30 cursor-pointer">
+              <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="appearance-none bg-white border border-gray-200 rounded-lg text-sm font-semibold text-[#1E293B] pl-3 pr-8 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600/30 cursor-pointer">
                 <option>Featured</option>
                 <option>Highest Rated</option>
                 <option>Most Reviews</option>
@@ -874,8 +917,13 @@ function TopToolsSection() {
             </div>
           </div>
 
-          <div className="lg:col-span-3 space-y-4">
-            {TOP_TOOLS.map((tool) => (
+          <div className="lg:col-span-3 grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {visibleTools.length === 0 && (
+              <div className="lg:col-span-2 text-center py-12 text-sm text-gray-400 border border-dashed border-gray-200 rounded-2xl">
+                No tools match your filters. Try adjusting them.
+              </div>
+            )}
+            {visibleTools.map((tool) => (
               <div key={tool.name} className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex justify-between items-start mb-3">
                   <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-extrabold ${tool.rank === 1 ? "bg-amber-400 text-white" : tool.rank === 2 ? "bg-gray-400 text-white" : "bg-gray-200 text-gray-700"}`}>

@@ -416,6 +416,31 @@ const TOP_TOOLS = [
   },
 ];
 
+// Filter metadata per tool (keyed by name) — drives the left-column filters.
+const TOOL_FILTER_META: Record<
+  string,
+  { useCases: string[]; bestForTags: string[]; integrationTags: string[] }
+> = {
+  "Jasper AI": { useCases: ["Product Descriptions","Catalog Generation"], bestForTags: ["Furniture Retailers","Ecommerce Sellers"], integrationTags: ["Shopify","WooCommerce"] },
+  "Collov AI": { useCases: ["Room Scene Creation","Product Photography"], bestForTags: ["Furniture Retailers","Interior Brands"], integrationTags: ["Others"] },
+  "involve.me": { useCases: ["Ecommerce Optimization","Product Descriptions"], bestForTags: ["Ecommerce Sellers","Furniture Retailers"], integrationTags: ["Shopify","WooCommerce"] },
+  "Planner 5D": { useCases: ["3D Modeling","Room Scene Creation"], bestForTags: ["Furniture Designers","Interior Brands"], integrationTags: ["Others"] },
+  "Pricefy": { useCases: ["Ecommerce Optimization"], bestForTags: ["Ecommerce Sellers","Furniture Retailers"], integrationTags: ["Shopify","WooCommerce"] },
+  "SearchAtlas": { useCases: ["Ecommerce Optimization","Product Descriptions"], bestForTags: ["Ecommerce Sellers"], integrationTags: ["Others"] },
+  "Signeasy": { useCases: ["Catalog Generation"], bestForTags: ["Furniture Manufacturers","Furniture Retailers"], integrationTags: ["Others"] },
+  "AI Home Design": { useCases: ["Room Scene Creation","Product Photography"], bestForTags: ["Interior Brands","Furniture Designers"], integrationTags: ["Others"] },
+};
+
+function pricingTypeOf(price: string): "Free" | "Freemium" | "Paid" {
+  const p = price.toLowerCase();
+  if (p.includes("free")) return /\$|month|premium|pro/.test(p) ? "Freemium" : "Free";
+  return "Paid";
+}
+function priceValueOf(price: string): number | null {
+  const m = price.match(/\$\s*(\d+(?:\.\d+)?)/);
+  return m ? Math.round(Number(m[1])) : null;
+}
+
 // ─── REAL RESULTS DATA ────────────────────────────────────────────────────────
 
 const CASE_STUDIES = [
@@ -840,6 +865,23 @@ function TopToolsSection() {
     setSortBy("Featured");
   }
 
+  // Apply the left-column filters.
+  let visibleTools = TOP_TOOLS.filter((tool) => {
+    const meta = TOOL_FILTER_META[tool.name] ?? { useCases: [], bestForTags: [], integrationTags: [] };
+    if (useCases.length && !useCases.some((u) => meta.useCases.includes(u))) return false;
+    if (pricingTypes.length && !pricingTypes.includes(pricingTypeOf(tool.price))) return false;
+    if (bestForFilters.length && !bestForFilters.some((b) => meta.bestForTags.includes(b))) return false;
+    if (integrations.length && !integrations.some((i) => meta.integrationTags.includes(i))) return false;
+    const pv = priceValueOf(tool.price);
+    if (pv !== null && pv > priceRange) return false;
+    return true;
+  });
+  if (sortBy === "Highest Rated" || sortBy === "Most Reviews") {
+    visibleTools = [...visibleTools].sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating));
+  } else if (sortBy === "Lowest Price") {
+    visibleTools = [...visibleTools].sort((a, b) => (priceValueOf(a.price) ?? Infinity) - (priceValueOf(b.price) ?? Infinity));
+  }
+
   return (
     <section id="top-tools" className="py-12 sm:py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -903,8 +945,13 @@ function TopToolsSection() {
           </div>
 
           {/* Tool cards */}
-          <div className="lg:col-span-3 space-y-4">
-            {TOP_TOOLS.map((tool) => (
+          <div className="lg:col-span-3 grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {visibleTools.length === 0 && (
+              <div className="lg:col-span-2 text-center py-12 text-sm text-gray-400 border border-dashed border-gray-200 rounded-2xl">
+                No tools match your filters. Try adjusting them.
+              </div>
+            )}
+            {visibleTools.map((tool) => (
               <div key={tool.name} className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow">
                 {/* Rank + pricing */}
                 <div className="flex justify-between items-start mb-3">
