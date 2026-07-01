@@ -191,10 +191,10 @@ const STEP_TOOLS_DATA = [
     headerText: "text-purple-700",
     totalCount: 10,
     tools: [
-      { name: "HouseCanary", rating: "4.8", initials: "HC", iconBg: "bg-purple-600" },
+      { name: "HouseCanary", slug: "house-canary", rating: "4.8", initials: "HC", iconBg: "bg-purple-600" },
       { name: "ManyChat", rating: "4.7", initials: "MC", iconBg: "bg-blue-500" },
-      { name: "Copy.ai", rating: "4.6", initials: "C", iconBg: "bg-blue-600" },
-      { name: "Jasper", rating: "4.5", initials: "J", iconBg: "bg-orange-500" },
+      { name: "Copy.ai", slug: "copy-ai", rating: "4.6", initials: "C", iconBg: "bg-blue-600" },
+      { name: "Jasper", slug: "jasper-ai", rating: "4.5", initials: "J", iconBg: "bg-orange-500" },
     ],
   },
   {
@@ -205,10 +205,10 @@ const STEP_TOOLS_DATA = [
     headerText: "text-orange-600",
     totalCount: 9,
     tools: [
-      { name: "Copy.ai", rating: "4.8", initials: "C", iconBg: "bg-blue-600" },
-      { name: "Jasper", rating: "4.7", initials: "J", iconBg: "bg-orange-500" },
-      { name: "ChatGPT", rating: "4.7", initials: "GP", iconBg: "bg-[#10A37F]" },
-      { name: "Canva AI", rating: "4.6", initials: "CA", iconBg: "bg-[#0CC0DF]" },
+      { name: "Copy.ai", slug: "copy-ai", rating: "4.8", initials: "C", iconBg: "bg-blue-600" },
+      { name: "Jasper", slug: "jasper-ai", rating: "4.7", initials: "J", iconBg: "bg-orange-500" },
+      { name: "ChatGPT", slug: "chatgpt", rating: "4.7", initials: "GP", iconBg: "bg-[#10A37F]" },
+      { name: "Canva AI", slug: "canva-ai", rating: "4.6", initials: "CA", iconBg: "bg-[#0CC0DF]" },
     ],
   },
   {
@@ -219,10 +219,10 @@ const STEP_TOOLS_DATA = [
     headerText: "text-violet-700",
     totalCount: 8,
     tools: [
-      { name: "REimagineHome", rating: "4.8", initials: "RH", iconBg: "bg-[#FF6B6B]" },
-      { name: "Virtual Staging AI", rating: "4.7", initials: "VS", iconBg: "bg-violet-600" },
-      { name: "Canva AI", rating: "4.6", initials: "CA", iconBg: "bg-[#0CC0DF]" },
-      { name: "Adobe Firefly", rating: "4.5", initials: "AF", iconBg: "bg-red-600" },
+      { name: "REimagineHome", slug: "reimagine-home", rating: "4.8", initials: "RH", iconBg: "bg-[#FF6B6B]" },
+      { name: "Virtual Staging AI", slug: "virtualstagingai", rating: "4.7", initials: "VS", iconBg: "bg-violet-600" },
+      { name: "Canva AI", slug: "canva-ai", rating: "4.6", initials: "CA", iconBg: "bg-[#0CC0DF]" },
+      { name: "Adobe Firefly", slug: "adobe-firefly", rating: "4.5", initials: "AF", iconBg: "bg-red-600" },
     ],
   },
   {
@@ -234,9 +234,9 @@ const STEP_TOOLS_DATA = [
     totalCount: 9,
     tools: [
       { name: "ManyChat", rating: "4.8", initials: "MC", iconBg: "bg-blue-500" },
-      { name: "ChatGPT", rating: "4.7", initials: "GP", iconBg: "bg-[#10A37F]" },
-      { name: "Notion AI", rating: "4.7", initials: "N", iconBg: "bg-gray-900" },
-      { name: "Shopify Magic", rating: "4.5", initials: "SM", iconBg: "bg-emerald-600" },
+      { name: "ChatGPT", slug: "chatgpt", rating: "4.7", initials: "GP", iconBg: "bg-[#10A37F]" },
+      { name: "Notion AI", slug: "notion-ai", rating: "4.7", initials: "N", iconBg: "bg-gray-900" },
+      { name: "Shopify Magic", slug: "shopify-magic", rating: "4.5", initials: "SM", iconBg: "bg-emerald-600" },
     ],
   },
 ];
@@ -808,10 +808,16 @@ function RecommendedToolsSection({
                 <p className={`text-xs sm:text-sm font-bold ${stepData.headerText} truncate`}>{stepData.step}</p>
               </div>
               <div className="divide-y divide-gray-50">
-                {stepData.tools.map((tool) => (
+                {stepData.tools.map((tool) => {
+                  const logoUrl = tool.slug ? TOOL_LOGO_URLS[tool.slug] : undefined;
+                  return (
                   <div key={tool.name} className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3">
-                    <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg ${tool.iconBg} flex items-center justify-center text-white text-[9px] sm:text-[10px] font-black shrink-0`}>
-                      {tool.initials}
+                    <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg overflow-hidden ${logoUrl ? "bg-white border border-gray-100 p-0.5" : tool.iconBg} flex items-center justify-center text-white text-[9px] sm:text-[10px] font-black shrink-0`}>
+                      {logoUrl ? (
+                        <Image src={logoUrl} alt={tool.name} width={32} height={32} className="object-contain w-full h-full" />
+                      ) : (
+                        tool.initials
+                      )}
                     </div>
                     <div className="min-w-0">
                       <p className="text-xs sm:text-sm font-semibold text-[#1E293B] truncate">{tool.name}</p>
@@ -822,7 +828,8 @@ function RecommendedToolsSection({
                       </div>
                     </div>
                   </div>
-                ))}
+                  );
+                })}
               </div>
               <div className="px-3 sm:px-4 py-2.5 sm:py-3 border-t border-gray-100">
                 {(() => {

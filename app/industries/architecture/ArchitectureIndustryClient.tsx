@@ -195,9 +195,9 @@ const STEP_TOOLS_DATA: { step: string; tab: string; stepNum: number; badgeColor:
     totalCount: 10,
     tools: [
       { name: "Midjourney", slug: "midjourney", rating: "4.8", initials: "MJ", iconBg: "bg-slate-800" },
-      { name: "ArchiVinci", rating: "4.7", initials: "AV", iconBg: "bg-blue-600" },
-      { name: "Archicad AI", rating: "4.6", initials: "AC", iconBg: "bg-blue-700" },
-      { name: "Adobe Firefly", rating: "4.5", initials: "AF", iconBg: "bg-red-600" },
+      { name: "ArchiVinci", slug: "archivinci", rating: "4.7", initials: "AV", iconBg: "bg-blue-600" },
+      { name: "Archicad AI", slug: "archicad-ai", rating: "4.6", initials: "AC", iconBg: "bg-blue-700" },
+      { name: "Adobe Firefly", slug: "adobe-firefly", rating: "4.5", initials: "AF", iconBg: "bg-red-600" },
     ],
   },
   {
@@ -208,9 +208,9 @@ const STEP_TOOLS_DATA: { step: string; tab: string; stepNum: number; badgeColor:
     headerText: "text-indigo-700",
     totalCount: 8,
     tools: [
-      { name: "Archicad AI", rating: "4.9", initials: "AC", iconBg: "bg-blue-700" },
-      { name: "Notion AI", rating: "4.7", initials: "N", iconBg: "bg-gray-900" },
-      { name: "Copy.ai", rating: "4.6", initials: "C", iconBg: "bg-blue-600" },
+      { name: "Archicad AI", slug: "archicad-ai", rating: "4.9", initials: "AC", iconBg: "bg-blue-700" },
+      { name: "Notion AI", slug: "notion-ai", rating: "4.7", initials: "N", iconBg: "bg-gray-900" },
+      { name: "Copy.ai", slug: "copy-ai", rating: "4.6", initials: "C", iconBg: "bg-blue-600" },
       { name: "Pixelcut", rating: "4.5", initials: "PX", iconBg: "bg-indigo-600" },
     ],
   },
@@ -223,9 +223,9 @@ const STEP_TOOLS_DATA: { step: string; tab: string; stepNum: number; badgeColor:
     totalCount: 10,
     tools: [
       { name: "D5 Render", slug: "d5-render", rating: "4.9", initials: "D5", iconBg: "bg-purple-600" },
-      { name: "Twinmotion AI", rating: "4.8", initials: "TM", iconBg: "bg-blue-500" },
-      { name: "Veras", rating: "4.7", initials: "V", iconBg: "bg-teal-500" },
-      { name: "Adobe Firefly", rating: "4.6", initials: "AF", iconBg: "bg-red-600" },
+      { name: "Twinmotion AI", slug: "twinmotion-ai", rating: "4.8", initials: "TM", iconBg: "bg-blue-500" },
+      { name: "Veras", slug: "veras", rating: "4.7", initials: "V", iconBg: "bg-teal-500" },
+      { name: "Adobe Firefly", slug: "adobe-firefly", rating: "4.6", initials: "AF", iconBg: "bg-red-600" },
     ],
   },
   {
@@ -236,9 +236,9 @@ const STEP_TOOLS_DATA: { step: string; tab: string; stepNum: number; badgeColor:
     headerText: "text-emerald-700",
     totalCount: 9,
     tools: [
-      { name: "Canva AI", rating: "4.9", initials: "CA", iconBg: "bg-[#0CC0DF]" },
-      { name: "Notion AI", rating: "4.8", initials: "N", iconBg: "bg-gray-900" },
-      { name: "Copy.ai", rating: "4.7", initials: "C", iconBg: "bg-blue-600" },
+      { name: "Canva AI", slug: "canva-ai", rating: "4.9", initials: "CA", iconBg: "bg-[#0CC0DF]" },
+      { name: "Notion AI", slug: "notion-ai", rating: "4.8", initials: "N", iconBg: "bg-gray-900" },
+      { name: "Copy.ai", slug: "copy-ai", rating: "4.7", initials: "C", iconBg: "bg-blue-600" },
       { name: "ManyChat", rating: "4.5", initials: "MC", iconBg: "bg-blue-500" },
     ],
   },

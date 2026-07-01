@@ -197,9 +197,9 @@ const STEP_TOOLS_DATA: { step: string; tab: string; stepNum: number; badgeColor:
     totalCount: 10,
     tools: [
       { name: "Midjourney", slug: "midjourney", rating: "4.9", initials: "MJ", iconBg: "bg-gray-900" },
-      { name: "Canva AI", rating: "4.8", initials: "CA", iconBg: "bg-[#0CC0DF]" },
-      { name: "Adobe Firefly", rating: "4.7", initials: "AF", iconBg: "bg-orange-500" },
-      { name: "Moodboard AI", rating: "4.6", initials: "MB", iconBg: "bg-pink-500" },
+      { name: "Canva AI", slug: "canva-ai", rating: "4.8", initials: "CA", iconBg: "bg-[#0CC0DF]" },
+      { name: "Adobe Firefly", slug: "adobe-firefly", rating: "4.7", initials: "AF", iconBg: "bg-orange-500" },
+      { name: "Moodboard AI", slug: "moodboard-ai", rating: "4.6", initials: "MB", iconBg: "bg-pink-500" },
     ],
   },
   {
@@ -211,8 +211,8 @@ const STEP_TOOLS_DATA: { step: string; tab: string; stepNum: number; badgeColor:
     totalCount: 8,
     tools: [
       { name: "Planner 5D", slug: "planner-5d", rating: "4.8", initials: "P5", iconBg: "bg-[#35966a]" },
-      { name: "RoomGPT", rating: "4.7", initials: "RG", iconBg: "bg-purple-600" },
-      { name: "Homestyler", rating: "4.6", initials: "H", iconBg: "bg-teal-500" },
+      { name: "RoomGPT", slug: "roomgpt", rating: "4.7", initials: "RG", iconBg: "bg-purple-600" },
+      { name: "Homestyler", slug: "homestyler", rating: "4.6", initials: "H", iconBg: "bg-teal-500" },
       { name: "Coohom", rating: "4.6", initials: "C", iconBg: "bg-blue-600" },
     ],
   },
@@ -227,7 +227,7 @@ const STEP_TOOLS_DATA: { step: string; tab: string; stepNum: number; badgeColor:
       { name: "Foyr", slug: "foyr", href: "/tools/foyr", rating: "4.8", initials: "FN", iconBg: "bg-indigo-600" },
       { name: "Coohom", rating: "4.7", initials: "C", iconBg: "bg-blue-600" },
       { name: "Planner 5D", slug: "planner-5d", rating: "4.8", initials: "P5", iconBg: "bg-[#35966a]" },
-      { name: "SketchUp AI", rating: "4.6", initials: "SK", iconBg: "bg-red-500" },
+      { name: "SketchUp AI", slug: "sketchup-ai", rating: "4.6", initials: "SK", iconBg: "bg-red-500" },
     ],
   },
   {
@@ -238,10 +238,10 @@ const STEP_TOOLS_DATA: { step: string; tab: string; stepNum: number; badgeColor:
     headerText: "text-emerald-700",
     totalCount: 7,
     tools: [
-      { name: "Canva AI", rating: "4.9", initials: "CA", iconBg: "bg-[#0CC0DF]" },
-      { name: "Gamma", rating: "4.8", initials: "G", iconBg: "bg-violet-600" },
-      { name: "Jasper", rating: "4.7", initials: "J", iconBg: "bg-orange-500" },
-      { name: "Beautiful.ai", rating: "4.6", initials: "BA", iconBg: "bg-emerald-600" },
+      { name: "Canva AI", slug: "canva-ai", rating: "4.9", initials: "CA", iconBg: "bg-[#0CC0DF]" },
+      { name: "Gamma", slug: "gamma", rating: "4.8", initials: "G", iconBg: "bg-violet-600" },
+      { name: "Jasper", slug: "jasper-ai", rating: "4.7", initials: "J", iconBg: "bg-orange-500" },
+      { name: "Beautiful.ai", slug: "beautiful-ai", rating: "4.6", initials: "BA", iconBg: "bg-emerald-600" },
     ],
   },
 ];

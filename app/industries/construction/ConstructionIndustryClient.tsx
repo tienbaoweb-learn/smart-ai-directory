@@ -193,10 +193,10 @@ const STEP_TOOLS_DATA = [
     headerText: "text-[#6484A4]",
     totalCount: 11,
     tools: [
-      { name: "Procore AI", rating: "4.8", initials: "PC", iconBg: "bg-orange-600" },
-      { name: "ALICE Technologies", rating: "4.7", initials: "AT", iconBg: "bg-blue-700" },
-      { name: "Notion AI", rating: "4.7", initials: "N", iconBg: "bg-gray-900" },
-      { name: "Copy.ai", rating: "4.6", initials: "C", iconBg: "bg-blue-600" },
+      { name: "Procore AI", slug: "procore-ai", rating: "4.8", initials: "PC", iconBg: "bg-orange-600" },
+      { name: "ALICE Technologies", slug: "alice-technologies", rating: "4.7", initials: "AT", iconBg: "bg-blue-700" },
+      { name: "Notion AI", slug: "notion-ai", rating: "4.7", initials: "N", iconBg: "bg-gray-900" },
+      { name: "Copy.ai", slug: "copy-ai", rating: "4.6", initials: "C", iconBg: "bg-blue-600" },
     ],
   },
   {
@@ -207,10 +207,10 @@ const STEP_TOOLS_DATA = [
     headerText: "text-amber-600",
     totalCount: 9,
     tools: [
-      { name: "Buildots", rating: "4.8", initials: "BD", iconBg: "bg-amber-500" },
-      { name: "OpenSpace", rating: "4.7", initials: "OS", iconBg: "bg-blue-500" },
-      { name: "Doxel", rating: "4.6", initials: "DX", iconBg: "bg-indigo-600" },
-      { name: "PlanGrid", rating: "4.5", initials: "PG", iconBg: "bg-emerald-600" },
+      { name: "Buildots", slug: "buildots", rating: "4.8", initials: "BD", iconBg: "bg-amber-500" },
+      { name: "OpenSpace", slug: "open-space", rating: "4.7", initials: "OS", iconBg: "bg-blue-500" },
+      { name: "Doxel", slug: "doxel", rating: "4.6", initials: "DX", iconBg: "bg-indigo-600" },
+      { name: "PlanGrid", slug: "plangrid", rating: "4.5", initials: "PG", iconBg: "bg-emerald-600" },
     ],
   },
   {
@@ -221,10 +221,10 @@ const STEP_TOOLS_DATA = [
     headerText: "text-blue-700",
     totalCount: 10,
     tools: [
-      { name: "Procore AI", rating: "4.8", initials: "PC", iconBg: "bg-orange-600" },
-      { name: "PlanGrid", rating: "4.7", initials: "PG", iconBg: "bg-emerald-600" },
-      { name: "Fieldwire", rating: "4.6", initials: "FW", iconBg: "bg-blue-600" },
-      { name: "Microsoft Copilot", rating: "4.5", initials: "MC", iconBg: "bg-blue-700" },
+      { name: "Procore AI", slug: "procore-ai", rating: "4.8", initials: "PC", iconBg: "bg-orange-600" },
+      { name: "PlanGrid", slug: "plangrid", rating: "4.7", initials: "PG", iconBg: "bg-emerald-600" },
+      { name: "Fieldwire", slug: "fieldwire", rating: "4.6", initials: "FW", iconBg: "bg-blue-600" },
+      { name: "Microsoft Copilot", slug: "microsoft-copilot", rating: "4.5", initials: "MC", iconBg: "bg-blue-700" },
     ],
   },
   {
@@ -235,10 +235,10 @@ const STEP_TOOLS_DATA = [
     headerText: "text-emerald-700",
     totalCount: 8,
     tools: [
-      { name: "Canva AI", rating: "4.9", initials: "CA", iconBg: "bg-[#0CC0DF]" },
-      { name: "Notion AI", rating: "4.8", initials: "N", iconBg: "bg-gray-900" },
-      { name: "Jasper", rating: "4.7", initials: "J", iconBg: "bg-orange-500" },
-      { name: "Copy.ai", rating: "4.6", initials: "C", iconBg: "bg-blue-600" },
+      { name: "Canva AI", slug: "canva-ai", rating: "4.9", initials: "CA", iconBg: "bg-[#0CC0DF]" },
+      { name: "Notion AI", slug: "notion-ai", rating: "4.8", initials: "N", iconBg: "bg-gray-900" },
+      { name: "Jasper", slug: "jasper-ai", rating: "4.7", initials: "J", iconBg: "bg-orange-500" },
+      { name: "Copy.ai", slug: "copy-ai", rating: "4.6", initials: "C", iconBg: "bg-blue-600" },
     ],
   },
 ];
@@ -803,10 +803,16 @@ function RecommendedToolsSection({
                 <p className={`text-xs sm:text-sm font-bold ${stepData.headerText} truncate`}>{stepData.step}</p>
               </div>
               <div className="divide-y divide-gray-50">
-                {stepData.tools.map((tool) => (
+                {stepData.tools.map((tool) => {
+                  const logoUrl = tool.slug ? TOOL_LOGO_URLS[tool.slug] : undefined;
+                  return (
                   <div key={tool.name} className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3">
-                    <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg ${tool.iconBg} flex items-center justify-center text-white text-[9px] sm:text-[10px] font-black shrink-0`}>
-                      {tool.initials}
+                    <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg overflow-hidden ${logoUrl ? "bg-white border border-gray-100 p-0.5" : tool.iconBg} flex items-center justify-center text-white text-[9px] sm:text-[10px] font-black shrink-0`}>
+                      {logoUrl ? (
+                        <Image src={logoUrl} alt={tool.name} width={32} height={32} className="object-contain w-full h-full" />
+                      ) : (
+                        tool.initials
+                      )}
                     </div>
                     <div className="min-w-0">
                       <p className="text-xs sm:text-sm font-semibold text-[#1E293B] truncate">{tool.name}</p>
@@ -817,7 +823,8 @@ function RecommendedToolsSection({
                       </div>
                     </div>
                   </div>
-                ))}
+                  );
+                })}
               </div>
               <div className="px-3 sm:px-4 py-2.5 sm:py-3 border-t border-gray-100">
                 {useCaseLabels.has(stepData.step) ? (

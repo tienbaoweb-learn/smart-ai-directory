@@ -197,7 +197,7 @@ const STEP_TOOLS_DATA = [
     tools: [
       { name: "Photoroom", rating: "4.7", initials: "PR", iconBg: "bg-black" },
       { name: "Remove.bg", rating: "4.8", initials: "RB", iconBg: "bg-green-600" },
-      { name: "Pebblely", rating: "4.6", initials: "PB", iconBg: "bg-purple-500" },
+      { name: "Pebblely", slug: "pebblely", rating: "4.6", initials: "PB", iconBg: "bg-purple-500" },
       { name: "Clipping Magic", rating: "4.5", initials: "CM", iconBg: "bg-blue-600" },
     ],
   },
@@ -209,10 +209,10 @@ const STEP_TOOLS_DATA = [
     headerText: "text-amber-600",
     totalCount: 8,
     tools: [
-      { name: "Roomvo", rating: "4.8", initials: "RV", iconBg: "bg-[#e67e22]" },
-      { name: "Zakeke", rating: "4.7", initials: "ZK", iconBg: "bg-purple-600" },
+      { name: "Roomvo", slug: "roomvo", rating: "4.8", initials: "RV", iconBg: "bg-[#e67e22]" },
+      { name: "Zakeke", slug: "zakeke", rating: "4.7", initials: "ZK", iconBg: "bg-purple-600" },
       { name: "Cylindo", rating: "4.6", initials: "CY", iconBg: "bg-amber-600" },
-      { name: "Marxent", rating: "4.5", initials: "MX", iconBg: "bg-blue-700" },
+      { name: "Marxent", slug: "marxent", rating: "4.5", initials: "MX", iconBg: "bg-blue-700" },
     ],
   },
   {
@@ -223,10 +223,10 @@ const STEP_TOOLS_DATA = [
     headerText: "text-blue-700",
     totalCount: 11,
     tools: [
-      { name: "Jasper", rating: "4.6", initials: "J", iconBg: "bg-purple-700" },
-      { name: "Copy.ai", rating: "4.6", initials: "C", iconBg: "bg-blue-600" },
-      { name: "Canva AI", rating: "4.6", initials: "CA", iconBg: "bg-cyan-500" },
-      { name: "Writesonic", rating: "4.5", initials: "WS", iconBg: "bg-emerald-600" },
+      { name: "Jasper", slug: "jasper-ai", rating: "4.6", initials: "J", iconBg: "bg-purple-700" },
+      { name: "Copy.ai", slug: "copy-ai", rating: "4.6", initials: "C", iconBg: "bg-blue-600" },
+      { name: "Canva AI", slug: "canva-ai", rating: "4.6", initials: "CA", iconBg: "bg-cyan-500" },
+      { name: "Writesonic", slug: "writesonic", rating: "4.5", initials: "WS", iconBg: "bg-emerald-600" },
     ],
   },
   {
@@ -237,10 +237,10 @@ const STEP_TOOLS_DATA = [
     headerText: "text-emerald-700",
     totalCount: 9,
     tools: [
-      { name: "Shopify Magic", rating: "4.7", initials: "SM", iconBg: "bg-green-600" },
-      { name: "DataFeedWatch", rating: "4.6", initials: "DF", iconBg: "bg-blue-600" },
-      { name: "Jasper", rating: "4.6", initials: "J", iconBg: "bg-purple-700" },
-      { name: "Canva AI", rating: "4.6", initials: "CA", iconBg: "bg-cyan-500" },
+      { name: "Shopify Magic", slug: "shopify-magic", rating: "4.7", initials: "SM", iconBg: "bg-green-600" },
+      { name: "DataFeedWatch", slug: "datafeedwatch", rating: "4.6", initials: "DF", iconBg: "bg-blue-600" },
+      { name: "Jasper", slug: "jasper-ai", rating: "4.6", initials: "J", iconBg: "bg-purple-700" },
+      { name: "Canva AI", slug: "canva-ai", rating: "4.6", initials: "CA", iconBg: "bg-cyan-500" },
     ],
   },
 ];
@@ -828,10 +828,16 @@ function RecommendedToolsSection({
                 <p className={`text-xs sm:text-sm font-bold ${stepData.headerText} truncate`}>{stepData.step}</p>
               </div>
               <div className="divide-y divide-gray-50">
-                {stepData.tools.map((tool) => (
+                {stepData.tools.map((tool) => {
+                  const logoUrl = tool.slug ? TOOL_LOGO_URLS[tool.slug] : undefined;
+                  return (
                   <div key={tool.name} className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3">
-                    <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg ${tool.iconBg} flex items-center justify-center text-white text-[9px] sm:text-[10px] font-black shrink-0`}>
-                      {tool.initials}
+                    <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg overflow-hidden ${logoUrl ? "bg-white border border-gray-100 p-0.5" : tool.iconBg} flex items-center justify-center text-white text-[9px] sm:text-[10px] font-black shrink-0`}>
+                      {logoUrl ? (
+                        <Image src={logoUrl} alt={tool.name} width={32} height={32} className="object-contain w-full h-full" />
+                      ) : (
+                        tool.initials
+                      )}
                     </div>
                     <div className="min-w-0">
                       <p className="text-xs sm:text-sm font-semibold text-[#1E293B] truncate">{tool.name}</p>
@@ -842,7 +848,8 @@ function RecommendedToolsSection({
                       </div>
                     </div>
                   </div>
-                ))}
+                  );
+                })}
               </div>
               <div className="px-3 sm:px-4 py-2.5 sm:py-3 border-t border-gray-100">
                 {STEP_USE_CASES[stepData.step] ? (
