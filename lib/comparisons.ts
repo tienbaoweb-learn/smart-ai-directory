@@ -170,6 +170,122 @@ export const comparisons: Comparison[] = [
     ],
     related: [],
   },
+  {
+    slug: "architectgpt-vs-sketchup-diffusion",
+    toolASlug: "architectgpt",
+    toolBSlug: "sketchup-diffusion",
+    niche: "architecture",
+    verdict:
+      "ArchitectGPT and SketchUp Diffusion both turn a design into an AI render, but ArchitectGPT renders from any uploaded image while SketchUp Diffusion renders straight from your SketchUp model — pick by whether you model in SketchUp.",
+    tldr: "ArchitectGPT and SketchUp Diffusion (now called AI Render) both use AI to turn a design into a render, but they fit different workflows. SketchUp Diffusion lives inside SketchUp and renders from your 3D model's viewport, so it's the natural choice if you already model there. ArchitectGPT is browser-based and renders from any uploaded image — a sketch, photo, or screenshot — so it works whether or not you use SketchUp. Best for SketchUp modellers: SketchUp Diffusion. Best for rendering from any image, tool-independent: ArchitectGPT.",
+    sections: {
+      features: {
+        body: "SketchUp Diffusion captures your model's current view and combines it with a text prompt or preset style, with a slider that controls how closely the AI follows your actual geometry, plus tools to erase, paint, and sketch on the result. Because it reads your 3D geometry, it keeps proportions truer to your model. ArchitectGPT works from a flat image rather than a live model, applying styles to whatever you upload — more flexible on inputs, but less geometry-aware.",
+        edge: "tie",
+      },
+      pricing: {
+        body: "SketchUp Diffusion isn't sold separately — it's bundled with a paid SketchUp subscription and capped by a monthly AI-credit allowance, so its real cost depends on whether you already pay for SketchUp. ArchitectGPT is a standalone browser subscription you can start without any other software. If you're already a SketchUp subscriber, Diffusion is effectively included until you hit the credit cap; if you're not, ArchitectGPT avoids paying for SketchUp just to render.",
+        edge: "tie",
+      },
+      easeOfUse: {
+        body: "SketchUp Diffusion is frictionless if you live in SketchUp — a few clicks from your model — but it requires a recent SketchUp version, a Trimble login, and the credit system limits experimentation. ArchitectGPT needs no install: open the browser, upload an image, generate. For SketchUp users the in-app flow is smoother; for everyone else ArchitectGPT is the lower barrier to entry.",
+        edge: "tie",
+      },
+      useCases: {
+        body: "ArchitectGPT fits anyone who doesn't use SketchUp, or who wants to render from a sketch, photo, or exported image regardless of modelling tool. SketchUp Diffusion fits SketchUp users who want fast, geometry-aware concept renders without leaving the app. Both are better for early-stage concept work than final photorealistic client deliverables.",
+        edge: "tie",
+      },
+    },
+    chooseA: [
+      "You don't use SketchUp, or use other modelling tools",
+      "You want to render from a sketch, photo, or screenshot",
+      "You want a standalone browser tool with no install",
+      "Flexible inputs matter more than geometry fidelity",
+    ],
+    chooseB: [
+      "You already model and subscribe to SketchUp",
+      "You want renders that stay true to your model's geometry",
+      "You prefer to stay inside one app",
+      "You're fine with monthly AI-credit limits",
+    ],
+    faq: [
+      {
+        q: "Do I need SketchUp to use ArchitectGPT?",
+        a: "No — ArchitectGPT is browser-based and renders from any uploaded image, so it works without SketchUp or any modelling software.",
+      },
+      {
+        q: "Is SketchUp Diffusion free?",
+        a: "It's included with a paid SketchUp subscription and limited by monthly AI credits; the free SketchUp version doesn't include it.",
+      },
+      {
+        q: "Which produces more realistic renders?",
+        a: "Both target quick concept-stage visuals rather than final photorealism. SketchUp Diffusion stays truer to your model's geometry, while ArchitectGPT gives more freedom over the input image.",
+      },
+      {
+        q: "Can either replace V-Ray or Enscape?",
+        a: "Not really — they're built for fast ideation, not the precise, controllable output of a full rendering engine.",
+      },
+    ],
+    related: [],
+  },
+  {
+    slug: "interior-ai-vs-homestyler",
+    toolASlug: "interior-ai",
+    toolBSlug: "homestyler",
+    niche: "interior-design",
+    verdict:
+      "InteriorAI restyles or virtually stages a room from a single photo in seconds, while Homestyler is a full 3D design suite you build a space in — speed and AI staging vs. control and a real furniture library.",
+    tldr: "InteriorAI and Homestyler both help you visualise interiors, but they take opposite approaches. InteriorAI is AI-first: upload a photo and it restyles or virtually stages the room in seconds, with modes built for real estate and designers. Homestyler is a full 3D design suite: you build the floor plan, place real branded furniture, and render the space — more control, more work. Best for fast AI restyling and staging: InteriorAI. Best for detailed 3D design with a furniture library: Homestyler.",
+    sections: {
+      features: {
+        body: "InteriorAI generates a redesign from a single photo, with a dedicated virtual staging mode, multiple styles, and commercial licensing — no modelling required. Homestyler is a design platform: draw or import a floor plan, convert it to an editable 3D model, furnish it from a large library of real branded 3D models, and produce renders, 360° panoramas, and walkthrough videos. InteriorAI transforms an existing photo; Homestyler builds a space from scratch.",
+        edge: "tie",
+      },
+      pricing: {
+        body: "Homestyler is known for a generous free tier — standard-resolution renders and its full furniture library at no cost — with paid plans unlocking higher-resolution output and advanced features. InteriorAI is a paid tool with a limited free trial, priced at a premium for its AI modes and commercial rights. If budget is the priority and you're willing to learn a fuller tool, Homestyler's free tier is hard to beat; if speed and AI staging matter more, InteriorAI justifies its cost.",
+        edge: "B",
+      },
+      easeOfUse: {
+        body: "InteriorAI is fast and simple — upload, pick a style, done — with almost no learning curve. Homestyler is powerful but closer to professional CAD software, with a steeper learning curve and more steps to a finished render. For a quick result, InteriorAI; for full design control, Homestyler once you've learned it.",
+        edge: "A",
+      },
+      useCases: {
+        body: "InteriorAI fits real estate agents staging listings and anyone who wants a fast AI restyle of an existing room photo. Homestyler fits designers and serious DIYers who need floor planning, precise layouts, and real furniture placement, and don't mind the learning curve.",
+        edge: "tie",
+      },
+    },
+    chooseA: [
+      "You want fast AI restyling from a photo",
+      "You're staging real estate listings",
+      "You need commercial licensing",
+      "You value speed over granular control",
+    ],
+    chooseB: [
+      "You need floor planning and precise 3D layouts",
+      "You want a large library of real branded furniture",
+      "You want a strong free tier",
+      "You're comfortable with a learning curve",
+    ],
+    faq: [
+      {
+        q: "Is InteriorAI or Homestyler better for real estate virtual staging?",
+        a: "InteriorAI is faster for staging existing listing photos with its dedicated staging mode; Homestyler suits agents who want to build and furnish a 3D model of the space.",
+      },
+      {
+        q: "Does Homestyler have a free plan?",
+        a: "Yes — Homestyler is known for a generous free tier that includes standard-resolution renders and its full furniture library, with paid plans for higher resolution.",
+      },
+      {
+        q: "Which is easier to learn?",
+        a: "InteriorAI — it works from a single photo with minimal steps, while Homestyler is a fuller design suite with a steeper learning curve.",
+      },
+      {
+        q: "Can InteriorAI create floor plans?",
+        a: "No — InteriorAI restyles and stages from photos; for floor planning and 3D layout, Homestyler is the right tool.",
+      },
+    ],
+    related: [],
+  },
 ];
 
 // ── Accessors ────────────────────────────────────────────────────────────────

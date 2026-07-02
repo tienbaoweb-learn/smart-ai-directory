@@ -57,6 +57,7 @@ import FAQAccordion, {
 } from "../../components/tools/FAQAccordion";
 import PricingPlans from "../../components/tools/PricingPlans";
 import { getComparisonsForTool } from "../../../lib/comparisons";
+import { getWorkflowsForTool } from "../../../lib/workflows-data";
 
 // ── generateStaticParams + generateMetadata ────────────────────────────────────
 
@@ -690,6 +691,12 @@ export default async function ToolReviewPage({
       return { href: `/compare/${cmp.slug}`, otherName };
     })
     .filter((x): x is { href: string; otherName: string } => x !== null);
+
+  // ── Workflows that feature this tool (auto reverse-link) ───────────────────
+  const toolWorkflows = getWorkflowsForTool(slug).map((w) => ({
+    href: w.href,
+    title: w.title,
+  }));
 
   // ── Related tools + hub (dual-axis internal linking) ───────────────────────
   const { hub: relatedHub, siblings: relatedSiblings } = getRelatedTools(
@@ -1641,6 +1648,31 @@ export default async function ToolReviewPage({
                         </span>
                         <span className="text-blue-600 text-xs font-medium group-hover:underline shrink-0">
                           Compare →
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Featured in workflows (auto from lib/workflows-data.ts) */}
+              {toolWorkflows.length > 0 && (
+                <div className="scroll-mt-24">
+                  <h2 className="text-2xl font-bold text-[#1E293B] mb-4">
+                    Featured in Workflows
+                  </h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {toolWorkflows.map((wf) => (
+                      <Link
+                        key={wf.href}
+                        href={wf.href}
+                        className="group flex items-center justify-between gap-3 border border-gray-100 rounded-xl p-4 bg-white hover:shadow-md hover:border-blue-200 transition-all"
+                      >
+                        <span className="font-semibold text-sm text-[#1E293B] group-hover:text-blue-600">
+                          {wf.title}
+                        </span>
+                        <span className="text-blue-600 text-xs font-medium group-hover:underline shrink-0">
+                          View →
                         </span>
                       </Link>
                     ))}

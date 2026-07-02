@@ -615,6 +615,28 @@ export default function BestArchitectureToolsPage() {
         </div>
       </section>
 
+      {/* ── Featured workflow ── */}
+      <section className="pb-4">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Link
+            href="/resources/workflows/floor-plan-to-render"
+            className="group flex flex-wrap items-center justify-between gap-3 border border-gray-100 rounded-xl p-5 bg-white hover:shadow-md hover:border-blue-200 transition-all"
+          >
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-blue-600">
+                Workflow
+              </p>
+              <p className="font-semibold text-[#1E293B] mt-0.5">
+                AI architecture workflow: from floor plan to photorealistic render
+              </p>
+            </div>
+            <span className="text-blue-600 text-sm font-medium group-hover:underline shrink-0">
+              See the workflow →
+            </span>
+          </Link>
+        </div>
+      </section>
+
       <Newsletter />
       <Footer />
     </div>

@@ -3,15 +3,19 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import {
+  AlertTriangle,
   ArrowRight,
   Briefcase,
   Calendar,
   CheckCircle2,
   ChevronRight,
   Clock,
+  HelpCircle,
   Lightbulb,
   ListOrdered,
+  PenTool,
   Sparkles,
+  Trophy,
   Wrench,
 } from "lucide-react";
 
@@ -24,9 +28,29 @@ import {
   workflowToolLogoUrl,
   WORKFLOW_TOOLS,
   type Workflow,
+  type WorkflowStep,
 } from "../../../../lib/workflows-data";
+import { getComparisonBySlug } from "../../../../lib/comparisons";
+import { getToolBySlug } from "../../../../lib/tools";
 
 const SITE = "https://www.smartaiforwork.com";
+
+// Industry → Best Of hub (for the "up" link).
+const INDUSTRY_HUBS: Record<string, { label: string; href: string }> = {
+  architecture: { label: "Architecture", href: "/best-of/architecture" },
+  construction: { label: "Construction", href: "/best-of/construction" },
+  "interior-design": { label: "Interior Design", href: "/best-of/interior-design" },
+  realestate: { label: "Real Estate", href: "/best-of/real-estate" },
+  "real-estate": { label: "Real Estate", href: "/best-of/real-estate" },
+  furniture: { label: "Furniture", href: "/industries/furniture" },
+};
+
+// A step's display name, whether it's a registry tool, a named-only tool, or manual.
+function stepToolName(s: WorkflowStep): string {
+  if (s.toolSlug) return WORKFLOW_TOOLS[s.toolSlug].name;
+  if (s.toolName) return s.toolName;
+  return "Manual step";
+}
 
 // ── Static params + metadata ───────────────────────────────────────────────────
 
@@ -98,7 +122,9 @@ export default async function WorkflowDetailPage({
     name: wf.title,
     description: wf.description,
     totalTime: `PT${parseInt(wf.duration, 10) || 30}M`,
-    tool: wf.stepsList.map((s) => ({ "@type": "HowToTool", name: WORKFLOW_TOOLS[s.toolSlug].name })),
+    tool: wf.stepsList
+      .filter((s) => s.toolSlug || s.toolName)
+      .map((s) => ({ "@type": "HowToTool", name: stepToolName(s) })),
     step: wf.stepsList.map((s, i) => ({
       "@type": "HowToStep",
       position: i + 1,
@@ -119,6 +145,32 @@ export default async function WorkflowDetailPage({
     ],
   };
 
+  const faqSchema =
+    wf.faq && wf.faq.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: wf.faq.map((f) => ({
+            "@type": "Question",
+            name: f.question,
+            acceptedAnswer: { "@type": "Answer", text: f.answer },
+          })),
+        }
+      : null;
+
+  const hub = INDUSTRY_HUBS[wf.industry];
+  // Reviewed tools referenced by steps (for the "reviews" links in related block).
+  const stepReviewSlugs = [
+    ...new Set(
+      wf.stepsList
+        .map((s) => s.toolSlug)
+        .filter((s): s is NonNullable<typeof s> => Boolean(s)),
+    ),
+  ];
+  const relatedComparisons = (wf.relatedComparisons ?? [])
+    .map((cs) => getComparisonBySlug(cs))
+    .filter((c): c is NonNullable<typeof c> => Boolean(c));
+
   return (
     <div className="min-h-screen bg-white font-sans text-[#1E293B]">
       <script
@@ -129,6 +181,12 @@ export default async function WorkflowDetailPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
       <Navbar />
 
       {/* ── Breadcrumb ── */}
@@ -199,11 +257,32 @@ export default async function WorkflowDetailPage({
             </div>
           </div>
 
+          {/* At a glance (featured-snippet target) */}
+          <div className="rounded-2xl border border-blue-100 bg-blue-50/50 p-5 mb-10">
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-blue-700 mb-3">
+              The workflow at a glance
+            </h2>
+            <ol className="list-decimal list-inside space-y-1.5 text-sm text-gray-700">
+              {wf.stepsList.map((step, idx) => (
+                <li key={idx} className="leading-relaxed">
+                  <span className="font-semibold text-[#1E293B]">
+                    {stepToolName(step)}
+                  </span>
+                  {step.role ? ` — ${step.role}` : ""}
+                  {step.manual && (
+                    <span className="ml-1.5 inline-block rounded-full bg-amber-100 text-amber-700 text-[10px] font-semibold px-1.5 py-0.5 align-middle">
+                      manual
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ol>
+          </div>
+
           {/* Steps */}
           <h2 className="text-2xl font-bold text-[#1E293B] mb-6">Step-by-step</h2>
           <ol className="relative border-l-2 border-gray-100 ml-4 sm:ml-5 space-y-8">
             {wf.stepsList.map((step, idx) => {
-              const tool = WORKFLOW_TOOLS[step.toolSlug];
               return (
                 <li key={idx} id={`step-${idx + 1}`} className="relative pl-6 sm:pl-8 scroll-mt-24">
                   {/* Number marker */}
@@ -214,22 +293,53 @@ export default async function WorkflowDetailPage({
                   <h3 className="text-lg font-bold text-[#1E293B] leading-snug">{step.title}</h3>
                   <p className="text-gray-600 leading-relaxed mt-2">{step.description}</p>
 
-                  {/* Tool card */}
-                  <Link
-                    href={`/tools/${tool.slug}`}
-                    className="group mt-4 flex items-center justify-between gap-3 rounded-xl border border-gray-200 bg-white p-3 hover:border-blue-300 hover:shadow-sm transition-all"
-                  >
-                    <div className="flex items-center gap-3 min-w-0">
-                      <ToolLogo slug={step.toolSlug} />
+                  {/* Tool card — reviewed tool, named-only tool, or manual step */}
+                  {step.toolSlug ? (
+                    <Link
+                      href={`/tools/${step.toolSlug}`}
+                      className="group mt-4 flex items-center justify-between gap-3 rounded-xl border border-gray-200 bg-white p-3 hover:border-blue-300 hover:shadow-sm transition-all"
+                    >
+                      <div className="flex items-center gap-3 min-w-0">
+                        <ToolLogo slug={step.toolSlug} />
+                        <div className="min-w-0">
+                          <p className="text-xs text-gray-400">Tool for this step</p>
+                          <p className="text-sm font-semibold text-[#1E293B] truncate">
+                            {WORKFLOW_TOOLS[step.toolSlug].name}
+                          </p>
+                        </div>
+                      </div>
+                      <span className="inline-flex items-center gap-1 text-sm font-medium text-blue-600 shrink-0">
+                        Review <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
+                      </span>
+                    </Link>
+                  ) : step.manual ? (
+                    <div className="mt-4 flex items-center gap-3 rounded-xl border border-amber-200 bg-amber-50/60 p-3">
+                      <div className="w-10 h-10 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center shrink-0">
+                        <PenTool size={18} />
+                      </div>
                       <div className="min-w-0">
-                        <p className="text-xs text-gray-400">Tool for this step</p>
-                        <p className="text-sm font-semibold text-[#1E293B] truncate">{tool.name}</p>
+                        <p className="text-xs text-amber-600 font-medium">Manual step</p>
+                        <p className="text-sm font-semibold text-[#1E293B]">
+                          Hands-on — no AI tool
+                        </p>
                       </div>
                     </div>
-                    <span className="inline-flex items-center gap-1 text-sm font-medium text-blue-600 shrink-0">
-                      Review <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
-                    </span>
-                  </Link>
+                  ) : step.toolName ? (
+                    <div className="mt-4 flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-3">
+                      <div className="w-10 h-10 rounded-lg bg-slate-700 text-white font-bold text-sm flex items-center justify-center shrink-0">
+                        {step.toolName.slice(0, 2).toUpperCase()}
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-xs text-gray-400">Tool for this step</p>
+                        <p className="text-sm font-semibold text-[#1E293B]">
+                          {step.toolName}{" "}
+                          <span className="font-normal text-gray-400">
+                            (review coming soon)
+                          </span>
+                        </p>
+                      </div>
+                    </div>
+                  ) : null}
 
                   {/* Tip */}
                   {step.tip && (
@@ -250,6 +360,177 @@ export default async function WorkflowDetailPage({
               <h2 className="text-lg font-bold text-[#1E293B]">What you get</h2>
             </div>
             <p className="text-gray-700 leading-relaxed">{wf.outcome}</p>
+          </div>
+
+          {/* The tool stack at a glance (summary table) */}
+          <div className="mt-12">
+            <h2 className="text-2xl font-bold text-[#1E293B] mb-4">
+              The tool stack at a glance
+            </h2>
+            <div className="overflow-x-auto border border-gray-100 rounded-xl">
+              <table className="min-w-[560px] w-full text-sm">
+                <thead>
+                  <tr className="bg-gray-50 border-b border-gray-100">
+                    {["Stage", "Tool", "Role", "AI or manual", "Full review"].map(
+                      (h) => (
+                        <th
+                          key={h}
+                          className="text-left text-xs uppercase text-gray-500 font-medium py-3 px-4 whitespace-nowrap"
+                        >
+                          {h}
+                        </th>
+                      ),
+                    )}
+                  </tr>
+                </thead>
+                <tbody>
+                  {wf.stepsList.map((step, idx) => (
+                    <tr key={idx} className="border-t border-gray-100">
+                      <td className="py-3 px-4 text-gray-500">{idx + 1}</td>
+                      <td className="py-3 px-4 font-medium text-[#1E293B] whitespace-nowrap">
+                        {stepToolName(step)}
+                      </td>
+                      <td className="py-3 px-4 text-gray-600">
+                        {step.role ?? "—"}
+                      </td>
+                      <td className="py-3 px-4 text-gray-600">
+                        {step.manual ? "Manual" : "AI"}
+                      </td>
+                      <td className="py-3 px-4">
+                        {step.toolSlug ? (
+                          <Link
+                            href={`/tools/${step.toolSlug}`}
+                            className="text-blue-600 font-medium hover:underline"
+                          >
+                            Read review →
+                          </Link>
+                        ) : (
+                          <span className="text-gray-400">
+                            {step.manual ? "—" : "Coming soon"}
+                          </span>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Common mistakes & pro tips */}
+          {wf.mistakes && wf.mistakes.length > 0 && (
+            <div className="mt-12">
+              <div className="flex items-center gap-2 mb-4">
+                <AlertTriangle size={20} className="text-amber-500 shrink-0" />
+                <h2 className="text-2xl font-bold text-[#1E293B]">
+                  Common mistakes &amp; pro tips
+                </h2>
+              </div>
+              <div className="space-y-3">
+                {wf.mistakes.map((m) => (
+                  <div
+                    key={m.title}
+                    className="rounded-xl border border-gray-100 bg-white p-4"
+                  >
+                    <p className="font-semibold text-sm text-[#1E293B]">
+                      {m.title}
+                    </p>
+                    <p className="text-sm text-gray-600 mt-1 leading-relaxed">
+                      {m.body}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* FAQ */}
+          {wf.faq && wf.faq.length > 0 && (
+            <div className="mt-12">
+              <div className="flex items-center gap-2 mb-4">
+                <HelpCircle size={20} className="text-blue-600 shrink-0" />
+                <h2 className="text-2xl font-bold text-[#1E293B]">
+                  Frequently asked questions
+                </h2>
+              </div>
+              <div className="space-y-3">
+                {wf.faq.map((f) => (
+                  <div
+                    key={f.question}
+                    className="rounded-xl border border-gray-100 bg-white p-4"
+                  >
+                    <p className="font-semibold text-sm text-[#1E293B]">
+                      {f.question}
+                    </p>
+                    <p className="text-sm text-gray-600 mt-1 leading-relaxed">
+                      {f.answer}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Related resources (hub + reviews + comparisons) */}
+          <div className="mt-12 border-t border-gray-100 pt-8">
+            <h2 className="text-2xl font-bold text-[#1E293B] mb-4">
+              Related resources
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {hub && (
+                <Link
+                  href={hub.href}
+                  className="group border border-gray-100 rounded-xl p-4 bg-white hover:shadow-md hover:border-blue-200 transition-all"
+                >
+                  <p className="text-xs font-semibold uppercase tracking-wide text-blue-600">
+                    Best Of hub
+                  </p>
+                  <p className="font-semibold text-sm text-[#1E293B] mt-0.5 group-hover:text-blue-600">
+                    Best AI tools for {hub.label}
+                  </p>
+                </Link>
+              )}
+              {relatedComparisons.map((cmp) => {
+                const ca = getToolBySlug(cmp.toolASlug);
+                const cb = getToolBySlug(cmp.toolBSlug);
+                if (!ca || !cb) return null;
+                const caN = ca.frontmatter.toolName || ca.frontmatter.title.split(":")[0].trim();
+                const cbN = cb.frontmatter.toolName || cb.frontmatter.title.split(":")[0].trim();
+                return (
+                  <Link
+                    key={cmp.slug}
+                    href={`/compare/${cmp.slug}`}
+                    className="group border border-gray-100 rounded-xl p-4 bg-white hover:shadow-md hover:border-blue-200 transition-all"
+                  >
+                    <p className="text-xs font-semibold uppercase tracking-wide text-blue-600">
+                      Comparison
+                    </p>
+                    <p className="font-semibold text-sm text-[#1E293B] mt-0.5 group-hover:text-blue-600">
+                      {caN} vs {cbN}
+                    </p>
+                  </Link>
+                );
+              })}
+              {stepReviewSlugs.map((s) => (
+                <Link
+                  key={s}
+                  href={`/tools/${s}`}
+                  className="group border border-gray-100 rounded-xl p-4 bg-white hover:shadow-md hover:border-blue-200 transition-all"
+                >
+                  <p className="text-xs font-semibold uppercase tracking-wide text-blue-600">
+                    Review
+                  </p>
+                  <p className="font-semibold text-sm text-[#1E293B] mt-0.5 group-hover:text-blue-600">
+                    {WORKFLOW_TOOLS[s].name} review
+                  </p>
+                </Link>
+              ))}
+            </div>
+            <p className="mt-4 text-xs text-gray-400 flex items-center gap-1.5">
+              <Trophy size={12} className="shrink-0" />
+              Independent editorial workflow — based on our own tool research, not
+              a paid placement.
+            </p>
           </div>
         </div>
       </section>

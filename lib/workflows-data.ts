@@ -64,12 +64,21 @@ export const WORKFLOW_TOOLS = {
   "help-center":   { slug: "help-center",     name: "Help.center",     logoText: "HC", logoBg: "bg-teal-600"    },
   "customgpt-ai":  { slug: "customgpt-ai",    name: "CustomGPT.ai",    logoText: "CG", logoBg: "bg-indigo-600"  },
   algomo:          { slug: "algomo",          name: "Algomo",          logoText: "A",  logoBg: "bg-emerald-600" },
+  // Architecture / design
+  architectgpt:        { slug: "architectgpt",        name: "ArchitectGPT",       logoText: "AG", logoBg: "bg-blue-700"    },
+  "sketchup-diffusion":{ slug: "sketchup-diffusion",  name: "SketchUp Diffusion", logoText: "SD", logoBg: "bg-indigo-600"  },
+  "interior-ai":       { slug: "interior-ai",         name: "InteriorAI",         logoText: "IA", logoBg: "bg-rose-600"    },
 } as const satisfies Record<string, WorkflowTool>;
 
 export type WorkflowToolSlug = keyof typeof WORKFLOW_TOOLS;
 
+// A step can reference a reviewed tool (toolSlug), name a tool that isn't reviewed
+// yet (toolName, no review link), or be a manual bridge step with no tool at all.
 export interface WorkflowStep {
-  toolSlug: WorkflowToolSlug;
+  toolSlug?: WorkflowToolSlug; // reviewed tool in the registry → renders logo + review link
+  toolName?: string; // named tool without a review yet (e.g. Maket) → no link
+  manual?: boolean; // manual bridge step (no AI tool)
+  role?: string; // short label for the summary table ("AI render", "3D model")
   title: string;
   description: string;
   tip?: string;
@@ -90,6 +99,11 @@ export interface Workflow {
   iconBg: string;             // single icon color for the latest table row
   isFeatured: boolean;
 
+  // ── Optional rich sections (backward-compatible; omit on simple workflows) ──
+  faq?: { question: string; answer: string }[];
+  mistakes?: { title: string; body: string }[];
+  relatedComparisons?: string[]; // comparison slugs (only rendered if they exist)
+
   // ── Derived for the listing page (filled in by withDerived) ──
   toolsUsed: Array<{ bg: string; text: string; slug: string; name: string; logoUrl: string }>;
   steps: number;
@@ -103,7 +117,11 @@ type RawWorkflow = Omit<Workflow, "toolsUsed" | "steps" | "toolCount" | "href">;
 // Derive the icon chain, step/tool counts and href from a raw workflow so the
 // listing page and detail page never drift out of sync.
 function withDerived(w: RawWorkflow): Workflow {
-  const orderedSlugs = w.stepsList.map((s) => s.toolSlug);
+  // Only steps that reference a reviewed registry tool feed the icon chain/counts;
+  // manual bridge steps and not-yet-reviewed tools are skipped here.
+  const orderedSlugs = w.stepsList
+    .map((s) => s.toolSlug)
+    .filter((s): s is WorkflowToolSlug => Boolean(s));
   const uniqueSlugs = [...new Set(orderedSlugs)];
   const toolsUsed = uniqueSlugs.slice(0, 4).map((slug) => {
     const t = WORKFLOW_TOOLS[slug];
@@ -351,10 +369,114 @@ const RAW_WORKFLOWS: RawWorkflow[] = [
     iconBg: "bg-teal-500",
     isFeatured: false,
   },
+  {
+    slug: "floor-plan-to-render",
+    title: "AI Architecture Workflow: From Floor Plan to Photorealistic Render",
+    description:
+      "Chain AI tools to go from a floor plan to a presentation-ready render — with an honest look at the one step that's still manual.",
+    category: "Design & Creative",
+    industry: "architecture",
+    intro:
+      "You have a brief — or a rough plan — and you need a presentation-ready render fast, without standing up a full rendering suite. This workflow chains specialised AI tools for architects, designers, students, and real-estate developers doing early concept work. One honesty note up front: AI accelerates the floor plan and the final render, but turning the plan into a 3D model in the middle is still a hands-on step.",
+    outcome:
+      "A generated floor plan, a 3D model, and a photorealistic AI render — plus optional virtual staging — ready for a client concept review.",
+    stepsList: [
+      {
+        toolName: "Maket",
+        role: "AI floor plan",
+        title: "Generate the floor plan with Maket",
+        description:
+          "Start from requirements — room count, approximate dimensions, and constraints — and let Maket generate 2D layout options. Generate several variations, then iterate on the one closest to the brief. This stage produces a workable plan, not a render.",
+        tip: "Lock the layout before moving on — re-rendering later is cheap, re-modelling a changed plan is not.",
+      },
+      {
+        manual: true,
+        role: "3D model (manual)",
+        title: "Build the 3D model in SketchUp (the manual bridge)",
+        description:
+          "This is the least automated step: a human turns the 2D plan into a 3D model. Import the plan as a reference, extrude the walls, and set openings and key massing. Keep it lightweight — you only need enough geometry to render a convincing view.",
+      },
+      {
+        toolSlug: "sketchup-diffusion",
+        role: "AI render (in SketchUp)",
+        title: "Path A — Render inside SketchUp with SketchUp Diffusion",
+        description:
+          "Best when your model already lives in SketchUp. Set a camera view, write a style prompt, generate an AI render of that view, and iterate on the prompt until the look is right.",
+        tip: "Set your camera angle before generating so successive prompt iterations stay comparable.",
+      },
+      {
+        toolSlug: "architectgpt",
+        role: "AI render (from image)",
+        title: "Path B — Render from an image with ArchitectGPT",
+        description:
+          "Best when you have a screenshot, sketch, or exported model image and don't want to render inside SketchUp. Upload the image, choose a style and room type, generate, and refine. Your render path comes down to where your model lives: inside SketchUp (Path A) or as an exported image (Path B).",
+      },
+      {
+        toolSlug: "interior-ai",
+        role: "Virtual staging (optional)",
+        title: "Optional — Virtual staging with InteriorAI",
+        description:
+          "The natural next step for real-estate and interior presentation: take the rendered space and stage or restyle the interior. Useful when the deliverable is a furnished, client-facing concept rather than a bare architectural shell.",
+      },
+    ],
+    mistakes: [
+      {
+        title: "Rendering before the plan is final",
+        body: "It's tempting to jump to renders, but a layout change forces you to re-model and re-render everything. Finalise the plan in stage 1 first.",
+      },
+      {
+        title: "Expecting AI to fix proportions",
+        body: "AI render tools restyle what you give them — they won't correct a 3D model with wrong scale or structural proportions. Get the geometry right in stage 2.",
+      },
+      {
+        title: "Over-prompting the style",
+        body: "Piling adjectives into a render prompt tends to muddy the result. Start simple, then adjust one variable at a time.",
+      },
+      {
+        title: "Forgetting commercial licensing",
+        body: "If renders or staged images go into paid client work, confirm each tool's licensing allows commercial use before you deliver.",
+      },
+    ],
+    faq: [
+      {
+        question: "Can AI turn a floor plan directly into a render?",
+        answer:
+          "Partly. AI can generate the floor plan and the final render, but converting the plan into a 3D model in between is still a manual step — that's the bridge stage in this workflow.",
+      },
+      {
+        question: "What's the best AI tool to render a SketchUp model?",
+        answer:
+          "SketchUp Diffusion renders directly inside SketchUp from a camera view and a style prompt. If you're not working in SketchUp, ArchitectGPT renders from an exported image or screenshot instead.",
+      },
+      {
+        question: "Do I need SketchUp for this workflow?",
+        answer:
+          "Not necessarily. With ArchitectGPT you can render from a sketch or screenshot without a full 3D model — though a proper 3D model gives you more control over camera angles and consistency.",
+      },
+      {
+        question: "Is there a fully automated floor-plan-to-render tool?",
+        answer:
+          "Not reliably yet. Each stage needs different capabilities, so the practical approach in 2026 is to chain specialised tools rather than expect one tool to do the whole chain.",
+      },
+    ],
+    relatedComparisons: ["architectgpt-vs-sketchup-diffusion"],
+    duration: "40 min",
+    date: "Jul 2, 2026",
+    tags: ["architecture", "ai-rendering", "floor-plan"],
+    iconBg: "bg-blue-600",
+    isFeatured: false,
+  },
 ];
 
 export const workflowsData: Workflow[] = RAW_WORKFLOWS.map(withDerived);
 
 export function getWorkflowBySlug(slug: string): Workflow | undefined {
   return workflowsData.find((w) => w.slug === slug);
+}
+
+/** Every workflow whose steps reference the given reviewed tool slug (reverse links). */
+export function getWorkflowsForTool(toolSlug: string): Workflow[] {
+  return workflowsData.filter((w) =>
+    w.stepsList.some((s) => s.toolSlug === toolSlug)
+  );
 }
