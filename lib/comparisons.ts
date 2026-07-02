@@ -114,7 +114,7 @@ export const comparisons: Comparison[] = [
         a: "Both are aimed at higher-volume and commercial estimating, where manual takeoff on large drawing sets is a real bottleneck. On small residential projects where manual takeoff is quick, the time savings — and the return on either tool — are smaller.",
       },
     ],
-    related: [],
+    related: ["kreo-vs-stack", "togal-ai-vs-stack"],
   },
   {
     slug: "roomgpt-vs-interior-ai",
@@ -282,6 +282,168 @@ export const comparisons: Comparison[] = [
       {
         q: "Can InteriorAI create floor plans?",
         a: "No — InteriorAI restyles and stages from photos; for floor planning and 3D layout, Homestyler is the right tool.",
+      },
+    ],
+    related: [],
+  },
+  {
+    slug: "kreo-vs-stack",
+    toolASlug: "kreo",
+    toolBSlug: "stack",
+    niche: "construction",
+    verdict:
+      "Kreo and STACK are both cloud takeoff-and-estimating platforms: STACK is the mature, widely-adopted standard with a deep assembly library and more accessible pricing, while Kreo is the newer AI-native tool with stronger takeoff automation but enterprise-tier pricing.",
+    tldr: "STACK is the established cloud takeoff-and-estimating platform — a deep, reusable assembly library and a proven takeoff-to-bid workflow, positioned in our review as more accessible than heavy enterprise systems. Kreo is the newer, AI-native challenger with more automated takeoff, but our review notes its pricing sits at the enterprise tier. Best mature, deep-library platform with accessible pricing: STACK. Best AI-native takeoff automation: Kreo.",
+    sections: {
+      features: {
+        body: "STACK pairs fast on-screen takeoff with a deep, reusable assembly library and estimating tools built up over years — a complete, battle-tested takeoff-to-bid workflow. Its own AI automation, though, is less advanced than AI-first tools; our review flags that as its main gap. Kreo is AI-native, built around automated 2D takeoff with estimating in a leaner, more modern setup. STACK wins on library depth and maturity; Kreo on being built AI-first.",
+        edge: "tie",
+      },
+      pricing: {
+        body: "Per our reviews, STACK positions itself as more accessible and affordable than heavy enterprise systems, though its cost can still be a barrier for very small subcontractors. Kreo sits at the enterprise tier and is best justified by mid-to-large teams. Neither targets the occasional one-off bidder — verify current pricing with each vendor.",
+        edge: "B",
+      },
+      easeOfUse: {
+        body: "Both are cloud-based and quick to start. STACK is known for getting users running fast, though building advanced assemblies has a learning curve. Kreo's AI-native design aims to cut manual setup. For basic takeoff both are approachable; for deep estimating workflows STACK's maturity shows, at the cost of more to learn.",
+        edge: "tie",
+      },
+      useCases: {
+        body: "STACK fits mid-size GCs and specialty contractors who want a proven, complete takeoff-and-estimating platform with a deep assembly library and accessible pricing. Kreo fits mid-to-large firms that specifically want AI-native takeoff automation and can justify the enterprise investment.",
+        edge: "tie",
+      },
+    },
+    chooseA: [
+      "You specifically want AI-native takeoff automation",
+      "You're a mid-to-large firm or estimating team",
+      "Cutting manual measurement time is the priority",
+      "The enterprise investment is justified by your bid volume",
+    ],
+    chooseB: [
+      "You want a deep, reusable assembly library",
+      "You want a proven takeoff-to-bid workflow",
+      "You want a more accessible platform than heavy enterprise software",
+      "You bid regularly across many projects",
+    ],
+    faq: [
+      {
+        q: "Is Kreo or STACK more affordable?",
+        a: "Per our reviews, STACK positions itself as more accessible and affordable than heavy enterprise systems, while Kreo's pricing sits at the enterprise tier. Neither is aimed at the smallest occasional bidders — confirm current pricing with each vendor.",
+      },
+      {
+        q: "Does STACK have strong AI automation?",
+        a: "STACK is a mature digital takeoff and estimating platform, but our review notes its AI automation is less advanced than AI-first tools like Kreo and Togal.AI. Choose STACK for library and workflow depth; choose an AI-first tool if maximum takeoff automation is the goal.",
+      },
+      {
+        q: "Which has the deeper estimating workflow?",
+        a: "STACK — its reusable assembly library and estimating tools make for a complete takeoff-to-bid workflow, whereas Kreo concentrates on AI-native takeoff.",
+      },
+    ],
+    related: ["kreo-vs-togal-ai", "togal-ai-vs-stack"],
+  },
+  {
+    slug: "togal-ai-vs-stack",
+    toolASlug: "togal-ai",
+    toolBSlug: "stack",
+    niche: "construction",
+    verdict:
+      "Togal.AI and STACK both speed up construction takeoff, but Togal.AI is an AI-first measurement specialist while STACK is a broader, mature takeoff-and-estimating platform with a deep assembly library and lighter AI automation.",
+    tldr: "Togal.AI automatically measures spaces, walls, and areas from drawings with minimal manual input — AI-first takeoff. STACK spans a wider workflow (takeoff plus estimating and a deep assembly library) but, per our review, its AI automation is less advanced than AI-first tools. Best for deepest takeoff automation: Togal.AI. Best for a complete takeoff-to-bid workflow: STACK.",
+    sections: {
+      features: {
+        body: "Togal.AI focuses on automating the measurement itself, detecting and quantifying elements from plans to cut manual takeoff time. STACK spans takeoff plus estimating, a reusable assembly library, and bid organization; our review notes its AI automation trails AI-first tools. If your priority is squeezing manual work out of takeoff, Togal is the specialist; if you want takeoff, estimating, and assemblies in one place, STACK is broader.",
+        edge: "tie",
+      },
+      pricing: {
+        body: "Togal.AI is premium and typically sold through a demo/sales process. STACK, per our review, positions itself as more accessible and affordable than heavy enterprise systems, though still a barrier for very small subcontractors. Both assume regular bidding volume to justify the cost.",
+        edge: "B",
+      },
+      easeOfUse: {
+        body: "Togal.AI's automation reduces hands-on measurement but is onboarded with guided setup reflecting its enterprise positioning. STACK is quick to start for basic takeoff, with a steeper curve for advanced assemblies. Both expect some ramp-up for full value.",
+        edge: "tie",
+      },
+      useCases: {
+        body: "Togal.AI fits estimating teams whose main bottleneck is takeoff speed and who want maximum measurement automation. STACK fits teams that want takeoff plus estimating and a deep assembly library in one proven platform.",
+        edge: "tie",
+      },
+    },
+    chooseA: [
+      "Takeoff speed is your main bottleneck",
+      "You want maximum measurement automation",
+      "You process high volumes of drawings",
+      "You want an AI-first takeoff tool",
+    ],
+    chooseB: [
+      "You want takeoff, estimating, and assemblies in one tool",
+      "You value a deep, reusable library",
+      "You want a more accessible platform than heavy enterprise software",
+      "You run a proven bidding workflow",
+    ],
+    faq: [
+      {
+        q: "Is Togal.AI or STACK better for automating takeoff?",
+        a: "Togal.AI — it's AI-first, specialising in automated measurement from drawings. Our STACK review notes STACK's AI automation is less advanced, though STACK offers a broader takeoff-and-estimating workflow.",
+      },
+      {
+        q: "Which does more beyond takeoff?",
+        a: "STACK — it includes estimating, a reusable assembly library, and bid organization, whereas Togal.AI concentrates on takeoff automation.",
+      },
+      {
+        q: "Which is more accessible on price?",
+        a: "Per our reviews, STACK positions itself as more accessible and affordable than heavy enterprise systems, while Togal.AI is premium and typically demo-led. Confirm current pricing with each vendor.",
+      },
+    ],
+    related: ["kreo-vs-togal-ai", "kreo-vs-stack"],
+  },
+  {
+    slug: "structurely-vs-roof-ai",
+    toolASlug: "structurely",
+    toolBSlug: "roof-ai",
+    niche: "real-estate",
+    verdict:
+      "Structurely and Roof AI both use AI to turn real estate leads into appointments, but Roof AI is an MLS-aware website chatbot that captures visitors on-site, while Structurely is an AI inside sales agent that calls, texts, and emails your existing leads to qualify and book them.",
+    tldr: "Roof AI is an MLS-aware website chatbot that engages visitors the moment they land, answers property questions, and captures intent. Structurely is an AI inside sales agent that calls, texts, and emails your existing leads to qualify them and book appointments. Best for converting website visitors: Roof AI. Best for multi-channel lead nurture and qualification: Structurely.",
+    sections: {
+      features: {
+        body: "Roof AI lives on your brokerage website: it holds MLS-aware conversations, answers buyer and seller questions around the clock, recommends listings, and drops booked meetings into your CRM. Structurely works across channels — AI calling, two-way texting, and email nurture — following up with leads for months, qualifying them, setting appointments, and doing live phone transfers to your reps. Roof AI captures intent on-site; Structurely nurtures and qualifies leads wherever they came from.",
+        edge: "tie",
+      },
+      pricing: {
+        body: "Roof AI is typically flat-rate per month with unlimited leads, so higher conversion doesn't raise your bill — attractive for high-traffic websites. Structurely is priced around its AI outreach service and CRM integrations. If your leads come mostly from your website, Roof AI's model fits; if you have lead volume from many sources to nurture, Structurely's outreach earns its cost. Verify current pricing with each vendor.",
+        edge: "tie",
+      },
+      easeOfUse: {
+        body: "Both are managed services more than DIY tools. Roof AI is added to your website and tuned for your brokerage; Structurely connects to your CRM and runs conversations automatically. Both need some conversation review and refinement to stay on-brand.",
+        edge: "tie",
+      },
+      useCases: {
+        body: "Roof AI fits brokerages with significant website traffic that want to capture and qualify visitors in real time. Structurely fits agents and teams with high lead volumes who want an AI inside sales agent to nurture and qualify leads across call, text, and email.",
+        edge: "tie",
+      },
+    },
+    chooseA: [
+      "You have lead volume from many sources",
+      "You want AI calling, texting, and email nurture",
+      "You need appointment setting and live transfers",
+      "You want long-term, months-long follow-up",
+    ],
+    chooseB: [
+      "You have significant website traffic",
+      "You want an MLS-aware on-site chatbot",
+      "You want to capture visitor intent around the clock",
+      "You prefer flat-rate pricing with unlimited leads",
+    ],
+    faq: [
+      {
+        q: "What's the difference between Structurely and Roof AI?",
+        a: "Roof AI is a website chatbot that captures and qualifies site visitors; Structurely is an AI inside sales agent that calls, texts, and emails your existing leads to qualify and book them.",
+      },
+      {
+        q: "Does Structurely generate leads?",
+        a: "No — Structurely qualifies and nurtures leads you already have across channels; it isn't a lead-generation source itself.",
+      },
+      {
+        q: "Which is better for a brokerage website?",
+        a: "Roof AI, because it's built to engage and convert website visitors with MLS-aware conversations in real time.",
       },
     ],
     related: [],

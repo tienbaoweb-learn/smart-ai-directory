@@ -61,32 +61,21 @@ const FEATURE_ROWS = [
 // ─── FEATURED COMPARISON BADGE STYLES ────────────────────────────────────────
 
 const FEAT_BADGE: Record<string, string> = {
-  WRITING:      "bg-blue-600 text-white",
-  DESIGN:       "bg-purple-600 text-white",
-  PRODUCTIVITY: "bg-emerald-600 text-white",
-  MARKETING:    "bg-orange-500 text-white",
+  WRITING:        "bg-blue-600 text-white",
+  DESIGN:         "bg-purple-600 text-white",
+  PRODUCTIVITY:   "bg-emerald-600 text-white",
+  MARKETING:      "bg-orange-500 text-white",
+  CONSTRUCTION:   "bg-amber-600 text-white",
+  ARCHITECTURE:   "bg-blue-700 text-white",
+  INTERIOR:       "bg-rose-600 text-white",
+  "REAL ESTATE":  "bg-teal-600 text-white",
 };
 
-// Only surface comparisons whose BOTH tools exist in our catalog (ALL_TOOLS).
-// Comparisons that reference tools we don't carry are filtered out.
-const normToolKey = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "");
-const stripAiSuffix = (s: string) => s.replace(/ai$/, "");
-const EXISTING_TOOL_KEYS = new Set<string>();
-for (const t of ALL_TOOLS) {
-  for (const key of [normToolKey(t.name), normToolKey(t.slug)]) {
-    EXISTING_TOOL_KEYS.add(key);
-    EXISTING_TOOL_KEYS.add(stripAiSuffix(key));
-  }
-}
-const toolExists = (name: string) => {
-  const n = normToolKey(name);
-  return EXISTING_TOOL_KEYS.has(n) || EXISTING_TOOL_KEYS.has(stripAiSuffix(n));
-};
-const hasBothTools = (c: { toolA: { name: string }; toolB: { name: string } }) =>
-  toolExists(c.toolA.name) && toolExists(c.toolB.name);
-
-const FEATURED_COMPARISONS = comparisonsData.filter((c) => c.isFeatured && hasBothTools(c));
-const LATEST_COMPARISONS   = comparisonsData.filter((c) => !c.isFeatured && hasBothTools(c));
+// Every comparison in comparisonsData links to a real /compare/<slug> detail
+// page (both tools are validated to have reviews when the entry is authored),
+// so no catalog gate is needed here.
+const FEATURED_COMPARISONS = comparisonsData.filter((c) => c.isFeatured);
+const LATEST_COMPARISONS   = comparisonsData.filter((c) => !c.isFeatured);
 
 const SIDEBAR_TOPICS_CMP = [
   "Getting Started with AI",
