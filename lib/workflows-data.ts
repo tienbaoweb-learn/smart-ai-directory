@@ -68,6 +68,7 @@ export const WORKFLOW_TOOLS = {
   architectgpt:        { slug: "architectgpt",        name: "ArchitectGPT",       logoText: "AG", logoBg: "bg-blue-700"    },
   "sketchup-diffusion":{ slug: "sketchup-diffusion",  name: "SketchUp Diffusion", logoText: "SD", logoBg: "bg-indigo-600"  },
   "interior-ai":       { slug: "interior-ai",         name: "InteriorAI",         logoText: "IA", logoBg: "bg-rose-600"    },
+  maket:               { slug: "maket",               name: "Maket",              logoText: "M",  logoBg: "bg-orange-600"  },
 } as const satisfies Record<string, WorkflowTool>;
 
 export type WorkflowToolSlug = keyof typeof WORKFLOW_TOOLS;
@@ -382,7 +383,7 @@ const RAW_WORKFLOWS: RawWorkflow[] = [
       "A generated floor plan, a 3D model, and a photorealistic AI render — plus optional virtual staging — ready for a client concept review.",
     stepsList: [
       {
-        toolName: "Maket",
+        toolSlug: "maket",
         role: "AI floor plan",
         title: "Generate the floor plan with Maket",
         description:
@@ -459,7 +460,10 @@ const RAW_WORKFLOWS: RawWorkflow[] = [
           "Not reliably yet. Each stage needs different capabilities, so the practical approach in 2026 is to chain specialised tools rather than expect one tool to do the whole chain.",
       },
     ],
-    relatedComparisons: ["architectgpt-vs-sketchup-diffusion"],
+    relatedComparisons: [
+      "maket-vs-architectgpt",
+      "architectgpt-vs-sketchup-diffusion",
+    ],
     duration: "40 min",
     date: "Jul 2, 2026",
     tags: ["architecture", "ai-rendering", "floor-plan"],

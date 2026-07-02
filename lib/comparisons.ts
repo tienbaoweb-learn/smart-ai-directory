@@ -448,6 +448,176 @@ export const comparisons: Comparison[] = [
     ],
     related: [],
   },
+  {
+    slug: "maket-vs-architectgpt",
+    toolASlug: "maket",
+    toolBSlug: "architectgpt",
+    niche: "architecture",
+    verdict:
+      "Maket and ArchitectGPT get compared, but they solve different parts of the design process: Maket generates the floor plan from your requirements, ArchitectGPT renders a design from an image — and many workflows use both.",
+    tldr: "Maket is an AI floor plan generator: it creates and iterates 2D layouts from your requirements. ArchitectGPT is an AI renderer: it turns a sketch, photo, or design image into a styled visualization. Need to generate the plan? That's Maket. Need to visualise a design? That's ArchitectGPT. Best for early layout and floor plans: Maket. Best for styled rendering: ArchitectGPT.",
+    sections: {
+      features: {
+        body: "Maket focuses on the front of the process — generating floor plan options from constraints like room counts, dimensions, and adjacencies, plus design and material suggestions. ArchitectGPT focuses on the visual output — applying architectural and interior styles to an uploaded image to produce a render. They overlap only lightly: Maket helps you decide the layout, ArchitectGPT helps you sell the look. This isn't a head-to-head so much as two stages of the same workflow.",
+        edge: "tie",
+      },
+      pricing: {
+        body: "Both are self-serve browser subscriptions with accessible entry points aimed at individual architects, designers, and students rather than enterprise buyers. Because they do different jobs, the more useful question isn't which is cheaper but whether you need one stage or both. Verify current pricing with each vendor.",
+        edge: "tie",
+      },
+      easeOfUse: {
+        body: "Both are browser-based and beginner-friendly with no install. Maket is driven by entering requirements and iterating layouts; ArchitectGPT is driven by uploading an image and picking styles. Neither has a steep learning curve.",
+        edge: "tie",
+      },
+      useCases: {
+        body: "Maket fits the concept stage, when you need to generate or explore floor plan layouts quickly. ArchitectGPT fits once you have a design, sketch, or model image and need styled renders to present. Used together, they take you from a blank brief (Maket) to a client-ready visual (ArchitectGPT) — the basis of a full AI architecture workflow.",
+        edge: "tie",
+      },
+    },
+    chooseA: [
+      "You need to generate floor plans or layouts",
+      "You're at the early concept stage",
+      "You're exploring spatial options",
+      "You want generative design from requirements",
+    ],
+    chooseB: [
+      "You need to render or visualise an existing design",
+      "You have a sketch, photo, or model image",
+      "You want styled output to present to clients",
+      "Visualisation, not layout, is your bottleneck",
+    ],
+    faq: [
+      {
+        q: "Is Maket or ArchitectGPT better?",
+        a: "They're not direct competitors — Maket generates floor plans, ArchitectGPT renders designs. Pick based on which stage you're at, or use both.",
+      },
+      {
+        q: "Can Maket create renders like ArchitectGPT?",
+        a: "Maket centres on floor plan generation and design suggestions; for styled rendering from an image, ArchitectGPT is the dedicated tool.",
+      },
+      {
+        q: "Can I use Maket and ArchitectGPT together?",
+        a: "Yes — a common workflow is generating the layout in Maket, then rendering the design with ArchitectGPT.",
+      },
+    ],
+    related: ["architectgpt-vs-sketchup-diffusion"],
+  },
+  {
+    slug: "lofty-vs-ylopo",
+    toolASlug: "lofty",
+    toolBSlug: "ylopo",
+    niche: "real-estate",
+    verdict:
+      "Lofty and Ylopo both help real estate agents generate and convert leads, but Lofty is an all-in-one platform (CRM + IDX website + lead gen + marketing) while Ylopo is a dedicated marketing and lead-generation layer built to run alongside your existing CRM.",
+    tldr: "Lofty (formerly Chime) is an all-in-one system for agents and teams — CRM, IDX website, lead generation, and marketing in one login. Ylopo is a specialist lead-generation and digital-marketing platform designed to run alongside whatever CRM you already use, not replace it. Best all-in-one system: Lofty. Best marketing engine to pair with a CRM: Ylopo.",
+    sections: {
+      features: {
+        body: "Lofty bundles a CRM, IDX website, many lead-generation methods, marketing, and AI follow-up into one platform aimed at keeping an agent or team's pipeline full. Ylopo goes deep on one thing — AI-powered lead generation and digital marketing (targeted social and search advertising, then behavioral follow-up) — and is built to work alongside an existing CRM rather than replace it. Want everything in one place? Lofty. Want a focused marketing engine on top of your current stack? Ylopo.",
+        edge: "tie",
+      },
+      pricing: {
+        body: "Both are premium platforms priced for committed agents and teams, and both are quote-based. Lofty is sometimes offered at a discount or bundled through brokerages, which can change the math significantly. Ylopo's cost typically sits on top of the ad budget it manages, so total spend depends on your campaigns. Verify current pricing with each vendor.",
+        edge: "tie",
+      },
+      easeOfUse: {
+        body: "Lofty is broad but rewards tech-savvy agents, and independent reviews frequently flag its customer support as inconsistent. Ylopo is more hands-off on the marketing side because its campaigns are managed for you, but you'll still operate a separate CRM alongside it. One login with Lofty versus a focused marketing layer plus your own CRM with Ylopo.",
+        edge: "tie",
+      },
+      useCases: {
+        body: "Lofty fits agents and teams who want a single system to run the whole business — CRM, website, and marketing — especially where a brokerage subsidises it. Ylopo fits agents who already have a CRM they like and want a dedicated, high-performance marketing and lead-generation engine to keep it full.",
+        edge: "tie",
+      },
+    },
+    chooseA: [
+      "You want an all-in-one CRM + website + marketing",
+      "You prefer one login and one vendor",
+      "Your brokerage offers it at a discount or bundled",
+      "You run a team that values standardisation",
+    ],
+    chooseB: [
+      "You already use a CRM you want to keep",
+      "You want dedicated AI advertising and lead nurture",
+      "You're comfortable running two systems",
+      "Lead volume is your main focus",
+    ],
+    faq: [
+      {
+        q: "Is Ylopo a CRM?",
+        a: "No — Ylopo is a lead-generation and digital-marketing platform designed to work alongside your existing CRM rather than replace it.",
+      },
+      {
+        q: "Can you use Lofty and Ylopo together?",
+        a: "You can, though it's unusual — Lofty already includes a CRM, so most teams pick one all-in-one system (Lofty) or pair Ylopo with a separate CRM they prefer.",
+      },
+      {
+        q: "Which is better for a solo agent?",
+        a: "Lofty is often the simpler single-system choice, especially if a brokerage subsidises it. Ylopo makes more sense once lead volume justifies a dedicated marketing engine on top of a CRM.",
+      },
+      {
+        q: "What's the main difference between Lofty and Ylopo?",
+        a: "Lofty is an all-in-one platform (CRM + website + marketing); Ylopo is a specialist marketing and lead-gen layer that runs alongside your existing CRM.",
+      },
+    ],
+    related: ["rechat-vs-lofty"],
+  },
+  {
+    slug: "rechat-vs-lofty",
+    toolASlug: "rechat",
+    toolBSlug: "lofty",
+    niche: "real-estate",
+    verdict:
+      "Rechat and Lofty are both real estate platforms, but Rechat is a CRM with integrated AI marketing and transaction coordination oriented to brokerages, while Lofty is an all-in-one system for agents and teams, strong on lead generation and an IDX website.",
+    tldr: "Rechat combines contact management, listing marketing automation, and transaction coordination in one system built for how real estate teams operate. Lofty (formerly Chime) is an all-in-one platform for agents and teams, leaning toward lead generation and an IDX website alongside its CRM and marketing. Best for CRM + marketing + transactions in one place: Rechat. Best all-in-one with strong lead gen: Lofty.",
+    sections: {
+      features: {
+        body: "Rechat unifies contact management, listing marketing automation, and transaction coordination with integrated AI marketing tools, geared to how brokerages and teams operate. Lofty bundles a CRM, IDX website, many lead-generation methods, marketing, and AI follow-up aimed at keeping the pipeline full. Lofty leans toward lead generation and IDX; Rechat leans toward marketing automation and transaction coordination.",
+        edge: "tie",
+      },
+      pricing: {
+        body: "Both are premium platforms sold to committed users, with quote-based pricing. Lofty is sometimes offered at a discount or bundled through brokerages, which can change the math for individual agents. Confirm current pricing with each vendor for your team size.",
+        edge: "tie",
+      },
+      easeOfUse: {
+        body: "Lofty is broad and rewards tech-savvy agents, and independent reviews frequently flag its support as inconsistent. Rechat centres on CRM, marketing, and transactions in one system; as with any platform of this breadth, expect some setup to standardise a team. Both are more than plug-and-play.",
+        edge: "tie",
+      },
+      useCases: {
+        body: "Rechat fits brokerages and teams that want CRM, marketing, and transaction coordination unified in one system. Lofty fits individual agents and teams who want an all-in-one platform with strong built-in lead generation and an IDX website.",
+        edge: "tie",
+      },
+    },
+    chooseA: [
+      "You want CRM + AI marketing + transaction coordination unified",
+      "You run or lead a brokerage or team",
+      "Listing marketing automation matters to you",
+      "You want one system for how your team operates",
+    ],
+    chooseB: [
+      "You're an individual agent or team",
+      "You want strong lead generation and an IDX website",
+      "You want one all-in-one system",
+      "Your brokerage may subsidise it",
+    ],
+    faq: [
+      {
+        q: "Is Rechat or Lofty better for a brokerage?",
+        a: "Rechat is oriented to brokerages and teams, unifying CRM, AI marketing, and transaction coordination. Lofty is a broad all-in-one aimed at agents and teams, leaning toward lead generation and an IDX website.",
+      },
+      {
+        q: "Which is better for lead generation?",
+        a: "Lofty leans more toward lead generation with its IDX website and many built-in lead sources; Rechat focuses on unifying CRM, marketing, and transactions.",
+      },
+      {
+        q: "Does Rechat include AI marketing?",
+        a: "Yes — Rechat includes integrated AI marketing tools alongside its CRM and transaction coordination.",
+      },
+      {
+        q: "What's the main difference between Rechat and Lofty?",
+        a: "Lofty is an all-in-one platform (CRM + IDX + lead gen + marketing); Rechat is a CRM with integrated AI marketing and transaction coordination, oriented to brokerages and teams.",
+      },
+    ],
+    related: ["lofty-vs-ylopo"],
+  },
 ];
 
 // ── Accessors ────────────────────────────────────────────────────────────────
