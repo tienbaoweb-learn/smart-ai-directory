@@ -56,6 +56,7 @@ import FAQAccordion, {
   type FAQItem,
 } from "../../components/tools/FAQAccordion";
 import PricingPlans from "../../components/tools/PricingPlans";
+import { getComparisonsForTool } from "../../../lib/comparisons";
 
 // ── generateStaticParams + generateMetadata ────────────────────────────────────
 
@@ -677,6 +678,18 @@ export default async function ToolReviewPage({
       isCurrent: false,
     })),
   ];
+
+  // ── Head-to-head comparisons featuring this tool (auto-linked) ─────────────
+  const toolComparisons = getComparisonsForTool(slug)
+    .map((cmp) => {
+      const otherSlug = cmp.toolASlug === slug ? cmp.toolBSlug : cmp.toolASlug;
+      const other = getToolBySlug(otherSlug);
+      if (!other) return null;
+      const otherName =
+        other.frontmatter.toolName || other.frontmatter.title.split(":")[0].trim();
+      return { href: `/compare/${cmp.slug}`, otherName };
+    })
+    .filter((x): x is { href: string; otherName: string } => x !== null);
 
   // ── Related tools + hub (dual-axis internal linking) ───────────────────────
   const { hub: relatedHub, siblings: relatedSiblings } = getRelatedTools(
@@ -1609,6 +1622,31 @@ export default async function ToolReviewPage({
                   })}
                 </div>
               </div>
+
+              {/* Head-to-head comparisons (auto from lib/comparisons.ts) */}
+              {toolComparisons.length > 0 && (
+                <div className="scroll-mt-24">
+                  <h2 className="text-2xl font-bold text-[#1E293B] mb-4">
+                    Head-to-Head Comparisons
+                  </h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {toolComparisons.map((cmp) => (
+                      <Link
+                        key={cmp.href}
+                        href={cmp.href}
+                        className="group flex items-center justify-between gap-3 border border-gray-100 rounded-xl p-4 bg-white hover:shadow-md hover:border-blue-200 transition-all"
+                      >
+                        <span className="font-semibold text-sm text-[#1E293B] group-hover:text-blue-600">
+                          {toolName} vs {cmp.otherName}
+                        </span>
+                        <span className="text-blue-600 text-xs font-medium group-hover:underline shrink-0">
+                          Compare →
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               {/* Related Tools in {hub} — dual-axis internal linking */}
               {relatedSiblings.length > 0 && (

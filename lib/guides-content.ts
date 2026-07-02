@@ -28,7 +28,8 @@ export interface GuideContentBlock {
   rows?: GuideComparisonRow[]; // cho comparison-table
   note?: string; // ghi chú nhỏ dưới comparison-table
   items?: GuideFaqItem[]; // cho faq
-  reviews?: string[]; // cho related-reviews: danh sách slug của review tại /tools/<slug>
+  reviews?: string[]; // cho related-reviews: danh sách slug cụ thể (tùy chọn)
+  industry?: string; // cho related-reviews: tự động lấy tất cả review theo industry (Best Of)
 }
 
 export interface GuideDetail {
@@ -103,10 +104,10 @@ export const guidesContent: GuideDetail[] = [
       { type: "comparison-table",
         rows: [
           { tool: "Veras", category: "AI rendering", bestFor: "Architects already using Revit/SketchUp/Rhino", notes: "Widest BIM/CAD integration on the market", slug: "veras" },
-          { tool: "SketchUp Diffusion", category: "AI rendering", bestFor: "SketchUp users wanting a native option", notes: "Built into SketchUp 2026.1, fewer style options" },
+          { tool: "SketchUp Diffusion", category: "AI rendering", bestFor: "SketchUp users wanting a native option", notes: "Built into SketchUp 2026.1, fewer style options", slug: "sketchup-diffusion" },
           { tool: "Midjourney", category: "AI image generation", bestFor: "Early mood boards, concept exploration", notes: "Not built for geometric accuracy", slug: "midjourney" },
           { tool: "TestFit", category: "Generative planning", bestFor: "Multifamily, build-to-rent, parking-heavy projects", notes: "Real-time unit count & cost estimates", slug: "testfit" },
-          { tool: "Autodesk Forma", category: "Site & massing analysis", bestFor: "Studios already in the Autodesk ecosystem", notes: "Strong daylight/wind/noise analysis" },
+          { tool: "Autodesk Forma", category: "Site & massing analysis", bestFor: "Studios already in the Autodesk ecosystem", notes: "Strong daylight/wind/noise analysis", slug: "autodesk-forma" },
           { tool: "Maket / Snaptrude", category: "Generative planning", bestFor: "Brief-to-floor-plan, early programming", notes: "Good for going from RFP to layout fast" },
           { tool: "ChatGPT / Claude", category: "Documentation", bestFor: "Proposals, specs, planning applications", notes: "General-purpose, not architecture-specific" },
           { tool: "Giraffe / Modelur", category: "Site & zoning research", bestFor: "Early feasibility, zoning compliance checks", notes: "Saves time vs. manual municipal research" },
@@ -132,11 +133,7 @@ export const guidesContent: GuideDetail[] = [
 
       { type: "related-reviews",
         text: "Read Our In-Depth Architecture Tool Reviews",
-        reviews: [
-          "veras", "testfit", "midjourney", "d5-render", "archicad-ai",
-          "vizcom", "archivinci", "planner-5d", "rendair-ai", "visualizee",
-          "ideal-house", "promeai",
-        ],
+        industry: "architecture",
         note: "Hands-on reviews from our team — see the best AI tools for architecture ranked on our Best Of hub.",
       },
 
@@ -201,7 +198,7 @@ export const guidesContent: GuideDetail[] = [
       { type: "heading", level: 2, text: "Quick Comparison" },
       { type: "comparison-table",
         rows: [
-          { tool: "Togal.AI", category: "Estimating & takeoffs", bestFor: "Fast, accurate plan-based takeoffs", notes: "~98% accuracy reported, conversational plan search" },
+          { tool: "Togal.AI", category: "Estimating & takeoffs", bestFor: "Fast, accurate plan-based takeoffs", notes: "~98% accuracy reported, conversational plan search", slug: "togal-ai" },
           { tool: "Beam AI", category: "Estimating & takeoffs", bestFor: "Teams wanting finished estimates, not raw data", notes: "Hybrid AI + human review model" },
           { tool: "STACK / Kreo", category: "Estimating & takeoffs", bestFor: "Automated component detection from blueprints", notes: "Pure computer-vision approach" },
           { tool: "ALICE Technologies", category: "Scheduling", bestFor: "AI-generated and optimized schedules", notes: "Strong fit for complex, multi-trade projects" },
@@ -232,10 +229,7 @@ export const guidesContent: GuideDetail[] = [
 
       { type: "related-reviews",
         text: "Read Our In-Depth Construction Tool Reviews",
-        reviews: [
-          "procore-ai", "buildots", "handoff", "insightful",
-          "lead-truffle", "team-pulse", "signeasy",
-        ],
+        industry: "construction",
         note: "Hands-on reviews from our team — see the best AI tools for construction ranked on our Best Of hub.",
       },
 
@@ -296,10 +290,10 @@ export const guidesContent: GuideDetail[] = [
       { type: "heading", level: 2, text: "Quick Comparison" },
       { type: "comparison-table",
         rows: [
-          { tool: "RoomGPT", category: "Fast restyle / inspiration", bestFor: "Quick client conversation starters", notes: "No layout control; furniture isn't purchasable" },
-          { tool: "InteriorAI", category: "Fast restyle / virtual staging", bestFor: "Real estate staging, moodboards", notes: "Broad style library, photo-to-style workflow" },
+          { tool: "RoomGPT", category: "Fast restyle / inspiration", bestFor: "Quick client conversation starters", notes: "No layout control; furniture isn't purchasable", slug: "roomgpt" },
+          { tool: "InteriorAI", category: "Fast restyle / virtual staging", bestFor: "Real estate staging, moodboards", notes: "Broad style library, photo-to-style workflow", slug: "interior-ai" },
           { tool: "Planner 5D", category: "Layout & space planning", bestFor: "Testing furniture arrangement and flow", notes: "2D/3D layout-first approach", slug: "planner-5d" },
-          { tool: "Homestyler", category: "Layout & visualization", bestFor: "Designers wanting hands-on 3D control", notes: "Combines planning with realistic previews" },
+          { tool: "Homestyler", category: "Layout & visualization", bestFor: "Designers wanting hands-on 3D control", notes: "Combines planning with realistic previews", slug: "homestyler" },
           { tool: "Shoppable-design platforms", category: "Concept-to-purchase", bestFor: "Designers managing client procurement", notes: "Links AI concepts to real SKU data" },
           { tool: "Foyr Neo", category: "Professional 3D rendering", bestFor: "Final presentations, detailed renovation planning", notes: "Larger model library, more manual control", slug: "foyr" },
         ],
@@ -324,11 +318,7 @@ export const guidesContent: GuideDetail[] = [
 
       { type: "related-reviews",
         text: "Read Our In-Depth Interior Design Tool Reviews",
-        reviews: [
-          "planner-5d", "foyr", "sofabrain", "collov-ai", "homedesigns",
-          "designsense", "aihomedesign", "archivinci", "visualizee",
-          "dehome", "meltflexai", "midjourney", "seedance-2-0",
-        ],
+        industry: "interior-design",
         note: "Hands-on reviews from our team — see the best AI tools for interior design ranked on our Best Of hub.",
       },
 
@@ -423,12 +413,7 @@ export const guidesContent: GuideDetail[] = [
 
       { type: "related-reviews",
         text: "Read Our In-Depth Real Estate Tool Reviews",
-        reviews: [
-          "virtualstagingai", "zillow-showcase", "homesage-ai", "dealcheck",
-          "offrs", "futurelot", "diedinhouse", "go-heather", "fynk",
-          "setmore", "signeasy", "synthesia", "fliki", "seedance-2-0",
-          "collov-ai",
-        ],
+        industry: "real-estate",
         note: "Hands-on reviews from our team — see the best AI tools for real estate ranked on our Best Of hub.",
       },
 

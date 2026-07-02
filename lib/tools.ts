@@ -182,6 +182,38 @@ const AI_CATEGORY_HUBS: Record<AiToolsCategory, RelatedHub> = {
   },
 };
 
+// Newer reviews use more granular aiToolsCategory values than the five that have
+// hub pages. Fold each granular value into its closest canonical hub so every
+// review still gets a real hub link and a non-trivial sibling group (prevents
+// singleton-category orphans). Canonical values map to themselves.
+const CATEGORY_NORMALIZE: Record<string, AiToolsCategory> = {
+  design: "design",
+  "content-marketing": "content-marketing",
+  automation: "automation",
+  sales: "sales",
+  productivity: "productivity",
+  // granular → canonical
+  crm: "sales",
+  "lead-generation": "sales",
+  "customer-support": "automation",
+  "marketing-automation": "automation",
+  "image-generation": "design",
+  "product-visualization": "design",
+  rendering: "design",
+  copywriting: "content-marketing",
+  analytics: "productivity",
+  presentation: "productivity",
+  "project-management": "productivity",
+  "legal-compliance": "productivity",
+};
+
+function normalizeCategory(
+  cat: string | undefined
+): AiToolsCategory | undefined {
+  if (!cat) return undefined;
+  return CATEGORY_NORMALIZE[cat] ?? "productivity";
+}
+
 export function getRelatedTools(
   slug: string,
   count = 4
@@ -197,14 +229,15 @@ export function getRelatedTools(
   const primaryKey = (fm: ToolFrontmatter): string =>
     fm.bestOf && fm.bestOf.length > 0
       ? `industry:${fm.bestOf[0]}`
-      : `aicat:${fm.aiToolsCategory ?? "uncategorized"}`;
+      : `aicat:${normalizeCategory(fm.aiToolsCategory) ?? "uncategorized"}`;
 
   const f = current.frontmatter;
+  const normalizedCat = normalizeCategory(f.aiToolsCategory);
   const hub: RelatedHub | null =
     f.bestOf && f.bestOf.length > 0
       ? (INDUSTRY_HUBS[f.bestOf[0]] ?? null)
-      : f.aiToolsCategory
-        ? (AI_CATEGORY_HUBS[f.aiToolsCategory] ?? null)
+      : normalizedCat
+        ? (AI_CATEGORY_HUBS[normalizedCat] ?? null)
         : null;
 
   const key = primaryKey(f);

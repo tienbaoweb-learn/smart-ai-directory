@@ -8,7 +8,11 @@ import Navbar from "../../../components/Navbar";
 import Newsletter from "../../../components/Newsletter";
 import Footer from "../../../components/Footer";
 import { guidesContent, type GuideContentBlock } from "../../../../lib/guides-content";
-import { getToolBySlug } from "../../../../lib/tools";
+import {
+  getToolBySlug,
+  getBestOfTools,
+  type IndustrySlug,
+} from "../../../../lib/tools";
 
 // ── generateStaticParams + generateMetadata ────────────────────────────────────
 
@@ -134,9 +138,13 @@ function ContentBlock({ block }: { block: GuideContentBlock }) {
       );
 
     case "related-reviews": {
-      const reviews = (block.reviews ?? [])
-        .map((slug) => getToolBySlug(slug))
-        .filter((t): t is NonNullable<typeof t> => t !== null);
+      // Prefer an industry (auto-resolves all current + future Best Of reviews,
+      // so the block never goes stale); otherwise fall back to explicit slugs.
+      const reviews = block.industry
+        ? getBestOfTools(block.industry as IndustrySlug)
+        : (block.reviews ?? [])
+            .map((slug) => getToolBySlug(slug))
+            .filter((t): t is NonNullable<typeof t> => t !== null);
       if (reviews.length === 0) return null;
       return (
         <div className="my-8">

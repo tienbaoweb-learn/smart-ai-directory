@@ -664,6 +664,27 @@ export default function BestInteriorDesignToolsPage() {
         </div>
       </section>
 
+      {/* ── Popular comparison ── */}
+      <section className="pb-4">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Link
+            href="/compare/roomgpt-vs-interior-ai"
+            className="group flex flex-wrap items-center justify-between gap-3 border border-gray-100 rounded-xl p-5 bg-white hover:shadow-md hover:border-blue-200 transition-all"
+          >
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-blue-600">
+                Head-to-head
+              </p>
+              <p className="font-semibold text-[#1E293B] mt-0.5">
+                RoomGPT vs InteriorAI: which AI room redesign tool wins?
+              </p>
+            </div>
+            <span className="text-blue-600 text-sm font-medium group-hover:underline shrink-0">
+              Read the comparison →
+            </span>
+          </Link>
+        </div>
+      </section>
 
       <Newsletter />
       <Footer />
