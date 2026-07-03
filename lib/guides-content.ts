@@ -203,7 +203,7 @@ export const guidesContent: GuideDetail[] = [
           { tool: "STACK / Kreo", category: "Estimating & takeoffs", bestFor: "Automated component detection from blueprints", notes: "Pure computer-vision approach" },
           { tool: "ALICE Technologies", category: "Scheduling", bestFor: "AI-generated and optimized schedules", notes: "Strong fit for complex, multi-trade projects", slug: "alice-technologies" },
           { tool: "nPlan", category: "Scheduling", bestFor: "Schedule risk forecasting", notes: "Uses historical project data for predictions", slug: "nplan" },
-          { tool: "OpenSpace", category: "Site visibility", bestFor: "Digital twins, progress tracking", notes: "360° capture, integrates with Procore/Autodesk", slug: "openspace" },
+          { tool: "OpenSpace", category: "Site visibility", bestFor: "Digital twins, progress tracking", notes: "360° capture, integrates with Procore/Autodesk", slug: "open-space" },
           { tool: "SmartVid", category: "Safety monitoring", bestFor: "PPE & hazard detection on site", notes: "Reported reductions in recordable incidents", slug: "smartvid" },
           { tool: "Procore AI", category: "Project management", bestFor: "Firms already using Procore", notes: "AI layered into existing PM workflow", slug: "procore-ai" },
           { tool: "Mastt", category: "Project/contract management", bestFor: "Large capital project portfolios", notes: "Automates contract & invoice data extraction", slug: "mastt" },

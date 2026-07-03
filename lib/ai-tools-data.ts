@@ -233,7 +233,7 @@ export const aiToolCards: AIToolCard[] = [
     tags: ["automation", "productivity", "ai-for-business"],
   },
   {
-    slug: "openspace",
+    slug: "open-space",
     name: "OpenSpace",
     shortDesc: "360° site capture and AI analysis tool that automatically documents every corner of your job site.",
     logo: { bg: "bg-gray-900", text: "OS" },
@@ -389,7 +389,7 @@ export const aiToolCards: AIToolCard[] = [
     tags: ["ai-writing", "ai-for-business"],
   },
   {
-    slug: "housecanary",
+    slug: "house-canary",
     name: "HouseCanary",
     shortDesc: "AI-powered property valuation and market analytics platform for accurate home price estimates.",
     logo: { bg: "bg-purple-600", text: "HC" },
