@@ -44,6 +44,18 @@ export type ToolFrontmatter = {
   rating: number;
   pricing?: string;
   pricingType?: PricingType;
+  // Real pricing tiers. When present, the review renders these instead of the
+  // synthetic generator; an empty array [] shows the accurate "starts at" price
+  // but skips tier cards entirely (use when only the entry price is known).
+  pricingPlans?: {
+    name: string;
+    price: string;
+    period: string;
+    description: string;
+    ctaText: string;
+    features: string[];
+    highlighted: boolean;
+  }[];
   affiliateLink: string;
   websiteUrl: string;
   logoUrl: string;

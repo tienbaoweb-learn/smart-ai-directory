@@ -581,8 +581,13 @@ export default async function ToolReviewPage({
   const affiliateHref = f.affiliateLink || f.websiteUrl;
   const overallRating = Math.round(f.rating * 2 * 10) / 10; // 0-5 → 0-10
   const hasPricing = Boolean(f.pricingType && f.pricing);
-  const pricingPlans = generatePricingPlans(f.pricingType, f.pricing, toolName);
-  const tocItems = hasPricing
+  // Prefer real tiers from frontmatter; fall back to the synthetic generator.
+  // An explicit empty array means "show the accurate starting price only, no
+  // invented tier cards".
+  const pricingPlans =
+    f.pricingPlans ?? generatePricingPlans(f.pricingType, f.pricing, toolName);
+  const showPricingSection = pricingPlans.length > 0;
+  const tocItems = showPricingSection
     ? TOC_ITEMS
     : TOC_ITEMS.filter((item) => item.href !== "pricing");
   const faqs = generateFAQs(f, toolName);
@@ -929,7 +934,7 @@ export default async function ToolReviewPage({
                 >
                   Try {toolName} Free →
                 </a>
-                {hasPricing && (
+                {showPricingSection && (
                   <a
                     href="#pricing"
                     className="border border-gray-300 hover:bg-gray-50 text-[#1E293B] font-medium rounded-lg px-6 py-2.5 text-sm transition-colors"
@@ -1240,7 +1245,7 @@ export default async function ToolReviewPage({
               )}
 
               {/* Pricing */}
-              {hasPricing && (
+              {showPricingSection && (
                 <div id="pricing" className="scroll-mt-24">
                   <PricingPlans
                     toolName={toolName}

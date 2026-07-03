@@ -27,6 +27,7 @@ export const TOOL_LOGO_URLS: Record<string, string> = {
   "joiin":            "/images/tools/joiin.png",
   "leader-crm":       "/images/tools/leader-crm.png",
   "leavo":            "/images/tools/leavo.png",
+  "leonardo-ai":      "/images/tools/leonardo-ai.png",
   "lofty":            "/images/tools/lofty.png",
   "maket":            "/images/tools/maket.png",
   "midjourney":       "/images/tools/Midjourney.png",

@@ -424,38 +424,26 @@ export default async function ComparePage({
                       <td className="py-3 px-4 text-gray-600">{row.b}</td>
                     </tr>
                   ))}
-                  {/* CTA row */}
+                  {/* Review row */}
                   <tr className="border-t border-gray-100">
                     <td className="py-3 px-4 font-medium text-gray-500 align-top">
-                      Visit
+                      Review
                     </td>
                     <td className="py-3 px-4">
-                      <a
-                        href={aHref}
-                        target="_blank"
-                        rel={
-                          aIsAffiliate
-                            ? "noopener noreferrer nofollow"
-                            : "noopener noreferrer"
-                        }
+                      <Link
+                        href={`/tools/${a.slug}`}
                         className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-4 py-2 text-xs transition-colors"
                       >
-                        Visit {an} →
-                      </a>
+                        Detail Review →
+                      </Link>
                     </td>
                     <td className="py-3 px-4">
-                      <a
-                        href={bHref}
-                        target="_blank"
-                        rel={
-                          bIsAffiliate
-                            ? "noopener noreferrer nofollow"
-                            : "noopener noreferrer"
-                        }
+                      <Link
+                        href={`/tools/${b.slug}`}
                         className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-4 py-2 text-xs transition-colors"
                       >
-                        Visit {bn} →
-                      </a>
+                        Detail Review →
+                      </Link>
                     </td>
                   </tr>
                 </tbody>
