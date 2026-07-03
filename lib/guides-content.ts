@@ -382,7 +382,7 @@ export const guidesContent: GuideDetail[] = [
       { type: "heading", level: 2, text: "Quick Comparison" },
       { type: "comparison-table",
         rows: [
-          { tool: "Perspective AI", category: "Lead qualification", bestFor: "Replacing static contact forms", notes: "Conversational intake, captures intent upfront" },
+          { tool: "Perspective AI", category: "Lead qualification", bestFor: "Replacing static contact forms", notes: "Conversational intake, captures intent upfront", slug: "perspective-ai" },
           { tool: "Structurely / Roof AI / Ylopo", category: "Lead nurture & voice", bestFor: "After-hours lead response", notes: "Voice/text agents for 24/7 coverage" },
           { tool: "ChatGPT / Claude", category: "Listing content", bestFor: "Budget-conscious, flexible content needs", notes: "General-purpose, no real estate-specific templates" },
           { tool: "Epique / Listings AI", category: "Listing content", bestFor: "Agents wanting real estate-specific copywriting", notes: "Built-in brand voice and terminology" },
