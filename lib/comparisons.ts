@@ -70,8 +70,8 @@ export const comparisons: Comparison[] = [
         edge: "A",
       },
       pricing: {
-        body: "Neither vendor publishes standard, self-serve pricing in our data, so a direct price-for-price comparison isn't possible without confirming current quotes. What the reviews do note: Kreo is positioned at enterprise tier, which may not suit smaller subcontractors or independent estimators. Togal.AI's value case is framed around bid volume — time recovered per bid multiplied by bids per month. For both, value scales with how much manual takeoff time you're currently spending.",
-        edge: "tie",
+        body: "Kreo has an accessible per-seat entry point, with its AI-powered takeoff on a higher tier; Togal.AI is premium and typically sold per user through a demo. On a per-seat basis Kreo generally comes in below Togal.AI, and it also offers a cheaper non-AI entry tier. For both, value scales with how much manual takeoff time you're currently spending.",
+        edge: "A",
       },
       easeOfUse: {
         body: "Both platforms carry an initial learning curve and require estimator review of AI output — neither is fully autonomous. Togal.AI's workflow is narrower and therefore more direct: upload a PDF, let the AI measure, verify in the review layer, export to your estimating software. Kreo covers more ground (2D, BIM, cost databases, cloud collaboration), which is powerful but means more surface area to learn, especially for teams moving off legacy or manual workflows.",
@@ -107,7 +107,7 @@ export const comparisons: Comparison[] = [
       },
       {
         q: "Which one is cheaper?",
-        a: "Neither vendor publishes standard pricing in our data, so we can't state a price winner without a current quote. Kreo is described as enterprise-tier; confirm live pricing directly with each vendor for your team size and bid volume.",
+        a: "Kreo generally comes in cheaper on a per-seat basis and also offers a lower-cost non-AI entry tier, while Togal.AI is premium and typically sold per user through a demo. Confirm live pricing directly with each vendor for your team size and bid volume.",
       },
       {
         q: "Are they worth it for small residential contractors?",
@@ -292,15 +292,15 @@ export const comparisons: Comparison[] = [
     toolBSlug: "stack",
     niche: "construction",
     verdict:
-      "Kreo and STACK are both cloud takeoff-and-estimating platforms: STACK is the mature, widely-adopted standard with a deep assembly library and more accessible pricing, while Kreo is the newer AI-native tool with stronger takeoff automation but enterprise-tier pricing.",
-    tldr: "STACK is the established cloud takeoff-and-estimating platform — a deep, reusable assembly library and a proven takeoff-to-bid workflow, positioned in our review as more accessible than heavy enterprise systems. Kreo is the newer, AI-native challenger with more automated takeoff, but our review notes its pricing sits at the enterprise tier. Best mature, deep-library platform with accessible pricing: STACK. Best AI-native takeoff automation: Kreo.",
+      "Kreo and STACK are both cloud takeoff-and-estimating platforms: STACK is the mature, widely-adopted standard with a deep assembly library and a free entry tier, while Kreo is the newer AI-native tool with stronger takeoff automation, with its AI features on a higher per-user tier.",
+    tldr: "STACK is the established cloud takeoff-and-estimating platform — a deep, reusable assembly library, a proven takeoff-to-bid workflow, and a free version to start on. Kreo is the newer, AI-native challenger with more automated takeoff; it has a low-cost entry tier, with its AI features on a higher per-user tier. Best mature, deep-library platform with a free on-ramp: STACK. Best AI-native takeoff automation: Kreo.",
     sections: {
       features: {
         body: "STACK pairs fast on-screen takeoff with a deep, reusable assembly library and estimating tools built up over years — a complete, battle-tested takeoff-to-bid workflow. Its own AI automation, though, is less advanced than AI-first tools; our review flags that as its main gap. Kreo is AI-native, built around automated 2D takeoff with estimating in a leaner, more modern setup. STACK wins on library depth and maturity; Kreo on being built AI-first.",
         edge: "tie",
       },
       pricing: {
-        body: "Per our reviews, STACK positions itself as more accessible and affordable than heavy enterprise systems, though its cost can still be a barrier for very small subcontractors. Kreo sits at the enterprise tier and is best justified by mid-to-large teams. Neither targets the occasional one-off bidder — verify current pricing with each vendor.",
+        body: "STACK offers a free version plus paid plans, an accessible on-ramp for teams that bid regularly. Kreo has a low-cost entry tier, but its AI-powered takeoff sits on a higher per-user tier, so cost scales with team size. STACK's free entry point is the more accessible starting point; Kreo's per-seat AI pricing suits teams that will use the automation heavily.",
         edge: "B",
       },
       easeOfUse: {
@@ -308,7 +308,7 @@ export const comparisons: Comparison[] = [
         edge: "tie",
       },
       useCases: {
-        body: "STACK fits mid-size GCs and specialty contractors who want a proven, complete takeoff-and-estimating platform with a deep assembly library and accessible pricing. Kreo fits mid-to-large firms that specifically want AI-native takeoff automation and can justify the enterprise investment.",
+        body: "STACK fits mid-size GCs and specialty contractors who want a proven, complete takeoff-and-estimating platform with a deep assembly library and a free tier to start on. Kreo fits firms that specifically want AI-native takeoff automation and have enough bid volume to justify its per-seat AI tier.",
         edge: "tie",
       },
     },
@@ -316,7 +316,7 @@ export const comparisons: Comparison[] = [
       "You specifically want AI-native takeoff automation",
       "You're a mid-to-large firm or estimating team",
       "Cutting manual measurement time is the priority",
-      "The enterprise investment is justified by your bid volume",
+      "Your bid volume justifies the per-seat cost of its AI tier",
     ],
     chooseB: [
       "You want a deep, reusable assembly library",
@@ -327,7 +327,7 @@ export const comparisons: Comparison[] = [
     faq: [
       {
         q: "Is Kreo or STACK more affordable?",
-        a: "Per our reviews, STACK positions itself as more accessible and affordable than heavy enterprise systems, while Kreo's pricing sits at the enterprise tier. Neither is aimed at the smallest occasional bidders — confirm current pricing with each vendor.",
+        a: "STACK offers a free version, making it the more accessible on-ramp, while Kreo has a low-cost entry tier but places its AI-powered takeoff on a higher per-user tier. Neither is aimed at the smallest occasional bidders — confirm current pricing with each vendor.",
       },
       {
         q: "Does STACK have strong AI automation?",
