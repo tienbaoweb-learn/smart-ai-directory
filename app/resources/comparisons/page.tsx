@@ -29,10 +29,11 @@ import {
 import Navbar from "../../components/Navbar";
 import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
-import ResourceCard from "../../components/ResourceCard";
 import { comparisonsData } from "../../../lib/comparisons-data";
 import { ALL_TOOLS } from "../../data/tools";
 import CompareTools from "../../ai-tools/CompareTools";
+import FeaturedComparisons from "./FeaturedComparisons";
+import LatestComparisons from "./LatestComparisons";
 
 // ─── CATEGORY CARD THEMES ─────────────────────────────────────────────────────
 
@@ -341,51 +342,7 @@ export default function ComparisonsPage() {
       <CompareTools tools={ALL_TOOLS} />
 
       {/* ── SECTION 5: Featured Comparisons ── */}
-      <section className="py-14 sm:py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-end mb-6">
-            <div>
-              <h2 className="text-2xl md:text-3xl font-bold text-[#1E293B]">Featured Comparisons</h2>
-              <p className="text-sm text-gray-500 mt-1">In-depth comparisons of the most popular AI tools.</p>
-            </div>
-            <a href="#" className="hidden md:inline-block text-blue-600 text-sm font-medium hover:underline shrink-0">
-              View all comparisons →
-            </a>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {FEATURED_COMPARISONS.map((c) => (
-              <ResourceCard
-                key={c.slug}
-                href={c.href}
-                thumbnailBgClassName="bg-gray-900"
-                thumbnailExtraClassName="flex items-center justify-center gap-3"
-                thumbnailContent={
-                  <>
-                    <span className={`absolute top-2 left-2 rounded-full px-2.5 py-1 text-xs font-semibold uppercase ${FEAT_BADGE[c.badge]}`}>
-                      {c.badge}
-                    </span>
-                    <div className={`w-12 h-12 rounded-full ${c.toolA.logo.bg} flex items-center justify-center shrink-0`}>
-                      <span className="text-white text-xs font-bold">{c.toolA.logo.text}</span>
-                    </div>
-                    <div className="w-8 h-8 rounded-full bg-white text-gray-900 flex items-center justify-center text-xs font-bold shrink-0">
-                      vs
-                    </div>
-                    <div className={`w-12 h-12 rounded-full ${c.toolB.logo.bg} flex items-center justify-center shrink-0`}>
-                      <span className="text-white text-xs font-bold">{c.toolB.logo.text}</span>
-                    </div>
-                  </>
-                }
-                title={c.title}
-                titleClassName="font-semibold text-sm text-[#1E293B]"
-                description={c.description}
-                descriptionClassName="text-xs text-gray-500 mt-1 line-clamp-2 leading-relaxed flex-1"
-                footer={<p className="text-xs text-gray-400 mt-2">Updated {c.date} • {c.readTime}</p>}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
+      <FeaturedComparisons comparisons={FEATURED_COMPARISONS} featBadge={FEAT_BADGE} />
 
       {/* ── SECTION 6: Latest Comparisons + Sidebar ── */}
       <section className="py-14 sm:py-16 bg-gray-50">
@@ -399,52 +356,7 @@ export default function ComparisonsPage() {
                 <p className="text-sm text-gray-500 mt-1">Fresh comparisons to help you make better decisions.</p>
               </div>
 
-              <div className="overflow-x-auto border border-gray-100 rounded-xl bg-white shadow-sm">
-                <table className="w-full min-w-[640px] text-sm">
-                  <thead>
-                    <tr className="bg-gray-50">
-                      <th className="text-left text-xs uppercase text-gray-500 font-medium py-3 px-4">Comparison</th>
-                      <th className="text-left text-xs uppercase text-gray-500 font-medium py-3 px-4">Tools</th>
-                      <th className="text-left text-xs uppercase text-gray-500 font-medium py-3 px-4">Key Focus</th>
-                      <th className="text-left text-xs uppercase text-gray-500 font-medium py-3 px-4">Updated</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {LATEST_COMPARISONS.map((row) => (
-                      <tr key={row.slug} className="border-t border-gray-100 hover:bg-gray-50 transition-colors">
-                        {/* Comparison */}
-                        <td className="py-3 px-4">
-                          <Link href={row.href} className="font-medium text-sm text-[#1E293B] hover:text-blue-600 transition-colors block">
-                            {row.title}
-                          </Link>
-                          <p className="text-xs text-gray-500 mt-0.5 line-clamp-1">{row.description}</p>
-                        </td>
-                        {/* Tools */}
-                        <td className="py-3 px-4">
-                          <div className="flex items-center gap-1">
-                            <span className={`w-6 h-6 rounded ${row.toolA.logo.bg} flex items-center justify-center`}>
-                              <span className="text-white text-[9px] font-bold">{row.toolA.logo.text}</span>
-                            </span>
-                            <span className={`w-6 h-6 rounded ${row.toolB.logo.bg} flex items-center justify-center`}>
-                              <span className="text-white text-[9px] font-bold">{row.toolB.logo.text}</span>
-                            </span>
-                          </div>
-                        </td>
-                        {/* Key Focus */}
-                        <td className="py-3 px-4 text-xs text-gray-500 max-w-[160px]">
-                          <span className="line-clamp-2">{row.focus}</span>
-                        </td>
-                        {/* Updated */}
-                        <td className="py-3 px-4 text-xs text-gray-400 whitespace-nowrap">{row.date} • {row.readTime}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-
-              <a href="#" className="text-blue-600 text-sm font-medium mt-4 hover:underline block text-center">
-                Load more comparisons ↓
-              </a>
+              <LatestComparisons comparisons={LATEST_COMPARISONS} />
             </div>
 
             {/* ── RIGHT COL: Sidebar ── */}
