@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import BestRealEstateClient from "./BestRealEstateClient";
+import { getIndustryGridTools } from "../../../lib/tools";
 
 export const metadata: Metadata = {
   title: "The Best AI Tools for Real Estate Professionals | SmartAI for Work",
@@ -16,5 +17,7 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <BestRealEstateClient />;
+  return (
+    <BestRealEstateClient allTools={getIndustryGridTools("real-estate")} />
+  );
 }

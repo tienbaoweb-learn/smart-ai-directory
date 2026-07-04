@@ -7,6 +7,9 @@ import Navbar from "../../components/Navbar";
 import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
 import { TOOL_LOGO_URLS } from "../../data/tool-logos";
+import IndustryToolsGrid, {
+  type GridTool,
+} from "../../components/IndustryToolsGrid";
 
 // ─── DATA ─────────────────────────────────────────────────────────────────────
 
@@ -1112,7 +1115,11 @@ function BestOfSection() {
 
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
 
-export default function ArchitecturePage() {
+export default function ArchitecturePage({
+  allTools,
+}: {
+  allTools: GridTool[];
+}) {
   // Shared so the "Recommended Tools" step cards can pre-select a Use Case
   // filter in the "Top Tools for Architecture Firms" section.
   const [useCases, setUseCases] = useState<string[]>([]);
@@ -1141,6 +1148,12 @@ export default function ArchitecturePage() {
         heading="Get Weekly AI Tools & Architecture Insights"
         subtitle="Join 10,000+ architects and design firms who get AI tips, workflows, and tool recommendations."
       />
+      <IndustryToolsGrid
+        title="All AI Tools for Architecture"
+        subtitle="Browse every architecture tool we've reviewed."
+        tools={allTools}
+      />
+
       <Footer />
     </>
   );

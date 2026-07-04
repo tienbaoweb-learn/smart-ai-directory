@@ -7,6 +7,9 @@ import Navbar from "../../components/Navbar";
 import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
 import { TOOL_LOGO_URLS } from "../../data/tool-logos";
+import IndustryToolsGrid, {
+  type GridTool,
+} from "../../components/IndustryToolsGrid";
 
 // ─── DATA ─────────────────────────────────────────────────────────────────────
 
@@ -1111,7 +1114,11 @@ function BestOfSection() {
 
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
 
-export default function InteriorDesignPage() {
+export default function InteriorDesignPage({
+  allTools,
+}: {
+  allTools: GridTool[];
+}) {
   // Shared so the "Recommended Tools" step cards can pre-select Use Case
   // filter(s) in the "Top Tools for Interior Designers" section.
   const [useCases, setUseCases] = useState<string[]>([]);
@@ -1140,6 +1147,12 @@ export default function InteriorDesignPage() {
         heading="Get Weekly AI Tools & Design Inspiration"
         subtitle="Join 8,000+ interior designers who get AI tips, tool reviews, and design workflow ideas every week."
       />
+      <IndustryToolsGrid
+        title="All AI Tools for Interior Design"
+        subtitle="Browse every interior design tool we've reviewed."
+        tools={allTools}
+      />
+
       <Footer />
     </>
   );

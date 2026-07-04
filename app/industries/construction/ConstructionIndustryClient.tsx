@@ -7,6 +7,9 @@ import Navbar from "../../components/Navbar";
 import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
 import { TOOL_LOGO_URLS } from "../../data/tool-logos";
+import IndustryToolsGrid, {
+  type GridTool,
+} from "../../components/IndustryToolsGrid";
 
 // ─── DATA ─────────────────────────────────────────────────────────────────────
 
@@ -1091,7 +1094,11 @@ function BestOfSection() {
 
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
 
-export default function ConstructionPage() {
+export default function ConstructionPage({
+  allTools,
+}: {
+  allTools: GridTool[];
+}) {
   // Shared so the "Recommended Tools" step cards can pre-select a Use Case
   // filter in the "Top Tools for Construction Companies" section.
   const [useCases, setUseCases] = useState<string[]>([]);
@@ -1120,6 +1127,12 @@ export default function ConstructionPage() {
         heading="Get Weekly AI Tools & Construction Insights"
         subtitle="Join 10,000+ contractors and project managers who get AI tips, workflows, and tool recommendations."
       />
+      <IndustryToolsGrid
+        title="All AI Tools for Construction"
+        subtitle="Browse every construction tool we've reviewed."
+        tools={allTools}
+      />
+
       <Footer />
     </>
   );

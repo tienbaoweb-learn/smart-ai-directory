@@ -2,6 +2,8 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import readingTime from "reading-time";
+import { TOOL_LOGO_URLS } from "../app/data/tool-logos";
+import type { GridTool } from "../app/components/IndustryToolsGrid";
 
 const TOOLS_DIR = path.join(process.cwd(), "content/tools");
 
@@ -154,6 +156,45 @@ export function getBestOfTools(industry: IndustrySlug): Tool[] {
 
 export function getToolsByTag(tag: string): Tool[] {
   return getAllTools().filter((t) => t.frontmatter.tags?.includes(tag));
+}
+
+// ── Data-driven grid for the Best Of / Industries hub pages ──────────────────
+// Resolves each tool to a plain, serializable shape (with a verified logo path)
+// so a server page can pass it into the client hub components.
+
+function toGridTool(t: Tool): GridTool {
+  const name =
+    t.frontmatter.toolName || t.frontmatter.title.split(":")[0].trim();
+  const logo = TOOL_LOGO_URLS[t.slug] ?? t.frontmatter.logoUrl ?? "";
+  const logoUrl =
+    logo && fs.existsSync(path.join(process.cwd(), "public", logo)) ? logo : "";
+  return {
+    slug: t.slug,
+    name,
+    excerpt: t.frontmatter.excerpt,
+    rating: t.frontmatter.rating,
+    category: t.frontmatter.category,
+    logoUrl,
+    pricing: t.frontmatter.pricing,
+  };
+}
+
+/**
+ * Tools to feature on an industry hub page. Uses the curated Best Of set when
+ * one exists (rating-sorted), otherwise falls back to everything tagged with
+ * that industry. Rating-sorted, capped so the grid stays reasonable.
+ */
+export function getIndustryGridTools(
+  industry: IndustrySlug,
+  limit = 32
+): GridTool[] {
+  let list = getBestOfTools(industry);
+  if (list.length === 0) {
+    list = getToolsByIndustry(industry).sort(
+      (a, b) => b.frontmatter.rating - a.frontmatter.rating
+    );
+  }
+  return list.slice(0, limit).map(toGridTool);
 }
 
 // ── Internal linking: dual-axis hub + sibling resolution ─────────────────────

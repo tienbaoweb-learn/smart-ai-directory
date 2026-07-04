@@ -164,10 +164,10 @@ const schemaItemList = {
       position: 6,
       item: {
         "@type": "SoftwareApplication",
-        name: "Revaluate",
+        name: "HouseCanary",
         applicationCategory: "BusinessApplication",
         operatingSystem: "Web",
-        url: "https://www.smartaiforwork.com/tools/revaluate",
+        url: "https://www.smartaiforwork.com/tools/house-canary",
         description: "AI property valuation and market insights for real estate professionals.",
         aggregateRating: { "@type": "AggregateRating", ratingValue: "4.7", reviewCount: "506" },
       },

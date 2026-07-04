@@ -25,6 +25,9 @@ import Navbar from "../../components/Navbar";
 import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
 import { TOOL_LOGO_URLS } from "../../data/tool-logos";
+import IndustryToolsGrid, {
+  type GridTool,
+} from "../../components/IndustryToolsGrid";
 
 // ─── RANK BADGE STYLES (full Tailwind classes — no dynamic concatenation) ────
 
@@ -114,10 +117,10 @@ const TOP_PICKS = [
 // ─── COMPARE TABLE DATA ───────────────────────────────────────────────────────
 
 const COMPARE_TOOLS = [
-  { name: "Planner 5D", slug: "planner-5d", href: "/ai-tools/planner-5d", logoBg: "bg-green-600",  logoText: "P5", bestFor: "All-in-one Design",  ease: 9.2, features: 9.0, quality: 9.1, price: 8.8, overall: 9.0 },
-  { name: "RoomGPT", slug: "roomgpt", href: "/ai-tools/roomgpt",    logoBg: "bg-gray-900",   logoText: "RG", bestFor: "Quick Concepts",     ease: 9.6, features: 8.2, quality: 8.3, price: 8.6, overall: 8.7 },
-  { name: "Coohom", slug: "coohom", href: "/ai-tools/coohom",     logoBg: "bg-blue-500",   logoText: "C",  bestFor: "3D Visualization",   ease: 8.7, features: 9.3, quality: 9.2, price: 8.1, overall: 8.8 },
-  { name: "Homestyler", slug: "homestyler", href: "/ai-tools/homestyler", logoBg: "bg-gradient-to-br from-red-400 via-yellow-400 to-green-400", logoText: "H", bestFor: "Homeowners", ease: 9.1, features: 8.4, quality: 8.6, price: 9.0, overall: 8.7 },
+  { name: "Planner 5D", slug: "planner-5d", href: "/tools/planner-5d", logoBg: "bg-green-600",  logoText: "P5", bestFor: "All-in-one Design",  ease: 9.2, features: 9.0, quality: 9.1, price: 8.8, overall: 9.0 },
+  { name: "RoomGPT", slug: "roomgpt", href: "/tools/roomgpt",    logoBg: "bg-gray-900",   logoText: "RG", bestFor: "Quick Concepts",     ease: 9.6, features: 8.2, quality: 8.3, price: 8.6, overall: 8.7 },
+  { name: "Coohom", slug: "coohom", href: "https://www.coohom.com",     logoBg: "bg-blue-500",   logoText: "C",  bestFor: "3D Visualization",   ease: 8.7, features: 9.3, quality: 9.2, price: 8.1, overall: 8.8 },
+  { name: "Homestyler", slug: "homestyler", href: "/tools/homestyler", logoBg: "bg-gradient-to-br from-red-400 via-yellow-400 to-green-400", logoText: "H", bestFor: "Homeowners", ease: 9.1, features: 8.4, quality: 8.6, price: 9.0, overall: 8.7 },
   { name: "Foyr", slug: "foyr", href: "/tools/foyr",   logoBg: "bg-gray-900",   logoText: "FN", bestFor: "Professional Use",   ease: 8.3, features: 9.1, quality: 9.3, price: 7.9, overall: 8.6 },
 ];
 
@@ -146,7 +149,11 @@ const FAQ_ITEMS = [
 
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
 
-export default function BestInteriorDesignToolsPage() {
+export default function BestInteriorDesignToolsPage({
+  allTools,
+}: {
+  allTools: GridTool[];
+}) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
@@ -516,15 +523,15 @@ export default function BestInteriorDesignToolsPage() {
           {/* Cards */}
           <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-4">
             {[
-              { label: "Best for Concept Inspiration",   labelClass: "text-blue-600",    logoBg: "bg-gray-900",  logoText: "RG", name: "RoomGPT",    slug: "roomgpt",    desc: "Instant ideas from photos.",                      href: "/ai-tools/roomgpt",
+              { label: "Best for Concept Inspiration",   labelClass: "text-blue-600",    logoBg: "bg-gray-900",  logoText: "RG", name: "RoomGPT",    slug: "roomgpt",    desc: "Instant ideas from photos.",                      href: "/tools/roomgpt",
     affiliateHref: "#" },
-              { label: "Best for Space Planning",         labelClass: "text-[#35966a]",   logoBg: "bg-green-600", logoText: "P5", name: "Planner 5D", slug: "planner-5d", desc: "Smart layouts and space optimization.",            href: "/ai-tools/planner-5d",
+              { label: "Best for Space Planning",         labelClass: "text-[#35966a]",   logoBg: "bg-green-600", logoText: "P5", name: "Planner 5D", slug: "planner-5d", desc: "Smart layouts and space optimization.",            href: "/tools/planner-5d",
     affiliateHref: "#" },
-              { label: "Best for 3D Rendering",           labelClass: "text-purple-600",  logoBg: "bg-blue-500",  logoText: "C",  name: "Coohom",     slug: "coohom",     desc: "High-quality 3D renders in minutes.",             href: "/ai-tools/coohom",
+              { label: "Best for 3D Rendering",           labelClass: "text-purple-600",  logoBg: "bg-blue-500",  logoText: "C",  name: "Coohom",     slug: "coohom",     desc: "High-quality 3D renders in minutes.",             href: "https://www.coohom.com",
     affiliateHref: "#" },
               { label: "Best for Client Presentations",   labelClass: "text-red-500",     logoBg: "bg-gray-900",  logoText: "FN", name: "Foyr",   slug: "foyr",   desc: "Stunning visuals that impress clients.",          href: "/tools/foyr",
     affiliateHref: "#" },
-              { label: "Best for Material & Furniture",   labelClass: "text-orange-600",  logoBg: "bg-gradient-to-br from-red-400 via-yellow-400 to-green-400", logoText: "H", name: "Homestyler", slug: "homestyler", desc: "Huge library of models and materials.", href: "/ai-tools/homestyler",
+              { label: "Best for Material & Furniture",   labelClass: "text-orange-600",  logoBg: "bg-gradient-to-br from-red-400 via-yellow-400 to-green-400", logoText: "H", name: "Homestyler", slug: "homestyler", desc: "Huge library of models and materials.", href: "/tools/homestyler",
     affiliateHref: "#" },
               { label: "Best for Ecommerce Content",      labelClass: "text-indigo-600",  logoBg: "bg-gray-900",  logoText: "FN", name: "Foyr",   slug: "foyr",   desc: "Create product visuals and catalog images.",      href: "/tools/foyr",
     affiliateHref: "#" },
@@ -685,6 +692,12 @@ export default function BestInteriorDesignToolsPage() {
           </Link>
         </div>
       </section>
+
+      <IndustryToolsGrid
+        title="All AI Tools for Interior Design"
+        subtitle="Every interior design tool we've reviewed — ranked by our rating."
+        tools={allTools}
+      />
 
       <Newsletter />
       <Footer />

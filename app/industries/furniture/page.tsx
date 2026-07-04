@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import FurnitureIndustryClient from "./FurnitureIndustryClient";
+import { getIndustryGridTools } from "../../../lib/tools";
 
 export const metadata: Metadata = {
   title: "AI Tools for Furniture Businesses | SmartAI for Work",
@@ -16,5 +17,7 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <FurnitureIndustryClient />;
+  return (
+    <FurnitureIndustryClient allTools={getIndustryGridTools("furniture")} />
+  );
 }

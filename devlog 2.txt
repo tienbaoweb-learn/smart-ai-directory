@@ -1,0 +1,46 @@
+
+> smart-ai-directory@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.9 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.100.131:3000
+- Environments: .env.local
+✓ Ready in 520ms
+
+ GET /tools/kreo 200 in 4.9s (next.js: 3.3s, generate-params: 672ms, application-code: 1546ms)
+ GET /tools/sketchup-ai 200 in 1198ms (next.js: 68ms, generate-params: 4ms, application-code: 1130ms)
+ GET /tools/kreo 200 in 716ms (next.js: 19ms, generate-params: 4ms, application-code: 698ms)
+✓ Compiled in 237ms
+ GET /tools/kreo 200 in 868ms (next.js: 32ms, generate-params: 5ms, application-code: 836ms)
+ GET /tools/kreo 200 in 590ms (next.js: 19ms, generate-params: 10ms, application-code: 572ms)
+ GET /resources/workflows 200 in 1481ms (next.js: 1339ms, application-code: 142ms)
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+ GET /resources/workflows/contractor-lead-generation-workflow 200 in 1058ms (next.js: 1023ms, generate-params: 457ms, application-code: 35ms)
+✓ Compiled in 360ms
+⚠ Fast Refresh had to perform a full reload when ./node_modules/next/dist/client/image-component.js changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ GET /resources/workflows 200 in 1475ms (next.js: 228ms, application-code: 1248ms)
+ GET /resources/workflows 200 in 1055ms (next.js: 26ms, application-code: 1029ms)
+ GET /resources/workflows 200 in 833ms (next.js: 5ms, application-code: 828ms)
+ GET /resources/workflows 200 in 139ms (next.js: 4ms, application-code: 135ms)
+ GET /resources/workflows 200 in 827ms (next.js: 3ms, application-code: 823ms)
+✓ Compiled in 151ms
+ GET /resources/workflows 200 in 74ms (next.js: 4ms, application-code: 70ms)
+✓ Compiled in 65ms
+ GET /resources/workflows 200 in 78ms (next.js: 5ms, application-code: 73ms)
+✓ Compiled in 98ms
+ GET /resources/workflows 200 in 71ms (next.js: 4ms, application-code: 67ms)
+✓ Compiled in 135ms
+ GET /resources/workflows 200 in 270ms (next.js: 66ms, application-code: 205ms)
+ GET /resources/workflows 200 in 131ms (next.js: 2ms, application-code: 129ms)
+ GET /resources/workflows 200 in 56ms (next.js: 1696µs, application-code: 54ms)
+✓ Compiled in 83ms
+ GET /resources/workflows 200 in 97ms (next.js: 7ms, application-code: 90ms)
+✓ Compiled in 154ms
+ GET /industries/architecture 200 in 691ms (next.js: 654ms, application-code: 38ms)
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[browser] Image with src "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=900&q=80" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[browser] Image with src "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=300&q=80" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[browser] Image with src "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=300&q=80" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[browser] Image with src "https://images.unsplash.com/photo-1542621334-a254cf47733d?w=300&q=80" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[?25h

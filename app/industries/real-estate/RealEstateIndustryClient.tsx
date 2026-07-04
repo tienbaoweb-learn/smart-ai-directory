@@ -7,6 +7,9 @@ import Navbar from "../../components/Navbar";
 import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
 import { TOOL_LOGO_URLS } from "../../data/tool-logos";
+import IndustryToolsGrid, {
+  type GridTool,
+} from "../../components/IndustryToolsGrid";
 
 // ─── DATA ─────────────────────────────────────────────────────────────────────
 
@@ -1099,7 +1102,11 @@ function BestOfSection() {
 
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
 
-export default function RealEstatePage() {
+export default function RealEstatePage({
+  allTools,
+}: {
+  allTools: GridTool[];
+}) {
   // Shared so the "Recommended Tools" step cards can pre-select a Use Case
   // filter in the "Top Tools for Real Estate Professionals" section.
   const [useCases, setUseCases] = useState<string[]>([]);
@@ -1128,6 +1135,12 @@ export default function RealEstatePage() {
         heading="Get Weekly AI Tools & Real Estate Insights"
         subtitle="Join 10,000+ real estate agents and brokers who get AI tips, workflows, and tool recommendations."
       />
+      <IndustryToolsGrid
+        title="All AI Tools for Real Estate"
+        subtitle="Browse every real estate tool we've reviewed."
+        tools={allTools}
+      />
+
       <Footer />
     </>
   );

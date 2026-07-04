@@ -25,6 +25,9 @@ import Navbar from "../../components/Navbar";
 import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
 import { TOOL_LOGO_URLS } from "../../data/tool-logos";
+import IndustryToolsGrid, {
+  type GridTool,
+} from "../../components/IndustryToolsGrid";
 
 // ─── RANK BADGE STYLES ────────────────────────────────────────────────────────
 
@@ -100,11 +103,11 @@ const TOP_PICKS = [
 // ─── COMPARE TABLE DATA ───────────────────────────────────────────────────────
 
 const COMPARE_TOOLS = [
-  { name: "Vizcom", slug: "vizcom", href: "/ai-tools/vizcom",         logoBg: "bg-[#2d5cf3]", logoText: "VZ", bestFor: "Concept Design",       ease: 9.5, features: 9.3, quality: 9.4, price: 9.2, overall: 9.4 },
-  { name: "Autodesk Forma", slug: "autodesk-forma", href: "/ai-tools/autodesk-forma", logoBg: "bg-gray-900",  logoText: "AF", bestFor: "Site Analysis",        ease: 8.9, features: 9.1, quality: 9.0, price: 8.5, overall: 8.9 },
-  { name: "TestFit", slug: "testfit", href: "/ai-tools/testfit",        logoBg: "bg-gray-700",  logoText: "TF", bestFor: "Feasibility Studies",  ease: 8.7, features: 9.0, quality: 8.8, price: 8.6, overall: 8.8 },
-  { name: "Midjourney", slug: "midjourney", href: "/ai-tools/midjourney",     logoBg: "bg-black",     logoText: "MJ", bestFor: "Visualization",        ease: 9.2, features: 8.8, quality: 9.1, price: 8.7, overall: 8.9 },
-  { name: "ArkDesign AI", slug: "arkdesign-ai", href: "/ai-tools/arkdesign-ai",   logoBg: "bg-[#6b8cfb]", logoText: "AD", bestFor: "Professional Use",    ease: 8.5, features: 8.7, quality: 8.6, price: 8.2, overall: 8.5 },
+  { name: "Vizcom", slug: "vizcom", href: "/tools/vizcom",         logoBg: "bg-[#2d5cf3]", logoText: "VZ", bestFor: "Concept Design",       ease: 9.5, features: 9.3, quality: 9.4, price: 9.2, overall: 9.4 },
+  { name: "Autodesk Forma", slug: "autodesk-forma", href: "/tools/autodesk-forma", logoBg: "bg-gray-900",  logoText: "AF", bestFor: "Site Analysis",        ease: 8.9, features: 9.1, quality: 9.0, price: 8.5, overall: 8.9 },
+  { name: "TestFit", slug: "testfit", href: "/tools/testfit",        logoBg: "bg-gray-700",  logoText: "TF", bestFor: "Feasibility Studies",  ease: 8.7, features: 9.0, quality: 8.8, price: 8.6, overall: 8.8 },
+  { name: "Midjourney", slug: "midjourney", href: "/tools/midjourney",     logoBg: "bg-black",     logoText: "MJ", bestFor: "Visualization",        ease: 9.2, features: 8.8, quality: 9.1, price: 8.7, overall: 8.9 },
+  { name: "ArkDesign AI", slug: "arkdesign-ai", href: "/tools/arkdesign-ai",   logoBg: "bg-[#6b8cfb]", logoText: "AD", bestFor: "Professional Use",    ease: 8.5, features: 8.7, quality: 8.6, price: 8.2, overall: 8.5 },
 ];
 
 const MAX_OVERALL = Math.max(...COMPARE_TOOLS.map((t) => t.overall));
@@ -132,7 +135,11 @@ const FAQ_ITEMS = [
 
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
 
-export default function BestArchitectureToolsPage() {
+export default function BestArchitectureToolsPage({
+  allTools,
+}: {
+  allTools: GridTool[];
+}) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
@@ -472,17 +479,17 @@ export default function BestArchitectureToolsPage() {
 
           <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-4">
             {[
-              { label: "Best for Concept Design",       labelClass: "text-[#2d5cf3]",  logoBg: "bg-[#2d5cf3]", logoText: "VZ", name: "Vizcom",     slug: "vizcom",         desc: "AI-powered concept sketching and rendering.",    href: "/ai-tools/vizcom",
+              { label: "Best for Concept Design",       labelClass: "text-[#2d5cf3]",  logoBg: "bg-[#2d5cf3]", logoText: "VZ", name: "Vizcom",     slug: "vizcom",         desc: "AI-powered concept sketching and rendering.",    href: "/tools/vizcom",
     affiliateHref: "#" },
-              { label: "Best for Site Analysis",         labelClass: "text-purple-600", logoBg: "bg-gray-900",  logoText: "AF", name: "Autodesk Forma", slug: "autodesk-forma", desc: "Data-driven site and climate analysis.",         href: "/ai-tools/autodesk-forma",
+              { label: "Best for Site Analysis",         labelClass: "text-purple-600", logoBg: "bg-gray-900",  logoText: "AF", name: "Autodesk Forma", slug: "autodesk-forma", desc: "Data-driven site and climate analysis.",         href: "/tools/autodesk-forma",
     affiliateHref: "#" },
-              { label: "Best for 3D Rendering",          labelClass: "text-blue-600",   logoBg: "bg-black",     logoText: "MJ", name: "Midjourney", slug: "midjourney",     desc: "Photorealistic architectural visualizations.",   href: "/ai-tools/midjourney",
+              { label: "Best for 3D Rendering",          labelClass: "text-blue-600",   logoBg: "bg-black",     logoText: "MJ", name: "Midjourney", slug: "midjourney",     desc: "Photorealistic architectural visualizations.",   href: "/tools/midjourney",
     affiliateHref: "#" },
-              { label: "Best for Client Presentations",  labelClass: "text-red-500",    logoBg: "bg-[#2d5cf3]", logoText: "VZ", name: "Vizcom",     slug: "vizcom",         desc: "Stunning visuals that impress clients.",         href: "/ai-tools/vizcom",
+              { label: "Best for Client Presentations",  labelClass: "text-red-500",    logoBg: "bg-[#2d5cf3]", logoText: "VZ", name: "Vizcom",     slug: "vizcom",         desc: "Stunning visuals that impress clients.",         href: "/tools/vizcom",
     affiliateHref: "#" },
-              { label: "Best for Feasibility Studies",   labelClass: "text-orange-600", logoBg: "bg-gray-700",  logoText: "TF", name: "TestFit",    slug: "testfit",        desc: "Rapid feasibility analysis for any site.",      href: "/ai-tools/testfit",
+              { label: "Best for Feasibility Studies",   labelClass: "text-orange-600", logoBg: "bg-gray-700",  logoText: "TF", name: "TestFit",    slug: "testfit",        desc: "Rapid feasibility analysis for any site.",      href: "/tools/testfit",
     affiliateHref: "#" },
-              { label: "Best for Visualization",         labelClass: "text-indigo-600", logoBg: "bg-[#6b8cfb]", logoText: "AD", name: "ArkDesign AI", slug: "arkdesign-ai", desc: "AI-enhanced architecture visualization tools.", href: "/ai-tools/arkdesign-ai",
+              { label: "Best for Visualization",         labelClass: "text-indigo-600", logoBg: "bg-[#6b8cfb]", logoText: "AD", name: "ArkDesign AI", slug: "arkdesign-ai", desc: "AI-enhanced architecture visualization tools.", href: "/tools/arkdesign-ai",
     affiliateHref: "#" },
             ].map((card) => (
               <div key={card.label} className="border border-gray-100 rounded-xl p-4 bg-white text-center flex flex-col items-center hover:shadow-md transition-shadow">
@@ -636,6 +643,12 @@ export default function BestArchitectureToolsPage() {
           </Link>
         </div>
       </section>
+
+      <IndustryToolsGrid
+        title="All AI Tools for Architecture"
+        subtitle="Every architecture tool we've reviewed — ranked by our rating."
+        tools={allTools}
+      />
 
       <Newsletter />
       <Footer />

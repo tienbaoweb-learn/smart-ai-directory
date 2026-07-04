@@ -7,6 +7,9 @@ import Navbar from "../../components/Navbar";
 import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
 import { TOOL_LOGO_URLS } from "../../data/tool-logos";
+import IndustryToolsGrid, {
+  type GridTool,
+} from "../../components/IndustryToolsGrid";
 
 // ─── DATA ─────────────────────────────────────────────────────────────────────
 
@@ -1131,7 +1134,11 @@ function BestOfSection() {
 
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
 
-export default function FurniturePage() {
+export default function FurniturePage({
+  allTools,
+}: {
+  allTools: GridTool[];
+}) {
   // Shared so the "Recommended Tools" step cards can pre-select Use Case
   // filter(s) in the "Top Tools for Furniture Businesses" section.
   const [useCases, setUseCases] = useState<string[]>([]);
@@ -1160,6 +1167,12 @@ export default function FurniturePage() {
         heading="Get Weekly AI Tools & Furniture Industry Tips"
         subtitle="Join 6,000+ furniture professionals who get AI tool reviews, ecommerce tips, and visual content ideas every week."
       />
+      <IndustryToolsGrid
+        title="All AI Tools for Furniture"
+        subtitle="Browse every furniture tool we've reviewed."
+        tools={allTools}
+      />
+
       <Footer />
     </>
   );

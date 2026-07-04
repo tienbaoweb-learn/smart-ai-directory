@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import InteriorDesignIndustryClient from "./InteriorDesignIndustryClient";
+import { getIndustryGridTools } from "../../../lib/tools";
 
 export const metadata: Metadata = {
   title: "AI Tools for Interior Designers | SmartAI for Work",
@@ -16,5 +17,9 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <InteriorDesignIndustryClient />;
+  return (
+    <InteriorDesignIndustryClient
+      allTools={getIndustryGridTools("interior-design")}
+    />
+  );
 }

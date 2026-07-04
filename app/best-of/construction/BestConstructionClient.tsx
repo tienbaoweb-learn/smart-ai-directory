@@ -25,6 +25,9 @@ import Navbar from "../../components/Navbar";
 import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
 import { TOOL_LOGO_URLS } from "../../data/tool-logos";
+import IndustryToolsGrid, {
+  type GridTool,
+} from "../../components/IndustryToolsGrid";
 
 // ─── RANK BADGE STYLES ────────────────────────────────────────────────────────
 
@@ -86,11 +89,11 @@ const TOP_PICKS = [
 // ─── COMPARE TABLE DATA ───────────────────────────────────────────────────────
 
 const COMPARE_TOOLS = [
-  { name: "Buildots", href: "/ai-tools/buildots",          logoBg: "bg-[#f27313]",  logoText: "BD", bestFor: "Site Monitoring",      ease: 9.1, features: 9.3, quality: 9.2, price: 8.6, overall: 9.3 },
-  { name: "OpenSpace", href: "/ai-tools/openspace",         logoBg: "bg-gray-900",   logoText: "OS", bestFor: "Site Documentation",   ease: 9.3, features: 8.9, quality: 9.0, price: 8.5, overall: 9.0 },
-  { name: "ALICE Technologies", href: "/ai-tools/alice-technologies", logoBg: "bg-gray-700",   logoText: "AT", bestFor: "Scheduling",           ease: 8.5, features: 9.2, quality: 9.0, price: 8.2, overall: 8.7 },
-  { name: "Procore AI", href: "/ai-tools/procore-ai",        logoBg: "bg-orange-700", logoText: "PA", bestFor: "Project Management",   ease: 8.9, features: 9.0, quality: 8.8, price: 8.7, overall: 8.9 },
-  { name: "Pillar", href: "/ai-tools/pillar",            logoBg: "bg-[#fbac6a]",  logoText: "PL", bestFor: "Quality Control",      ease: 8.6, features: 8.4, quality: 8.7, price: 8.8, overall: 8.5 },
+  { name: "Buildots", href: "/tools/buildots",          logoBg: "bg-[#f27313]",  logoText: "BD", bestFor: "Site Monitoring",      ease: 9.1, features: 9.3, quality: 9.2, price: 8.6, overall: 9.3 },
+  { name: "OpenSpace", href: "/tools/open-space",         logoBg: "bg-gray-900",   logoText: "OS", bestFor: "Site Documentation",   ease: 9.3, features: 8.9, quality: 9.0, price: 8.5, overall: 9.0 },
+  { name: "ALICE Technologies", href: "/tools/alice-technologies", logoBg: "bg-gray-700",   logoText: "AT", bestFor: "Scheduling",           ease: 8.5, features: 9.2, quality: 9.0, price: 8.2, overall: 8.7 },
+  { name: "Procore AI", href: "/tools/procore-ai",        logoBg: "bg-orange-700", logoText: "PA", bestFor: "Project Management",   ease: 8.9, features: 9.0, quality: 8.8, price: 8.7, overall: 8.9 },
+  { name: "Pillar", href: "/tools/pillar",            logoBg: "bg-[#fbac6a]",  logoText: "PL", bestFor: "Quality Control",      ease: 8.6, features: 8.4, quality: 8.7, price: 8.8, overall: 8.5 },
 ];
 
 const MAX_OVERALL = Math.max(...COMPARE_TOOLS.map((t) => t.overall));
@@ -118,7 +121,11 @@ const FAQ_ITEMS = [
 
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
 
-export default function BestConstructionToolsPage() {
+export default function BestConstructionToolsPage({
+  allTools,
+}: {
+  allTools: GridTool[];
+}) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
@@ -449,17 +456,17 @@ export default function BestConstructionToolsPage() {
 
           <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-4">
             {[
-              { label: "Best for Site Monitoring",    labelClass: "text-[#f27313]",  logoBg: "bg-[#f27313]",  logoText: "BD", name: "Buildots",          desc: "Automated progress tracking from site cameras.",      href: "/ai-tools/buildots",
+              { label: "Best for Site Monitoring",    labelClass: "text-[#f27313]",  logoBg: "bg-[#f27313]",  logoText: "BD", name: "Buildots",          desc: "Automated progress tracking from site cameras.",      href: "/tools/buildots",
     affiliateHref: "#" },
-              { label: "Best for Scheduling",          labelClass: "text-blue-600",   logoBg: "bg-gray-700",   logoText: "AT", name: "ALICE Technologies", desc: "AI-generated construction schedules in minutes.",      href: "/ai-tools/alice-technologies",
+              { label: "Best for Scheduling",          labelClass: "text-blue-600",   logoBg: "bg-gray-700",   logoText: "AT", name: "ALICE Technologies", desc: "AI-generated construction schedules in minutes.",      href: "/tools/alice-technologies",
     affiliateHref: "#" },
-              { label: "Best for Quality Control",     labelClass: "text-purple-600", logoBg: "bg-[#fbac6a]",  logoText: "PL", name: "Pillar",             desc: "AI-powered quality and safety inspections.",          href: "/ai-tools/pillar",
+              { label: "Best for Quality Control",     labelClass: "text-purple-600", logoBg: "bg-[#fbac6a]",  logoText: "PL", name: "Pillar",             desc: "AI-powered quality and safety inspections.",          href: "/tools/pillar",
     affiliateHref: "#" },
-              { label: "Best for Cost Estimation",     labelClass: "text-red-500",    logoBg: "bg-orange-700", logoText: "PA", name: "Procore AI",         desc: "Smart cost forecasting and budget management.",        href: "/ai-tools/procore-ai",
+              { label: "Best for Cost Estimation",     labelClass: "text-red-500",    logoBg: "bg-orange-700", logoText: "PA", name: "Procore AI",         desc: "Smart cost forecasting and budget management.",        href: "/tools/procore-ai",
     affiliateHref: "#" },
-              { label: "Best for Safety Management",   labelClass: "text-orange-600", logoBg: "bg-gray-900",   logoText: "OS", name: "OpenSpace",          desc: "360° site capture for safety and compliance.",         href: "/ai-tools/openspace",
+              { label: "Best for Safety Management",   labelClass: "text-orange-600", logoBg: "bg-gray-900",   logoText: "OS", name: "OpenSpace",          desc: "360° site capture for safety and compliance.",         href: "/tools/open-space",
     affiliateHref: "#" },
-              { label: "Best for Progress Tracking",   labelClass: "text-indigo-600", logoBg: "bg-[#f27313]",  logoText: "BD", name: "Buildots",           desc: "Real-time progress vs. BIM model comparison.",        href: "/ai-tools/buildots",
+              { label: "Best for Progress Tracking",   labelClass: "text-indigo-600", logoBg: "bg-[#f27313]",  logoText: "BD", name: "Buildots",           desc: "Real-time progress vs. BIM model comparison.",        href: "/tools/buildots",
     affiliateHref: "#" },
             ].map((card) => (
               <div key={card.label} className="border border-gray-100 rounded-xl p-4 bg-white text-center flex flex-col items-center hover:shadow-md transition-shadow">
@@ -609,6 +616,12 @@ export default function BestConstructionToolsPage() {
           </Link>
         </div>
       </section>
+
+      <IndustryToolsGrid
+        title="All AI Tools for Construction"
+        subtitle="Every construction tool we've reviewed — ranked by our rating."
+        tools={allTools}
+      />
 
       <Newsletter />
       <Footer />

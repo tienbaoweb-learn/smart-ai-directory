@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import ArchitectureIndustryClient from "./ArchitectureIndustryClient";
+import { getIndustryGridTools } from "../../../lib/tools";
 
 export const metadata: Metadata = {
   title: "AI Tools for Architecture Firms | SmartAI for Work",
@@ -16,5 +17,9 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <ArchitectureIndustryClient />;
+  return (
+    <ArchitectureIndustryClient
+      allTools={getIndustryGridTools("architecture")}
+    />
+  );
 }

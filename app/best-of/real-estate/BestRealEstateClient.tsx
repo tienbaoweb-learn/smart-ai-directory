@@ -25,6 +25,9 @@ import Navbar from "../../components/Navbar";
 import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
 import { TOOL_LOGO_URLS } from "../../data/tool-logos";
+import IndustryToolsGrid, {
+  type GridTool,
+} from "../../components/IndustryToolsGrid";
 
 // ─── RANK BADGE STYLES ────────────────────────────────────────────────────────
 
@@ -86,11 +89,11 @@ const TOP_PICKS = [
 // ─── COMPARE TABLE DATA ───────────────────────────────────────────────────────
 
 const COMPARE_TOOLS = [
-  { name: "REimagineHome", href: "/ai-tools/reimaginehome",  logoBg: "bg-[#8c21f1]",  logoText: "RH", bestFor: "Virtual Staging",    ease: 9.4, features: 9.2, quality: 9.3, price: 9.0, overall: 9.3 },
-  { name: "Offrs", href: "/ai-tools/offrs",          logoBg: "bg-gray-900",   logoText: "OF", bestFor: "Lead Generation",     ease: 8.8, features: 9.1, quality: 8.9, price: 8.4, overall: 8.8 },
-  { name: "Lofty AI", href: "/ai-tools/lofty-ai",       logoBg: "bg-gray-700",   logoText: "LA", bestFor: "CRM & Follow-up",     ease: 8.9, features: 8.8, quality: 8.7, price: 8.6, overall: 8.8 },
-  { name: "Structurely", href: "/ai-tools/structurely",    logoBg: "bg-purple-700", logoText: "ST", bestFor: "Lead Follow-up",       ease: 9.0, features: 8.5, quality: 8.6, price: 8.3, overall: 8.6 },
-  { name: "Zillow Showcase", href: "/ai-tools/zillow-showcase", logoBg: "bg-[#c281fa]",  logoText: "ZS", bestFor: "Listings",            ease: 9.2, features: 8.3, quality: 8.8, price: 8.7, overall: 8.7 },
+  { name: "REimagineHome", href: "/tools/reimagine-home",  logoBg: "bg-[#8c21f1]",  logoText: "RH", bestFor: "Virtual Staging",    ease: 9.4, features: 9.2, quality: 9.3, price: 9.0, overall: 9.3 },
+  { name: "Offrs", href: "/tools/offrs",          logoBg: "bg-gray-900",   logoText: "OF", bestFor: "Lead Generation",     ease: 8.8, features: 9.1, quality: 8.9, price: 8.4, overall: 8.8 },
+  { name: "Lofty AI", href: "/tools/lofty-ai",       logoBg: "bg-gray-700",   logoText: "LA", bestFor: "CRM & Follow-up",     ease: 8.9, features: 8.8, quality: 8.7, price: 8.6, overall: 8.8 },
+  { name: "Structurely", href: "/tools/structurely",    logoBg: "bg-purple-700", logoText: "ST", bestFor: "Lead Follow-up",       ease: 9.0, features: 8.5, quality: 8.6, price: 8.3, overall: 8.6 },
+  { name: "Zillow Showcase", href: "/tools/zillow-showcase", logoBg: "bg-[#c281fa]",  logoText: "ZS", bestFor: "Listings",            ease: 9.2, features: 8.3, quality: 8.8, price: 8.7, overall: 8.7 },
 ];
 
 const MAX_OVERALL = Math.max(...COMPARE_TOOLS.map((t) => t.overall));
@@ -118,7 +121,11 @@ const FAQ_ITEMS = [
 
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
 
-export default function BestRealEstateToolsPage() {
+export default function BestRealEstateToolsPage({
+  allTools,
+}: {
+  allTools: GridTool[];
+}) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
@@ -449,17 +456,17 @@ export default function BestRealEstateToolsPage() {
 
           <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-4">
             {[
-              { label: "Best for Lead Generation",    labelClass: "text-[#8c21f1]",  logoBg: "bg-gray-900",   logoText: "OF", name: "Offrs",          desc: "Predictive analytics to find motivated sellers.",    href: "/ai-tools/offrs",
+              { label: "Best for Lead Generation",    labelClass: "text-[#8c21f1]",  logoBg: "bg-gray-900",   logoText: "OF", name: "Offrs",          desc: "Predictive analytics to find motivated sellers.",    href: "/tools/offrs",
     affiliateHref: "#" },
-              { label: "Best for Virtual Staging",     labelClass: "text-blue-600",   logoBg: "bg-[#8c21f1]",  logoText: "RH", name: "REimagineHome",  desc: "Transform empty rooms into staged photos instantly.", href: "/ai-tools/reimaginehome",
+              { label: "Best for Virtual Staging",     labelClass: "text-blue-600",   logoBg: "bg-[#8c21f1]",  logoText: "RH", name: "REimagineHome",  desc: "Transform empty rooms into staged photos instantly.", href: "/tools/reimagine-home",
     affiliateHref: "#" },
-              { label: "Best for CRM & Follow-up",     labelClass: "text-purple-600", logoBg: "bg-gray-700",   logoText: "LA", name: "Lofty AI",        desc: "AI-powered CRM to nurture and convert leads.",        href: "/ai-tools/lofty-ai",
+              { label: "Best for CRM & Follow-up",     labelClass: "text-purple-600", logoBg: "bg-gray-700",   logoText: "LA", name: "Lofty AI",        desc: "AI-powered CRM to nurture and convert leads.",        href: "/tools/lofty-ai",
     affiliateHref: "#" },
-              { label: "Best for Listing Descriptions",labelClass: "text-red-500",    logoBg: "bg-[#c281fa]",  logoText: "ZS", name: "Zillow Showcase", desc: "Compelling AI-written listing descriptions.",         href: "/ai-tools/zillow-showcase",
+              { label: "Best for Listing Descriptions",labelClass: "text-red-500",    logoBg: "bg-[#c281fa]",  logoText: "ZS", name: "Zillow Showcase", desc: "Compelling AI-written listing descriptions.",         href: "/tools/zillow-showcase",
     affiliateHref: "#" },
-              { label: "Best for Market Analysis",     labelClass: "text-orange-600", logoBg: "bg-gray-900",   logoText: "OF", name: "Offrs",           desc: "Data-driven market insights and valuations.",         href: "/ai-tools/offrs",
+              { label: "Best for Market Analysis",     labelClass: "text-orange-600", logoBg: "bg-gray-900",   logoText: "OF", name: "Offrs",           desc: "Data-driven market insights and valuations.",         href: "/tools/offrs",
     affiliateHref: "#" },
-              { label: "Best for Property Marketing",  labelClass: "text-indigo-600", logoBg: "bg-purple-700", logoText: "ST", name: "Structurely",     desc: "Automated lead follow-up and qualification.",         href: "/ai-tools/structurely",
+              { label: "Best for Property Marketing",  labelClass: "text-indigo-600", logoBg: "bg-purple-700", logoText: "ST", name: "Structurely",     desc: "Automated lead follow-up and qualification.",         href: "/tools/structurely",
     affiliateHref: "#" },
             ].map((card) => (
               <div key={card.label} className="border border-gray-100 rounded-xl p-4 bg-white text-center flex flex-col items-center hover:shadow-md transition-shadow">
@@ -587,6 +594,12 @@ export default function BestRealEstateToolsPage() {
           </div>
         </div>
       </section>
+
+      <IndustryToolsGrid
+        title="All AI Tools for Real Estate"
+        subtitle="Every real estate tool we've reviewed — ranked by our rating."
+        tools={allTools}
+      />
 
       <Newsletter />
       <Footer />
