@@ -151,12 +151,12 @@ const LATEST_CASE_BADGE: Record<string, string> = {
 };
 
 const SIDEBAR_TOPICS_CS = [
-  "AI in Architecture",
-  "AI in Construction",
-  "AI in Real Estate",
-  "AI in Interior Design",
-  "AI Automation",
-  "AI Marketing",
+  { label: "AI in Architecture",    href: "/industries/architecture"    },
+  { label: "AI in Construction",    href: "/industries/construction"    },
+  { label: "AI in Real Estate",     href: "/industries/real-estate"     },
+  { label: "AI in Interior Design", href: "/industries/interior-design" },
+  { label: "AI Automation",         href: "/tags/automation"            },
+  { label: "AI for Business",       href: "/tags/ai-for-business"       },
 ];
 
 const RESULT_CARDS = [
@@ -175,12 +175,12 @@ const STATS = [
 ];
 
 const INDUSTRIES = [
-  { label: "Architecture",          icon: Building2, sub: "16 Case Studies" },
-  { label: "Construction",          icon: HardHat,   sub: "16 Case Studies" },
-  { label: "Real Estate",           icon: Home,      sub: "14 Case Studies" },
-  { label: "Interior Design",       icon: Sofa,      sub: "15 Case Studies" },
-  { label: "Furniture",             icon: Armchair,  sub: "10 Case Studies" },
-  { label: "View All Industries",   icon: Grid3x3,   sub: "All Case Studies"},
+  { label: "Architecture",        icon: Building2, sub: "AI tools & stories", href: "/industries/architecture"    },
+  { label: "Construction",        icon: HardHat,   sub: "AI tools & stories", href: "/industries/construction"    },
+  { label: "Real Estate",         icon: Home,      sub: "AI tools & stories", href: "/industries/real-estate"     },
+  { label: "Interior Design",     icon: Sofa,      sub: "AI tools & stories", href: "/industries/interior-design" },
+  { label: "Furniture",           icon: Armchair,  sub: "AI tools & stories", href: "/industries/furniture"       },
+  { label: "View All Industries", icon: Grid3x3,   sub: "Industry hubs",      href: "/industries"                 },
 ];
 
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
@@ -333,12 +333,12 @@ export default function CaseStudiesPage() {
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-            {INDUSTRIES.map(({ label, icon: Icon, sub }) => {
+            {INDUSTRIES.map(({ label, icon: Icon, sub, href }) => {
               const theme = INDUSTRY_THEME[label];
               return (
-                <a
+                <Link
                   key={label}
-                  href="#"
+                  href={href}
                   className="border border-gray-100 rounded-xl p-4 bg-white text-center hover:shadow-md transition-shadow flex flex-col items-center"
                 >
                   <div className={`w-10 h-10 rounded-lg ${theme.iconBg} flex items-center justify-center`}>
@@ -347,7 +347,7 @@ export default function CaseStudiesPage() {
                   <p className="font-semibold text-sm text-[#1E293B] mt-2">{label}</p>
                   <p className="text-xs text-gray-500 mt-0.5">{sub}</p>
                   <span className="text-blue-600 text-xs mt-1 hover:underline">→</span>
-                </a>
+                </Link>
               );
             })}
           </div>
@@ -362,9 +362,6 @@ export default function CaseStudiesPage() {
               <h2 className="text-2xl md:text-3xl font-bold text-[#1E293B]">Featured Case Studies</h2>
               <p className="text-sm text-gray-500 mt-1">Success stories from professionals and businesses using AI.</p>
             </div>
-            <a href="#" className="hidden md:inline-block text-blue-600 text-sm font-medium hover:underline shrink-0">
-              View all case studies →
-            </a>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -468,10 +465,6 @@ export default function CaseStudiesPage() {
                   />
                 ))}
               </ul>
-
-              <a href="#" className="text-blue-600 text-sm font-medium mt-4 hover:underline block text-center">
-                Load more case studies →
-              </a>
             </div>
 
             {/* ── RIGHT COL: Sidebar ── */}
@@ -481,24 +474,24 @@ export default function CaseStudiesPage() {
               <div className="border border-gray-100 rounded-xl p-5 bg-white mb-6">
                 <h3 className="font-bold text-base text-[#1E293B] mb-3">Popular Topics</h3>
                 <ul>
-                  {SIDEBAR_TOPICS_CS.map((topic) => (
-                    <li key={topic}>
-                      <a
-                        href="#"
+                  {SIDEBAR_TOPICS_CS.map(({ label, href }) => (
+                    <li key={label}>
+                      <Link
+                        href={href}
                         className="flex justify-between items-center text-sm text-gray-700 hover:text-blue-600 py-1.5 border-b border-gray-100 last:border-0 transition-colors"
                       >
-                        <span>{topic}</span>
+                        <span>{label}</span>
                         <ChevronRight size={14} className="shrink-0 text-gray-400" />
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
-                <a
-                  href="#"
+                <Link
+                  href="/tags"
                   className="block w-full border border-blue-600 text-blue-600 rounded-lg py-2 text-sm font-medium text-center mt-3 hover:bg-blue-50 transition-colors"
                 >
                   View all topics
-                </a>
+                </Link>
               </div>
 
               {/* Box 2: Share Your Story */}
@@ -507,13 +500,13 @@ export default function CaseStudiesPage() {
                 <p className="text-xs text-gray-500 mb-3">
                   Have a success story with AI tools? We&apos;d love to feature it.
                 </p>
-                <a
-                  href="#"
+                <Link
+                  href="/contact"
                   className="flex items-center justify-center gap-2 w-full bg-blue-600 hover:bg-blue-700 text-white rounded-lg py-2.5 text-sm font-medium transition-colors"
                 >
                   Submit Your Case Study
                   <ArrowRight size={15} className="shrink-0" />
-                </a>
+                </Link>
               </div>
 
             </div>

@@ -61,5 +61,36 @@ export default function Page() {
     .filter((t) => t.industries.length > 0)
     .sort((a, b) => b.rating - a.rating);
 
-  return <HomeClient topTools={topTools} />;
+  // ItemList schema for the homepage only, generated from the real reviews so
+  // names, URLs, and ratings never drift from the published content.
+  const schemaItemList = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Top AI Tools for Work",
+    description:
+      "Handpicked AI tools for furniture design, architecture, construction management, and real estate.",
+    url: "https://www.smartaiforwork.com",
+    numberOfItems: Math.min(6, topTools.length),
+    itemListElement: topTools.slice(0, 6).map((tool, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "SoftwareApplication",
+        name: tool.name,
+        applicationCategory: "BusinessApplication",
+        url: `https://www.smartaiforwork.com/tools/${tool.slug}`,
+        description: tool.desc,
+      },
+    })),
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaItemList) }}
+      />
+      <HomeClient topTools={topTools} />
+    </>
+  );
 }

@@ -24,7 +24,7 @@ export function AffiliateCTA({
       <a
         href={affiliateLink}
         target="_blank"
-        rel="noopener noreferrer nofollow"
+        rel="sponsored noopener noreferrer"
         className="block w-full text-center bg-[#F97316] hover:bg-orange-600 text-white font-semibold rounded-lg px-5 py-3 text-sm transition-colors"
       >
         {ctaText}

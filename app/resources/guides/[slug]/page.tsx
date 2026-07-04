@@ -8,6 +8,9 @@ import Navbar from "../../../components/Navbar";
 import Newsletter from "../../../components/Newsletter";
 import Footer from "../../../components/Footer";
 import { guidesContent, type GuideContentBlock } from "../../../../lib/guides-content";
+import { tagsData } from "../../../../lib/tags-data";
+
+const TAG_SLUGS = new Set(tagsData.map((t) => t.slug));
 import {
   getToolBySlug,
   getBestOfTools,
@@ -331,16 +334,26 @@ export default async function GuideDetailPage({
             </span>
           </div>
 
-          {/* Tags */}
+          {/* Tags — link to the tag hub when a matching tag page exists */}
           <div className="flex flex-wrap gap-2 mt-4">
-            {guide.tags.map((tag) => (
-              <span
-                key={tag}
-                className="text-xs text-blue-600 bg-blue-50 rounded-full px-2.5 py-1"
-              >
-                #{tag}
-              </span>
-            ))}
+            {guide.tags.map((tag) =>
+              TAG_SLUGS.has(tag) ? (
+                <Link
+                  key={tag}
+                  href={`/tags/${tag}`}
+                  className="text-xs text-blue-600 bg-blue-50 rounded-full px-2.5 py-1 hover:bg-blue-100 transition-colors"
+                >
+                  #{tag}
+                </Link>
+              ) : (
+                <span
+                  key={tag}
+                  className="text-xs text-blue-600 bg-blue-50 rounded-full px-2.5 py-1"
+                >
+                  #{tag}
+                </span>
+              ),
+            )}
           </div>
         </div>
       </section>

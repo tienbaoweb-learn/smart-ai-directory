@@ -106,12 +106,12 @@ const RESULT_CARDS = [
 
 
 const SIDEBAR_TOPICS = [
-  "Getting Started with AI",
-  "ChatGPT Tutorials",
-  "Automation Tutorials",
-  "AI Image Generation",
-  "No-code AI Tutorials",
-  "AI for Productivity",
+  { label: "ChatGPT",             href: "/tags/chatgpt"             },
+  { label: "Prompt Engineering",  href: "/tags/prompt-engineering"  },
+  { label: "AI Automation",       href: "/tags/automation"          },
+  { label: "AI Image Generation", href: "/tags/ai-image-generation" },
+  { label: "No-code AI",          href: "/tags/no-code"             },
+  { label: "AI for Productivity", href: "/tags/productivity"        },
 ];
 
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
@@ -265,18 +265,16 @@ export default function TutorialsPage() {
             {CATEGORIES.map(({ label, icon: Icon, sub }) => {
               const theme = CAT_THEME[label];
               return (
-                <a
+                <div
                   key={label}
-                  href="#"
-                  className="border border-gray-100 rounded-xl p-4 bg-white text-center hover:shadow-md transition-shadow flex flex-col items-center"
+                  className="border border-gray-100 rounded-xl p-4 bg-white text-center flex flex-col items-center"
                 >
                   <div className={`w-10 h-10 rounded-lg ${theme.iconBg} flex items-center justify-center`}>
                     <Icon size={20} className={theme.iconColor} />
                   </div>
                   <p className="font-semibold text-sm text-[#1E293B] mt-2">{label}</p>
                   <p className="text-xs text-gray-500 mt-0.5">{sub}</p>
-                  <span className="text-blue-600 text-xs mt-1 hover:underline">→</span>
-                </a>
+                </div>
               );
             })}
           </div>
@@ -291,16 +289,12 @@ export default function TutorialsPage() {
               <h2 className="text-2xl md:text-3xl font-bold text-[#1E293B]">Featured Tutorials</h2>
               <p className="text-sm text-gray-500 mt-1">Handpicked tutorials to get you started fast.</p>
             </div>
-            <a href="#" className="hidden md:inline-block text-blue-600 text-sm font-medium hover:underline shrink-0">
-              View all tutorials →
-            </a>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {FEATURED_TUTORIALS.map((t) => (
               <ResourceCard
                 key={t.slug}
-                href={t.href}
                 thumbnailContent={
                   <span className={`absolute top-2 left-2 rounded-full px-2.5 py-1 text-xs font-semibold uppercase ${FEAT_BADGE[t.badge]}`}>
                     {t.badge}
@@ -314,7 +308,6 @@ export default function TutorialsPage() {
                     <span>{t.duration} • {t.steps} steps</span>
                   </div>
                 }
-                linkText="Start Tutorial →"
               />
             ))}
           </div>
@@ -362,7 +355,6 @@ export default function TutorialsPage() {
                 {LATEST_TUTORIALS_DATA.map((item) => (
                   <ResourceListRow
                     key={item.slug}
-                    href={item.href}
                     title={item.title}
                     badge={{ label: item.badge, className: LATEST_BADGE[item.badge] }}
                     metaContent={
@@ -380,10 +372,6 @@ export default function TutorialsPage() {
                   />
                 ))}
               </ul>
-
-              <a href="#" className="text-blue-600 text-sm font-medium mt-4 hover:underline block text-center">
-                Load more tutorials →
-              </a>
             </div>
 
             {/* ── RIGHT COL: Sidebar ── */}
@@ -393,24 +381,24 @@ export default function TutorialsPage() {
               <div className="border border-gray-100 rounded-xl p-5 bg-white mb-6">
                 <h3 className="font-bold text-base text-[#1E293B] mb-3">Popular Topics</h3>
                 <ul>
-                  {SIDEBAR_TOPICS.map((topic) => (
-                    <li key={topic}>
-                      <a
-                        href="#"
+                  {SIDEBAR_TOPICS.map(({ label, href }) => (
+                    <li key={label}>
+                      <Link
+                        href={href}
                         className="flex justify-between items-center text-sm text-gray-700 hover:text-blue-600 py-1.5 border-b border-gray-100 last:border-0 transition-colors"
                       >
-                        <span>{topic}</span>
+                        <span>{label}</span>
                         <ChevronRight size={14} className="shrink-0 text-gray-400" />
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
-                <a
-                  href="#"
+                <Link
+                  href="/tags"
                   className="block w-full border border-blue-600 text-blue-600 rounded-lg py-2 text-sm font-medium text-center mt-3 hover:bg-blue-50 transition-colors"
                 >
                   View all topics
-                </a>
+                </Link>
               </div>
 
               {/* Box 2: Request a Tutorial */}
@@ -419,13 +407,13 @@ export default function TutorialsPage() {
                 <p className="text-xs text-gray-500 mb-3">
                   Can&apos;t find what you&apos;re looking for? Let us know what you&apos;d like to learn.
                 </p>
-                <a
-                  href="#"
+                <Link
+                  href="/contact"
                   className="flex items-center justify-center gap-2 w-full bg-blue-600 hover:bg-blue-700 text-white rounded-lg py-2.5 text-sm font-medium transition-colors"
                 >
                   Suggest a Topic
                   <ArrowRight size={15} className="shrink-0" />
-                </a>
+                </Link>
               </div>
 
             </div>

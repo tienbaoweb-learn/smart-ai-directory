@@ -79,12 +79,12 @@ const FEATURED_COMPARISONS = comparisonsData.filter((c) => c.isFeatured);
 const LATEST_COMPARISONS   = comparisonsData.filter((c) => !c.isFeatured);
 
 const SIDEBAR_TOPICS_CMP = [
-  "Getting Started with AI",
-  "Best AI Tools for Small Business",
-  "AI for Content Creation",
-  "AI Automation Workflows",
-  "AI Agents Explained",
-  "No-code AI Tools",
+  { label: "AI Tutorials",             href: "/resources/tutorials"        },
+  { label: "Best AI Tools by Industry",href: "/best-of"                    },
+  { label: "AI for Content Creation",  href: "/ai-tools/content-marketing" },
+  { label: "AI Automation Workflows",  href: "/resources/workflows"        },
+  { label: "AI Agents Explained",      href: "/tags/ai-agents"             },
+  { label: "No-code AI Tools",         href: "/tags/no-code"               },
 ];
 
 const CATEGORIES = [
@@ -201,19 +201,17 @@ export default function ComparisonsPage() {
                 </button>
               </div>
 
-              {/* Popular searches */}
+              {/* Popular searches — real published comparisons */}
               <div className="flex flex-wrap items-center gap-2 mt-3">
                 <span className="text-sm text-gray-500 shrink-0">Popular searches:</span>
-                {[
-                  "ChatGPT vs Claude",
-                  "Midjourney vs DALL·E 3",
-                  "Notion AI vs ClickUp AI",
-                  "Jasper vs Copy.ai",
-                ].map((label) => (
-                  <a key={label} href="#" className="text-sm text-blue-600 hover:underline">
-                    {label}
-                  </a>
-                ))}
+                {comparisonsData
+                  .filter((c) => c.isFeatured)
+                  .slice(0, 4)
+                  .map((c) => (
+                    <Link key={c.slug} href={c.href} className="text-sm text-blue-600 hover:underline">
+                      {c.title}
+                    </Link>
+                  ))}
               </div>
             </div>
 
@@ -290,13 +288,10 @@ export default function ComparisonsPage() {
                   ))}
                 </div>
 
-                {/* CTA row */}
-                <a
-                  href="#"
-                  className="mt-5 flex items-center justify-center w-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg py-2.5 transition-colors"
-                >
+                {/* CTA row (decorative mockup) */}
+                <div className="mt-5 flex items-center justify-center w-full bg-blue-600 text-white text-sm font-medium rounded-lg py-2.5">
                   See Full Comparison →
-                </a>
+                </div>
               </div>
             </div>
 
@@ -320,18 +315,16 @@ export default function ComparisonsPage() {
             {CATEGORIES.map(({ label, icon: Icon, sub }) => {
               const theme = CAT_THEME[label];
               return (
-                <a
+                <div
                   key={label}
-                  href="#"
-                  className="border border-gray-100 rounded-xl p-4 bg-white hover:shadow-md transition-shadow flex flex-col"
+                  className="border border-gray-100 rounded-xl p-4 bg-white flex flex-col"
                 >
                   <div className={`w-10 h-10 rounded-lg ${theme.iconBg} flex items-center justify-center shrink-0`}>
                     <Icon size={20} className={theme.iconColor} />
                   </div>
                   <p className="font-semibold text-sm text-[#1E293B] mt-2">{label}</p>
                   <p className="text-xs text-gray-500 mt-0.5">{sub}</p>
-                  <span className="text-blue-600 text-xs mt-1 hover:underline inline-block">→</span>
-                </a>
+                </div>
               );
             })}
           </div>
@@ -366,18 +359,18 @@ export default function ComparisonsPage() {
               <div className="border border-gray-100 rounded-xl p-5 bg-white mb-6">
                 <h3 className="font-bold text-base text-[#1E293B] mb-3">Popular Topics</h3>
                 <ul>
-                  {SIDEBAR_TOPICS_CMP.map((topic) => (
-                    <li key={topic}>
-                      <a href="#" className="flex justify-between items-center text-sm text-gray-700 hover:text-blue-600 py-1.5 border-b border-gray-100 last:border-0 transition-colors">
-                        <span>{topic}</span>
+                  {SIDEBAR_TOPICS_CMP.map(({ label, href }) => (
+                    <li key={label}>
+                      <Link href={href} className="flex justify-between items-center text-sm text-gray-700 hover:text-blue-600 py-1.5 border-b border-gray-100 last:border-0 transition-colors">
+                        <span>{label}</span>
                         <ChevronRight size={14} className="shrink-0 text-gray-400" />
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
-                <a href="#" className="block w-full border border-blue-600 text-blue-600 rounded-lg py-2 text-sm font-medium text-center mt-3 hover:bg-blue-50 transition-colors">
+                <Link href="/tags" className="block w-full border border-blue-600 text-blue-600 rounded-lg py-2 text-sm font-medium text-center mt-3 hover:bg-blue-50 transition-colors">
                   View all topics
-                </a>
+                </Link>
               </div>
 
               {/* Box 2: Stay Updated */}

@@ -976,7 +976,7 @@ function CaseStudiesSection() {
               See how companies in different industries are achieving measurable results.
             </p>
           </div>
-          <a href="#" className="text-sm font-semibold text-blue-600 hover:text-blue-700 whitespace-nowrap shrink-0 ml-4">
+          <a href="/resources/case-studies" className="text-sm font-semibold text-blue-600 hover:text-blue-700 whitespace-nowrap shrink-0 ml-4">
             View all case studies →
           </a>
         </div>

@@ -172,11 +172,11 @@ export default function TagPage({ params }: { params: Promise<{ slug: string }> 
               </span>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {/* Tutorial detail pages don't exist yet — render as non-link cards so we never emit internal 404s */}
               {relatedTutorials.map((tutorial) => (
-                <Link
+                <div
                   key={tutorial.slug}
-                  href={tutorial.href}
-                  className="bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-md transition-shadow"
+                  className="bg-white rounded-2xl border border-gray-200 overflow-hidden"
                 >
                   <div className="h-36 bg-gradient-to-br from-emerald-50 to-emerald-100 flex items-center justify-center">
                     <FileText className="w-10 h-10 text-emerald-300" />
@@ -194,7 +194,7 @@ export default function TagPage({ params }: { params: Promise<{ slug: string }> 
                       <span>{tutorial.steps} steps</span>
                     </div>
                   </div>
-                </Link>
+                </div>
               ))}
             </div>
           </section>

@@ -3,7 +3,8 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 
 export interface ResourceListRowProps {
-  href: string;
+  /** When omitted, the title renders as plain text (use for content without a live detail page — never link to a 404). */
+  href?: string;
   thumbnailSrc?: string;
   thumbnailAlt?: string;
   /** Placeholder background when thumbnailSrc is not provided. Default: "bg-gray-300". */
@@ -34,12 +35,18 @@ export default function ResourceListRow({
       </div>
 
       <div className="flex-1 min-w-0">
-        <Link
-          href={href}
-          className="font-semibold text-sm md:text-base text-[#1E293B] hover:text-blue-600 transition-colors line-clamp-2 leading-snug"
-        >
-          {title}
-        </Link>
+        {href ? (
+          <Link
+            href={href}
+            className="font-semibold text-sm md:text-base text-[#1E293B] hover:text-blue-600 transition-colors line-clamp-2 leading-snug"
+          >
+            {title}
+          </Link>
+        ) : (
+          <p className="font-semibold text-sm md:text-base text-[#1E293B] line-clamp-2 leading-snug">
+            {title}
+          </p>
+        )}
         <div className="flex flex-wrap items-center gap-2 mt-1.5 text-xs">
           <span className={`rounded-full px-2 py-0.5 font-semibold ${badge.className}`}>
             {badge.label}

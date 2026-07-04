@@ -144,6 +144,16 @@ const ALT_COLORS = [
   "bg-amber-600",
 ];
 
+// Category → industry hub, so every review links up to its industry pillar
+// (both in the visible breadcrumb and in the BreadcrumbList schema).
+const CATEGORY_HUBS: Record<string, string> = {
+  Furniture: "/industries/furniture",
+  Architecture: "/industries/architecture",
+  Construction: "/industries/construction",
+  "Real Estate": "/industries/real-estate",
+  "Cross-niche": "/ai-tools",
+};
+
 const TOC_ITEMS = [
   { label: "Overview", href: "overview" },
   { label: "Key Features", href: "key-features" },
@@ -604,18 +614,25 @@ export default async function ToolReviewPage({
       ? f.cons
       : ["Can be expensive at scale", "Learning curve for advanced features"];
 
-  // ── Alternative logo resolver ──────────────────────────────────────────────
-  // Match an alternative's name to its own review article and reuse that
-  // article's logo, so the logos stay in sync with the actual reviews. Falls
-  // back to "" (→ colored initials) when there's no matching article/logo file.
+  // ── Alternative review resolver ────────────────────────────────────────────
+  // Match an alternative's name to its own review article. Only alternatives
+  // with a real review get an internal link — everything else renders as plain
+  // text so we never emit internal links that 404.
   const allTools = getAllTools();
-  function resolveAltLogo(name: string): string {
+  function findToolByName(name: string) {
     const target = nameToSlug(name);
-    const match = allTools.find(
+    return allTools.find(
       (t) =>
         t.slug === target ||
         nameToSlug(t.frontmatter.toolName || t.frontmatter.title) === target,
     );
+  }
+
+  // Reuse the matched review's logo, so logos stay in sync with the actual
+  // reviews. Falls back to "" (→ colored initials) when there's no matching
+  // article/logo file.
+  function resolveAltLogo(name: string): string {
+    const match = findToolByName(name);
     if (!match) return "";
     const logo = TOOL_LOGO_URLS[match.slug] ?? match.frontmatter.logoUrl ?? "";
     if (!logo) return "";
@@ -634,19 +651,25 @@ export default async function ToolReviewPage({
   })();
 
   // ── Alternative cards (derived from string[]) ─────────────────────────────
-  const altCards = f.alternatives.map((name, i) => ({
-    name,
-    logo: { bg: ALT_COLORS[i % ALT_COLORS.length], text: getInitials(name) },
-    logoUrl: resolveAltLogo(name),
-    rating: Math.max(3.8, parseFloat((4.5 - i * 0.1).toFixed(1))),
-    bestFor: `Alternative to ${toolName}`,
-    href: `/tools/${nameToSlug(name)}`,
-  }));
+  const altCards = f.alternatives.map((name, i) => {
+    const match = findToolByName(name);
+    return {
+      name,
+      logo: { bg: ALT_COLORS[i % ALT_COLORS.length], text: getInitials(name) },
+      logoUrl: resolveAltLogo(name),
+      rating: match
+        ? match.frontmatter.rating
+        : Math.max(3.8, parseFloat((4.5 - i * 0.1).toFixed(1))),
+      bestFor: `Alternative to ${toolName}`,
+      href: match ? `/tools/${match.slug}` : null,
+    };
+  });
 
   // ── Comparison rows ────────────────────────────────────────────────────────
   const comparisonRows = [
     {
       name: toolName,
+      reviewSlug: null as string | null,
       logo: { bg: logoBg, text: logoText },
       logoUrl: mainLogoUrl,
       bestFor: f.bestFor[0] ?? f.category,
@@ -660,6 +683,7 @@ export default async function ToolReviewPage({
     },
     ...f.alternatives.slice(0, 4).map((name, i) => ({
       name,
+      reviewSlug: findToolByName(name)?.slug ?? null,
       logo: { bg: ALT_COLORS[i % ALT_COLORS.length], text: getInitials(name) },
       logoUrl: resolveAltLogo(name),
       bestFor: f.category,
@@ -769,6 +793,30 @@ export default async function ToolReviewPage({
     },
   ];
 
+  // ── Quick Verdict (answer-first summary for readers & answer engines) ──────
+  const verdictPhrase =
+    f.rating >= 4.5
+      ? "an excellent choice"
+      : f.rating >= 4
+        ? "a strong choice"
+        : f.rating >= 3.5
+          ? "a solid option"
+          : "worth considering, with some trade-offs";
+  const verdictAudience =
+    f.bestFor.length > 0
+      ? f.bestFor.slice(0, 2).join(" and ")
+      : `${f.category} professionals`;
+  const verdictPricing =
+    f.pricingType === "Free"
+      ? "It's free to use."
+      : f.pricingType === "Freemium"
+        ? `A free tier is available${f.pricing ? `, with paid plans from ${f.pricing}` : ""}.`
+        : f.pricingType === "Custom"
+          ? "Pricing is custom — contact sales for a quote."
+          : f.pricing
+            ? `Pricing starts at ${f.pricing}.`
+            : "";
+
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -779,13 +827,15 @@ export default async function ToolReviewPage({
     })),
   };
 
+  const categoryHubHref = CATEGORY_HUBS[f.category] ?? "/ai-tools";
+
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: "https://www.smartaiforwork.com/" },
       { "@type": "ListItem", position: 2, name: "AI Tools", item: "https://www.smartaiforwork.com/tools" },
-      { "@type": "ListItem", position: 3, name: f.category, item: `https://www.smartaiforwork.com/ai-tools` },
+      { "@type": "ListItem", position: 3, name: f.category, item: `https://www.smartaiforwork.com${categoryHubHref}` },
       { "@type": "ListItem", position: 4, name: `${f.title} Review`, item: `https://www.smartaiforwork.com/tools/${slug}` },
     ],
   };
@@ -805,14 +855,13 @@ export default async function ToolReviewPage({
         bestRating: 10,
         worstRating: 0,
       },
-      author: { "@type": "Organization", name: "SmartAI for Work" },
-    },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: overallRating,
-      bestRating: 10,
-      worstRating: 0,
-      ratingCount: 1,
+      author: {
+        "@type": "Organization",
+        name: "SmartAI for Work",
+        url: "https://www.smartaiforwork.com",
+      },
+      datePublished: f.lastUpdated,
+      dateModified: f.lastUpdated,
     },
   };
 
@@ -847,7 +896,12 @@ export default async function ToolReviewPage({
               AI Tools
             </Link>
             <BreadArrow />
-            <span className="cursor-default">{f.category}</span>
+            <Link
+              href={categoryHubHref}
+              className="hover:text-blue-600 transition-colors"
+            >
+              {f.category}
+            </Link>
             <BreadArrow />
             <span className="text-[#1E293B] font-medium">{f.title} Review</span>
           </nav>
@@ -899,29 +953,62 @@ export default async function ToolReviewPage({
               {/* Meta row */}
               <div className="flex flex-wrap items-start gap-x-6 gap-y-3 mt-4">
                 {[
-                  { icon: Calendar, title: "Updated", subtitle: formattedDate },
-                  { icon: Clock, title: readingTime, subtitle: "Read Time" },
+                  {
+                    icon: Calendar,
+                    title: "Updated",
+                    subtitle: formattedDate,
+                    href: undefined as string | undefined,
+                  },
+                  {
+                    icon: Clock,
+                    title: readingTime,
+                    subtitle: "Read Time",
+                    href: undefined,
+                  },
                   {
                     icon: ShieldCheck,
                     title: "Independent",
                     subtitle: "Review",
+                    href: "/how-we-review",
                   },
                   {
                     icon: CheckCircle,
                     title: "Tested &",
                     subtitle: "Researched",
+                    href: "/how-we-review",
                   },
-                ].map(({ icon: Icon, title, subtitle }) => (
-                  <div key={title} className="flex items-start gap-2">
-                    <Icon size={18} className="text-blue-600 shrink-0 mt-0.5" />
-                    <div className="flex flex-col">
-                      <span className="text-sm font-semibold text-gray-900">
-                        {title}
-                      </span>
-                      <span className="text-sm text-gray-500">{subtitle}</span>
+                ].map(({ icon: Icon, title, subtitle, href }) => {
+                  const inner = (
+                    <>
+                      <Icon
+                        size={18}
+                        className="text-blue-600 shrink-0 mt-0.5"
+                      />
+                      <div className="flex flex-col">
+                        <span className="text-sm font-semibold text-gray-900">
+                          {title}
+                        </span>
+                        <span className="text-sm text-gray-500">
+                          {subtitle}
+                        </span>
+                      </div>
+                    </>
+                  );
+                  return href ? (
+                    <Link
+                      key={title}
+                      href={href}
+                      className="flex items-start gap-2 hover:opacity-80 transition-opacity"
+                      title="Read our review methodology"
+                    >
+                      {inner}
+                    </Link>
+                  ) : (
+                    <div key={title} className="flex items-start gap-2">
+                      {inner}
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
 
               {/* CTAs */}
@@ -929,7 +1016,7 @@ export default async function ToolReviewPage({
                 <a
                   href={affiliateHref}
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="sponsored noopener noreferrer"
                   className="bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-6 py-2.5 text-sm transition-colors"
                 >
                   Try {toolName} Free →
@@ -1116,7 +1203,7 @@ export default async function ToolReviewPage({
               <a
                 href={affiliateHref}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="sponsored noopener noreferrer"
                 className="inline-block text-blue-600 text-sm font-medium mt-2 hover:underline"
               >
                 Visit {toolName} →
@@ -1151,7 +1238,7 @@ export default async function ToolReviewPage({
                   <a
                     href={affiliateHref}
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="sponsored noopener noreferrer"
                     className="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg py-2.5 text-sm transition-colors"
                   >
                     Try {toolName} Free →
@@ -1173,6 +1260,19 @@ export default async function ToolReviewPage({
 
             {/* Main Content */}
             <div className="lg:col-span-3 space-y-10">
+              {/* Quick Verdict — direct answer to "Is it worth it?" */}
+              <div className="border border-blue-100 bg-blue-50/50 rounded-xl p-5">
+                <p className="text-xs font-semibold uppercase tracking-wide text-blue-600 mb-1.5">
+                  Quick Verdict
+                </p>
+                <p className="text-sm text-gray-700 leading-relaxed">
+                  <strong>{toolName}</strong> scores{" "}
+                  <strong>{overallRating.toFixed(1)}/10</strong> in our testing
+                  and is {verdictPhrase} for {verdictAudience}.{" "}
+                  {verdictPricing}
+                </p>
+              </div>
+
               {/* Overview — MDX body */}
               <div id="overview" className="scroll-mt-24">
                 <h2 className="text-2xl font-bold text-[#1E293B] mb-3">
@@ -1321,12 +1421,9 @@ export default async function ToolReviewPage({
                 </div>
                 {altCards.length > 0 ? (
                   <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-                    {altCards.map((alt) => (
-                      <Link
-                        key={alt.name}
-                        href={alt.href}
-                        className="group border border-gray-100 rounded-xl p-4 bg-white text-center hover:shadow-md hover:border-blue-200 transition-all block"
-                      >
+                    {altCards.map((alt) => {
+                      const cardInner = (
+                        <>
                         {alt.logoUrl ? (
                           <div className="w-10 h-10 rounded-lg overflow-hidden bg-white border border-gray-100 flex items-center justify-center mx-auto p-1">
                             <Image
@@ -1358,11 +1455,30 @@ export default async function ToolReviewPage({
                         <p className="text-xs text-gray-500 mt-1 line-clamp-2 leading-snug">
                           {alt.bestFor}
                         </p>
-                        <span className="inline-block text-blue-600 text-xs font-medium mt-2 group-hover:underline">
-                          Read Review →
-                        </span>
-                      </Link>
-                    ))}
+                        {alt.href && (
+                          <span className="inline-block text-blue-600 text-xs font-medium mt-2 group-hover:underline">
+                            Read Review →
+                          </span>
+                        )}
+                        </>
+                      );
+                      return alt.href ? (
+                        <Link
+                          key={alt.name}
+                          href={alt.href}
+                          className="group border border-gray-100 rounded-xl p-4 bg-white text-center hover:shadow-md hover:border-blue-200 transition-all block"
+                        >
+                          {cardInner}
+                        </Link>
+                      ) : (
+                        <div
+                          key={alt.name}
+                          className="group border border-gray-100 rounded-xl p-4 bg-white text-center"
+                        >
+                          {cardInner}
+                        </div>
+                      );
+                    })}
                   </div>
                 ) : (
                   <p className="text-sm text-gray-500">
@@ -1498,13 +1614,15 @@ export default async function ToolReviewPage({
                                 <span className="text-gray-400 text-xs">
                                   Current
                                 </span>
-                              ) : (
+                              ) : row.reviewSlug ? (
                                 <Link
-                                  href={`/tools/${nameToSlug(row.name)}`}
+                                  href={`/tools/${row.reviewSlug}`}
                                   className="text-blue-600 text-xs font-medium hover:underline"
                                 >
                                   Read Review →
                                 </Link>
+                              ) : (
+                                <span className="text-gray-300 text-xs">—</span>
                               )}
                             </td>
                           </tr>
@@ -1557,7 +1675,7 @@ export default async function ToolReviewPage({
                     <a
                       href={affiliateHref}
                       target="_blank"
-                      rel="noopener noreferrer"
+                      rel="sponsored noopener noreferrer"
                       className="inline-block bg-white text-gray-900 rounded-lg px-6 py-3 font-semibold text-sm hover:bg-gray-50 transition-colors"
                     >
                       Visit {toolName} Now →
@@ -1578,12 +1696,6 @@ export default async function ToolReviewPage({
               <div id="faq" className="scroll-mt-24">
                 <h2 className="text-2xl font-bold text-[#1E293B] mb-4">FAQ</h2>
                 <FAQAccordion faqs={faqs} />
-                <a
-                  href="#"
-                  className="inline-block text-blue-600 text-sm font-medium mt-3 hover:underline"
-                >
-                  View all FAQs →
-                </a>
               </div>
 
               {/* Related Articles */}

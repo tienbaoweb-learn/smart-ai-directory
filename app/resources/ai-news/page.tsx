@@ -83,37 +83,6 @@ const CATEGORIES = [
   { label: "View All News",       icon: Grid3x3,     sub: "All Articles"},
 ];
 
-const FEATURED_NEWS = [
-  {
-    badge: "BREAKING",
-    imageHint: "AI robot and architecture building",
-    title: "Autodesk Launches AI-Powered Design Assistant for Architects",
-    desc: "Autodesk's new AI feature helps architects generate floor plans and structural suggestions in seconds.",
-    meta: "Jun 10, 2026 • 5 min read",
-  },
-  {
-    badge: "TREND",
-    imageHint: "data charts and AI dashboard on screen",
-    title: "AI Adoption in Construction Reaches 67% in 2026 — New Report",
-    desc: "A new industry report reveals that over two-thirds of construction firms are now using AI tools.",
-    meta: "Jun 8, 2026 • 7 min read",
-  },
-  {
-    badge: "UPDATE",
-    imageHint: "ChatGPT interface on laptop",
-    title: "ChatGPT Gets Major Memory Update — What It Means for Business Users",
-    desc: "OpenAI's latest memory feature allows ChatGPT to remember context across sessions for better workflows.",
-    meta: "Jun 6, 2026 • 4 min read",
-  },
-  {
-    badge: "REPORT",
-    imageHint: "real estate market analysis charts",
-    title: "How AI is Reshaping Real Estate Marketing in 2026",
-    desc: "New data shows AI-powered listings get 3x more views and close 40% faster than traditional methods.",
-    meta: "Jun 4, 2026 • 8 min read",
-  },
-];
-
 const RESULT_CARDS = [
   { value: "50+",      label: "Articles published",        icon: Newspaper,  theme: "blue"   },
   { value: "Weekly",   label: "Fresh updates every week",  icon: RefreshCw,  theme: "purple" },
@@ -122,51 +91,13 @@ const RESULT_CARDS = [
   { value: "Verified", label: "Trusted sources only",      icon: ShieldCheck,theme: "teal"   },
 ];
 
-const LATEST_NEWS = [
-  {
-    badge: "TOOL LAUNCH",
-    title: "Midjourney V7 Released — Biggest Update Yet for Designers",
-    category: "Tool Launch",
-    readTime: "5 min read",
-    date: "Jun 12, 2026",
-  },
-  {
-    badge: "INDUSTRY",
-    title: "Why 8 in 10 Architects Plan to Use AI by End of 2026",
-    category: "Industry Trend",
-    readTime: "6 min read",
-    date: "Jun 10, 2026",
-  },
-  {
-    badge: "UPDATE",
-    title: "Google Gemini Now Integrates with AutoCAD and Revit",
-    category: "AI Update",
-    readTime: "4 min read",
-    date: "Jun 8, 2026",
-  },
-  {
-    badge: "RESEARCH",
-    title: "AI Tools Cut Interior Design Project Time by 55% — Study",
-    category: "Research",
-    readTime: "7 min read",
-    date: "Jun 6, 2026",
-  },
-  {
-    badge: "TREND",
-    title: "The Rise of AI Agents in Real Estate: What Agents Need to Know",
-    category: "Trend",
-    readTime: "8 min read",
-    date: "Jun 4, 2026",
-  },
-];
-
 const SIDEBAR_TOPICS = [
-  "AI Tool Launches",
-  "Construction AI News",
-  "Architecture AI Trends",
-  "Real Estate AI Updates",
-  "Interior Design AI",
-  "AI Research & Reports",
+  { label: "Construction AI",        href: "/industries/construction"    },
+  { label: "Architecture AI",        href: "/industries/architecture"    },
+  { label: "Real Estate AI",         href: "/industries/real-estate"     },
+  { label: "Interior Design AI",     href: "/industries/interior-design" },
+  { label: "AI Case Studies",        href: "/resources/case-studies"     },
+  { label: "AI Tool Comparisons",    href: "/resources/comparisons"      },
 ];
 
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
@@ -320,18 +251,16 @@ export default function AINewsPage() {
             {CATEGORIES.map(({ label, icon: Icon, sub }) => {
               const theme = CAT_THEME[label];
               return (
-                <a
+                <div
                   key={label}
-                  href="#"
-                  className="border border-gray-100 rounded-xl p-4 bg-white text-center hover:shadow-md transition-shadow flex flex-col items-center"
+                  className="border border-gray-100 rounded-xl p-4 bg-white text-center flex flex-col items-center"
                 >
                   <div className={`w-10 h-10 rounded-lg ${theme.iconBg} flex items-center justify-center`}>
                     <Icon size={20} className={theme.iconColor} />
                   </div>
                   <p className="font-semibold text-sm text-[#1E293B] mt-2">{label}</p>
                   <p className="text-xs text-gray-500 mt-0.5">{sub}</p>
-                  <span className="text-blue-600 text-xs mt-1 hover:underline">→</span>
-                </a>
+                </div>
               );
             })}
           </div>
@@ -346,55 +275,27 @@ export default function AINewsPage() {
               <h2 className="text-2xl md:text-3xl font-bold text-[#1E293B]">Featured News</h2>
               <p className="text-sm text-gray-500 mt-1">The biggest AI stories shaping your industry this week.</p>
             </div>
-            <a href="#" className="hidden md:inline-block text-blue-600 text-sm font-medium hover:underline shrink-0">
-              View all news →
-            </a>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* First card — real data from aiNewsPosts[0] */}
-            {(() => {
-              const post = aiNewsPosts[0];
-              return (
-                <ResourceCard
-                  key={post.slug}
-                  href={`/resources/ai-news/${post.slug}`}
-                  thumbnailSrc={post.thumbnail}
-                  thumbnailAlt={post.title}
-                  thumbnailContent={
-                    <span className={`absolute top-2 left-2 rounded-full px-2.5 py-1 text-xs font-semibold uppercase ${FEAT_BADGE.TREND}`}>
-                      {NEWS_TYPE_LABEL[post.newsType]}
-                    </span>
-                  }
-                  title={post.title}
-                  description={post.excerpt}
-                  footer={
-                    <div className="flex items-center gap-1 mt-2 text-xs text-gray-500">
-                      <Clock size={11} className="shrink-0" />
-                      <span>{post.publishedDate} • {post.readingTime} read</span>
-                    </div>
-                  }
-                  linkText="Read Article →"
-                />
-              );
-            })()}
-
-            {/* TODO: replace with real data */}
-            {FEATURED_NEWS.slice(1).map((g) => (
+            {/* Real published posts only — every card links to a live article */}
+            {aiNewsPosts.map((post) => (
               <ResourceCard
-                key={g.title}
-                href="#"
+                key={post.slug}
+                href={`/resources/ai-news/${post.slug}`}
+                thumbnailSrc={post.thumbnail}
+                thumbnailAlt={post.title}
                 thumbnailContent={
-                  <span className={`absolute top-2 left-2 rounded-full px-2.5 py-1 text-xs font-semibold uppercase ${FEAT_BADGE[g.badge]}`}>
-                    {g.badge}
+                  <span className={`absolute top-2 left-2 rounded-full px-2.5 py-1 text-xs font-semibold uppercase ${FEAT_BADGE.TREND}`}>
+                    {NEWS_TYPE_LABEL[post.newsType]}
                   </span>
                 }
-                title={g.title}
-                description={g.desc}
+                title={post.title}
+                description={post.excerpt}
                 footer={
                   <div className="flex items-center gap-1 mt-2 text-xs text-gray-500">
                     <Clock size={11} className="shrink-0" />
-                    <span>{g.meta}</span>
+                    <span>{post.publishedDate} • {post.readingTime} read</span>
                   </div>
                 }
                 linkText="Read Article →"
@@ -442,29 +343,25 @@ export default function AINewsPage() {
               </div>
 
               <ul>
-                {LATEST_NEWS.map((item) => (
+                {aiNewsPosts.map((post) => (
                   <ResourceListRow
-                    key={item.title}
-                    href="#"
-                    title={item.title}
-                    badge={{ label: item.badge, className: LATEST_BADGE[item.badge] }}
+                    key={post.slug}
+                    href={`/resources/ai-news/${post.slug}`}
+                    title={post.title}
+                    badge={{
+                      label: NEWS_TYPE_LABEL[post.newsType],
+                      className: LATEST_BADGE.TREND ?? "text-blue-600 bg-blue-50",
+                    }}
                     metaContent={
-                      <>
-                        <span className="text-gray-500">{item.category}</span>
-                        <span className="text-gray-500 flex items-center gap-1">
-                          <Clock size={11} className="shrink-0" />
-                          {item.readTime}
-                        </span>
-                      </>
+                      <span className="text-gray-500 flex items-center gap-1">
+                        <Clock size={11} className="shrink-0" />
+                        {post.readingTime} read
+                      </span>
                     }
-                    date={item.date}
+                    date={post.publishedDate}
                   />
                 ))}
               </ul>
-
-              <a href="#" className="text-blue-600 text-sm font-medium mt-4 hover:underline block text-center">
-                Load more news →
-              </a>
             </div>
 
             {/* ── RIGHT COL: Sidebar ── */}
@@ -474,24 +371,24 @@ export default function AINewsPage() {
               <div className="border border-gray-100 rounded-xl p-5 bg-white mb-6">
                 <h3 className="font-bold text-base text-[#1E293B] mb-3">Popular Topics</h3>
                 <ul>
-                  {SIDEBAR_TOPICS.map((topic) => (
-                    <li key={topic}>
-                      <a
-                        href="#"
+                  {SIDEBAR_TOPICS.map(({ label, href }) => (
+                    <li key={label}>
+                      <Link
+                        href={href}
                         className="flex justify-between items-center text-sm text-gray-700 hover:text-blue-600 py-1.5 border-b border-gray-100 last:border-0 transition-colors"
                       >
-                        <span>{topic}</span>
+                        <span>{label}</span>
                         <ChevronRight size={14} className="shrink-0 text-gray-400" />
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
-                <a
-                  href="#"
+                <Link
+                  href="/tags"
                   className="block w-full border border-blue-600 text-blue-600 rounded-lg py-2 text-sm font-medium text-center mt-3 hover:bg-blue-50 transition-colors"
                 >
                   View all topics
-                </a>
+                </Link>
               </div>
 
               {/* Box 2: Submit a News Tip */}
@@ -500,13 +397,13 @@ export default function AINewsPage() {
                 <p className="text-xs text-gray-500 mb-3">
                   Spotted an AI news story we should cover? Let us know.
                 </p>
-                <a
-                  href="#"
+                <Link
+                  href="/contact"
                   className="flex items-center justify-center gap-2 w-full bg-blue-600 hover:bg-blue-700 text-white rounded-lg py-2.5 text-sm font-medium transition-colors"
                 >
                   Submit a Tip
                   <ArrowRight size={15} className="shrink-0" />
-                </a>
+                </Link>
               </div>
 
             </div>

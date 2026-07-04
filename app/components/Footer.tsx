@@ -27,13 +27,15 @@ const FOOTER_COLS = [
       { label: "Guides",       href: "/resources/guides"      },
       { label: "Comparisons",  href: "/resources/comparisons" },
       { label: "AI Glossary",  href: "/ai-glossary"           },
-      { label: "Submit a Tool",href: "#"                      },
+      { label: "Browse Topics",href: "/tags"                  },
+      { label: "Submit a Tool",href: "/contact"               },
     ],
   },
   {
     title: "Company",
     links: [
       { label: "About Us",             href: "/about-us"             },
+      { label: "How We Review",        href: "/how-we-review"        },
       { label: "Contact",              href: "/contact"              },
       { label: "Privacy Policy",       href: "/privacy-policy"       },
       { label: "Terms of Use",         href: "/terms-of-use"         },

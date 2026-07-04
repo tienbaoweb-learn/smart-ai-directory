@@ -469,7 +469,7 @@ function TopPicksSection() {
             <span className="text-2xl">👑</span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1E293B]">Top Picks</h2>
           </div>
-          <a href="#" className="text-[#2B7FFF] text-sm font-semibold hover:opacity-80 hidden sm:block whitespace-nowrap">
+          <a href="/all-reviews" className="text-[#2B7FFF] text-sm font-semibold hover:opacity-80 hidden sm:block whitespace-nowrap">
             View all top picks →
           </a>
         </div>
@@ -552,7 +552,7 @@ function TopPicksSection() {
                 <a
                   href={tool.affiliateHref}
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="sponsored noopener noreferrer"
                   className="w-full border border-gray-200 hover:border-[#F97316] text-gray-600 hover:text-[#F97316] hover:bg-orange-50 font-semibold text-xs py-2 rounded-lg transition-colors block text-center"
                 >
                   Visit Website ↗
@@ -567,7 +567,7 @@ function TopPicksSection() {
         </div>
 
         <div className="text-center mt-6 sm:hidden">
-          <a href="#" className="text-[#2B7FFF] text-sm font-semibold hover:opacity-80">
+          <a href="/all-reviews" className="text-[#2B7FFF] text-sm font-semibold hover:opacity-80">
             View all top picks →
           </a>
         </div>
@@ -817,7 +817,7 @@ function AllToolsTable({
                         <a
                           href={tool.affiliateHref}
                           target="_blank"
-                          rel="noopener noreferrer"
+                          rel="sponsored noopener noreferrer"
                           className="border border-gray-200 hover:border-[#F97316] text-gray-600 hover:text-[#F97316] hover:bg-orange-50 text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap text-center block"
                         >
                           Visit Website ↗
@@ -887,7 +887,7 @@ function AllToolsTable({
                     Read Review →
                   </Link>
                   {tool.affiliateHref !== "#" ? (
-                    <a href={tool.affiliateHref} target="_blank" rel="noopener noreferrer" className="border border-gray-200 text-gray-600 text-xs font-semibold px-3 py-1.5 rounded-lg block">
+                    <a href={tool.affiliateHref} target="_blank" rel="sponsored noopener noreferrer" className="border border-gray-200 text-gray-600 text-xs font-semibold px-3 py-1.5 rounded-lg block">
                       Visit ↗
                     </a>
                   ) : (

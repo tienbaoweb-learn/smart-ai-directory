@@ -112,7 +112,7 @@ export default function PricingPlans({
               <a
                 href={affiliateHref}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="sponsored noopener noreferrer"
                 className={`block w-full mt-3 rounded-lg py-2 text-sm font-medium text-center transition-colors ${
                   plan.highlighted
                     ? "bg-blue-600 hover:bg-blue-700 text-white"

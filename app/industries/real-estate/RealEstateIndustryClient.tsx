@@ -1041,7 +1041,7 @@ function RealResultsSection() {
             </h2>
             <p className="text-gray-400 text-sm">See how agents and brokerages use AI to grow</p>
           </div>
-          <a href="#" className="text-sm font-semibold text-[#F97316] hover:text-orange-600 transition-colors shrink-0">
+          <a href="/resources/case-studies" className="text-sm font-semibold text-[#F97316] hover:text-orange-600 transition-colors shrink-0">
             View all case studies →
           </a>
         </div>
@@ -1057,7 +1057,7 @@ function RealResultsSection() {
                 <p className="font-bold text-sm text-[#1E293B] mb-0.5">{cs.company}</p>
                 <p className="text-xs text-gray-400 mb-3">{cs.type}</p>
                 <p className="text-xs text-gray-500 leading-relaxed mb-4">{cs.desc}</p>
-                <a href="#" className="text-xs font-semibold text-[#F97316] hover:text-orange-600 transition-colors">
+                <a href="/resources/case-studies" className="text-xs font-semibold text-[#F97316] hover:text-orange-600 transition-colors">
                   Read Story →
                 </a>
               </div>
@@ -1080,7 +1080,7 @@ function BestOfSection() {
             </h2>
             <p className="text-gray-400 text-sm">Curated lists of top-performing tools</p>
           </div>
-          <a href="#" className="text-sm font-semibold text-[#F97316] hover:text-orange-600 transition-colors shrink-0">
+          <a href="/best-of" className="text-sm font-semibold text-[#F97316] hover:text-orange-600 transition-colors shrink-0">
             View all Best Of lists →
           </a>
         </div>

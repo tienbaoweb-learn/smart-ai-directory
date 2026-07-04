@@ -3,7 +3,8 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 
 export interface ResourceCardProps {
-  href: string;
+  /** When omitted, the card renders as a non-clickable <div> (use for content without a live detail page — never link to a 404). */
+  href?: string;
   thumbnailSrc?: string;
   thumbnailAlt?: string;
   /** Placeholder background when thumbnailSrc is not provided. Default: "bg-gray-300". */
@@ -63,6 +64,15 @@ export default function ResourceCard({
 
   const cardClassName =
     "border border-gray-100 rounded-xl overflow-hidden bg-white hover:shadow-md transition-shadow flex flex-col";
+
+  if (!href) {
+    return (
+      <div className={cardClassName}>
+        {thumbnail}
+        {content}
+      </div>
+    );
+  }
 
   return (
     <Link href={href} className={cardClassName}>

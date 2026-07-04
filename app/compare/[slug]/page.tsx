@@ -520,7 +520,7 @@ export default async function ComparePage({
             <a
               href={aHref}
               target="_blank"
-              rel={aIsAffiliate ? "noopener noreferrer nofollow" : "noopener noreferrer"}
+              rel={aIsAffiliate ? "sponsored noopener noreferrer" : "noopener noreferrer"}
               className="block text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl px-6 py-4 transition-colors"
             >
               Try {an} →
@@ -528,7 +528,7 @@ export default async function ComparePage({
             <a
               href={bHref}
               target="_blank"
-              rel={bIsAffiliate ? "noopener noreferrer nofollow" : "noopener noreferrer"}
+              rel={bIsAffiliate ? "sponsored noopener noreferrer" : "noopener noreferrer"}
               className="block text-center bg-[#F97316] hover:bg-orange-600 text-white font-semibold rounded-xl px-6 py-4 transition-colors"
             >
               Try {bn} →

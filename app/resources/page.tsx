@@ -17,6 +17,8 @@ import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
 import { guidesData } from "../../lib/guides-data";
+import { comparisonsData } from "../../lib/comparisons-data";
+import { tagsData } from "../../lib/tags-data";
 
 // ─── CATEGORY CARD THEMES ─────────────────────────────────────────────────────
 
@@ -66,12 +68,12 @@ const FEATURED_GUIDES = FEATURED_SLUGS.map((slug) => {
 });
 
 const SIDEBAR_TOPICS = [
-  "Getting Started with AI",
-  "ChatGPT Tips & Tricks",
-  "AI for Marketing",
-  "AI Automation",
-  "No-code AI Tools",
-  "AI Agents",
+  { label: "AI Agents",           href: "/tags/ai-agents"          },
+  { label: "Prompt Engineering",  href: "/tags/prompt-engineering" },
+  { label: "ChatGPT",             href: "/tags/chatgpt"            },
+  { label: "AI Automation",       href: "/tags/automation"         },
+  { label: "No-code AI Tools",    href: "/tags/no-code"            },
+  { label: "AI Writing",          href: "/tags/ai-writing"         },
 ];
 
 const LATEST_BADGE: Record<string, string> = {
@@ -81,12 +83,24 @@ const LATEST_BADGE: Record<string, string> = {
   "AI AGENTS": "text-orange-600 bg-orange-50",
 };
 
+// Latest resources, sourced from real content so every item links somewhere.
 const LATEST_RESOURCES = [
-  { badge: "COMPARISON",  title: "Claude vs ChatGPT: Which One Is Better in 2026?",    desc: "In-depth comparison of features, performance, pricing, and best use cases.",              date: "May 20, 2026", read: "9 min read"  },
-  { badge: "GUIDES",      title: "Best AI Tools for Content Creation in 2026",           desc: "Top AI writing, editing, and content creation tools tested and reviewed.",                date: "May 18, 2026", read: "11 min read" },
-  { badge: "TUTORIALS",   title: "How to Automate Lead Generation with AI",              desc: "Step-by-step tutorial to build an end-to-end lead gen automation system.",                date: "May 16, 2026", read: "8 min read"  },
-  { badge: "COMPARISON",  title: "Make vs Zapier: Which Automation Tool Wins?",          desc: "Complete comparison to help you choose the right automation platform.",                    date: "May 14, 2026", read: "10 min read" },
-  { badge: "AI AGENTS",   title: "AI Agents Explained: The Future of Work",              desc: "What are AI agents, how they work, and real business use cases.",                         date: "May 12, 2026", read: "7 min read"  },
+  ...comparisonsData.slice(0, 3).map((c) => ({
+    badge: "COMPARISON",
+    title: c.title,
+    desc: c.description,
+    date: c.date,
+    read: c.readTime,
+    href: c.href,
+  })),
+  ...guidesData.slice(0, 2).map((g) => ({
+    badge: "GUIDES",
+    title: g.title,
+    desc: g.description,
+    date: g.date,
+    read: g.readTime,
+    href: g.href,
+  })),
 ];
 
 const FREE_RESOURCES = [
@@ -97,12 +111,12 @@ const FREE_RESOURCES = [
 ];
 
 const CATEGORIES = [
-  { label: "Guides",      icon: BookOpen,      desc: "Step-by-step AI guides for every skill level." },
-  { label: "Tutorials",   icon: GraduationCap, desc: "Learn how to use AI tools effectively." },
-  { label: "Workflows",   icon: Workflow,      desc: "Automate tasks and save hours every week." },
-  { label: "Comparisons", icon: Scale,         desc: "Compare AI tools side by side." },
-  { label: "Use Cases",   icon: Lightbulb,     desc: "Real-world AI applications for your industry." },
-  { label: "AI News",     icon: Newspaper,     desc: "Latest updates and insights on AI." },
+  { label: "Guides",      icon: BookOpen,      href: "/resources/guides",       desc: "Step-by-step AI guides for every skill level." },
+  { label: "Tutorials",   icon: GraduationCap, href: "/resources/tutorials",    desc: "Learn how to use AI tools effectively." },
+  { label: "Workflows",   icon: Workflow,      href: "/resources/workflows",    desc: "Automate tasks and save hours every week." },
+  { label: "Comparisons", icon: Scale,         href: "/resources/comparisons",  desc: "Compare AI tools side by side." },
+  { label: "Use Cases",   icon: Lightbulb,     href: "/resources/case-studies", desc: "Real-world AI applications for your industry." },
+  { label: "AI News",     icon: Newspaper,     href: "/resources/ai-news",      desc: "Latest updates and insights on AI." },
 ];
 
 const STATS = [
@@ -113,12 +127,12 @@ const STATS = [
 ];
 
 const POPULAR_TOPICS = [
-  "ChatGPT",
-  "AI Automation",
-  "Productivity",
-  "Marketing",
-  "No-code",
-  "AI Agents",
+  { label: "ChatGPT",       href: "/tags/chatgpt"         },
+  { label: "AI Automation", href: "/tags/automation"      },
+  { label: "Productivity",  href: "/tags/productivity"    },
+  { label: "Marketing",     href: "/tags/ai-for-business" },
+  { label: "No-code",       href: "/tags/no-code"         },
+  { label: "AI Agents",     href: "/tags/ai-agents"       },
 ];
 
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
@@ -216,13 +230,14 @@ export default function ResourcesPage() {
               {/* Popular topics */}
               <div className="flex flex-wrap items-center gap-2 mt-3">
                 <span className="text-sm text-gray-500 shrink-0">Popular topics:</span>
-                {POPULAR_TOPICS.map((topic) => (
-                  <button
-                    key={topic}
+                {POPULAR_TOPICS.map(({ label, href }) => (
+                  <Link
+                    key={label}
+                    href={href}
                     className="rounded-full border border-gray-200 px-3 py-1 text-xs text-gray-700 hover:bg-gray-50 transition-colors"
                   >
-                    {topic}
-                  </button>
+                    {label}
+                  </Link>
                 ))}
               </div>
             </div>
@@ -257,12 +272,12 @@ export default function ResourcesPage() {
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-            {CATEGORIES.map(({ label, icon: Icon, desc }) => {
+            {CATEGORIES.map(({ label, icon: Icon, href, desc }) => {
               const theme = CATEGORY_THEME[label];
               return (
-                <a
+                <Link
                   key={label}
-                  href="#"
+                  href={href}
                   className="border border-gray-100 rounded-xl p-4 bg-white hover:shadow-md transition-shadow flex flex-col"
                 >
                   <div
@@ -277,7 +292,7 @@ export default function ResourcesPage() {
                   <span className="text-blue-600 text-sm mt-2 hover:underline inline-block">
                     Explore →
                   </span>
-                </a>
+                </Link>
               );
             })}
           </div>
@@ -304,12 +319,12 @@ export default function ResourcesPage() {
                       Handpicked resources to help you master AI.
                     </p>
                   </div>
-                  <a
-                    href="#"
+                  <Link
+                    href="/resources/guides"
                     className="hidden md:inline-block text-blue-600 text-sm font-medium hover:underline shrink-0"
                   >
                     View all guides →
-                  </a>
+                  </Link>
                 </div>
 
                 {/* 3 cards */}
@@ -348,12 +363,12 @@ export default function ResourcesPage() {
                     <h2 className="text-2xl font-bold text-[#1E293B]">Latest Resources</h2>
                     <p className="text-sm text-gray-500 mt-1">Fresh content to keep you ahead.</p>
                   </div>
-                  <a
-                    href="#"
+                  <Link
+                    href="/resources/comparisons"
                     className="hidden md:inline-block text-blue-600 text-sm font-medium hover:underline shrink-0"
                   >
                     View all articles →
-                  </a>
+                  </Link>
                 </div>
 
                 {/* List */}
@@ -369,9 +384,9 @@ export default function ResourcesPage() {
 
                         {/* Content */}
                         <div className="flex-1 min-w-0">
-                          <a href="#" className="font-semibold text-sm md:text-base text-[#1E293B] hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
+                          <Link href={item.href} className="font-semibold text-sm md:text-base text-[#1E293B] hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
                             {item.title}
-                          </a>
+                          </Link>
                           <p className="text-xs text-gray-500 mt-1 line-clamp-2 leading-relaxed">
                             {item.desc}
                           </p>
@@ -401,24 +416,24 @@ export default function ResourcesPage() {
               <div className="border border-gray-100 rounded-xl p-5 bg-white mb-6">
                 <h3 className="font-bold text-base text-[#1E293B] mb-3">Popular Topics</h3>
                 <ul>
-                  {SIDEBAR_TOPICS.map((topic) => (
-                    <li key={topic}>
-                      <a
-                        href="#"
+                  {SIDEBAR_TOPICS.map(({ label, href }) => (
+                    <li key={label}>
+                      <Link
+                        href={href}
                         className="flex justify-between items-center text-sm text-gray-700 hover:text-blue-600 py-1.5 border-b border-gray-100 last:border-0 transition-colors"
                       >
-                        <span>{topic}</span>
+                        <span>{label}</span>
                         <ChevronRight size={14} className="shrink-0 text-gray-400" />
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
-                <a
-                  href="#"
+                <Link
+                  href="/tags"
                   className="block w-full border border-blue-600 text-blue-600 rounded-lg py-2 text-sm font-medium text-center mt-3 hover:bg-blue-50 transition-colors"
                 >
                   View all topics
-                </a>
+                </Link>
               </div>
 
               {/* Box 2: Free Resources */}
@@ -446,43 +461,30 @@ export default function ResourcesPage() {
                     );
                   })}
                 </ul>
-                <a
-                  href="#"
+                <Link
+                  href="/#newsletter"
                   className="block w-full border border-gray-300 rounded-lg py-2 text-sm font-medium text-center mt-3 text-gray-700 hover:bg-gray-50 transition-colors"
                 >
-                  Download all free resources
-                </a>
+                  Get free resources via newsletter
+                </Link>
               </div>
 
               {/* Box 3: Trending Tags */}
               <div className="border border-gray-100 rounded-xl p-5 bg-white">
                 <h3 className="font-bold text-base text-[#1E293B] mb-3">Trending Tags</h3>
                 <div className="flex flex-wrap gap-2">
-                  {[
-                    { label: "ChatGPT",              prominent: true  },
-                    { label: "Automation",            prominent: true  },
-                    { label: "Prompt Engineering",    prominent: true  },
-                    { label: "AI Design",             prominent: false },
-                    { label: "Midjourney",            prominent: false },
-                    { label: "Interior Design",       prominent: false },
-                    { label: "AI Writing",            prominent: false },
-                    { label: "Workflow",              prominent: false },
-                    { label: "Design Visualization",  prominent: false },
-                    { label: "Productivity",          prominent: false },
-                    { label: "AI Render",             prominent: false },
-                    { label: "BIM",                   prominent: false },
-                  ].map(({ label, prominent }) => (
-                    <a
-                      key={label}
-                      href="#"
+                  {tagsData.map((tag) => (
+                    <Link
+                      key={tag.slug}
+                      href={`/tags/${tag.slug}`}
                       className={`rounded-full border px-3 py-1.5 text-xs transition-colors hover:border-blue-600 hover:text-blue-600 hover:bg-blue-50 ${
-                        prominent
+                        tag.isTrending
                           ? "border-blue-300 text-blue-700 font-medium"
                           : "border-gray-200 text-gray-700"
                       }`}
                     >
-                      {label}
-                    </a>
+                      {tag.name}
+                    </Link>
                   ))}
                 </div>
               </div>

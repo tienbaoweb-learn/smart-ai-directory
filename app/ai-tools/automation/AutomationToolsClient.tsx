@@ -340,7 +340,7 @@ function ToolRow({
           <a
             href={tool.affiliateHref}
             target="_blank"
-            rel="noopener noreferrer"
+            rel="sponsored noopener noreferrer"
             className="text-xs font-semibold bg-[#2B7FFF] hover:bg-blue-600 text-white px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap"
           >
             Visit Website →
