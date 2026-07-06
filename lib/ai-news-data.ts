@@ -76,6 +76,10 @@ export const aiNewsPosts: AINewsPost[] = [
     readingTime: "5 min",
     weekOf: "June 30, 2026",
     nextRoundup: "Week of July 7, 2026",
+    inArticleImages: [
+      "/images/ai-news/ai-news_weekly-roundup-june-30-2026-1.webp",
+      "/images/ai-news/ai-news_weekly-roundup-june-30-2026-2.webp",
+    ],
     tags: [
       "AI news",
       "interior design AI",
