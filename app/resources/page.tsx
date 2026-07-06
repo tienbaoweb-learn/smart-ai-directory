@@ -19,6 +19,30 @@ import Footer from "../components/Footer";
 import { guidesData } from "../../lib/guides-data";
 import { comparisonsData } from "../../lib/comparisons-data";
 import { tagsData } from "../../lib/tags-data";
+import { tutorialsData } from "../../lib/tutorials-data";
+import { workflowsData } from "../../lib/workflows-data";
+import { caseStudiesData } from "../../lib/case-studies-data";
+import ResourceSearch, { type ResourceSearchItem } from "./ResourceSearch";
+
+// ─── SEARCH INDEX ─────────────────────────────────────────────────────────────
+// Flat, static index across all resource content types so the hero search box
+// can filter titles/descriptions/tags client-side.
+
+const SEARCH_INDEX: ResourceSearchItem[] = [
+  ...guidesData.map((g) => ({ item: g, type: "Guide" })),
+  ...tutorialsData.map((t) => ({ item: t, type: "Tutorial" })),
+  ...workflowsData.map((w) => ({ item: w, type: "Workflow" })),
+  ...comparisonsData.map((c) => ({ item: c, type: "Comparison" })),
+  ...caseStudiesData.map((cs) => ({ item: cs, type: "Use Case" })),
+].map(({ item, type }) => ({
+  title: item.title,
+  description: item.description,
+  href: item.href,
+  type,
+  keywords: [item.title, item.description, ...(item.tags ?? [])]
+    .join(" ")
+    .toLowerCase(),
+}));
 
 // ─── CATEGORY CARD THEMES ─────────────────────────────────────────────────────
 
@@ -216,16 +240,7 @@ export default function ResourcesPage() {
               </div>
 
               {/* Search bar */}
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  placeholder="Search resources (e.g. ChatGPT tutorial, workflows, automation...)"
-                  className="flex-1 border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent min-w-0"
-                />
-                <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-6 py-2.5 text-sm transition-colors shrink-0">
-                  Search
-                </button>
-              </div>
+              <ResourceSearch items={SEARCH_INDEX} />
 
               {/* Popular topics */}
               <div className="flex flex-wrap items-center gap-2 mt-3">

@@ -34,6 +34,7 @@ import { ALL_TOOLS } from "../../data/tools";
 import CompareTools from "../../ai-tools/CompareTools";
 import FeaturedComparisons from "./FeaturedComparisons";
 import LatestComparisons from "./LatestComparisons";
+import ComparisonSearch from "./ComparisonSearch";
 
 // ─── CATEGORY CARD THEMES ─────────────────────────────────────────────────────
 
@@ -190,16 +191,7 @@ export default function ComparisonsPage() {
               </div>
 
               {/* Search bar */}
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  placeholder="Search comparisons (e.g. Midjourney vs DALL·E 3)"
-                  className="flex-1 border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent min-w-0"
-                />
-                <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-6 py-2.5 text-sm transition-colors shrink-0">
-                  Search
-                </button>
-              </div>
+              <ComparisonSearch comparisons={comparisonsData} />
 
               {/* Popular searches — real published comparisons */}
               <div className="flex flex-wrap items-center gap-2 mt-3">
