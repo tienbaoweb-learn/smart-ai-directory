@@ -2,19 +2,52 @@ export interface Tutorial {
   slug: string;
   title: string;
   description: string;
-  level: string; // "Beginner" | "Intermediate" | "Advanced" | "No-code"
-  badge: string; // Level badge for featured (BEGINNER…) or topic badge for latest (AUTOMATION…)
+  level: string; // "Beginner" | "Beginner to Intermediate" | "Intermediate" | "Advanced" | "No-code"
+  badge: string; // Topic badge for list rows (PROMPTS, AUTOMATION…); featured cards derive their badge from `level`
   imageHint: string;
+  thumbnail?: string; // real cover image; placeholders render a gray box
   duration: string;
-  steps: number;
+  steps?: number; // step-by-step tutorials only; omit for prompt-template tutorials
   date: string;
   tags: string[];
   href: string;
   isFeatured: boolean;
+  /** Placeholder entries have no detail page yet — never link them and keep them out of the search index. */
+  isPlaceholder?: boolean;
 }
 
 export const tutorialsData: Tutorial[] = [
-  // ── Featured (4) ──────────────────────────────────────────────────────────
+  // ── Real tutorials ──────────────────────────────────────────────────────────
+  {
+    slug: "chatgpt-claude-prompts-aec",
+    title: "Writing Effective ChatGPT & Claude Prompts for Design & Construction Work",
+    description: "Six copy-and-adapt prompt templates for proposals, listing descriptions, and client updates — plus the five principles that make any prompt work.",
+    level: "Beginner to Intermediate",
+    badge: "PROMPTS",
+    imageHint: "prompt templates for design and construction work",
+    thumbnail: "/images/tutorials/tutorial-chatgpt-claude-prompts-aec.webp",
+    duration: "7 min",
+    date: "Jul 9, 2026",
+    tags: ["chatgpt", "prompt-engineering", "ai-writing"],
+    href: "/resources/tutorials/chatgpt-claude-prompts-aec",
+    isFeatured: true,
+  },
+  {
+    slug: "chatgpt-construction-estimating",
+    title: "Using ChatGPT to Speed Up Construction Estimating & Documentation",
+    description: "Five safe prompt templates for scope checklists, bid documents, and site reports — and a clear line on what ChatGPT must never be used for in estimating.",
+    level: "Beginner to Intermediate",
+    badge: "PROMPTS",
+    imageHint: "contractor using ChatGPT for estimating documentation",
+    thumbnail: "/images/tutorials/tutorial-chatgpt-construction-estimating.webp",
+    duration: "7 min",
+    date: "Jul 9, 2026",
+    tags: ["chatgpt", "prompt-engineering", "ai-for-business"],
+    href: "/resources/tutorials/chatgpt-construction-estimating",
+    isFeatured: true,
+  },
+
+  // ── Featured placeholders ─── TODO: replace with real data ──────────────────
   {
     slug: "getting-started-with-chatgpt-beginners-guide",
     title: "Getting Started with ChatGPT: A Complete Beginner's Guide",
@@ -28,6 +61,7 @@ export const tutorialsData: Tutorial[] = [
     tags: ["chatgpt", "productivity"],
     href: "/resources/tutorials/getting-started-with-chatgpt-beginners-guide",
     isFeatured: true,
+    isPlaceholder: true,
   },
   {
     slug: "build-first-zapier-automation-step-by-step",
@@ -42,37 +76,10 @@ export const tutorialsData: Tutorial[] = [
     tags: ["automation", "no-code"],
     href: "/resources/tutorials/build-first-zapier-automation-step-by-step",
     isFeatured: true,
-  },
-  {
-    slug: "advanced-midjourney-prompting-techniques",
-    title: "Advanced Midjourney Prompting Techniques",
-    description: "Master parameters, styles, and consistency for professional results.",
-    level: "Advanced",
-    badge: "ADVANCED",
-    imageHint: "AI image generation interface",
-    duration: "20 min",
-    steps: 12,
-    date: "Jun 6, 2026",
-    tags: ["midjourney", "prompt-engineering"],
-    href: "/resources/tutorials/advanced-midjourney-prompting-techniques",
-    isFeatured: true,
-  },
-  {
-    slug: "create-ai-powered-notion-workspace-no-code",
-    title: "Create an AI-Powered Notion Workspace (No Code)",
-    description: "Set up databases, templates, and AI assistants inside Notion.",
-    level: "No-code",
-    badge: "NO-CODE",
-    imageHint: "Notion AI workspace screenshot",
-    duration: "18 min",
-    steps: 9,
-    date: "Jun 4, 2026",
-    tags: ["no-code", "productivity"],
-    href: "/resources/tutorials/create-ai-powered-notion-workspace-no-code",
-    isFeatured: true,
+    isPlaceholder: true,
   },
 
-  // ── Latest (5) ────────────────────────────────────────────────────────────
+  // ── Latest placeholders ─── TODO: replace with real data ────────────────────
   {
     slug: "connect-chatgpt-to-google-sheets-with-zapier",
     title: "How to Connect ChatGPT to Google Sheets with Zapier",
@@ -86,6 +93,7 @@ export const tutorialsData: Tutorial[] = [
     tags: ["chatgpt", "automation", "no-code"],
     href: "/resources/tutorials/connect-chatgpt-to-google-sheets-with-zapier",
     isFeatured: false,
+    isPlaceholder: true,
   },
   {
     slug: "creating-brand-visuals-with-midjourney",
@@ -100,6 +108,7 @@ export const tutorialsData: Tutorial[] = [
     tags: ["midjourney", "ai-image-generation"],
     href: "/resources/tutorials/creating-brand-visuals-with-midjourney",
     isFeatured: false,
+    isPlaceholder: true,
   },
   {
     slug: "automate-daily-standup-notes-with-ai",
@@ -114,6 +123,7 @@ export const tutorialsData: Tutorial[] = [
     tags: ["automation", "productivity", "workflow"],
     href: "/resources/tutorials/automate-daily-standup-notes-with-ai",
     isFeatured: false,
+    isPlaceholder: true,
   },
   {
     slug: "use-claude-for-long-form-content-editing",
@@ -128,6 +138,7 @@ export const tutorialsData: Tutorial[] = [
     tags: ["ai-writing", "prompt-engineering"],
     href: "/resources/tutorials/use-claude-for-long-form-content-editing",
     isFeatured: false,
+    isPlaceholder: true,
   },
   {
     slug: "build-simple-ai-agent-no-code-tools",
@@ -142,5 +153,6 @@ export const tutorialsData: Tutorial[] = [
     tags: ["ai-agents", "no-code", "automation"],
     href: "/resources/tutorials/build-simple-ai-agent-no-code-tools",
     isFeatured: false,
+    isPlaceholder: true,
   },
 ];

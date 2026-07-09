@@ -44,6 +44,7 @@ const CAT_THEME: Record<string, { iconBg: string; iconColor: string }> = {
 
 const FEAT_BADGE: Record<string, string> = {
   BEGINNER:     "bg-emerald-500 text-white",
+  "BEGINNER TO INTERMEDIATE": "bg-emerald-500 text-white",
   INTERMEDIATE: "bg-orange-500 text-white",
   ADVANCED:     "bg-red-500 text-white",
   "NO-CODE":    "bg-blue-500 text-white",
@@ -62,6 +63,7 @@ const RESULT_THEME: Record<string, { bg: string; color: string }> = {
 // ─── LATEST TUTORIAL BADGE STYLES ────────────────────────────────────────────
 
 const LATEST_BADGE: Record<string, string> = {
+  PROMPTS:     "text-blue-600 bg-blue-50",
   AUTOMATION:  "text-orange-600 bg-orange-50",
   DESIGN:      "text-purple-600 bg-purple-50",
   PRODUCTIVITY:"text-blue-600 bg-blue-50",
@@ -71,6 +73,7 @@ const LATEST_BADGE: Record<string, string> = {
 
 const LEVEL_BADGE: Record<string, string> = {
   Beginner:     "text-emerald-600 bg-emerald-50",
+  "Beginner to Intermediate": "text-emerald-600 bg-emerald-50",
   Intermediate: "text-orange-600 bg-orange-50",
   Advanced:     "text-red-600 bg-red-50",
 };
@@ -94,7 +97,11 @@ const CATEGORIES = [
 ];
 
 const FEATURED_TUTORIALS = tutorialsData.filter((t) => t.isFeatured);
-const LATEST_TUTORIALS_DATA = tutorialsData.filter((t) => !t.isFeatured);
+// Real tutorials lead the list; placeholder rows follow. TODO: replace placeholders with real data.
+const LATEST_TUTORIALS_DATA = [
+  ...tutorialsData.filter((t) => !t.isPlaceholder),
+  ...tutorialsData.filter((t) => t.isPlaceholder && !t.isFeatured),
+];
 
 const RESULT_CARDS = [
   { value: "120+",   label: "Step-by-step tutorials",  icon: BookOpen,    theme: "blue"   },
@@ -295,9 +302,12 @@ export default function TutorialsPage() {
             {FEATURED_TUTORIALS.map((t) => (
               <ResourceCard
                 key={t.slug}
+                href={t.isPlaceholder ? undefined : t.href}
+                thumbnailSrc={t.thumbnail}
+                thumbnailAlt={t.imageHint}
                 thumbnailContent={
-                  <span className={`absolute top-2 left-2 rounded-full px-2.5 py-1 text-xs font-semibold uppercase ${FEAT_BADGE[t.badge]}`}>
-                    {t.badge}
+                  <span className={`absolute top-2 left-2 rounded-full px-2.5 py-1 text-xs font-semibold uppercase ${FEAT_BADGE[t.level.toUpperCase()]}`}>
+                    {t.level}
                   </span>
                 }
                 title={t.title}
@@ -305,7 +315,7 @@ export default function TutorialsPage() {
                 footer={
                   <div className="flex items-center gap-1 mt-2 text-xs text-gray-500">
                     <Clock size={11} className="shrink-0" />
-                    <span>{t.duration} • {t.steps} steps</span>
+                    <span>{t.duration}{t.steps ? ` • ${t.steps} steps` : " read"}</span>
                   </div>
                 }
               />
@@ -355,13 +365,16 @@ export default function TutorialsPage() {
                 {LATEST_TUTORIALS_DATA.map((item) => (
                   <ResourceListRow
                     key={item.slug}
+                    href={item.isPlaceholder ? undefined : item.href}
+                    thumbnailSrc={item.thumbnail}
+                    thumbnailAlt={item.imageHint}
                     title={item.title}
                     badge={{ label: item.badge, className: LATEST_BADGE[item.badge] }}
                     metaContent={
                       <>
                         <span className="text-gray-500 flex items-center gap-1">
                           <Clock size={11} className="shrink-0" />
-                          {item.duration} • {item.steps} steps
+                          {item.duration}{item.steps ? ` • ${item.steps} steps` : " read"}
                         </span>
                         <span className={`rounded-full px-2 py-0.5 font-semibold ${LEVEL_BADGE[item.level]}`}>
                           {item.level}

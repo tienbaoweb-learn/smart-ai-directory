@@ -30,7 +30,8 @@ import ResourceSearch, { type ResourceSearchItem } from "./ResourceSearch";
 
 const SEARCH_INDEX: ResourceSearchItem[] = [
   ...guidesData.map((g) => ({ item: g, type: "Guide" })),
-  ...tutorialsData.map((t) => ({ item: t, type: "Tutorial" })),
+  // Placeholder tutorials have no detail page yet — keep them out of search.
+  ...tutorialsData.filter((t) => !t.isPlaceholder).map((t) => ({ item: t, type: "Tutorial" })),
   ...workflowsData.map((w) => ({ item: w, type: "Workflow" })),
   ...comparisonsData.map((c) => ({ item: c, type: "Comparison" })),
   ...caseStudiesData.map((cs) => ({ item: cs, type: "Use Case" })),
