@@ -96,12 +96,10 @@ const CATEGORIES = [
   { label: "View All Tutorials", icon: Grid3x3,       sub: "All Tutorials" },
 ];
 
-const FEATURED_TUTORIALS = tutorialsData.filter((t) => t.isFeatured);
-// Real tutorials lead the list; placeholder rows follow. TODO: replace placeholders with real data.
-const LATEST_TUTORIALS_DATA = [
-  ...tutorialsData.filter((t) => !t.isPlaceholder),
-  ...tutorialsData.filter((t) => t.isPlaceholder && !t.isFeatured),
-];
+// Only real, published tutorials appear on the hub — placeholders are hidden
+// until they have real content.
+const FEATURED_TUTORIALS = tutorialsData.filter((t) => t.isFeatured && !t.isPlaceholder);
+const LATEST_TUTORIALS_DATA = tutorialsData.filter((t) => !t.isPlaceholder);
 
 const RESULT_CARDS = [
   { value: "120+",   label: "Step-by-step tutorials",  icon: BookOpen,    theme: "blue"   },
