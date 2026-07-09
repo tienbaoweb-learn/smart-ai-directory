@@ -69,7 +69,14 @@ const schemaOrganization = {
   logo: "https://www.smartaiforwork.com/favicon-512.png",
   description:
     "AI Tools Directory for Furniture, Architecture, Construction, and Real Estate industries.",
-  sameAs: [],
+  sameAs: [
+    "https://www.tiktok.com/@smartaiforwork",
+    "https://www.facebook.com/smartaiforwork",
+    "https://www.instagram.com/smartaiforwork/",
+    "https://www.linkedin.com/company/smart-ai-for-work/",
+    "https://x.com/smartaiforwork",
+    "https://www.youtube.com/@SmartAIforWork",
+  ],
   contactPoint: {
     "@type": "ContactPoint",
     email: "tienbao.web@gmail.com",

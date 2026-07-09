@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import {
   BookOpen,
   Calendar,
@@ -89,6 +90,7 @@ const FEATURED_GUIDES = FEATURED_SLUGS.map((slug) => {
     date: g.date,
     read: g.readTime,
     href: g.href,
+    thumb: g.thumbnail,
   };
 });
 
@@ -111,20 +113,25 @@ const LATEST_BADGE: Record<string, string> = {
 // Latest resources, sourced from real content so every item links somewhere.
 const LATEST_RESOURCES = [
   ...comparisonsData.slice(0, 3).map((c) => ({
+    kind: "comparison" as const,
     badge: "COMPARISON",
     title: c.title,
     desc: c.description,
     date: c.date,
     read: c.readTime,
     href: c.href,
+    toolA: c.toolA,
+    toolB: c.toolB,
   })),
   ...guidesData.slice(0, 2).map((g) => ({
+    kind: "guide" as const,
     badge: "GUIDES",
     title: g.title,
     desc: g.description,
     date: g.date,
     read: g.readTime,
     href: g.href,
+    thumb: g.thumbnail,
   })),
 ];
 
@@ -349,9 +356,15 @@ export default function ResourcesPage() {
                     <Link key={guide.title} href={guide.href} className="group flex flex-col">
                       {/* Thumbnail */}
                       <div className="bg-gray-800 rounded-xl aspect-[2/1] relative overflow-hidden">
-                        {/* TODO: replace with image */}
+                        <Image
+                          src={guide.thumb}
+                          alt={guide.title}
+                          fill
+                          sizes="(max-width: 640px) 100vw, 33vw"
+                          className="object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
                         <span
-                          className={`absolute top-2 left-2 rounded-full px-2 py-0.5 text-xs font-semibold uppercase ${GUIDE_BADGE[guide.badge]}`}
+                          className={`absolute top-2 left-2 z-10 rounded-full px-2 py-0.5 text-xs font-semibold uppercase ${GUIDE_BADGE[guide.badge]}`}
                         >
                           {guide.badge}
                         </span>
@@ -394,8 +407,26 @@ export default function ResourcesPage() {
                     return (
                       <li key={item.title} className="flex gap-4 items-start py-4 border-b border-gray-100 last:border-0">
                         {/* Thumbnail */}
-                        <div className="bg-gray-800 rounded-lg w-20 sm:w-24 aspect-[2/1] relative overflow-hidden flex-shrink-0">
-                          {/* TODO: replace with image */}
+                        <div className="bg-gray-900 rounded-lg w-20 sm:w-24 aspect-[2/1] relative overflow-hidden flex-shrink-0">
+                          {item.kind === "guide" ? (
+                            <Image
+                              src={item.thumb}
+                              alt={item.title}
+                              fill
+                              sizes="96px"
+                              className="object-cover"
+                            />
+                          ) : (
+                            <div className="absolute inset-0 flex items-center justify-center gap-1">
+                              <span className={`w-6 h-6 rounded-full ${item.toolA.logo.bg} flex items-center justify-center`}>
+                                <span className="text-white text-[8px] font-bold">{item.toolA.logo.text}</span>
+                              </span>
+                              <span className="w-4 h-4 rounded-full bg-white text-gray-900 flex items-center justify-center text-[7px] font-bold">vs</span>
+                              <span className={`w-6 h-6 rounded-full ${item.toolB.logo.bg} flex items-center justify-center`}>
+                                <span className="text-white text-[8px] font-bold">{item.toolB.logo.text}</span>
+                              </span>
+                            </div>
+                          )}
                         </div>
 
                         {/* Content */}
