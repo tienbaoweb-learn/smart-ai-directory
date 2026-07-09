@@ -54,6 +54,7 @@ export default function ContactPage() {
       email: (form.elements.namedItem("email") as HTMLInputElement).value,
       subject: (form.elements.namedItem("subject") as HTMLSelectElement).value,
       message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
+      website: (form.elements.namedItem("website") as HTMLInputElement).value,
     };
     try {
       const res = await fetch("/api/contact", {
@@ -109,6 +110,17 @@ export default function ContactPage() {
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-5" noValidate={false}>
+                    {/* Honeypot — hidden from real users, bots that fill it are silently dropped */}
+                    <input
+                      id="website"
+                      name="website"
+                      type="text"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      aria-hidden="true"
+                      className="hidden"
+                    />
+
                     {/* Full Name */}
                     <div>
                       <label htmlFor="name" className="block text-sm font-semibold text-[#1E293B] mb-1.5">

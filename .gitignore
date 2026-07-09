@@ -39,4 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-devlog.txt
+
+# local dev notes (SECURITY-AUDIT.md #5)
+devlog*.txt
+
+# claude code local settings (SECURITY-AUDIT.md #6)
+.claude/settings.local.json
