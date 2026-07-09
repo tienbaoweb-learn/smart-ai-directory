@@ -6,6 +6,7 @@ import { tagsData } from "@/lib/tags-data";
 import { comparisonsData } from "@/lib/comparisons-data";
 import { aiNewsPosts } from "@/lib/ai-news-data";
 import { workflowsData } from "@/lib/workflows-data";
+import { tutorialsContent } from "@/lib/tutorials-content";
 
 const baseUrl = "https://www.smartaiforwork.com";
 
@@ -114,6 +115,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
+  const tutorialPages = tutorialsContent.map((t) => ({
+    url: `${baseUrl}/resources/tutorials/${t.slug}`,
+    lastModified: new Date(t.publishedDate),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
   const tagPages = tagsData.map((tag) => ({
     url: `${baseUrl}/tags/${tag.slug}`,
     changeFrequency: "monthly" as const,
@@ -128,6 +136,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...comparisonPages,
     ...newsPages,
     ...workflowPages,
+    ...tutorialPages,
     ...tagPages,
   ];
 }
