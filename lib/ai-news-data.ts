@@ -4,8 +4,15 @@ export interface QuickHitItem {
   emoji: string;
   industry: string; // "Construction" | "Real Estate" | "Architecture" | "Commercial Real Estate" | "Market" | etc.
   title: string;
+  /** Nội dung chính. Nhiều đoạn thì ngăn cách bằng "\n\n". */
   body: string;
   tags: string[];
+  /** "Why it matters for you" — editorial takeaway (tùy chọn, cho các bài dạng story). */
+  whyItMatters?: string;
+  /** Nhãn nguồn hiển thị, vd "Proptech Connect, July 2, 2026". */
+  source?: string;
+  /** Link tới nguồn gốc (tùy chọn). */
+  sourceUrl?: string;
 }
 
 export interface AINewsContentBlock {
@@ -64,6 +71,231 @@ export function industryColor(industry: string): string {
 }
 
 export const aiNewsPosts: AINewsPost[] = [
+  {
+    slug: "ai-news-2026-07-14",
+    title:
+      "AI News Roundup — Week of July 14, 2026: Palantir Comes to the Jobsite, YC Floods the Back Office, and Image Models Learn Layers",
+    newsType: "weekly-roundup",
+    thumbnail: "/images/ai-news/ai-news-2026-07-14-thumbnail.webp",
+    heroImage: "/images/ai-news/ai-news-hero.webp",
+    excerpt:
+      "This week in AI for the built environment: McCarthy's Palantir-powered AI operating system, Sodex raises €4M for real-time site intelligence, Y Combinator backs a wave of construction back-office startups, layer-based image models arrive for design work, and Meta ships its first paid developer API.",
+    publishedDate: "2026-07-14",
+    readingTime: "6 min",
+    weekOf: "July 14, 2026",
+    nextRoundup: "Week of July 21, 2026",
+    inArticleImages: [
+      "/images/ai-news/ai-news-2026-07-14-1.webp",
+      "/images/ai-news/ai-news-2026-07-14-2.webp",
+    ],
+    tags: [
+      "AI News",
+      "Construction",
+      "Real Estate",
+      "Architecture",
+      "Interior Design",
+      "Weekly Roundup",
+    ],
+    content: [
+      {
+        type: "paragraph",
+        text: "Two weeks ago the money went into decisions. This week it went into presence: AI physically showing up where the work happens — on the jobsite, inside the property manager's software stack, and in the pixel layers of a design render. Meanwhile, Meta decided it finally wants your API dollars.",
+      },
+      {
+        type: "paragraph",
+        text: "Here are the five stories worth your attention, and why each one matters if you design, build, sell, or furnish spaces for a living.",
+      },
+      {
+        type: "quick-hits",
+        heading: "The 5 Stories That Matter This Week",
+        items: [
+          {
+            emoji: "🏗️",
+            industry: "Construction",
+            title: "McCarthy's Palantir deal signals AI's move from back office to jobsite",
+            body: "McCarthy Building Companies — one of the largest contractors in the US — has a multiyear, multimillion-dollar agreement with Palantir that drew fresh industry attention this week. The deal, first announced in early June and reported by Construction Dive, centers on Pulse: McCarthy's AI-native system built on Palantir's Artificial Intelligence Platform, designed to give field teams real-time insight, scenario planning, risk analysis, and decision orchestration from design through active building.\n\nThe sober counterpoint came from RICS panel member James Garner (Head of AI and Data at Gleeds), who argued that data readiness — not software — is the real bottleneck, and that \"culture over cost\" is the more important strategic consideration when construction firms evaluate AI.",
+            whyItMatters:
+              "When a tier-one contractor anchors its AI strategy on a single platform instead of a patchwork of point solutions, it sets the template mid-size firms will be measured against. But Garner's warning is the actionable part: before you budget for any AI tool, audit whether your project data is clean, connected, and accessible. A platform on top of fragmented data is an expensive dashboard. Investors and insurers are already starting to ask how AI is governed on projects — documenting that now is cheaper than retrofitting it under contract pressure.",
+            source: "MarketScale, July 11, 2026",
+            sourceUrl:
+              "https://www.marketscale.com/industries/engineering-and-construction/ai-moves-from-back-office-to-job-site-in-constructions-next-build-out",
+            tags: ["Construction", "Palantir", "Jobsite AI"],
+          },
+          {
+            emoji: "📡",
+            industry: "Construction",
+            title: "Sodex Innovations raises €4M for real-time construction site intelligence",
+            body: "Austrian-German startup Sodex Innovations closed a €4 million round led by Capmont Technology, with new investors Bloomhaus Ventures, Look AI Ventures, and the superangels group, plus follow-on from SOSV, OMA, and 12 Rounds Capital. Sodex builds AI-powered technology that automatically surveys and digitally maps construction sites, mines, and infrastructure projects while they operate — no separate survey pass required.\n\nCapmont partner Michael Wittner framed the thesis: \"For the first time, Sodex makes physical construction activity measurable and controllable in real time, thereby creating the data foundation on which the industry will be managed in the future.\"",
+            whyItMatters:
+              "Remember Garner's point in story one — data readiness is the bottleneck? This is the supply side of that same trade. Continuous, automated site capture turns the jobsite itself into a live dataset: progress tracking without a drone pilot on the payroll, earthworks volumes without a survey crew, as-built conditions that never drift from reality. If your firm still reconciles jobsite reality against the model once a week by hand, tools in this category are how that gap closes — and how disputes about \"what was actually built when\" start being settled by data instead of memory.",
+            source: "Proptech Connect, July 13, 2026",
+            sourceUrl:
+              "https://proptechconnect.com/sodex-innovations-secures-e4m-to-bring-real-time-intelligence-to-construction-sites/",
+            tags: ["Construction", "Site Intelligence", "Funding"],
+          },
+          {
+            emoji: "💼",
+            industry: "Market",
+            title: "Y Combinator floods construction and proptech with AI back-office startups",
+            body: "YC's real estate and construction portfolio hit 126 companies as of July 2026, and the newest cohort is strikingly concentrated: FlowManual (all-in-one construction back office), Foreman (AI takeoffs, estimates, and proposals from uploaded plans), Rudus (concrete estimation, claiming 70% less estimation time), PLAN0 AI (plan-reading vision models with $20B in projects on platform), and Helonic (automatic clash detection across architectural, structural, and MEP drawings, with Procore and Autodesk integrations). On the property side, CentralComs and Brickwise are building AI agents that live inside AppFolio, Buildium, and Yardi, while RealPact automates transaction paperwork for brokerages.",
+            whyItMatters:
+              "Venture concentration this dense is a map of where the pain is priced. Nobody in this cohort is selling a fancy render engine — they're all attacking spreadsheets, proposals, RFIs, maintenance tickets, and deal paperwork. If you run a small firm, the practical move isn't to adopt all of these; it's to notice that the admin tasks eating your evenings are now cheap enough for a seed-stage startup to automate — which means within a year, your competitors will have. Pilot one tool on one project and benchmark it against your current process.",
+            source: "MarketScale, July 8, 2026",
+            sourceUrl:
+              "https://www.marketscale.com/industries/engineering-and-construction/ycs-summer-2026-cohort-floods-construction-and-proptech-with-ai-back-office-tools",
+            tags: ["Proptech", "Y Combinator", "Back Office"],
+          },
+          {
+            emoji: "🎨",
+            industry: "Interior Design",
+            title: "Image models learned layers — and that changes design visualization",
+            body: "Two releases within 24 hours pushed AI image generation from \"generator\" to \"design tool.\" ByteDance's Seedream 5.0 Pro ships interactive precision editing (point, lasso, sketch), intelligent layer separation that decomposes an image into editable layers, and 4K native output — rolling out enterprise-first via the BytePlus API, Dreamina, and Magnific. A day later, Reve 2.1 took #2 on the Text-to-Image Arena with a fundamentally different architecture: images are built through a layout engine, so every element lands on its own editable layer — change the sofa, and the image rebuilds around it instead of regenerating from scratch.",
+            whyItMatters:
+              "Layers are the difference between a pretty picture and a working document. For interior designers and furniture brands, the single biggest failure mode of AI visualization has been the all-or-nothing regeneration: fix the rug, lose the lighting. Layer-based generation means you can hold a client-approved scheme constant and swap one product, one finish, one wall color — which is how real revision cycles actually work. This is the week AI renders started behaving like design files. If you sell furniture, it's also the week product-swap lifestyle imagery got dramatically cheaper.",
+            source: "ThursdAI, July 8–9, 2026",
+            sourceUrl: "https://thursdai.news/releases/2026-07",
+            tags: ["Image AI", "Design Tools", "Layers"],
+          },
+          {
+            emoji: "🤖",
+            industry: "Market",
+            title: "Meta ships Muse Spark 1.1 — and its first-ever paid developer API",
+            body: "Meta announced Muse Spark 1.1, a 1M-token-context agentic model it claims rivals the top frontier models on agentic benchmarks, with computer use across desktop, browser, and mobile, and parallel subagent delegation. The bigger structural news: it arrives with Meta's first-ever paid developer API, in public preview at $1.25/$4.25 per million tokens (US-only at launch, $20 free credits), with Replit, Cline, and Box as early partners. No open weights — a notable break from Meta's Llama-era playbook.",
+            whyItMatters:
+              "For AEC and design businesses, two things changed. First, pricing: a frontier-class agentic model at $1.25 per million input tokens keeps dragging down the cost of running AI over your document-heavy workflows — bids, specs, listings, punch lists. Second, computer use across desktop and browser is the capability to watch: agents that can operate the software you already own (a CRM, a PM tool, even a design app) rather than requiring everything to have an API. Treat vendor benchmark claims with the usual skepticism, and test on your own workflows before committing — but the direction is unambiguous: the agents are learning to use your tools, not the other way around.",
+            source: "ThursdAI, July 9, 2026",
+            sourceUrl: "https://thursdai.news/releases/2026-07",
+            tags: ["AI Models", "Agentic", "Meta"],
+          },
+        ],
+      },
+      {
+        type: "what-to-watch",
+        heading: "The Through-Line",
+        paragraphs: [
+          "Every story this week is about AI closing the distance to where work physically happens: Palantir's platform reaching field teams, Sodex mapping sites in real time, YC startups embedding agents inside Yardi and Procore, image models exposing their layers to a designer's hand, and Meta's agents learning to drive desktop software. The \"AI as a separate app you visit\" era is ending in the built environment; the \"AI inside the tools and places you already work\" era is being funded, shipped, and priced right now.",
+          "The strategic read for anyone in architecture, construction, real estate, interior design, or furniture: stop evaluating AI tools by their demos and start evaluating them by their integrations. The winners this week all share one trait — they meet the work where it already lives.",
+        ],
+      },
+      {
+        type: "disclaimer",
+        text: "Editorial note: This roundup summarizes reporting from the sources linked above; figures and claims belong to those sources. Always verify specifics against the primary source before acting on them.",
+      },
+    ],
+  },
+  {
+    slug: "ai-news-2026-07-07",
+    title:
+      "AI News Roundup — Week of July 7, 2026: Homebuilding's $95M Bet, Zillow x Gemini, and Agentic Models Hit the Jobsite",
+    newsType: "weekly-roundup",
+    thumbnail: "/images/ai-news/ai-news-2026-07-07-thumbnail.webp",
+    heroImage: "/images/ai-news/ai-news-hero.webp",
+    excerpt:
+      "This week in AI for the built environment: Higharc raises $95M to scale homebuilding AI, Zillow partners with Google Gemini, Zenerate teams with AvalonBay on feasibility, and new agentic models change what's possible for AEC teams.",
+    publishedDate: "2026-07-07",
+    readingTime: "6 min",
+    weekOf: "July 7, 2026",
+    nextRoundup: "Week of July 14, 2026",
+    inArticleImages: [
+      "/images/ai-news/ai-news-2026-07-07-1.webp",
+      "/images/ai-news/ai-news-2026-07-07-2.webp",
+    ],
+    tags: [
+      "AI News",
+      "Construction",
+      "Real Estate",
+      "Architecture",
+      "Interior Design",
+      "Weekly Roundup",
+    ],
+    content: [
+      {
+        type: "paragraph",
+        text: "The money and the models both moved this week — and for once, a lot of it pointed straight at the built environment. Homebuilding AI pulled in a nine-figure round, two of the biggest names in property search and generative design announced partnerships, and the frontier labs shipped models that change what an AEC or design team can realistically automate.",
+      },
+      {
+        type: "paragraph",
+        text: "Here are the five stories worth your attention, and why each one matters if you design, build, sell, or furnish spaces for a living.",
+      },
+      {
+        type: "quick-hits",
+        heading: "The 5 Stories That Matter This Week",
+        items: [
+          {
+            emoji: "🏗️",
+            industry: "Construction",
+            title: "Higharc raises $95M to scale AI across the homebuilding lifecycle",
+            body: "Higharc, which builds AI for the full design-to-construction homebuilding workflow, announced a $95 million Series C led by Insight Partners, bringing total funding to more than $170 million. Alongside the raise, the company announced a deal with US LBM — one of the largest distributors of lumber and building materials in the US — extending its platform from design and construction into the materials supply chain.\n\nCEO Marc Minor framed the thesis bluntly: AI is no longer just assisting builders, it's \"reshaping how builders work, cutting time and cost per job.\" The new capital goes toward deeper AI product development and connecting suppliers onto the same system builders already use.",
+            whyItMatters:
+              "This is one of the largest AEC-specific AI rounds of the year, and the supply-chain angle is the tell. The value isn't a slicker render — it's stitching design, construction, and procurement into one automated pipeline. For anyone in construction or residential real estate, expect \"AI that quotes materials from your design\" to move from novelty to table stakes.",
+            source: "Proptech Connect, July 2, 2026",
+            sourceUrl:
+              "https://proptechconnect.com/higharc-raises-95m-series-c-to-scale-ai-for-homebuilding/",
+            tags: ["Construction", "Homebuilding", "Funding"],
+          },
+          {
+            emoji: "🏠",
+            industry: "Real Estate",
+            title: "Zillow partners with Google Gemini for rental property search",
+            body: "Zillow announced a partnership with Google to bring Gemini into its rental property experience. It's a headline signal more than a feature launch: the biggest US real estate marketplace is wiring a frontier model directly into how renters search and evaluate listings.",
+            whyItMatters:
+              "When Zillow standardizes on conversational, model-driven search, listing quality stops being about keyword stuffing and starts being about structured, accurate, machine-readable data. If you list or market property, the practical takeaway is to get your listing data clean and complete now — the AI layer rewards it.",
+            source: "Proptech Connect, July 2, 2026",
+            sourceUrl:
+              "https://proptechconnect.com/zillow-announces-google-gemini-partnership-for-rental-properties/",
+            tags: ["Real Estate", "Search", "Google Gemini"],
+          },
+          {
+            emoji: "🏛️",
+            industry: "Architecture",
+            title: "Zenerate teams with AvalonBay on early-stage multifamily feasibility",
+            body: "Generative-design platform Zenerate announced a partnership with AvalonBay Communities to support early-stage feasibility analysis for multifamily projects. In practice, that means running AI-driven massing and yield studies to test what a site can hold — unit counts, layouts, and returns — before an architect commits hours to a scheme.",
+            whyItMatters:
+              "This is generative design earning its keep at the exact moment it's most valuable: the go/no-go decision. For architects and developers, the edge is no longer producing one option slowly — it's pressure-testing dozens of options in an afternoon, then bringing human judgment to the two or three that actually work for the site and the budget.",
+            source: "Proptech Connect, July 1, 2026",
+            sourceUrl:
+              "https://proptechconnect.com/zenerate-announces-partnership-with-avalonbay-communities-to-support-early-stage-multifamily-feasibility-analysis/",
+            tags: ["Architecture", "Generative Design", "Multifamily"],
+          },
+          {
+            emoji: "🤖",
+            industry: "Market",
+            title: "Anthropic ships Claude Sonnet 5 — its most agentic model yet",
+            body: "Anthropic launched Claude Sonnet 5 on July 1, describing it as its most agentic model to date: able to autonomously operate tools like browsers and terminals while delivering near-flagship performance at a meaningfully lower cost. It landed the same week OpenAI detailed a new custom inference chip, underlining how hard the labs are pushing on cheaper, more capable automation.",
+            whyItMatters:
+              "\"Agentic\" is the word to watch for AEC. The near-term application isn't chat — it's an assistant that can read a drawing set, cross-check it against specs, flag QA/QC issues, and draft the compliance paperwork, the way tools like Autodesk's and Structured AI's are already pointing. Lower cost per task is what turns those demos into something a small firm can actually run at scale.",
+            source: "MarketingProfs, July 3, 2026",
+            sourceUrl:
+              "https://www.marketingprofs.com/opinions/2026/55197/ai-update-july-3-2026-ai-news-and-views-from-the-past-week/",
+            tags: ["AI Models", "Agentic", "Anthropic"],
+          },
+          {
+            emoji: "🎨",
+            industry: "Interior Design",
+            title: "Google DeepMind releases faster, cheaper image models",
+            body: "Google DeepMind rolled out new generative-media models, including Nano Banana 2 Lite — pitched as its fastest, most cost-efficient image generator — alongside a lightweight Gemini variant. The theme mirrors Anthropic's: not just more capable, but dramatically cheaper per output.",
+            whyItMatters:
+              "Rendering economics are the story here. For interior designers, architects, and furniture brands, the cost of a photorealistic concept keeps falling toward zero — which means the render itself stops being the differentiator. When every competitor can generate a slick visual overnight, your point of view, your curation, and your ability to say \"not that one\" become the pitch. Cheap image generation also makes shoppable, real-product visualization (moodboard-as-shopping-cart) far more viable to build on top of.",
+            source: "LLM-Stats, July 2026",
+            sourceUrl: "https://llm-stats.com/llm-updates",
+            tags: ["Image AI", "Rendering", "Google DeepMind"],
+          },
+        ],
+      },
+      {
+        type: "what-to-watch",
+        heading: "The Through-Line",
+        paragraphs: [
+          "Two forces converged this week. Capital is flowing into AI that automates the whole built-environment workflow — not one step, but design-to-procurement (Higharc), search (Zillow), and feasibility (Zenerate). At the same time, the frontier models got cheaper and more autonomous, which is what makes those end-to-end pipelines affordable to run.",
+          "For a working professional in architecture, construction, real estate, interior design, or furniture, the strategic move is the same one it's been all year: let AI take the first 80% — the variations, the studies, the drafts, the renders — and reinvest your hours in the 20% clients actually pay a premium for. Judgment, taste, and knowing which option is right.",
+        ],
+      },
+      {
+        type: "disclaimer",
+        text: "Editorial note: This roundup summarizes reporting from the sources linked above; figures and claims belong to those sources. Always verify specifics against the primary source before acting on them.",
+      },
+    ],
+  },
   {
     slug: "weekly-roundup-june-30-2026",
     title: "AI News for Design & Construction Pros — Week of June 30, 2026",

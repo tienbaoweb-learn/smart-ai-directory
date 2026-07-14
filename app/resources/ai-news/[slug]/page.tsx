@@ -61,18 +61,51 @@ function QuickHit({ item }: { item: QuickHitItem }) {
         {item.title}
       </h3>
 
-      <p className="text-gray-600 leading-relaxed mt-2">{item.body}</p>
-
-      <div className="flex flex-wrap gap-2 mt-4">
-        {item.tags.map((tag) => (
-          <span
-            key={tag}
-            className="text-xs text-gray-500 bg-gray-100 rounded-full px-2.5 py-1"
-          >
-            {tag}
-          </span>
+      <div className="mt-2 space-y-3">
+        {item.body.split(/\n\n+/).map((para, j) => (
+          <p key={j} className="text-gray-600 leading-relaxed">
+            {para}
+          </p>
         ))}
       </div>
+
+      {item.whyItMatters && (
+        <p className="text-gray-700 leading-relaxed mt-3 border-l-2 border-orange-400 pl-3">
+          <span className="font-semibold text-[#1E293B]">Why it matters for you: </span>
+          {item.whyItMatters}
+        </p>
+      )}
+
+      {item.source && (
+        <p className="text-xs text-gray-400 italic mt-3">
+          Source:{" "}
+          {item.sourceUrl ? (
+            <a
+              href={item.sourceUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:text-gray-600"
+            >
+              {item.source}
+            </a>
+          ) : (
+            item.source
+          )}
+        </p>
+      )}
+
+      {item.tags.length > 0 && (
+        <div className="flex flex-wrap gap-2 mt-4">
+          {item.tags.map((tag) => (
+            <span
+              key={tag}
+              className="text-xs text-gray-500 bg-gray-100 rounded-full px-2.5 py-1"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
     </article>
   );
 }
@@ -237,7 +270,7 @@ export default async function AINewsDetailPage({
                 const items = block.items ?? [];
                 return (
                   <div key={i} className="mb-10">
-                    <h2 className="text-2xl font-bold text-[#1E293B] mb-5">Quick Hits</h2>
+                    <h2 className="text-2xl font-bold text-[#1E293B] mb-5">{block.heading ?? "Quick Hits"}</h2>
                     <div className="space-y-6">
                       {items.map((item, idx) => (
                         <div key={item.title}>
@@ -263,7 +296,7 @@ export default async function AINewsDetailPage({
                     className="rounded-xl bg-[#1E293B] text-white px-5 sm:px-6 py-6 mb-10"
                   >
                     <span className="inline-block text-xs font-bold uppercase tracking-widest text-orange-400">
-                      What to Watch
+                      {block.heading ?? "What to Watch"}
                     </span>
                     {block.leadIn && (
                       <p className="text-lg font-semibold mt-2 leading-snug">{block.leadIn}</p>
