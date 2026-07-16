@@ -95,4 +95,5 @@ export const TOOL_LOGO_URLS: Record<string, string> = {
   "coohom":             "/images/tools/coohom.png",
   "adturbo":            "/images/tools/adturbo.png",
   "zapier":             "/images/tools/zapier.png",
+  "turbologo":          "/images/tools/turbologo.png",
 };

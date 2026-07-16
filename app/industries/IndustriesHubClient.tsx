@@ -343,8 +343,8 @@ const TOP_TOOLS = [
   },
   {
     name: "REimagineHome",
-    slug: "reimaginehome",
-    reviewHref: "/tools/reimaginehome",
+    slug: "reimagine-home",
+    reviewHref: "/tools/reimagine-home",
     desc: "AI virtual staging and design",
     logo: "RH",
     logoBg: "bg-purple-700",

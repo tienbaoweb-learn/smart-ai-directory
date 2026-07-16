@@ -125,7 +125,7 @@ const topPicks = [
     categoryHref: "/ai-tools/sales",
     categoryColor: "bg-emerald-100 text-emerald-600",
     name: "REimagineHome",
-    slug: "reimaginehome",
+    slug: "reimagine-home",
     logo: { bg: "bg-purple-700", text: "RH" },
     rating: 4.9,
     bestFor: "Real Estate Agents & Brokerages",
@@ -133,7 +133,7 @@ const topPicks = [
     pricing: "Freemium",
     price: "From $29/month",
     isFeatured: true,
-    reviewHref: "/ai-tools/reimaginehome",
+    reviewHref: "/ai-tools/reimagine-home",
     affiliateHref: "https://www.reimaginehome.ai/?ref=smartaiforwork",
   },
 ];

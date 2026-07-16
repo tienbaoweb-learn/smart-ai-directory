@@ -56,7 +56,7 @@ export const ALL_TOOLS: AITool[] = [
   },
   {
     name: "REimagineHome",
-    slug: "reimaginehome",
+    slug: "reimagine-home",
     company: "by REimagineHome",
     logoBg: "bg-purple-700",
     logoText: "RH",
@@ -70,6 +70,7 @@ export const ALL_TOOLS: AITool[] = [
     rating: 4.9,
     industries: ["realestate", "furniture"],
     isFeatured: true,
+    hasReview: true,
     affiliateHref: "https://www.reimaginehome.ai/?ref=smartaiforwork",
   },
   // === Regular tools ===
