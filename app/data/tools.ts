@@ -51,7 +51,8 @@ export const ALL_TOOLS: AITool[] = [
     rating: 4.8,
     industries: ["construction"],
     isFeatured: true,
-    affiliateHref: "#",
+    hasReview: true,
+    affiliateHref: "https://buildots.com",
   },
   {
     name: "REimagineHome",
@@ -69,7 +70,7 @@ export const ALL_TOOLS: AITool[] = [
     rating: 4.9,
     industries: ["realestate", "furniture"],
     isFeatured: true,
-    affiliateHref: "#",
+    affiliateHref: "https://www.reimaginehome.ai/?ref=smartaiforwork",
   },
   // === Regular tools ===
   {
@@ -87,6 +88,7 @@ export const ALL_TOOLS: AITool[] = [
     keyFeatures: "Content creation, Q&A, summarization, code generation",
     rating: 4.9,
     industries: ["furniture", "architecture", "construction", "realestate"],
+    hasReview: true,
     affiliateHref: "https://chat.openai.com",
   },
   {
@@ -104,6 +106,7 @@ export const ALL_TOOLS: AITool[] = [
     keyFeatures: "Long context, analysis, document understanding, reasoning",
     rating: 4.8,
     industries: ["furniture", "architecture", "construction", "realestate"],
+    hasReview: true,
     affiliateHref: "https://claude.ai",
   },
   {
@@ -121,6 +124,7 @@ export const ALL_TOOLS: AITool[] = [
     keyFeatures: "AI writing, summaries, task management, knowledge base",
     rating: 4.7,
     industries: ["architecture", "construction", "realestate"],
+    hasReview: true,
     affiliateHref: "https://notion.so",
   },
   {
@@ -138,6 +142,7 @@ export const ALL_TOOLS: AITool[] = [
     keyFeatures: "Workflow automation, 6000+ apps, no-code builder",
     rating: 4.6,
     industries: ["furniture", "construction", "realestate"],
+    hasReview: true,
     affiliateHref: "https://zapier.com",
   },
   {
@@ -155,6 +160,7 @@ export const ALL_TOOLS: AITool[] = [
     keyFeatures: "AI search, real-time data, citations, summaries",
     rating: 4.6,
     industries: ["architecture", "realestate"],
+    hasReview: true,
     affiliateHref: "https://perplexity.ai",
   },
   {
@@ -172,6 +178,7 @@ export const ALL_TOOLS: AITool[] = [
     keyFeatures: "Grammar check, tone detection, AI suggestions",
     rating: 4.5,
     industries: ["furniture", "architecture", "realestate"],
+    hasReview: true,
     affiliateHref: "https://grammarly.com",
   },
   // === Real reviewed tools ===

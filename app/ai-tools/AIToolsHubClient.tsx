@@ -83,7 +83,7 @@ const topPicks = [
     price: "From $10/month",
     isFeatured: true,
     reviewHref: "/ai-tools/midjourney",
-    affiliateHref: "#",
+    affiliateHref: "https://midjourney.com",
   },
   {
     rank: 3,
@@ -100,7 +100,7 @@ const topPicks = [
     price: "Contact for pricing",
     isFeatured: true,
     reviewHref: "/ai-tools/buildots",
-    affiliateHref: "#",
+    affiliateHref: "https://buildots.com",
   },
   {
     rank: 4,
@@ -117,7 +117,7 @@ const topPicks = [
     price: "From $7/month",
     isFeatured: true,
     reviewHref: "/ai-tools/planner-5d",
-    affiliateHref: "#",
+    affiliateHref: "https://go.planner5d.com/click?pid=2472&offer_id=43&sub1=yourclickid&sub2=your_sub_pub_id&sub3=any_side_info",
   },
   {
     rank: 5,
@@ -134,7 +134,7 @@ const topPicks = [
     price: "From $29/month",
     isFeatured: true,
     reviewHref: "/ai-tools/reimaginehome",
-    affiliateHref: "#",
+    affiliateHref: "https://www.reimaginehome.ai/?ref=smartaiforwork",
   },
 ];
 

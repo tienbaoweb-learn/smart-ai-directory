@@ -93,4 +93,6 @@ export const TOOL_LOGO_URLS: Record<string, string> = {
   "structurely":        "/images/tools/structurely.png",
   "zillow-showcase":    "/images/tools/zillow-showcase.png",
   "coohom":             "/images/tools/coohom.png",
+  "adturbo":            "/images/tools/adturbo.png",
+  "zapier":             "/images/tools/zapier.png",
 };
