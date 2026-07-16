@@ -81,4 +81,16 @@ export const TOOL_LOGO_URLS: Record<string, string> = {
   "marxent":            "/images/tools/marxent.png",
   "writesonic":         "/images/tools/writesonic.png",
   "datafeedwatch":      "/images/tools/datafeedwatch.png",
+  // Tools shown on the Best Of pages.
+  "vizcom":             "/images/tools/vizcom.png",
+  "autodesk-forma":     "/images/tools/autodesk-forma.png",
+  "testfit":            "/images/tools/testfit.png",
+  "arkdesign-ai":       "/images/tools/arkdesign-ai.png",
+  "foyr":               "/images/tools/foyr.png",
+  "pillar":             "/images/tools/pillar.png",
+  "offrs":              "/images/tools/offrs.png",
+  "lofty-ai":           "/images/tools/lofty-ai.png",
+  "structurely":        "/images/tools/structurely.png",
+  "zillow-showcase":    "/images/tools/zillow-showcase.png",
+  "coohom":             "/images/tools/coohom.png",
 };

@@ -404,12 +404,17 @@ export default function BestRealEstateToolsPage({
               <tbody>
                 {COMPARE_TOOLS.map((tool) => {
                   const isWinner = tool.overall === MAX_OVERALL;
+                  const slug = tool.href?.startsWith("/tools/") ? tool.href.slice(7) : "";
                   return (
                     <tr key={tool.name} className="border-t border-gray-100 hover:bg-gray-50 transition-colors">
                       <td className="py-3 px-4">
                         <div className="flex items-center gap-2.5">
-                          <span className={`w-8 h-8 rounded-lg ${tool.logoBg} flex items-center justify-center text-white text-xs font-bold shrink-0`}>
-                            {tool.logoText}
+                          <span className={`w-8 h-8 rounded-lg overflow-hidden ${TOOL_LOGO_URLS[slug] ? "bg-white border border-gray-100 p-0.5" : tool.logoBg} flex items-center justify-center text-white text-xs font-bold shrink-0`}>
+                            {TOOL_LOGO_URLS[slug] ? (
+                              <Image src={TOOL_LOGO_URLS[slug]} alt={tool.name} width={28} height={28} className="object-contain w-full h-full" />
+                            ) : (
+                              tool.logoText
+                            )}
                           </span>
                           <span className="font-medium text-[#1E293B] whitespace-nowrap">{tool.name}</span>
                         </div>
@@ -468,11 +473,17 @@ export default function BestRealEstateToolsPage({
     affiliateHref: "#" },
               { label: "Best for Property Marketing",  labelClass: "text-indigo-600", logoBg: "bg-purple-700", logoText: "ST", name: "Structurely",     desc: "Automated lead follow-up and qualification.",         href: "/tools/structurely",
     affiliateHref: "#" },
-            ].map((card) => (
+            ].map((card) => {
+              const slug = card.href?.startsWith("/tools/") ? card.href.slice(7) : "";
+              return (
               <div key={card.label} className="border border-gray-100 rounded-xl p-4 bg-white text-center flex flex-col items-center hover:shadow-md transition-shadow">
                 <p className={`text-xs font-semibold leading-snug ${card.labelClass}`}>{card.label}</p>
-                <div className={`w-10 h-10 rounded-lg ${card.logoBg} flex items-center justify-center mt-2 shrink-0`}>
-                  <span className="text-white text-xs font-bold">{card.logoText}</span>
+                <div className={`w-10 h-10 rounded-lg overflow-hidden ${TOOL_LOGO_URLS[slug] ? "bg-white border border-gray-100 p-1" : card.logoBg} flex items-center justify-center mt-2 shrink-0`}>
+                  {TOOL_LOGO_URLS[slug] ? (
+                    <Image src={TOOL_LOGO_URLS[slug]} alt={card.name} width={40} height={40} className="object-contain w-full h-full" />
+                  ) : (
+                    <span className="text-white text-xs font-bold">{card.logoText}</span>
+                  )}
                 </div>
                 <p className="font-semibold text-sm text-[#1E293B] mt-2">{card.name}</p>
                 <p className="text-xs text-gray-600 mt-1 leading-relaxed line-clamp-2 flex-1">{card.desc}</p>
@@ -480,7 +491,8 @@ export default function BestRealEstateToolsPage({
                   See why →
                 </Link>
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
