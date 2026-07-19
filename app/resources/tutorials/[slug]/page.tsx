@@ -13,6 +13,9 @@ import {
   type TutorialContentBlock,
 } from "../../../../lib/tutorials-content";
 import { guidesData } from "../../../../lib/guides-data";
+import { tutorialsData } from "../../../../lib/tutorials-data";
+import { tagsData } from "../../../../lib/tags-data";
+import { getToolBySlug } from "../../../../lib/tools";
 
 // ── Niche pill colors (brand palette per industry) ─────────────────────────────
 
@@ -24,6 +27,56 @@ const NICHE_PILL: Record<string, string> = {
   Furniture: "bg-[#F97316] text-white",
 };
 const DEFAULT_NICHE_PILL = "bg-[#F97316] text-white";
+
+// Niche pills double as internal links to the matching industry hub.
+const NICHE_HREF: Record<string, string> = {
+  Architecture: "/industries/architecture",
+  Construction: "/industries/construction",
+  "Real Estate": "/industries/real-estate",
+  "Interior Design": "/industries/interior-design",
+  Furniture: "/industries/furniture",
+};
+
+// ── Tag → destination resolver ────────────────────────────────────────────────
+// Tutorial tags are free-form editorial phrases. Link the ones that map to a
+// live hub (industry pages, tag pages); the rest render as plain gray chips so
+// we never ship fake or dead links.
+const TAG_SLUGS = new Set(tagsData.map((t) => t.slug));
+
+const TAG_DESTINATIONS: Record<string, string> = {
+  "chatgpt prompts": "/tags/chatgpt",
+  "chatgpt construction": "/tags/chatgpt",
+  "claude prompts": "/tags/prompt-engineering",
+  "ai for architects": "/industries/architecture",
+  "ai for construction": "/industries/construction",
+  "ai construction estimating": "/industries/construction",
+  "construction documentation": "/industries/construction",
+  "ai for contractors": "/industries/construction",
+  "real estate ai writing": "/tags/ai-writing",
+};
+
+function resolveTagHref(tag: string): string | null {
+  const key = tag.toLowerCase();
+  if (TAG_DESTINATIONS[key]) return TAG_DESTINATIONS[key];
+  const slug = key.replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  return TAG_SLUGS.has(slug) ? `/tags/${slug}` : null;
+}
+
+function TagChip({ tag }: { tag: string }) {
+  const href = resolveTagHref(tag);
+  return href ? (
+    <Link
+      href={href}
+      className="text-xs font-medium text-blue-600 bg-blue-50 rounded-full px-2.5 py-1 hover:bg-blue-100 transition-colors"
+    >
+      #{tag}
+    </Link>
+  ) : (
+    <span className="text-xs text-gray-500 bg-gray-100 rounded-full px-2.5 py-1">
+      {tag}
+    </span>
+  );
+}
 
 // ── Heading anchors for the table of contents ─────────────────────────────────
 
@@ -186,6 +239,23 @@ export default async function TutorialDetailPage({
     ? guidesData.find((g) => g.slug === tutorial.relatedGuideSlug)
     : undefined;
 
+  // The reviewed tool this tutorial is built around (from tutorialsData.toolSlug)
+  // — rendered as an internal review link + affiliate CTA below the article.
+  const toolSlug = tutorialsData.find((t) => t.slug === slug)?.toolSlug;
+  const tutorialTool = (() => {
+    if (!toolSlug) return null;
+    const tool = getToolBySlug(toolSlug);
+    if (!tool) return null;
+    const f = tool.frontmatter;
+    return {
+      slug: toolSlug,
+      name: f.toolName || f.title.split(":")[0].trim(),
+      rating: f.rating,
+      excerpt: f.excerpt,
+      affiliateHref: f.affiliateLink || f.websiteUrl || "",
+    };
+  })();
+
   const faqItems = tutorial.content.flatMap((block) =>
     block.type === "faq" ? block.faqItems ?? [] : []
   );
@@ -283,27 +353,32 @@ export default async function TutorialDetailPage({
               </span>
             </div>
 
-            {/* Niche pills */}
+            {/* Niche pills — link to the matching industry hub */}
             <div className="flex flex-wrap gap-2 mt-4">
-              {tutorial.niches.map((niche) => (
-                <span
-                  key={niche}
-                  className={`text-xs font-medium rounded-full px-3 py-1 ${NICHE_PILL[niche] ?? DEFAULT_NICHE_PILL}`}
-                >
-                  {niche}
-                </span>
-              ))}
+              {tutorial.niches.map((niche) =>
+                NICHE_HREF[niche] ? (
+                  <Link
+                    key={niche}
+                    href={NICHE_HREF[niche]}
+                    className={`text-xs font-medium rounded-full px-3 py-1 hover:opacity-90 transition-opacity ${NICHE_PILL[niche] ?? DEFAULT_NICHE_PILL}`}
+                  >
+                    {niche}
+                  </Link>
+                ) : (
+                  <span
+                    key={niche}
+                    className={`text-xs font-medium rounded-full px-3 py-1 ${NICHE_PILL[niche] ?? DEFAULT_NICHE_PILL}`}
+                  >
+                    {niche}
+                  </span>
+                ),
+              )}
             </div>
 
-            {/* Tags */}
+            {/* Tags — linked when they map to a live industry/tag hub */}
             <div className="flex flex-wrap gap-2 mt-4">
               {tutorial.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="text-xs text-blue-600 bg-blue-50 rounded-full px-2.5 py-1"
-                >
-                  #{tag}
-                </span>
+                <TagChip key={tag} tag={tag} />
               ))}
             </div>
           </div>
@@ -318,6 +393,61 @@ export default async function TutorialDetailPage({
               {tutorial.content.map((block, i) => (
                 <ContentBlock key={i} block={block} />
               ))}
+
+              {/* Tool used in this tutorial — review link + affiliate CTA */}
+              {tutorialTool && (
+                <div className="mt-10 pt-8 border-t border-gray-100">
+                  <h2 className="text-xl font-bold text-[#1E293B] mb-1">
+                    Tool Used in This Tutorial
+                  </h2>
+                  <div className="border border-gray-100 rounded-xl px-4 py-3 mt-3 flex flex-col sm:flex-row sm:items-center gap-3">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2">
+                        <Link
+                          href={`/tools/${tutorialTool.slug}`}
+                          className="text-sm font-semibold text-[#1E293B] hover:text-blue-600 transition-colors"
+                        >
+                          {tutorialTool.name}
+                        </Link>
+                        <span className="text-xs font-semibold text-amber-500">
+                          ★ {tutorialTool.rating.toFixed(1)}
+                        </span>
+                      </div>
+                      <p className="text-sm text-gray-500 mt-0.5 leading-relaxed line-clamp-2">
+                        {tutorialTool.excerpt}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-3 shrink-0">
+                      <Link
+                        href={`/tools/${tutorialTool.slug}`}
+                        className="text-blue-600 text-sm font-medium hover:underline whitespace-nowrap"
+                      >
+                        Read review
+                      </Link>
+                      {tutorialTool.affiliateHref && (
+                        <a
+                          href={tutorialTool.affiliateHref}
+                          target="_blank"
+                          rel="sponsored noopener noreferrer"
+                          className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg px-4 py-2 transition-colors whitespace-nowrap"
+                        >
+                          Visit site →
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                  <p className="text-xs text-gray-400 mt-2">
+                    The link above may be an affiliate link — we may earn a
+                    commission at no extra cost to you.{" "}
+                    <Link
+                      href="/affiliate-disclosure"
+                      className="underline hover:text-gray-600"
+                    >
+                      Learn more
+                    </Link>
+                  </p>
+                </div>
+              )}
 
               {/* Related guide */}
               {relatedGuide && (

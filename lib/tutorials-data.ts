@@ -10,6 +10,9 @@ export interface Tutorial {
   steps?: number; // step-by-step tutorials only; omit for prompt-template tutorials
   date: string;
   tags: string[];
+  // Reviewed tool this tutorial is built around — powers the "tool" link
+  // (internal review + affiliate CTA) on tutorial cards.
+  toolSlug?: string;
   href: string;
   isFeatured: boolean;
   /** Placeholder entries have no detail page yet — never link them and keep them out of the search index. */
@@ -29,6 +32,7 @@ export const tutorialsData: Tutorial[] = [
     duration: "7 min",
     date: "Jul 9, 2026",
     tags: ["chatgpt", "prompt-engineering", "ai-writing"],
+    toolSlug: "chatgpt",
     href: "/resources/tutorials/chatgpt-claude-prompts-aec",
     isFeatured: true,
   },
@@ -43,6 +47,7 @@ export const tutorialsData: Tutorial[] = [
     duration: "7 min",
     date: "Jul 9, 2026",
     tags: ["chatgpt", "prompt-engineering", "ai-for-business"],
+    toolSlug: "chatgpt",
     href: "/resources/tutorials/chatgpt-construction-estimating",
     isFeatured: true,
   },
@@ -59,6 +64,7 @@ export const tutorialsData: Tutorial[] = [
     steps: 8,
     date: "Jun 10, 2026",
     tags: ["chatgpt", "productivity"],
+    toolSlug: "chatgpt",
     href: "/resources/tutorials/getting-started-with-chatgpt-beginners-guide",
     isFeatured: true,
     isPlaceholder: true,
@@ -74,6 +80,7 @@ export const tutorialsData: Tutorial[] = [
     steps: 10,
     date: "Jun 8, 2026",
     tags: ["automation", "no-code"],
+    toolSlug: "zapier",
     href: "/resources/tutorials/build-first-zapier-automation-step-by-step",
     isFeatured: true,
     isPlaceholder: true,
@@ -91,6 +98,7 @@ export const tutorialsData: Tutorial[] = [
     steps: 8,
     date: "May 20, 2026",
     tags: ["chatgpt", "automation", "no-code"],
+    toolSlug: "zapier",
     href: "/resources/tutorials/connect-chatgpt-to-google-sheets-with-zapier",
     isFeatured: false,
     isPlaceholder: true,
@@ -106,6 +114,7 @@ export const tutorialsData: Tutorial[] = [
     steps: 10,
     date: "May 18, 2026",
     tags: ["midjourney", "ai-image-generation"],
+    toolSlug: "midjourney",
     href: "/resources/tutorials/creating-brand-visuals-with-midjourney",
     isFeatured: false,
     isPlaceholder: true,
@@ -121,6 +130,7 @@ export const tutorialsData: Tutorial[] = [
     steps: 6,
     date: "May 16, 2026",
     tags: ["automation", "productivity", "workflow"],
+    toolSlug: "notion-ai",
     href: "/resources/tutorials/automate-daily-standup-notes-with-ai",
     isFeatured: false,
     isPlaceholder: true,
@@ -136,6 +146,7 @@ export const tutorialsData: Tutorial[] = [
     steps: 7,
     date: "May 14, 2026",
     tags: ["ai-writing", "prompt-engineering"],
+    toolSlug: "claude",
     href: "/resources/tutorials/use-claude-for-long-form-content-editing",
     isFeatured: false,
     isPlaceholder: true,
@@ -151,6 +162,7 @@ export const tutorialsData: Tutorial[] = [
     steps: 14,
     date: "May 12, 2026",
     tags: ["ai-agents", "no-code", "automation"],
+    toolSlug: "make",
     href: "/resources/tutorials/build-simple-ai-agent-no-code-tools",
     isFeatured: false,
     isPlaceholder: true,

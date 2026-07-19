@@ -8,6 +8,53 @@ import Navbar from "../../../components/Navbar";
 import Newsletter from "../../../components/Newsletter";
 import Footer from "../../../components/Footer";
 import { caseStudies, type CaseStudyContentBlock } from "../../../../lib/case-studies-content";
+import { tagsData } from "../../../../lib/tags-data";
+import { getToolBySlug } from "../../../../lib/tools";
+
+// ── Tag → destination resolver ────────────────────────────────────────────────
+// Case-study tags are free-form editorial phrases. Link the ones that map to a
+// live hub (industry pages, tag pages); the rest render as plain gray chips so
+// we never ship fake or dead links.
+const TAG_SLUGS = new Set(tagsData.map((t) => t.slug));
+
+const TAG_DESTINATIONS: Record<string, string> = {
+  "ai tools for furniture": "/industries/furniture",
+  "ai tools for architects": "/industries/architecture",
+  "ai tools for construction": "/industries/construction",
+  "ai tools for interior design": "/industries/interior-design",
+  "ai tools for real estate": "/industries/real-estate",
+  "ai product photography": "/tags/ai-image-generation",
+  "ai rendering software": "/tags/ai-image-generation",
+  "room staging ai": "/tags/ai-image-generation",
+  "virtual staging ai": "/tags/ai-image-generation",
+  "ai room visualization": "/tags/ai-image-generation",
+  "architecture visualization": "/tags/ai-image-generation",
+  "furniture copywriting": "/tags/ai-writing",
+  "real estate marketing automation": "/tags/automation",
+};
+
+function resolveTagHref(tag: string): string | null {
+  const key = tag.toLowerCase();
+  if (TAG_DESTINATIONS[key]) return TAG_DESTINATIONS[key];
+  const slug = key.replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  return TAG_SLUGS.has(slug) ? `/tags/${slug}` : null;
+}
+
+function TagChip({ tag }: { tag: string }) {
+  const href = resolveTagHref(tag);
+  return href ? (
+    <Link
+      href={href}
+      className="text-xs font-medium text-blue-600 bg-blue-50 rounded-full px-2.5 py-1 hover:bg-blue-100 transition-colors"
+    >
+      #{tag}
+    </Link>
+  ) : (
+    <span className="text-xs text-gray-500 bg-gray-100 rounded-full px-2.5 py-1">
+      {tag}
+    </span>
+  );
+}
 
 // ── generateStaticParams + generateMetadata ────────────────────────────────────
 
@@ -151,6 +198,22 @@ export default async function CaseStudyDetailPage({
   const cs = caseStudies.find((c) => c.slug === slug);
   if (!cs) notFound();
 
+  // Reviewed tools featured in this story — internal review link + affiliate CTA
+  const recommendedTools = (cs.recommendedTools ?? [])
+    .map(({ slug: toolSlug, note }) => {
+      const tool = getToolBySlug(toolSlug);
+      if (!tool) return null;
+      const f = tool.frontmatter;
+      return {
+        slug: toolSlug,
+        note,
+        name: f.toolName || f.title.split(":")[0].trim(),
+        rating: f.rating,
+        affiliateHref: f.affiliateLink || f.websiteUrl || "",
+      };
+    })
+    .filter((t): t is NonNullable<typeof t> => t !== null);
+
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -258,15 +321,10 @@ export default async function CaseStudyDetailPage({
             </span>
           </div>
 
-          {/* Tags */}
+          {/* Tags — linked when they map to a live industry/tag hub */}
           <div className="flex flex-wrap gap-2 mt-4">
             {cs.tags.map((tag) => (
-              <span
-                key={tag}
-                className="text-xs text-blue-600 bg-blue-50 rounded-full px-2.5 py-1"
-              >
-                #{tag}
-              </span>
+              <TagChip key={tag} tag={tag} />
             ))}
           </div>
         </div>
@@ -278,6 +336,76 @@ export default async function CaseStudyDetailPage({
           {cs.content.map((block, i) => (
             <ContentBlock key={i} block={block} />
           ))}
+
+          {/* Tools used in this case study — review link + affiliate CTA */}
+          {recommendedTools.length > 0 && (
+            <div className="mt-12 pt-8 border-t border-gray-100">
+              <h2 className="text-xl font-bold text-[#1E293B] mb-1">
+                Tools Used in This Case Study
+              </h2>
+              <p className="text-sm text-gray-500 mb-4">
+                The reviewed tools behind the results above — read our full
+                review or try them yourself.
+              </p>
+
+              <ul className="space-y-3">
+                {recommendedTools.map((tool) => (
+                  <li
+                    key={tool.slug}
+                    className="border border-gray-100 rounded-xl px-4 py-3 flex flex-col sm:flex-row sm:items-center gap-3"
+                  >
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2">
+                        <Link
+                          href={`/tools/${tool.slug}`}
+                          className="text-sm font-semibold text-[#1E293B] hover:text-blue-600 transition-colors"
+                        >
+                          {tool.name}
+                        </Link>
+                        <span className="text-xs font-semibold text-amber-500">
+                          ★ {tool.rating.toFixed(1)}
+                        </span>
+                      </div>
+                      <p className="text-sm text-gray-500 mt-0.5 leading-relaxed">
+                        {tool.note}
+                      </p>
+                    </div>
+
+                    <div className="flex items-center gap-3 shrink-0">
+                      <Link
+                        href={`/tools/${tool.slug}`}
+                        className="text-blue-600 text-sm font-medium hover:underline whitespace-nowrap"
+                      >
+                        Read review
+                      </Link>
+                      {tool.affiliateHref && (
+                        <a
+                          href={tool.affiliateHref}
+                          target="_blank"
+                          rel="sponsored noopener noreferrer"
+                          className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg px-4 py-2 transition-colors whitespace-nowrap"
+                        >
+                          Visit site →
+                        </a>
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+
+              <p className="text-xs text-gray-400 mt-3">
+                Some links above are affiliate links — we may earn a commission
+                at no extra cost to you. See our{" "}
+                <Link
+                  href="/affiliate-disclosure"
+                  className="underline hover:text-gray-600"
+                >
+                  affiliate disclosure
+                </Link>
+                .
+              </p>
+            </div>
+          )}
         </div>
       </section>
 

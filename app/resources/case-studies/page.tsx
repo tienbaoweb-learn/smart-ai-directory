@@ -445,10 +445,10 @@ export default function CaseStudiesPage() {
               </div>
 
               <ul>
+                {/* These entries have no detail pages yet — render without links so we never emit internal 404s */}
                 {LATEST_CASES.map((item) => (
                   <ResourceListRow
                     key={item.title}
-                    href={item.href}
                     title={item.title}
                     badge={{ label: item.badge, className: LATEST_CASE_BADGE[item.badge] }}
                     metaContent={

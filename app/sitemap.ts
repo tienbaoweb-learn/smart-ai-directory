@@ -1,12 +1,12 @@
 import type { MetadataRoute } from "next";
 import { getAllTools } from "@/lib/tools";
 import { guidesData } from "@/lib/guides-data";
-import { caseStudiesData } from "@/lib/case-studies-data";
+import { caseStudies } from "@/lib/case-studies-content";
+import { tutorialsContent } from "@/lib/tutorials-content";
 import { tagsData } from "@/lib/tags-data";
 import { comparisonsData } from "@/lib/comparisons-data";
 import { aiNewsPosts } from "@/lib/ai-news-data";
 import { workflowsData } from "@/lib/workflows-data";
-import { tutorialsContent } from "@/lib/tutorials-content";
 
 const baseUrl = "https://www.smartaiforwork.com";
 
@@ -87,9 +87,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  const caseStudyPages = caseStudiesData.map((cs) => ({
+  // Only the content-backed case studies have live detail pages — never list
+  // the listing-chrome entries from case-studies-data.ts (their slugs 404).
+  const caseStudyPages = caseStudies.map((cs) => ({
     url: `${baseUrl}/resources/case-studies/${cs.slug}`,
-    lastModified: new Date(cs.date),
+    lastModified: new Date(cs.publishedDate),
     changeFrequency: "monthly" as const,
     priority: 0.7,
   }));

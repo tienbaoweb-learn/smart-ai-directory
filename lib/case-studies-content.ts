@@ -22,6 +22,9 @@ export interface CaseStudy {
   excerpt: string;
   content: CaseStudyContentBlock[];
   tags: string[];
+  // Reviewed tools featured in (or directly relevant to) this story — rendered
+  // as internal review links + affiliate CTAs on the detail page.
+  recommendedTools?: { slug: string; note: string }[];
   readingTime: string;
   publishedDate: string;
 }
@@ -41,6 +44,11 @@ export const caseStudies: CaseStudy[] = [
     tags: ["AI tools for furniture", "AI product photography", "room staging AI", "furniture copywriting"],
     readingTime: "6 min",
     publishedDate: "2026-06-16",
+    recommendedTools: [
+      { slug: "collov-ai", note: "AI room staging and product-in-scene visuals — the staging workflow Lumera used to replace studio photography." },
+      { slug: "sofabrain", note: "Fast styled room concepts from a single photo — ideal for furniture lifestyle imagery on a small-brand budget." },
+      { slug: "jasper-ai", note: "AI copywriting for product descriptions and campaign copy — the writing side of Lumera's new workflow." },
+    ],
     content: [
       { type: "paragraph", text: "Running a small furniture studio sounds romantic — beautiful craftsmanship, happy customers, a growing brand. But behind every product launch, there's a logistical nightmare that eats through budgets and delays timelines faster than anything else: content production." },
       { type: "paragraph", text: "For Lumera Studio (name changed), a boutique furniture brand based in the Netherlands specializing in solid wood sofas and modular shelving, this problem came to a head in early 2024." },
@@ -82,6 +90,11 @@ export const caseStudies: CaseStudy[] = [
     tags: ["AI tools for architects", "AI rendering software", "Veras AI", "architecture visualization", "client approval workflow"],
     readingTime: "6 min",
     publishedDate: "2026-06-20",
+    recommendedTools: [
+      { slug: "veras", note: "The AI renderer inside Revit that ArchVision standardized on — photorealistic output from the live model." },
+      { slug: "midjourney", note: "Concept and mood imagery for the earliest design conversations, before a model even exists." },
+      { slug: "chatgpt", note: "First drafts of proposals, scope documents, and planning descriptions — the studio's secondary time saving." },
+    ],
     content: [
       { type: "paragraph", text: "For a small architecture studio, every project is a relationship. You spend weeks developing a concept, refining massing, thinking through materiality — and then you sit a client down in front of a set of technical drawings and renders and watch their face go politely blank." },
       { type: "paragraph", text: "That was the recurring experience at ArchVision (name changed), a six-person studio based in Amsterdam specializing in residential extensions and boutique commercial fit-outs. Their work was well-regarded. Their clients were engaged. But the feedback loop between concept and approval had become painful." },
@@ -135,6 +148,11 @@ export const caseStudies: CaseStudy[] = [
     tags: ["AI tools for construction", "AI takeoff software", "Togal.AI", "construction estimating", "ALICE Technologies", "OpenSpace"],
     readingTime: "6 min",
     publishedDate: "2026-06-18",
+    recommendedTools: [
+      { slug: "togal-ai", note: "The AI takeoff tool at the center of this story — automated quantity extraction from PDF plans." },
+      { slug: "alice-technologies", note: "AI construction scheduling — the optimization layer BuildSmart added once estimating was stable." },
+      { slug: "open-space", note: "360° jobsite capture and progress documentation — the site-monitoring piece of the same stack." },
+    ],
     content: [
       { type: "paragraph", text: "In commercial construction, the margin between winning and losing a bid is rarely the price. It's the timing." },
       { type: "paragraph", text: "BuildSmart (name changed) is a 45-person general contractor based in the Pacific Northwest, specializing in multifamily residential projects in the 20–80 unit range. By most measures, they were competitive: experienced estimators, solid subcontractor relationships, and a track record that should have put them in the running for most projects they pursued." },
@@ -191,6 +209,11 @@ export const caseStudies: CaseStudy[] = [
     tags: ["AI tools for interior design", "InteriorAI", "AI room visualization", "interior design client approval", "design studio workflow"],
     readingTime: "6 min",
     publishedDate: "2026-06-14",
+    recommendedTools: [
+      { slug: "interior-ai", note: "The visualization tool Studio Nova adopted — styled room versions fast enough to use live in client meetings." },
+      { slug: "roomgpt", note: "A lighter-weight alternative for quick room restyles when you're testing this workflow." },
+      { slug: "collov-ai", note: "AI staging with shoppable product matching — the concept-to-product gap closer." },
+    ],
     content: [
       { type: "paragraph", text: "Interior design is a slow art. Clients expect it to take time. But there's a difference between a process that unfolds thoughtfully and one that simply stalls — and for a high-end residential design practice, the gap between those two things can cost you a client." },
       { type: "heading", level: 2, text: "When \"Patience\" Becomes a Business Problem" },
@@ -247,6 +270,11 @@ export const caseStudies: CaseStudy[] = [
     tags: ["AI tools for real estate", "real estate lead generation", "Ylopo AI", "virtual staging AI", "real estate marketing automation"],
     readingTime: "6 min",
     publishedDate: "2026-06-12",
+    recommendedTools: [
+      { slug: "ylopo", note: "The AI lead nurture platform behind Prime Realty's sub-10-minute response times." },
+      { slug: "virtualstagingai", note: "Same-day AI virtual staging for under $100 a listing — the staging economics described above." },
+      { slug: "chatgpt", note: "Brief-template listing descriptions in 10–15 minutes instead of an hour of blank-page writing." },
+    ],
     content: [
       { type: "paragraph", text: "In residential real estate, a lead that doesn't hear back within the first hour is usually a lead that hires someone else." },
       { type: "heading", level: 2, text: "The Leads That Got Away" },

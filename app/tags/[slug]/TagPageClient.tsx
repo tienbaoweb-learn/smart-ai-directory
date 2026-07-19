@@ -211,11 +211,11 @@ export default function TagPage({ params }: { params: Promise<{ slug: string }> 
               </span>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {/* These case-study entries have no detail pages — render as non-link cards so we never emit internal 404s */}
               {relatedCaseStudies.map((cs) => (
-                <Link
+                <div
                   key={cs.slug}
-                  href={cs.href}
-                  className="bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-md transition-shadow"
+                  className="bg-white rounded-2xl border border-gray-200 overflow-hidden"
                 >
                   <div className="h-36 bg-gradient-to-br from-purple-50 to-purple-100 flex items-center justify-center">
                     <div className={`w-12 h-12 rounded-xl ${cs.company.logo.bg} flex items-center justify-center text-white font-bold`}>
@@ -234,7 +234,7 @@ export default function TagPage({ params }: { params: Promise<{ slug: string }> 
                       <span>{cs.readTime}</span>
                     </div>
                   </div>
-                </Link>
+                </div>
               ))}
             </div>
           </section>
