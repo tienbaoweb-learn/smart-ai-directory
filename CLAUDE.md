@@ -1,10 +1,16 @@
 # CLAUDE.md — SmartAI for Work: AI Tools Directory
 
 ## Mô tả dự án
-Website AI Tools Directory tập trung vào 4 ngành: Furniture, Architecture, Construction, Real Estate.
-Stack: Next.js 16 + TypeScript + Tailwind CSS + Vercel.
+Website AI Tools Directory cho 5 ngành: Furniture, Architecture, Construction,
+Interior Design, Real Estate.
+Stack: Next.js 16 (App Router, SSG) + TypeScript + Tailwind CSS + Vercel.
 Repo: https://github.com/tienbaoweb-learn/smart-ai-directory
-Live: https://smart-ai-tools-for-work-directory.vercel.app/
+Live: https://www.smartaiforwork.com/
+
+Mô hình nội dung: tool review (affiliate) là trung tâm, bao quanh là hub theo
+ngành/use-case và resources (guides, news, case studies, tutorials,
+comparisons, workflows) — tất cả liên kết chéo theo quy tắc internal link
+bên dưới.
 
 ---
 
@@ -50,9 +56,6 @@ Mỗi trang detail (guides, ai-news, case-studies, tutorials) đã có sẵn
 - Tag không map được → chip xám tĩnh (không phải chip xanh).
 - Bài mới có tag chủ đề mới: thêm mapping vào `TAG_DESTINATIONS` của page đó,
   hoặc thêm tag vào `tagsData` nếu đáng có trang `/tags` riêng.
-- Tag slug hợp lệ hiện có trong `tagsData`: ai-agents, prompt-engineering,
-  chatgpt, midjourney, no-code, automation, ai-writing, workflow,
-  ai-for-business, productivity, ai-image-generation, rag.
 - Guide detail: topic tags lấy từ `guidesData.tags` (slug chuẩn); tags trong
   `guidesContent` chỉ là keyword phrases hiển thị tĩnh.
 
@@ -110,108 +113,122 @@ Gray text:       #6B7280
 ```
 
 Font: System font stack (Tailwind default)
-Logo text: "SmartAI" bold + "for Work" nhỏ màu cam bên dưới
+Logo: "SmartAI" bold + "for Work" nhỏ màu cam bên dưới
+(file `public/SmartaiforworkLogo.webp`)
 
 ---
 
-## Cấu trúc file hiện tại
+## Cấu trúc site hiện tại (routes)
 
 ```
-smart-ai-directory/
-├── app/
-│   ├── page.tsx         ← Homepage (tất cả sections)
-│   ├── layout.tsx       ← Root layout + metadata
-│   └── globals.css      ← Global styles
-├── public/              ← Static assets
-├── next.config.ts       ← Cho phép images từ images.unsplash.com
-└── CLAUDE.md            ← File này
+/                          Homepage (HomeClient + ItemList schema từ data thật)
+/tools                     Danh sách tool + filter theo category
+/tools/[slug]              Tool review (~240 bài, nguồn: content/tools/*.mdx)
+/ai-tools                  Hub theo use-case
+/ai-tools/{design|sales|content-marketing|automation|productivity}
+/best-of                   Hub Best Of
+/best-of/{architecture|construction|interior-design|real-estate}
+/industries                Hub ngành
+/industries/{furniture|architecture|construction|interior-design|real-estate}
+/compare/[slug]            So sánh head-to-head (~10 bài)
+/all-reviews               Tổng hợp review
+/ai-glossary               Thuật ngữ AI
+/tags                      Index chủ đề
+/tags/[slug]               Trang chủ đề (13 tags, lib/tags-data.ts)
+/resources                 Hub resources (+ ResourceSearch)
+/resources/guides[/slug]           6 guides
+/resources/ai-news[/slug]          6 bản tin tuần
+/resources/case-studies[/slug]     5 case studies
+/resources/tutorials[/slug]        2 tutorials thật (+7 placeholder chưa link)
+/resources/comparisons             Hub comparisons
+/resources/workflows[/slug]        11 workflows
+/about-us  /how-we-review  /contact
+/privacy-policy  /terms-of-use  /affiliate-disclosure
+/sitemap.xml  /robots.txt  /llms.txt   (đều generate từ data thật)
+API: /api/contact, /api/newsletter
 ```
+
+Build hiện tại: ~334 trang static (SSG). Không có trang dynamic runtime.
 
 ---
 
-## Các sections trong Homepage (app/page.tsx)
+## Nguồn dữ liệu (source of truth)
 
-1. **Navbar** — Logo, nav links (AI Tools, Industries, Best Of, Resources, About), Search, Subscribe button
-2. **HeroSection** — Headline, subtitle, 2 CTA buttons, trust badges, 2×2 industry cards với ảnh Unsplash
-3. **StatsBar** — 4 stats: 20K+ Professionals, 50K+ Monthly Visitors, 4.9/5 Rating, 100+ Countries
-4. **ExploreByIndustry** — Horizontal scroll cards với ảnh Unsplash + arrows
-5. **TopTools** — Filter tabs + 6 tool cards grid
-6. **HowAIHelps** — 5 benefit columns
-7. **LatestInsights** — 3 article cards
-8. **Newsletter** — Email signup với gradient background
-9. **Footer** — 6 columns: Brand, Explore, Industries, Resources, Company, Newsletter
+| Nội dung | Trang detail (content) | Listing/chrome (-data) |
+|---|---|---|
+| Tool reviews | `content/tools/*.mdx` (frontmatter + MDX) qua `lib/tools.ts` | `app/data/tools.ts`, `tool-logos.ts` |
+| Guides | `lib/guides-content.ts` | `lib/guides-data.ts` (topic tags chuẩn ở đây) |
+| AI News | `lib/ai-news-data.ts` (content + data chung 1 file) | — |
+| Case studies | `lib/case-studies-content.ts` | `lib/case-studies-data.ts` (CHỈ chrome — slug KHÔNG có trang thật) |
+| Tutorials | `lib/tutorials-content.ts` | `lib/tutorials-data.ts` (`isPlaceholder`, `toolSlug`) |
+| Comparisons | `lib/comparisons.ts` | `lib/comparisons-data.ts` |
+| Workflows | `lib/workflows-data.ts` | — |
+| Tags | `lib/tags-data.ts` | — |
 
----
+Quy tắc vàng: **sitemap + mọi internal link lấy slug từ cột "content"**,
+không lấy từ cột listing.
 
-## Danh sách việc cần làm (TODO)
-
-### 🔴 Ưu tiên cao
-- [ ] **Page title/metadata** — Đổi từ "Create Next App" thành "SmartAI for Work - AI Tools Directory" trong `app/layout.tsx`
-- [ ] **Article thumbnails** — Thay emoji+gradient bằng ảnh Unsplash thật cho 3 bài viết
-- [ ] **Newsletter section** — Đổi nền thành gradient xanh-cam giống design demo (blue left + orange right)
-- [ ] **Hero blob decoration** — Thêm blob tròn cam mờ góc phải phía sau industry cards
-
-### 🟡 Ưu tiên trung bình
-- [ ] **Stats Bar icons** — Thêm icon SVG màu cho mỗi stat (người, chart, star, globe)
-- [ ] **ExploreByIndustry card layout** — Icon nằm trong circle trắng ở giữa card (không phải góc trên)
-- [ ] **Tool card logos** — Thay emoji bằng logo màu thật (SVG hoặc colored div)
-- [ ] **Footer "By Industry"** — Đổi thành "Industries" trong Explore column
-
-### 🟢 Ưu tiên thấp
-- [ ] **Copyright năm** — Đổi từ "2025" thành "2026"
-- [ ] **Favicon** — Thêm favicon SmartAI
-- [ ] **OG image** — Thêm Open Graph image cho social sharing
-- [ ] **Mobile responsive** — Kiểm tra và fix layout trên màn hình nhỏ
+- `content/drafts/` — bài nháp, không được import vào site
+- Tool `sample-tool` bị exclude khỏi mọi listing (EXCLUDED_SLUGS trong lib/tools.ts)
 
 ---
 
-## Ảnh Unsplash đang dùng
+## SEO / AEO / GEO đã chuẩn hoá (đừng làm hỏng)
 
-```
-Furniture:     https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80
-Architecture:  https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80
-Construction:  https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80
-Real Estate:   https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80
-```
-
-Ảnh cho articles (cần thêm):
-```
-Article 1 (Furniture Guide):    https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80
-Article 2 (Comparison):        https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80
-Article 3 (Construction Tools): https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80
-```
+- Mọi trang có `alternates.canonical` + OpenGraph; layout có WebSite +
+  Organization schema (KHÔNG thêm SearchAction khi chưa có search thật)
+- Tool review: FAQPage + BreadcrumbList + SoftwareApplication/Review schema
+  (có datePublished/dateModified, KHÔNG dùng aggregateRating tự chấm),
+  Quick Verdict block đầu bài, breadcrumb category link về industry hub
+- Affiliate CTA luôn `rel="sponsored"` — đã áp dụng toàn site
+- `app/sitemap.ts`: priority phân tầng (hub 0.9 / section 0.7 / legal 0.3),
+  ngày thật; `app/robots.ts` allow rõ các AI crawler; `app/llms.txt/route.ts`
+  generate từ data
+- `/how-we-review` là trang methodology (E-E-A-T) — được link từ meta badges
+  trên mọi review + footer
 
 ---
 
 ## Deploy workflow
 
 ```bash
-# Sau khi chỉnh sửa xong, chạy:
-npm run build          # Kiểm tra lỗi build
-git add .
+npm run build          # Kiểm tra lỗi build (bắt buộc trước khi commit)
+git add <file liên quan>   # chỉ add file thuộc task, không add -A bừa
 git commit -m "mô tả thay đổi"
 git push               # Vercel tự động deploy
 ```
 
 ---
 
-## Các trang cần build tiếp theo
+## Backlog thật (cập nhật Jul 2026)
 
-- `/tools` — Danh sách tất cả AI tools với filter/search
-- `/tools/[slug]` — Trang chi tiết từng tool
-- `/categories` — Danh sách categories
-- `/industries/[slug]` — Trang theo ngành (furniture, architecture...)
-- `/blog` — Danh sách bài viết
-- `/blog/[slug]` — Chi tiết bài viết
+### 🔴 Content
+- [ ] Viết 7 tutorial thật thay các placeholder trong `lib/tutorials-data.ts`
+- [ ] Viết trang detail cho 5 case study listing-only trong
+      `lib/case-studies-data.ts` (hoặc gỡ hẳn khỏi listing)
+- [ ] FAQ thật (override template) cho các tool review quan trọng —
+      hiện `generateFAQs()` sinh 4 câu template giống nhau cho 240 bài
+- [ ] Bản tin AI News hàng tuần (kèm `recommendedTools` — xem quy tắc #3)
+
+### 🟡 SEO / tính năng
+- [ ] Điền `sameAs` trong Organization schema khi có social profile thật
+- [ ] Search thật cho `/tools` (khi có thì thêm lại SearchAction schema)
+- [ ] Inline contextual links trong body text của guides/case studies
+      (hiện chỉ link qua block related-reviews / comparison-table)
+- [ ] Số liệu bảng "vs Top Alternatives" trong tool review đang synthetic
+      (derive từ rating) — thay bằng đánh giá thật cho các tool lớn
+
+### 🟢 Nice to have
+- [ ] OG image riêng cho từng loại trang (hiện dùng og-image.svg chung)
+- [ ] Free resources (PDF/template) thật cho box "Free Resources" ở /resources
 
 ---
 
 ## Khi Claude Code nhận task
 
 1. Đọc file này trước
-2. Xem TODO list, ưu tiên theo màu 🔴 → 🟡 → 🟢
-3. Task liên quan bài viết/content: áp dụng "Quy tắc Internal Link &
+2. Task liên quan bài viết/content: áp dụng "Quy tắc Internal Link &
    Affiliate" ở trên, không cần hỏi lại
-4. Chỉnh sửa trực tiếp file, không hỏi lại những gì đã rõ
-5. Sau khi xong chạy `npm run build` kiểm tra
-6. Báo cáo những gì đã làm và kết quả
+3. Chỉnh sửa trực tiếp file, không hỏi lại những gì đã rõ
+4. Sau khi xong chạy `npm run build` kiểm tra
+5. Commit chỉ các file thuộc task; báo cáo những gì đã làm và kết quả
