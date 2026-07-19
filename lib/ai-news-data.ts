@@ -213,6 +213,20 @@ export const aiNewsPosts: AINewsPost[] = [
       "Interior Design",
       "Weekly Roundup",
     ],
+    recommendedTools: [
+      {
+        slug: "buildots",
+        note: "AI construction progress tracking — the same jobsite-intelligence shift the McCarthy–Palantir story points to.",
+      },
+      {
+        slug: "togal-ai",
+        note: "Automated takeoffs from 2D plans — back-office construction work of exactly the kind YC's new batch is chasing.",
+      },
+      {
+        slug: "veras",
+        note: "AI rendering inside Revit/SketchUp — the practical way design teams use the image-model advances covered above.",
+      },
+    ],
     content: [
       {
         type: "paragraph",
@@ -431,6 +445,20 @@ export const aiNewsPosts: AINewsPost[] = [
       "Interior Design",
       "Weekly Roundup",
     ],
+    recommendedTools: [
+      {
+        slug: "testfit",
+        note: "Early-stage feasibility and site planning — the same problem space as the Zenerate–AvalonBay partnership.",
+      },
+      {
+        slug: "lofty",
+        note: "AI-first real estate platform — worth evaluating as listing search shifts toward Gemini-style AI experiences.",
+      },
+      {
+        slug: "midjourney",
+        note: "Concept imagery for architects — the fastest way to benefit from this round of cheaper, faster image models.",
+      },
+    ],
     content: [
       {
         type: "paragraph",
@@ -544,6 +572,20 @@ export const aiNewsPosts: AINewsPost[] = [
       "construction technology",
       "YC 2026",
     ],
+    recommendedTools: [
+      {
+        slug: "archigpt",
+        note: "AI design assistant for architects — the established option in the space ArchiLabs is entering.",
+      },
+      {
+        slug: "autodesk-forma",
+        note: "AI planning and environmental analysis — the incumbent to benchmark those shortlisted planning platforms against.",
+      },
+      {
+        slug: "structurely",
+        note: "AI conversations for real estate teams — a working example of where that $16.7B of proptech funding is going.",
+      },
+    ],
     content: [
       {
         type: "editor-pick",
@@ -632,6 +674,20 @@ export const aiNewsPosts: AINewsPost[] = [
       "architecture AI",
       "proptech",
       "AI adoption 2026",
+    ],
+    recommendedTools: [
+      {
+        slug: "smartvid",
+        note: "AI photo/video analysis for construction safety and QA — same category Structured AI just raised for.",
+      },
+      {
+        slug: "offrs",
+        note: "AI listing-lead prediction — for the 82% of agents using AI who want it driving pipeline, not just paperwork.",
+      },
+      {
+        slug: "chaos-enscape",
+        note: "Real-time archviz — the tool category the Chaos/Architizer survey says is now standard practice.",
+      },
     ],
     content: [
       {

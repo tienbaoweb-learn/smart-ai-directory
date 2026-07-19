@@ -14,7 +14,55 @@ import {
   type QuickHitItem,
 } from "../../../../lib/ai-news-data";
 import { guidesData } from "../../../../lib/guides-data";
+import { tagsData } from "../../../../lib/tags-data";
 import { getToolBySlug } from "../../../../lib/tools";
+
+// ── Tag → destination resolver ────────────────────────────────────────────────
+// News tags are free-form editorial phrases. Link the ones that map to a live
+// hub (industry pages, tag pages, the news hub); everything else renders as
+// plain text so we never ship fake or dead links.
+const TAG_SLUGS = new Set(tagsData.map((t) => t.slug));
+
+const TAG_DESTINATIONS: Record<string, string> = {
+  construction: "/industries/construction",
+  architecture: "/industries/architecture",
+  "real estate": "/industries/real-estate",
+  "real estate ai": "/industries/real-estate",
+  "commercial real estate": "/industries/real-estate",
+  proptech: "/industries/real-estate",
+  "interior design": "/industries/interior-design",
+  furniture: "/industries/furniture",
+  homebuilding: "/industries/construction",
+  "agentic ai": "/tags/ai-agents",
+  agentic: "/tags/ai-agents",
+  "image ai": "/tags/ai-image-generation",
+  rendering: "/tags/ai-image-generation",
+  "ai news": "/resources/ai-news",
+  "weekly roundup": "/resources/ai-news",
+};
+
+function resolveTagHref(tag: string): string | null {
+  const key = tag.toLowerCase();
+  if (TAG_DESTINATIONS[key]) return TAG_DESTINATIONS[key];
+  const slug = key.replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  return TAG_SLUGS.has(slug) ? `/tags/${slug}` : null;
+}
+
+function TagChip({ tag }: { tag: string }) {
+  const href = resolveTagHref(tag);
+  return href ? (
+    <Link
+      href={href}
+      className="text-xs font-medium text-blue-600 bg-blue-50 rounded-full px-2.5 py-1 hover:bg-blue-100 transition-colors"
+    >
+      #{tag}
+    </Link>
+  ) : (
+    <span className="text-xs text-gray-500 bg-gray-100 rounded-full px-2.5 py-1">
+      {tag}
+    </span>
+  );
+}
 
 // ── generateStaticParams + generateMetadata ────────────────────────────────────
 
@@ -98,12 +146,7 @@ function QuickHit({ item }: { item: QuickHitItem }) {
       {item.tags.length > 0 && (
         <div className="flex flex-wrap gap-2 mt-4">
           {item.tags.map((tag) => (
-            <span
-              key={tag}
-              className="text-xs text-gray-500 bg-gray-100 rounded-full px-2.5 py-1"
-            >
-              {tag}
-            </span>
+            <TagChip key={tag} tag={tag} />
           ))}
         </div>
       )}
@@ -358,12 +401,10 @@ export default async function AINewsDetailPage({
             }
           })}
 
-          {/* Tags */}
+          {/* Tags — linked when they map to a live industry/tag hub */}
           <div className="flex flex-wrap gap-2 mt-8">
             {post.tags.map((tag) => (
-              <span key={tag} className="text-xs text-blue-600 bg-blue-50 rounded-full px-2.5 py-1">
-                #{tag}
-              </span>
+              <TagChip key={tag} tag={tag} />
             ))}
           </div>
 
