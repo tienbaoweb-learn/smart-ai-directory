@@ -46,6 +46,8 @@ const FEAT_BADGE: Record<string, string> = {
   CONSTRUCTION:       "bg-amber-600 text-white",
   "INTERIOR DESIGN":  "bg-pink-600 text-white",
   "REAL ESTATE":      "bg-emerald-600 text-white",
+  VISUALIZATION:      "bg-violet-600 text-white",
+  FURNITURE:          "bg-orange-600 text-white",
 };
 
 // ─── RESULT CARD THEMES ───────────────────────────────────────────────────────
