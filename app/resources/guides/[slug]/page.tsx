@@ -8,6 +8,7 @@ import Navbar from "../../../components/Navbar";
 import Newsletter from "../../../components/Newsletter";
 import Footer from "../../../components/Footer";
 import { guidesContent, type GuideContentBlock } from "../../../../lib/guides-content";
+import { guidesData } from "../../../../lib/guides-data";
 import { tagsData } from "../../../../lib/tags-data";
 
 const TAG_SLUGS = new Set(tagsData.map((t) => t.slug));
@@ -97,28 +98,48 @@ function ContentBlock({ block }: { block: GuideContentBlock }) {
                   <th className="text-left text-xs uppercase text-gray-500 font-medium py-3 px-4">Category</th>
                   <th className="text-left text-xs uppercase text-gray-500 font-medium py-3 px-4">Best For</th>
                   <th className="text-left text-xs uppercase text-gray-500 font-medium py-3 px-4">Notes</th>
+                  <th className="py-3 px-4" />
                 </tr>
               </thead>
               <tbody>
-                {(block.rows ?? []).map((row) => (
-                  <tr key={row.tool} className="border-t border-gray-100">
-                    <td className="py-3 px-4 text-[#1E293B] font-medium whitespace-nowrap">
-                      {row.slug ? (
-                        <Link
-                          href={`/tools/${row.slug}`}
-                          className="text-blue-600 hover:underline"
-                        >
-                          {row.tool}
-                        </Link>
-                      ) : (
-                        row.tool
-                      )}
-                    </td>
-                    <td className="py-3 px-4 text-gray-500">{row.category}</td>
-                    <td className="py-3 px-4 text-gray-500">{row.bestFor}</td>
-                    <td className="py-3 px-4 text-gray-500">{row.notes}</td>
-                  </tr>
-                ))}
+                {(block.rows ?? []).map((row) => {
+                  const rowTool = row.slug ? getToolBySlug(row.slug) : null;
+                  const rowAffiliate = rowTool
+                    ? rowTool.frontmatter.affiliateLink ||
+                      rowTool.frontmatter.websiteUrl
+                    : "";
+                  return (
+                    <tr key={row.tool} className="border-t border-gray-100">
+                      <td className="py-3 px-4 text-[#1E293B] font-medium whitespace-nowrap">
+                        {row.slug ? (
+                          <Link
+                            href={`/tools/${row.slug}`}
+                            className="text-blue-600 hover:underline"
+                          >
+                            {row.tool}
+                          </Link>
+                        ) : (
+                          row.tool
+                        )}
+                      </td>
+                      <td className="py-3 px-4 text-gray-500">{row.category}</td>
+                      <td className="py-3 px-4 text-gray-500">{row.bestFor}</td>
+                      <td className="py-3 px-4 text-gray-500">{row.notes}</td>
+                      <td className="py-3 px-4 whitespace-nowrap">
+                        {rowAffiliate && (
+                          <a
+                            href={rowAffiliate}
+                            target="_blank"
+                            rel="sponsored noopener noreferrer"
+                            className="text-orange-600 text-xs font-medium hover:underline"
+                          >
+                            Visit ↗
+                          </a>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
@@ -161,25 +182,59 @@ function ContentBlock({ block }: { block: GuideContentBlock }) {
               const name =
                 t.frontmatter.toolName ||
                 t.frontmatter.title.split(":")[0].trim();
+              const affiliateHref =
+                t.frontmatter.affiliateLink || t.frontmatter.websiteUrl;
               return (
-                <Link
+                <div
                   key={t.slug}
-                  href={`/tools/${t.slug}`}
-                  className="group border border-gray-100 rounded-xl p-4 bg-white hover:shadow-md hover:border-blue-200 transition-all block"
+                  className="group border border-gray-100 rounded-xl p-4 bg-white hover:shadow-md hover:border-blue-200 transition-all flex flex-col"
                 >
-                  <p className="font-semibold text-sm text-[#1E293B] group-hover:text-blue-600">
-                    {name} Review
-                  </p>
-                  <p className="text-xs text-gray-500 mt-1 line-clamp-2 leading-snug">
+                  <div className="flex items-center justify-between gap-2">
+                    <Link
+                      href={`/tools/${t.slug}`}
+                      className="font-semibold text-sm text-[#1E293B] hover:text-blue-600 transition-colors"
+                    >
+                      {name} Review
+                    </Link>
+                    <span className="text-xs font-semibold text-amber-500 shrink-0">
+                      ★ {t.frontmatter.rating.toFixed(1)}
+                    </span>
+                  </div>
+                  <p className="text-xs text-gray-500 mt-1 line-clamp-2 leading-snug flex-1">
                     {t.frontmatter.excerpt}
                   </p>
-                  <span className="inline-block text-blue-600 text-xs font-medium mt-2 group-hover:underline">
-                    Read full review →
-                  </span>
-                </Link>
+                  <div className="flex items-center gap-4 mt-3">
+                    <Link
+                      href={`/tools/${t.slug}`}
+                      className="text-blue-600 text-xs font-medium hover:underline"
+                    >
+                      Read full review →
+                    </Link>
+                    {affiliateHref && (
+                      <a
+                        href={affiliateHref}
+                        target="_blank"
+                        rel="sponsored noopener noreferrer"
+                        className="text-orange-600 text-xs font-medium hover:underline"
+                      >
+                        Visit site ↗
+                      </a>
+                    )}
+                  </div>
+                </div>
               );
             })}
           </div>
+          <p className="text-xs text-gray-400 mt-3">
+            Some &ldquo;Visit site&rdquo; links are affiliate links — we may
+            earn a commission at no extra cost to you.{" "}
+            <Link
+              href="/affiliate-disclosure"
+              className="underline hover:text-gray-600"
+            >
+              Learn more
+            </Link>
+          </p>
           {block.note && (
             <p className="text-xs text-gray-400 mt-2 italic">{block.note}</p>
           )}
@@ -209,6 +264,15 @@ export default async function GuideDetailPage({
   const { slug } = await params;
   const guide = guidesContent.find((g) => g.slug === slug);
   if (!guide) notFound();
+
+  // Topic tags come from guidesData (proper tag slugs like "automation") so the
+  // chips always link to a live /tags page; guidesContent tags are long-tail
+  // keyword phrases and are rendered as plain text only.
+  const meta = guidesData.find((g) => g.slug === slug);
+  const topicTags = (meta?.tags ?? [])
+    .filter((t) => TAG_SLUGS.has(t))
+    .map((t) => tagsData.find((td) => td.slug === t))
+    .filter((t): t is NonNullable<typeof t> => Boolean(t));
 
   const faqItems = guide.content.flatMap((block) =>
     block.type === "faq" ? block.items ?? [] : []
@@ -334,26 +398,26 @@ export default async function GuideDetailPage({
             </span>
           </div>
 
-          {/* Tags — link to the tag hub when a matching tag page exists */}
+          {/* Tags — topic tags (from guidesData) link to their tag hub pages;
+              long-tail keyword chips stay as plain, non-link text. */}
           <div className="flex flex-wrap gap-2 mt-4">
-            {guide.tags.map((tag) =>
-              TAG_SLUGS.has(tag) ? (
-                <Link
-                  key={tag}
-                  href={`/tags/${tag}`}
-                  className="text-xs text-blue-600 bg-blue-50 rounded-full px-2.5 py-1 hover:bg-blue-100 transition-colors"
-                >
-                  #{tag}
-                </Link>
-              ) : (
-                <span
-                  key={tag}
-                  className="text-xs text-blue-600 bg-blue-50 rounded-full px-2.5 py-1"
-                >
-                  #{tag}
-                </span>
-              ),
-            )}
+            {topicTags.map((tag) => (
+              <Link
+                key={tag.slug}
+                href={`/tags/${tag.slug}`}
+                className="text-xs font-medium text-blue-600 bg-blue-50 rounded-full px-2.5 py-1 hover:bg-blue-100 transition-colors"
+              >
+                #{tag.name}
+              </Link>
+            ))}
+            {guide.tags.map((tag) => (
+              <span
+                key={tag}
+                className="text-xs text-gray-500 bg-gray-100 rounded-full px-2.5 py-1"
+              >
+                {tag}
+              </span>
+            ))}
           </div>
         </div>
       </section>
