@@ -20,6 +20,85 @@ Live: https://smart-ai-tools-for-work-directory.vercel.app/
 
 ---
 
+## Quy tắc Internal Link & Affiliate (BẮT BUỘC cho mọi bài viết mới)
+
+Các quy tắc này đã được chuẩn hoá trên toàn site (Jul 2026). Mọi bài viết mới
+(guide, news, case study, tutorial, comparison, workflow, tool review) phải
+tuân theo — không cần hỏi lại.
+
+### 1. Không bao giờ tạo internal link chết
+
+- **Chỉ render `<Link>` khi trang đích tồn tại thật.** Nội dung chưa có trang
+  đích thì render text/chip tĩnh (`<span>` xám `text-gray-500 bg-gray-100`),
+  KHÔNG dùng `href="#"`, không style text tĩnh giống link (xanh).
+- Link tới tool review phải resolve qua `getToolBySlug()` / `findToolByName()`
+  trước khi render — không tự ghép slug từ tên tool.
+- `ResourceCard` / `ResourceListRow` có `href` optional: bỏ trống `href` cho
+  nội dung placeholder chưa có trang detail.
+
+### 2. Tags trên bài viết — dùng resolver, không link mù
+
+Mỗi trang detail (guides, ai-news, case-studies, tutorials) đã có sẵn
+`resolveTagHref()` / `TagChip`:
+
+- Tag map được → chip xanh có link. Thứ tự resolve:
+  1. `TAG_DESTINATIONS` (map biên tập trong từng page): tên ngành →
+     `/industries/<slug>`; cụm từ chủ đề → `/tags/<slug>` hoặc
+     `/resources/ai-news`
+  2. Fallback: slugify tag rồi so với `tagsData` (lib/tags-data.ts) →
+     `/tags/<slug>`
+- Tag không map được → chip xám tĩnh (không phải chip xanh).
+- Bài mới có tag chủ đề mới: thêm mapping vào `TAG_DESTINATIONS` của page đó,
+  hoặc thêm tag vào `tagsData` nếu đáng có trang `/tags` riêng.
+- Tag slug hợp lệ hiện có trong `tagsData`: ai-agents, prompt-engineering,
+  chatgpt, midjourney, no-code, automation, ai-writing, workflow,
+  ai-for-business, productivity, ai-image-generation, rag.
+- Guide detail: topic tags lấy từ `guidesData.tags` (slug chuẩn); tags trong
+  `guidesContent` chỉ là keyword phrases hiển thị tĩnh.
+
+### 3. Affiliate tools liên quan — mỗi bài viết phải có
+
+- **AI News** (`lib/ai-news-data.ts`): mỗi post phải có `recommendedTools`
+  (3 tool, `{ slug, note }`) — slug phải tồn tại trong `content/tools/`.
+- **Case Studies** (`lib/case-studies-content.ts`): mỗi study phải có
+  `recommendedTools` (3 tool được nhắc trong bài).
+- **Tutorials** (`lib/tutorials-data.ts`): mỗi tutorial phải có `toolSlug`
+  trỏ tới review của tool chính trong bài.
+- **Guides**: dùng block `related-reviews` (theo `industry` hoặc `reviews`)
+  + bảng `comparison-table` có `slug` cho từng row (tự sinh cột "Visit ↗").
+- Mọi link affiliate: `rel="sponsored noopener noreferrer"`, lấy URL từ
+  `frontmatter.affiliateLink || websiteUrl`, luôn kèm dòng disclosure link
+  về `/affiliate-disclosure`. Link external thường: `noopener noreferrer`.
+
+### 4. Cấu trúc link chuẩn của một bài viết detail
+
+Mỗi bài detail phải có đủ:
+1. Breadcrumb hiển thị (mọi cấp trừ trang hiện tại là link) + BreadcrumbList
+   schema khớp 100% với breadcrumb hiển thị
+2. Tag chips theo quy tắc #2
+3. Section tools affiliate theo quy tắc #3 (review link nội bộ + CTA sponsored)
+4. Link liên quan chéo: guide ↔ review ↔ comparison ↔ workflow khi có
+
+### 5. Sitemap & nguồn slug
+
+- Slug trang detail lấy từ file **content** (`guidesContent`, `caseStudies`,
+  `tutorialsContent`, `aiNewsPosts`, `content/tools/`) — KHÔNG lấy từ file
+  `-data.ts` listing (slug listing có thể không có trang thật).
+- Bài mới phải xuất hiện trong `app/sitemap.ts` với `lastModified` là ngày
+  publish thật — không dùng `new Date()`.
+- Tool review mới: khai báo `tags`, `bestOf`, `industries`, `alternatives`
+  trong frontmatter; alternatives không có review sẽ tự render không link.
+
+### 6. Checklist trước khi commit bài viết mới
+
+- [ ] Không có `href="#"` mới; không có link tới slug không tồn tại
+- [ ] Tags link hoạt động (click thử trên dev server)
+- [ ] Có section affiliate tools + disclosure
+- [ ] Bài có trong sitemap với ngày thật
+- [ ] `npm run build` pass
+
+---
+
 ## Brand Guidelines
 
 ```
@@ -131,6 +210,8 @@ git push               # Vercel tự động deploy
 
 1. Đọc file này trước
 2. Xem TODO list, ưu tiên theo màu 🔴 → 🟡 → 🟢
-3. Chỉnh sửa trực tiếp file, không hỏi lại những gì đã rõ
-4. Sau khi xong chạy `npm run build` kiểm tra
-5. Báo cáo những gì đã làm và kết quả
+3. Task liên quan bài viết/content: áp dụng "Quy tắc Internal Link &
+   Affiliate" ở trên, không cần hỏi lại
+4. Chỉnh sửa trực tiếp file, không hỏi lại những gì đã rõ
+5. Sau khi xong chạy `npm run build` kiểm tra
+6. Báo cáo những gì đã làm và kết quả
