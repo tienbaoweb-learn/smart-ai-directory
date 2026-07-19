@@ -44,6 +44,16 @@ export interface AINewsPost {
   inArticleImages?: string[]; // ảnh minh hoạ trong bài
   content: AINewsContentBlock[];
   tags: string[];
+  /**
+   * Internal link: slug các guide liên quan (lib/guides-data.ts).
+   * Bỏ trống thì trang chi tiết dùng bộ mặc định.
+   */
+  relatedGuides?: string[];
+  /**
+   * Affiliate/internal link: tool liên quan tới chủ đề bài viết.
+   * `slug` phải khớp tool trong content/tools; `note` giải thích vì sao liên quan.
+   */
+  recommendedTools?: { slug: string; note: string }[];
 }
 
 /** Badge label hiển thị theo newsType */
@@ -56,9 +66,12 @@ export const NEWS_TYPE_LABEL: Record<AINewsType, string> = {
 /** Màu industry tag theo brand — key viết thường để tra cứu không phân biệt hoa thường */
 export const INDUSTRY_COLOR: Record<string, string> = {
   architecture: "#2d5cf3",
+  "architecture & facilities": "#2d5cf3",
   construction: "#6484A4",
   "real estate": "#8c21f1",
   "commercial real estate": "#8c21f1",
+  "real estate data": "#8c21f1",
+  proptech: "#8c21f1",
   "interior design": "#35966a",
   furniture: "#F97316",
   market: "#F97316",
@@ -71,6 +84,108 @@ export function industryColor(industry: string): string {
 }
 
 export const aiNewsPosts: AINewsPost[] = [
+  {
+    slug: "weekly-roundup-july-18-2026",
+    title: "AI News for Design & Construction Pros — Week of July 18, 2026",
+    newsType: "weekly-roundup",
+    thumbnail: "/images/ai-news/ai-news-weekly-roundup-july-18-2026-thumbnail.webp",
+    heroImage: "/images/ai-news/ai-news-hero.webp",
+    excerpt:
+      "67% of buyers now start their property search on generative AI while 91% of agents are invisible to it, New York freezes data center construction, and proptech consolidation accelerates.",
+    publishedDate: "2026-07-20",
+    readingTime: "5 min",
+    weekOf: "July 18, 2026",
+    nextRoundup: "Week of July 21, 2026",
+    // Chỉ có ảnh minh hoạ số 2 trong public/images/ai-news (thiếu bản "-1").
+    inArticleImages: ["/images/ai-news/ai-news-weekly-roundup-july-18-2026-2.webp"],
+    tags: [
+      "AI news",
+      "real estate AI",
+      "proptech",
+      "Zillow Gemini",
+      "data center construction",
+      "agentic AI",
+      "AI visibility",
+    ],
+    relatedGuides: ["real-estate-ai-tools", "construction-ai-tools"],
+    recommendedTools: [
+      {
+        slug: "virtualstagingai",
+        note: "Listing visuals that stay consistent with the structured listing data AI search engines actually read.",
+      },
+      {
+        slug: "go-heather",
+        note: "AI lead response for agents — the practical end of the \"agentic workforce\" trend covered above.",
+      },
+      {
+        slug: "homesage-ai",
+        note: "AI-assisted property valuation and listing intelligence for agents auditing their own data quality.",
+      },
+    ],
+    content: [
+      {
+        type: "editor-pick",
+        heading:
+          "67% of Buyers Now Start Their Property Search on Generative AI — and Most Agents Are Invisible to It",
+        paragraphs: [
+          "A striking pair of numbers surfaced this week: 67% of property buyers now begin their search using generative AI tools, while 91% of agents don't appear at all when those AI tools generate answers. That gap — between where buyers are actually looking and where agents actually show up — has quietly become a real commercial problem, not just a curiosity.",
+          "The trigger event this week was Zillow's integration into Google's Gemini, marking the platform's second major AI integration after connecting with ChatGPT in October 2025. The structural shift underneath this is more important than either integration individually: real estate portals are transitioning from storefronts that clients browse into databases that AI systems query on a client's behalf. An AI assistant isn't persuaded by attractive staging or a well-written listing description — it reads structured data. Listings with incomplete or approximate information (exact square footage, complete photo sets, structured descriptions, accurate availability) risk simply being left out of AI-generated answers entirely, regardless of how the property actually looks in person.",
+          "For agents and brokerages, this reframes \"AI visibility\" as a data-completeness problem as much as a marketing one. The practical takeaway: audit your listing data for completeness before worrying about how to \"optimize for AI\" — the machines reading your data care more about accuracy and structure than persuasive copy.",
+        ],
+      },
+      {
+        type: "quick-hits",
+        items: [
+          {
+            emoji: "🏠",
+            industry: "Real Estate",
+            title: "New York freezes new data center construction",
+            body: "New York has become the first U.S. state to declare a one-year moratorium on new data center construction, a move that's rattling both the tech and construction industries. For AEC firms with data center project pipelines, this is a reminder that the rapid build-out of AI infrastructure — covered as an unambiguous growth story in recent weeks — is already meeting real regulatory friction in at least one major market, driven by concerns over energy consumption and grid capacity. Firms with data center work concentrated in a single state or region should watch for similar moratorium proposals elsewhere.",
+            tags: ["Real Estate", "Data Centers", "Regulation"],
+          },
+          {
+            emoji: "🤖",
+            industry: "Real Estate",
+            title: "Braiin launches \"ARIA,\" an AI-native agentic workforce for real estate",
+            body: "Australian AI platform company Braiin has launched ARIA — the Agentic Real Estate Intelligence and Automation — an AI-native workforce designed specifically for the global real estate industry, positioning it to capture a share of the real estate software market projected to reach $32 billion by 2033. The framing as an \"agentic workforce\" rather than a single-purpose tool reflects a broader pattern this year: real estate AI vendors are increasingly positioning their products as autonomous teams handling multi-step workflows, not just software that assists a human through one task at a time.",
+            tags: ["Real Estate", "Agentic AI", "Product Launch"],
+          },
+          {
+            emoji: "🏢",
+            industry: "Real Estate Data",
+            title: "CoStar leans on scale and data depth for its own AI chat launch",
+            body: "CoStar has launched an AI chat interface built on the depth of its multifamily data and the reach of its audience — its sites drew roughly 131 million average monthly unique visitors in the first quarter of 2026 alone. The company's stated bet is that pairing AI with genuinely comprehensive underlying data — rather than the chat interface itself — is what actually improves the renter or buyer search experience. It's a useful contrast to smaller proptech entrants: for platforms with less proprietary data depth, matching this kind of AI search experience will be a data problem before it's an AI problem.",
+            tags: ["Real Estate", "Data Platforms", "AI Search"],
+          },
+          {
+            emoji: "💰",
+            industry: "PropTech",
+            title: "Consolidation continues: Dwelly's seventh acquisition of 2026, Beeline moves on MagicBlocks",
+            body: "Property management platform Dwelly announced its seventh acquisition of the year, continuing an aggressive international expansion pace. Separately, Beeline Holdings confirmed plans to acquire 100% of MagicBlocks to expand its AI capabilities. Two data points in the same week reinforcing a broader pattern: proptech consolidation is accelerating, with acquiring companies specifically targeting AI capability gaps rather than just market share or geography.",
+            tags: ["PropTech", "M&A", "Market Consolidation"],
+          },
+          {
+            emoji: "🔓",
+            industry: "Market",
+            title: "Open source models are reshuffling the competitive landscape",
+            body: "Industry commentary this week points to a notable shift: the race for giant, proprietary AI models is increasingly giving ground to open source alternatives that are cheaper to run and easier for companies to control directly. For real estate and construction software vendors building AI features into their platforms, this matters practically — cheaper, controllable open source models lower the barrier to entry for smaller proptech and contech startups that can't compete on the scale of resources behind the largest proprietary models.",
+            tags: ["Market", "Open Source AI", "Competitive Landscape"],
+          },
+        ],
+      },
+      {
+        type: "what-to-watch",
+        leadIn: "\"AI visibility\" is becoming its own discipline — watch for it to formalize.",
+        paragraphs: [
+          "The gap between buyer search behavior (majority starting on generative AI) and agent/listing visibility inside AI-generated answers is wide enough that it's likely to spawn a dedicated service category, similar to how SEO formalized around search engines two decades ago. Early movers who prioritize structured, complete, accurate listing data now — before \"AI answer engine optimization\" becomes a standard line item in marketing budgets — have a window to build a real advantage before the tactic becomes commoditized.",
+        ],
+      },
+      {
+        type: "disclaimer",
+        text: "SmartAI for Work publishes AI news and tool analysis for professionals in architecture, construction, real estate, interior design, and furniture. This roundup covers publicly reported developments — we don't accept payment for news coverage.",
+      },
+    ],
+  },
   {
     slug: "ai-news-2026-07-14",
     title:
@@ -180,6 +295,112 @@ export const aiNewsPosts: AINewsPost[] = [
       {
         type: "disclaimer",
         text: "Editorial note: This roundup summarizes reporting from the sources linked above; figures and claims belong to those sources. Always verify specifics against the primary source before acting on them.",
+      },
+    ],
+  },
+  {
+    slug: "weekly-roundup-july-10-2026",
+    title: "AI News for Design & Construction Pros — Week of July 10, 2026",
+    newsType: "weekly-roundup",
+    thumbnail: "/images/ai-news/ai-news-weekly-roundup-july-10-2026-thumbnail.webp",
+    heroImage: "/images/ai-news/ai-news-hero.webp",
+    excerpt:
+      "The generative AI architecture market is growing 40.9% a year, jobsite AI moves from pilot to standard practice, and hyperscaler data center spend becomes a construction story.",
+    publishedDate: "2026-07-13",
+    readingTime: "5 min",
+    weekOf: "July 10, 2026",
+    nextRoundup: "Week of July 18, 2026",
+    inArticleImages: [
+      "/images/ai-news/ai-news-weekly-roundup-july-10-2026-1.webp",
+      "/images/ai-news/ai-news-weekly-roundup-july-10-2026-2.webp",
+    ],
+    tags: [
+      "AI news",
+      "architecture AI market",
+      "construction technology",
+      "commercial real estate",
+      "AI infrastructure",
+      "proptech funding",
+    ],
+    relatedGuides: [
+      "construction-ai-tools",
+      "architecture-ai-tools",
+      "ai-rendering-visualization-tools",
+    ],
+    recommendedTools: [
+      {
+        slug: "handoff",
+        note: "AI estimating and proposals — the jobsite-adjacent admin work this week's ENR coverage says is going standard practice.",
+      },
+      {
+        slug: "lead-truffle",
+        note: "AI lead capture for contractors, aimed squarely at the \"pipeline ran dry\" problem in story four.",
+      },
+      {
+        slug: "d5-render",
+        note: "Real-time architectural rendering — one slice of the design-automation segment driving that 40.9% growth rate.",
+      },
+    ],
+    content: [
+      {
+        type: "editor-pick",
+        heading:
+          "The Architecture AI Market Just Published Its Numbers — and the Growth Rate Is Startling",
+        paragraphs: [
+          "A new 250-page market report released this week puts the generative AI in architecture market on track to jump from $1.47 billion in 2025 to $2.07 billion in 2026 — a 40.9% compound annual growth rate. The report covers design automation, urban planning, and cloud collaboration as the three core segments driving that growth, with deployment split between cloud-based and on-premises solutions serving architectural firms, real estate developers, government agencies, and construction companies alike.",
+          "The number itself is less interesting than what it confirms: this is no longer a niche experiment inside a handful of forward-leaning studios. It's a market large enough to justify a 250-page institutional research report, the kind of document usually reserved for categories that have moved past \"emerging\" status. For architecture firms still treating AI adoption as optional or experimental, this is a useful data point to bring into internal budget conversations — the rest of the market is moving, and moving fast.",
+        ],
+      },
+      {
+        type: "quick-hits",
+        items: [
+          {
+            emoji: "🏗️",
+            industry: "Construction",
+            title: "AI tools go from pilot to standard practice on the jobsite",
+            body: "A wide-ranging look at construction technology this week describes 2026 as the year AI tools, connected equipment, and insurer incentives are collectively pushing jobsite technology from pilot programs into standard practice. The sponsor list for ENR's FutureTech conference — Trimble, Autodesk, Procore, Outbuild, Buildots, and CMiC among them — doubles as a snapshot of which companies are investing most heavily in capturing AEC technology budgets. Worth noting for smaller firms: insurer incentives tied to AI/safety-tech adoption are a detail easy to miss but potentially valuable — check with your carrier whether adopting monitoring or safety AI tools qualifies you for reduced premiums.",
+            tags: ["Construction", "Technology Adoption", "Insurance"],
+          },
+          {
+            emoji: "🏢",
+            industry: "Commercial Real Estate",
+            title: "CRE sales hit $42 billion in May alone, M&A activity up 205%",
+            body: "Commercial real estate sales reached $42 billion in May 2026, with merger and acquisition activity up 205% compared to the prior period. Proptech startups are capturing a share of that investor confidence, with new funding flowing into everything from construction robotics to property tax management platforms. For a sector often characterized as cautious about new technology, the scale of capital moving into proptech right now suggests institutional investors are placing real bets on AI-driven efficiency gains, not just watching from the sidelines.",
+            tags: ["Commercial Real Estate", "M&A", "PropTech Funding"],
+          },
+          {
+            emoji: "🏛️",
+            industry: "Architecture & Facilities",
+            title: "LLMs are being positioned as the translator between building systems",
+            body: "An industry analysis this week makes the case that large language models offer a genuinely new capability for the built environment: helping architects, engineers, construction professionals, and facility managers interact with building systems that otherwise \"speak\" different technical languages. Rather than requiring each stakeholder to learn a separate system's interface, an LLM layer can translate between them — surfacing optimization opportunities across development, maintenance, and compliance that would otherwise require someone fluent in multiple specialized platforms. This is an early-stage idea more than a mature product category, but it's a useful frame for thinking about where LLMs add unique value beyond writing and image generation.",
+            tags: ["Architecture", "Facilities Management", "Building Systems"],
+          },
+          {
+            emoji: "🏗️",
+            industry: "Construction",
+            title: "A 20-year construction firm turns to AI when the pipeline runs dry",
+            body: "A profile published this week follows Dancor Construction, an industrial contractor with more than 100 completed projects over two decades, and its founder's decision to turn to AI tools after the firm's work pipeline recently began drying up. The story is a useful reminder that AI adoption in construction isn't only happening at large, well-capitalized GCs — established mid-size and smaller firms are turning to AI-assisted business development and lead generation specifically when traditional referral and relationship pipelines slow down.",
+            tags: ["Construction", "Small & Mid-Size Firms", "Business Development"],
+          },
+          {
+            emoji: "💰",
+            industry: "Market",
+            title: "Hyperscaler AI infrastructure spend keeps climbing — and it's a construction story too",
+            body: "Global AI infrastructure investment continues its climb in 2026, with individual hyperscalers now deploying tens of billions of dollars each into data center capacity. For architecture, engineering, and construction firms, this isn't just a tech-sector headline — data center construction has become one of the fastest-growing specialized building categories, driving its own demand for specialized design, cooling, and power infrastructure expertise. Firms with data center experience are increasingly well-positioned in a market segment that shows no signs of slowing in the near term.",
+            tags: ["Market", "Data Centers", "Infrastructure"],
+          },
+        ],
+      },
+      {
+        type: "what-to-watch",
+        leadIn: "ENR FutureTech's sponsor list is a leading indicator worth tracking annually.",
+        paragraphs: [
+          "The 2026 conference roster — spanning established players like Trimble and Autodesk alongside newer entrants like Buildots and Outbuild — reflects where the largest AEC technology vendors are placing their bets for the year ahead. As the event's 2027 edition is already scheduled, watching which companies move up or newly appear on next year's sponsor tier is a useful, low-effort way to track where institutional investment in construction technology is heading before it shows up in your own vendor conversations.",
+        ],
+      },
+      {
+        type: "disclaimer",
+        text: "SmartAI for Work publishes AI news and tool analysis for professionals in architecture, construction, real estate, interior design, and furniture. This roundup covers publicly reported developments — we don't accept payment for news coverage.",
       },
     ],
   },

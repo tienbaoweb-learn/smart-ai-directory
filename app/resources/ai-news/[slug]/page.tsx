@@ -14,6 +14,7 @@ import {
   type QuickHitItem,
 } from "../../../../lib/ai-news-data";
 import { guidesData } from "../../../../lib/guides-data";
+import { getToolBySlug } from "../../../../lib/tools";
 
 // ── generateStaticParams + generateMetadata ────────────────────────────────────
 
@@ -136,11 +137,28 @@ export default async function AINewsDetailPage({
   const typeLabel = NEWS_TYPE_LABEL[post.newsType];
   const images = post.inArticleImages ?? [];
 
-  // Related guides — 2-3 bài cùng ngành với chủ đề bài roundup
-  const relatedSlugs = ["construction-ai-tools", "real-estate-ai-tools", "architecture-ai-tools"];
+  // Related guides — ưu tiên danh sách riêng của bài, fallback về bộ mặc định
+  const relatedSlugs =
+    post.relatedGuides ??
+    ["construction-ai-tools", "real-estate-ai-tools", "architecture-ai-tools"];
   const related = relatedSlugs
     .map((s) => guidesData.find((g) => g.slug === s))
     .filter((g): g is (typeof guidesData)[number] => Boolean(g));
+
+  // Tool liên quan — internal link tới bài review + affiliate CTA (rel="sponsored")
+  const recommendedTools = (post.recommendedTools ?? [])
+    .map(({ slug: toolSlug, note }) => {
+      const tool = getToolBySlug(toolSlug);
+      if (!tool) return null;
+      const f = tool.frontmatter;
+      return {
+        slug: toolSlug,
+        note,
+        name: f.toolName || f.title.split(":")[0].trim(),
+        affiliateHref: f.affiliateLink || f.websiteUrl || "",
+      };
+    })
+    .filter((t): t is NonNullable<typeof t> => t !== null);
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -357,6 +375,68 @@ export default async function AINewsDetailPage({
                 <span className="font-semibold text-[#1E293B]">Next roundup:</span>{" "}
                 {post.nextRoundup}
               </span>
+            </div>
+          )}
+
+          {/* Tools liên quan — internal review link + affiliate CTA */}
+          {recommendedTools.length > 0 && (
+            <div className="mt-12 pt-8 border-t border-gray-100">
+              <h2 className="text-xl font-bold text-[#1E293B] mb-1">
+                Tools Worth Evaluating
+              </h2>
+              <p className="text-sm text-gray-500 mb-4">
+                Picked by our editors as relevant to the themes above — not mentioned in, or
+                affiliated with, the reporting we covered.
+              </p>
+
+              <ul className="space-y-3">
+                {recommendedTools.map((tool) => (
+                  <li
+                    key={tool.slug}
+                    className="border border-gray-100 rounded-xl px-4 py-3 flex flex-col sm:flex-row sm:items-center gap-3"
+                  >
+                    <div className="flex-1">
+                      <Link
+                        href={`/tools/${tool.slug}`}
+                        className="text-sm font-semibold text-[#1E293B] hover:text-blue-600 transition-colors"
+                      >
+                        {tool.name}
+                      </Link>
+                      <p className="text-sm text-gray-500 mt-0.5 leading-relaxed">
+                        {tool.note}
+                      </p>
+                    </div>
+
+                    <div className="flex items-center gap-3 shrink-0">
+                      <Link
+                        href={`/tools/${tool.slug}`}
+                        className="text-blue-600 text-sm font-medium hover:underline whitespace-nowrap"
+                      >
+                        Read review
+                      </Link>
+                      {tool.affiliateHref && (
+                        <a
+                          href={tool.affiliateHref}
+                          target="_blank"
+                          rel="sponsored noopener noreferrer"
+                          className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg px-4 py-2 transition-colors whitespace-nowrap"
+                        >
+                          Visit site →
+                        </a>
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+
+              <p className="text-xs text-gray-400 mt-3">
+                Some links above are affiliate links — we may earn a commission at no extra
+                cost to you. See our{" "}
+                <Link href="/affiliate-disclosure" className="underline hover:text-gray-600">
+                  affiliate disclosure
+                </Link>
+                .
+              </p>
             </div>
           )}
 
