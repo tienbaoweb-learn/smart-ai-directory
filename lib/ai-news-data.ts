@@ -96,8 +96,10 @@ export const aiNewsPosts: AINewsPost[] = [
     readingTime: "5 min",
     weekOf: "July 18, 2026",
     nextRoundup: "Week of July 21, 2026",
-    // Chỉ có ảnh minh hoạ số 2 trong public/images/ai-news (thiếu bản "-1").
-    inArticleImages: ["/images/ai-news/ai-news-weekly-roundup-july-18-2026-2.webp"],
+    inArticleImages: [
+      "/images/ai-news/ai-news-weekly-roundup-july-18-2026-1.webp",
+      "/images/ai-news/ai-news-weekly-roundup-july-18-2026-2.webp",
+    ],
     tags: [
       "AI news",
       "real estate AI",
