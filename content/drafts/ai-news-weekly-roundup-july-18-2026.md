@@ -1,4 +1,4 @@
-# AI News for Design & Construction Pros — Week of July 18, 2026
+# AI News for Real Estate Pros — Week of July 18, 2026
 
 **Section:** AI News  
 **Type:** Weekly Roundup  

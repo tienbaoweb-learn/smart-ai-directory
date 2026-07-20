@@ -86,7 +86,7 @@ export function industryColor(industry: string): string {
 export const aiNewsPosts: AINewsPost[] = [
   {
     slug: "weekly-roundup-july-18-2026",
-    title: "AI News for Design & Construction Pros — Week of July 18, 2026",
+    title: "AI News for Real Estate Pros — Week of July 18, 2026",
     newsType: "weekly-roundup",
     thumbnail: "/images/ai-news/ai-news-weekly-roundup-july-18-2026-thumbnail.webp",
     heroImage: "/images/ai-news/ai-news-hero.webp",
