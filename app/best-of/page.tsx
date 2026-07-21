@@ -413,9 +413,51 @@ export const metadata: Metadata = {
   },
 };
 
+// Reflects the visible breadcrumb: Home > Best Of AI Tools.
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.smartaiforwork.com/" },
+    { "@type": "ListItem", position: 2, name: "Best Of AI Tools", item: "https://www.smartaiforwork.com/best-of" },
+  ],
+};
+
+// The 4 Best-Of sub-pages this hub collects.
+const BEST_OF_PAGES = [
+  { name: "Best AI Tools for Architects", slug: "architecture" },
+  { name: "Best AI Tools for Construction Teams", slug: "construction" },
+  { name: "Best AI Tools for Interior Designers", slug: "interior-design" },
+  { name: "Best AI Tools for Real Estate Professionals", slug: "real-estate" },
+];
+
+const collectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Best AI Tools by Industry",
+  url: "https://www.smartaiforwork.com/best-of",
+  mainEntity: {
+    "@type": "ItemList",
+    itemListElement: BEST_OF_PAGES.map((p, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: p.name,
+      url: `https://www.smartaiforwork.com/best-of/${p.slug}`,
+    })),
+  },
+};
+
 export default function BestOfPage() {
   return (
     <div className="min-h-screen bg-white font-sans text-[#1E293B]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
+      />
       <Navbar />
 
       {/* ── Breadcrumb ── */}
