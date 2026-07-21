@@ -100,7 +100,7 @@ const MAX_OVERALL = Math.max(...COMPARE_TOOLS.map((t) => t.overall));
 
 // ─── FAQ DATA ─────────────────────────────────────────────────────────────────
 
-const FAQ_ITEMS = [
+export const FAQ_ITEMS = [
   {
     q: "How are these AI tools for construction tested?",
     a: "Our team tests each tool hands-on in real construction workflows — from site documentation to project scheduling and cost tracking. We evaluate ease of use, output quality, integration capabilities, and value for money.",

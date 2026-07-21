@@ -128,7 +128,7 @@ const MAX_OVERALL = Math.max(...COMPARE_TOOLS.map((t) => t.overall));
 
 // ─── FAQ DATA ─────────────────────────────────────────────────────────────────
 
-const FAQ_ITEMS = [
+export const FAQ_ITEMS = [
   {
     q: "How are these AI tools for interior design tested?",
     a: "Our team tests each tool hands-on across real design workflows — from concept generation to client presentations. We evaluate ease of use, output quality, features, and value for money.",

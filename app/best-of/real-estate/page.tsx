@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import BestRealEstateClient from "./BestRealEstateClient";
+import BestRealEstateClient, { FAQ_ITEMS } from "./BestRealEstateClient";
 import { getIndustryGridTools } from "../../../lib/tools";
 
 export const metadata: Metadata = {
@@ -16,8 +16,27 @@ export const metadata: Metadata = {
   },
 };
 
+// Serialized from the same FAQ_ITEMS array the page renders as a visible
+// accordion (BestRealEstateClient) — text here must never drift from what's
+// on the page.
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ_ITEMS.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+};
+
 export default function Page() {
   return (
-    <BestRealEstateClient allTools={getIndustryGridTools("real-estate")} />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <BestRealEstateClient allTools={getIndustryGridTools("real-estate")} />
+    </>
   );
 }

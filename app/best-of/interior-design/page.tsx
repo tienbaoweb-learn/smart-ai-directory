@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import BestInteriorDesignClient from "./BestInteriorDesignClient";
+import BestInteriorDesignClient, { FAQ_ITEMS } from "./BestInteriorDesignClient";
 import { getIndustryGridTools } from "../../../lib/tools";
 
 export const metadata: Metadata = {
@@ -16,10 +16,29 @@ export const metadata: Metadata = {
   },
 };
 
+// Serialized from the same FAQ_ITEMS array the page renders as a visible
+// accordion (BestInteriorDesignClient) — text here must never drift from
+// what's on the page.
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ_ITEMS.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+};
+
 export default function Page() {
   return (
-    <BestInteriorDesignClient
-      allTools={getIndustryGridTools("interior-design")}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <BestInteriorDesignClient
+        allTools={getIndustryGridTools("interior-design")}
+      />
+    </>
   );
 }

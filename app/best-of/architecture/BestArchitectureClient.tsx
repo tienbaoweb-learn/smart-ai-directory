@@ -114,7 +114,7 @@ const MAX_OVERALL = Math.max(...COMPARE_TOOLS.map((t) => t.overall));
 
 // ─── FAQ DATA ─────────────────────────────────────────────────────────────────
 
-const FAQ_ITEMS = [
+export const FAQ_ITEMS = [
   {
     q: "How are these AI tools for architecture tested?",
     a: "Our team tests each tool hands-on across real architecture workflows — from concept sketching to site analysis and client presentations. We evaluate ease of use, output quality, features, and value for money.",

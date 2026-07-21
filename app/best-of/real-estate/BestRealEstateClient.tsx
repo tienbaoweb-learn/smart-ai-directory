@@ -100,7 +100,7 @@ const MAX_OVERALL = Math.max(...COMPARE_TOOLS.map((t) => t.overall));
 
 // ─── FAQ DATA ─────────────────────────────────────────────────────────────────
 
-const FAQ_ITEMS = [
+export const FAQ_ITEMS = [
   {
     q: "How are these AI tools for real estate tested?",
     a: "Our team tests each tool hands-on across real estate workflows — from lead generation and listing creation to CRM automation and client follow-ups. We evaluate ease of use, output quality, integrations, and value for money.",
