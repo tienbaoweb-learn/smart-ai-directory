@@ -6,16 +6,11 @@ import Link from "next/link";
 import Navbar from "../../components/Navbar";
 import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
-import { ALL_TOOLS, CATEGORY_LABELS } from "../../data/tools";
+import { CATEGORY_LABELS } from "@/lib/ai-tools-categories";
 import type { UseCaseTool } from "@/lib/tools";
 import CompareTools from "../CompareTools";
 
 // ─── CONSTANTS ────────────────────────────────────────────────────────────────
-
-// The embedded "Compare 2 tools" widget below still draws from the legacy
-// curated dataset (unchanged) — see the Session A wrap-up notes on why this
-// wasn't migrated together with the main grid.
-const COMPARE_WIDGET_TOOLS = ALL_TOOLS.filter((t) => t.category === "automation");
 
 const INDUSTRY_OPTIONS = [
   { label: "All Industries", value: "All" },
@@ -616,7 +611,7 @@ export default function AutomationPage({
         </div>
       </section>
 
-      <CompareTools tools={COMPARE_WIDGET_TOOLS} />
+      <CompareTools tools={allTools} />
       <ExploreOtherCategories categoryCounts={categoryCounts} />
       <Newsletter />
       <Footer />

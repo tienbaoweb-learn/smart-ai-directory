@@ -7,7 +7,8 @@ import { useSearchParams } from "next/navigation";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
-import { ALL_TOOLS, CATEGORY_LABELS } from "../data/tools";
+import { CATEGORY_LABELS } from "@/lib/ai-tools-categories";
+import type { UseCaseTool } from "@/lib/tools";
 import { TOOL_LOGO_URLS } from "../data/tool-logos";
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
@@ -65,7 +66,7 @@ const topPicks = [
     pricing: "Freemium",
     price: "From $39/month",
     isFeatured: true,
-    reviewHref: "/ai-tools/jasper",
+    reviewHref: "/tools/jasper-ai",
     affiliateHref: "https://www.jasper.ai",
   },
   {
@@ -82,7 +83,7 @@ const topPicks = [
     pricing: "Paid",
     price: "From $10/month",
     isFeatured: true,
-    reviewHref: "/ai-tools/midjourney",
+    reviewHref: "/tools/midjourney",
     affiliateHref: "https://midjourney.com",
   },
   {
@@ -99,7 +100,7 @@ const topPicks = [
     pricing: "Custom",
     price: "Contact for pricing",
     isFeatured: true,
-    reviewHref: "/ai-tools/buildots",
+    reviewHref: "/tools/buildots",
     affiliateHref: "https://buildots.com",
   },
   {
@@ -116,7 +117,7 @@ const topPicks = [
     pricing: "Freemium",
     price: "From $7/month",
     isFeatured: true,
-    reviewHref: "/ai-tools/planner-5d",
+    reviewHref: "/tools/planner-5d",
     affiliateHref: "https://go.planner5d.com/click?pid=2472&offer_id=43&sub1=yourclickid&sub2=your_sub_pub_id&sub3=any_side_info",
   },
   {
@@ -133,7 +134,7 @@ const topPicks = [
     pricing: "Freemium",
     price: "From $29/month",
     isFeatured: true,
-    reviewHref: "/ai-tools/reimagine-home",
+    reviewHref: "/tools/reimagine-home",
     affiliateHref: "https://www.reimaginehome.ai/?ref=smartaiforwork",
   },
 ];
@@ -155,11 +156,13 @@ const CATEGORY_COLOR_MAP: Record<string, string> = {
   sales: "bg-emerald-100 text-emerald-600",
 };
 
+// Keyed by the display labels UseCaseTool.industries carries.
 const INDUSTRY_ICON_MAP: Record<string, { emoji: string; color: string }> = {
-  furniture: { emoji: "🪑", color: "bg-amber-100" },
-  architecture: { emoji: "🏛️", color: "bg-slate-100" },
-  construction: { emoji: "🏗️", color: "bg-orange-100" },
-  realestate: { emoji: "🏙️", color: "bg-blue-100" },
+  Furniture: { emoji: "🪑", color: "bg-amber-100" },
+  Architecture: { emoji: "🏛️", color: "bg-slate-100" },
+  Construction: { emoji: "🏗️", color: "bg-orange-100" },
+  "Real Estate": { emoji: "🏙️", color: "bg-blue-100" },
+  "Interior Design": { emoji: "🛋️", color: "bg-pink-100" },
 };
 
 const POPULAR_SEARCHES = ["ChatGPT", "Automation", "Writing", "No-code", "Marketing"];
@@ -619,6 +622,7 @@ function CategoriesSection() {
 }
 
 function AllToolsTable({
+  tools,
   searchQuery,
   categoryFilter,
   setCategoryFilter,
@@ -627,6 +631,7 @@ function AllToolsTable({
   sortBy,
   setSortBy,
 }: {
+  tools: UseCaseTool[];
   searchQuery: string;
   categoryFilter: string;
   setCategoryFilter: (v: string) => void;
@@ -635,7 +640,7 @@ function AllToolsTable({
   sortBy: string;
   setSortBy: (v: string) => void;
 }) {
-  let filtered = ALL_TOOLS;
+  let filtered = tools;
 
   if (searchQuery) {
     const q = searchQuery.toLowerCase();
@@ -643,7 +648,7 @@ function AllToolsTable({
       (t) =>
         t.name.toLowerCase().includes(q) ||
         t.bestFor.toLowerCase().includes(q) ||
-        t.keyFeatures.toLowerCase().includes(q) ||
+        t.excerpt.toLowerCase().includes(q) ||
         t.category.toLowerCase().includes(q)
     );
   }
@@ -653,7 +658,7 @@ function AllToolsTable({
   }
 
   if (pricingFilter !== "All Pricing") {
-    filtered = filtered.filter((t) => t.pricing === pricingFilter);
+    filtered = filtered.filter((t) => t.pricingType === pricingFilter);
   }
 
   if (sortBy === "Highest Rated") {
@@ -681,7 +686,7 @@ function AllToolsTable({
   const visibleTools = filtered.slice(0, visibleCount);
   const hasMore = visibleCount < filtered.length;
 
-  const pricingOptions = ["All Pricing", "Freemium", "Paid"];
+  const pricingOptions = ["All Pricing", "Free", "Freemium", "Paid", "Custom"];
   const sortOptions = ["Highest Rated", "Most Reviews", "Newest", "Name A-Z"];
 
   return (
@@ -742,16 +747,16 @@ function AllToolsTable({
                   {/* Tool */}
                   <td className="px-5 py-4">
                     <div className="flex items-center gap-3">
-                      <div className={`w-9 h-9 rounded-xl overflow-hidden ${TOOL_LOGO_URLS[tool.slug] ? "bg-white border border-gray-100 p-0.5" : tool.logoBg} flex items-center justify-center shrink-0`}>
-                        {TOOL_LOGO_URLS[tool.slug] ? (
-                          <Image src={TOOL_LOGO_URLS[tool.slug]} alt={tool.name} width={32} height={32} className="object-contain w-full h-full" />
+                      <div className={`w-9 h-9 rounded-xl overflow-hidden ${tool.logoUrl ? "bg-white border border-gray-100 p-0.5" : tool.logoBg} flex items-center justify-center shrink-0`}>
+                        {tool.logoUrl ? (
+                          <Image src={tool.logoUrl} alt={tool.name} width={32} height={32} className="object-contain w-full h-full" />
                         ) : (
-                          <span className={tool.logoTextClass}>{tool.logoText}</span>
+                          <span className="text-white font-bold text-xs">{tool.logoText}</span>
                         )}
                       </div>
                       <div>
                         <p className="font-bold text-[#1E293B] text-sm">{tool.name}</p>
-                        <p className="text-gray-400 text-xs">{tool.company}</p>
+                        <p className="text-gray-400 text-xs">by {tool.name}</p>
                         <Link
                           href={`/ai-tools/${tool.category}`}
                           className={`inline-block text-[10px] font-semibold px-1.5 py-0.5 rounded-full mt-1 ${CATEGORY_COLOR_MAP[tool.category]} hover:opacity-80 transition-opacity`}
@@ -767,20 +772,20 @@ function AllToolsTable({
                   </td>
                   {/* Key Features */}
                   <td className="px-4 py-4 max-w-xs">
-                    <p className="text-gray-600 text-xs leading-relaxed line-clamp-2">{tool.keyFeatures}</p>
+                    <p className="text-gray-600 text-xs leading-relaxed line-clamp-2">{tool.excerpt}</p>
                   </td>
                   {/* Pricing */}
                   <td className="px-4 py-4">
                     <span
                       className={`inline-block text-xs font-semibold px-2 py-0.5 rounded-full mb-1 ${
-                        tool.pricing === "Freemium"
+                        tool.pricingType === "Freemium"
                           ? "bg-green-50 text-green-700"
                           : "bg-blue-50 text-blue-700"
                       }`}
                     >
-                      {tool.pricing}
+                      {tool.pricingType}
                     </span>
-                    <p className="text-gray-400 text-xs">{tool.pricingDetail}</p>
+                    <p className="text-gray-400 text-xs">{tool.pricing}</p>
                   </td>
                   {/* Rating */}
                   <td className="px-4 py-4">
@@ -808,12 +813,12 @@ function AllToolsTable({
                   <td className="px-4 py-4">
                     <div className="flex flex-col gap-1.5">
                       <Link
-                        href={`/ai-tools/${tool.slug}`}
+                        href={`/tools/${tool.slug}`}
                         className="bg-[#2B7FFF] hover:bg-blue-600 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap text-center block"
                       >
                         Read Review →
                       </Link>
-                      {tool.affiliateHref !== "#" ? (
+                      {tool.affiliateHref ? (
                         <a
                           href={tool.affiliateHref}
                           target="_blank"
@@ -846,18 +851,18 @@ function AllToolsTable({
           {visibleTools.map((tool) => (
             <div key={tool.name} className="border border-gray-100 rounded-2xl p-5 hover:shadow-md transition-all">
               <div className="flex items-start gap-3 mb-3">
-                <div className={`w-10 h-10 rounded-xl overflow-hidden ${TOOL_LOGO_URLS[tool.slug] ? "bg-white border border-gray-100 p-0.5" : tool.logoBg} flex items-center justify-center shrink-0`}>
-                  {TOOL_LOGO_URLS[tool.slug] ? (
-                    <Image src={TOOL_LOGO_URLS[tool.slug]} alt={tool.name} width={36} height={36} className="object-contain w-full h-full" />
+                <div className={`w-10 h-10 rounded-xl overflow-hidden ${tool.logoUrl ? "bg-white border border-gray-100 p-0.5" : tool.logoBg} flex items-center justify-center shrink-0`}>
+                  {tool.logoUrl ? (
+                    <Image src={tool.logoUrl} alt={tool.name} width={36} height={36} className="object-contain w-full h-full" />
                   ) : (
-                    <span className={tool.logoTextClass}>{tool.logoText}</span>
+                    <span className="text-white font-bold text-xs">{tool.logoText}</span>
                   )}
                 </div>
                 <div className="flex-1">
                   <div className="flex items-start justify-between gap-2">
                     <div>
                       <p className="font-bold text-[#1E293B] text-sm">{tool.name}</p>
-                      <p className="text-gray-400 text-xs">{tool.company}</p>
+                      <p className="text-gray-400 text-xs">by {tool.name}</p>
                       <Link
                         href={`/ai-tools/${tool.category}`}
                         className={`inline-block text-[10px] font-semibold px-1.5 py-0.5 rounded-full mt-1 ${CATEGORY_COLOR_MAP[tool.category]} hover:opacity-80 transition-opacity`}
@@ -873,7 +878,7 @@ function AllToolsTable({
                 </div>
               </div>
               <p className="text-gray-600 text-xs mb-1"><span className="font-medium">Best for:</span> {tool.bestFor}</p>
-              <p className="text-gray-600 text-xs mb-3 line-clamp-2">{tool.keyFeatures}</p>
+              <p className="text-gray-600 text-xs mb-3 line-clamp-2">{tool.excerpt}</p>
               <div className="flex items-center justify-between gap-2">
                 <div className="flex gap-1">
                   {tool.industries.map((ind) => (
@@ -883,10 +888,10 @@ function AllToolsTable({
                   ))}
                 </div>
                 <div className="flex gap-2">
-                  <Link href={`/ai-tools/${tool.slug}`} className="bg-[#2B7FFF] text-white text-xs font-semibold px-3 py-1.5 rounded-lg block">
+                  <Link href={`/tools/${tool.slug}`} className="bg-[#2B7FFF] text-white text-xs font-semibold px-3 py-1.5 rounded-lg block">
                     Read Review →
                   </Link>
-                  {tool.affiliateHref !== "#" ? (
+                  {tool.affiliateHref ? (
                     <a href={tool.affiliateHref} target="_blank" rel="sponsored noopener noreferrer" className="border border-gray-200 text-gray-600 text-xs font-semibold px-3 py-1.5 rounded-lg block">
                       Visit ↗
                     </a>
@@ -927,7 +932,7 @@ function AllToolsTable({
 
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
 
-function AIToolsPageContent() {
+function AIToolsPageContent({ tools }: { tools: UseCaseTool[] }) {
   const searchParams = useSearchParams();
   const [searchQuery, setSearchQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("All Categories");
@@ -951,6 +956,7 @@ function AIToolsPageContent() {
       <TopPicksSection />
       <CategoriesSection />
       <AllToolsTable
+        tools={tools}
         searchQuery={searchQuery}
         categoryFilter={categoryFilter}
         setCategoryFilter={setCategoryFilter}
@@ -965,10 +971,10 @@ function AIToolsPageContent() {
   );
 }
 
-export default function AIToolsPage() {
+export default function AIToolsPage({ tools }: { tools: UseCaseTool[] }) {
   return (
     <Suspense fallback={null}>
-      <AIToolsPageContent />
+      <AIToolsPageContent tools={tools} />
     </Suspense>
   );
 }

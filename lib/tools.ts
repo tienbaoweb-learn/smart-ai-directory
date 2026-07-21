@@ -4,6 +4,13 @@ import matter from "gray-matter";
 import readingTime from "reading-time";
 import { TOOL_LOGO_URLS } from "../app/data/tool-logos";
 import type { GridTool } from "../app/components/IndustryToolsGrid";
+import { CATEGORY_LABELS, type AiToolsCategory } from "./ai-tools-categories";
+
+// Re-exported so server code can import everything tools-related from this
+// module; client components must import these from ./ai-tools-categories
+// directly (this module pulls in fs).
+export { CATEGORY_LABELS };
+export type { AiToolsCategory };
 
 const TOOLS_DIR = path.join(process.cwd(), "content/tools");
 
@@ -25,13 +32,6 @@ export type IndustrySlug =
   | "furniture"
   | "interior-design"
   | "real-estate";
-
-export type AiToolsCategory =
-  | "design"
-  | "content-marketing"
-  | "automation"
-  | "sales"
-  | "productivity";
 
 export type ToolFrontmatter = {
   toolName?: string;
@@ -104,7 +104,55 @@ function getMdxFiles(): string[] {
     .filter((f) => !EXCLUDED_SLUGS.has(f.replace(/\.mdx?$/, "")));
 }
 
+// ── Build-time sanity check: content/tools/ is the single source of truth ──
+//
+// A tool's public slug is `frontmatter.slug || filename`. If frontmatter.slug
+// drifts from the filename, the route silently detaches from the file it came
+// from and every filename-based assumption (logo maps, curation lists, this
+// audit trail) breaks without a symptom. Same story for two files claiming
+// the same slug. Fail the build loudly instead. Runs once per process.
+let sourcesValidated = false;
+
+function validateToolSources(): void {
+  if (sourcesValidated) return;
+  const problems: string[] = [];
+  const seen = new Map<string, string>(); // slug -> filename
+
+  for (const filename of getMdxFiles()) {
+    const fileSlug = filename.replace(/\.mdx?$/, "");
+    let fmSlug: string | undefined;
+    try {
+      const { data } = matter(fs.readFileSync(path.join(TOOLS_DIR, filename), "utf-8"));
+      fmSlug = data.slug as string | undefined;
+    } catch {
+      problems.push(`${filename}: unreadable or invalid frontmatter`);
+      continue;
+    }
+    if (fmSlug && fmSlug !== fileSlug) {
+      problems.push(
+        `${filename}: frontmatter slug "${fmSlug}" does not match filename slug "${fileSlug}"`
+      );
+    }
+    const effective = fmSlug || fileSlug;
+    const dup = seen.get(effective);
+    if (dup) {
+      problems.push(`duplicate slug "${effective}": ${dup} and ${filename}`);
+    } else {
+      seen.set(effective, filename);
+    }
+  }
+
+  if (problems.length > 0) {
+    throw new Error(
+      `Tool content validation failed (content/tools/ is the single source of truth):\n` +
+        problems.map((p) => `  - ${p}`).join("\n")
+    );
+  }
+  sourcesValidated = true;
+}
+
 export function getAllTools(): Tool[] {
+  validateToolSources();
   return getMdxFiles()
     .map(readToolFile)
     .filter((t): t is Tool => t !== null)
@@ -322,8 +370,12 @@ export function getRelatedTools(
 export interface UseCaseTool {
   slug: string;
   name: string;
+  /** Normalized use-case category — label it via CATEGORY_LABELS. */
+  category: AiToolsCategory;
   /** Single-industry label for the sidebar filter, or "All" for cross-industry tools. */
   industry: string;
+  /** All industry labels this tool belongs to (for the compare widget's Industries row). */
+  industries: string[];
   rating: number;
   excerpt: string;
   bestFor: string;
@@ -333,6 +385,7 @@ export interface UseCaseTool {
   logoBg: string;
   logoText: string;
   hasReview: true;
+  isFeatured: boolean;
   affiliateHref: string;
 }
 
@@ -369,6 +422,9 @@ function toUseCaseTool(t: Tool): UseCaseTool {
   const f = t.frontmatter;
   const name = f.toolName || f.title.split(":")[0].trim();
   const industries = f.industries ?? [];
+  const industryLabels = industries
+    .map((s) => USE_CASE_INDUSTRY_LABEL[s])
+    .filter((v): v is string => Boolean(v));
   const industry =
     industries.length === 1 ? USE_CASE_INDUSTRY_LABEL[industries[0]] : "All";
   const logo = TOOL_LOGO_URLS[t.slug] ?? f.logoUrl ?? "";
@@ -377,7 +433,11 @@ function toUseCaseTool(t: Tool): UseCaseTool {
   return {
     slug: t.slug,
     name,
+    // All 239 published reviews carry aiToolsCategory; the fallback mirrors
+    // normalizeCategory's own default so the field stays non-nullable.
+    category: normalizeCategory(f.aiToolsCategory) ?? "productivity",
     industry,
+    industries: industryLabels,
     rating: f.rating,
     excerpt: f.excerpt,
     bestFor: f.bestFor[0] ?? f.category,
@@ -387,8 +447,20 @@ function toUseCaseTool(t: Tool): UseCaseTool {
     logoBg: USE_CASE_LOGO_BG[f.category] ?? "bg-slate-700",
     logoText: useCaseInitials(name),
     hasReview: true,
+    isFeatured: f.featured ?? false,
     affiliateHref: f.affiliateLink || f.websiteUrl || "",
   };
+}
+
+/**
+ * Every published review as a UseCaseTool, rating-sorted. Powers the
+ * /ai-tools hub grid and the comparisons page's compare widget — the
+ * consumers that previously read the retired 47-entry app/data/tools.ts.
+ */
+export function getAllUseCaseTools(): UseCaseTool[] {
+  return getAllTools()
+    .sort((a, b) => b.frontmatter.rating - a.frontmatter.rating)
+    .map(toUseCaseTool);
 }
 
 /**
@@ -468,9 +540,9 @@ export function getUseCaseCategoryCounts(): Record<AiToolsCategory, number> {
 // affiliate href).
 
 /**
- * Every review tagged with `tag` (frontmatter.tags), rating-sorted. Replaces
- * the old lib/ai-tools-data.ts curated list, which only covered ~35 tools and
- * had a broken/placeholder affiliateHref on 33 of them.
+ * Every review tagged with `tag` (frontmatter.tags), rating-sorted. Replaced
+ * a since-deleted hand-curated card list that only covered ~35 tools and had
+ * a broken/placeholder affiliateHref on most of them.
  */
 export function getUseCaseToolsByTag(tag: string): UseCaseTool[] {
   return getToolsByTag(tag)

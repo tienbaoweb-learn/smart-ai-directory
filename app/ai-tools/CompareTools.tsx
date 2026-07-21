@@ -3,22 +3,23 @@
 import { useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { CATEGORY_LABELS, type AITool, type ToolCategory } from "../data/tools";
-import { TOOL_LOGO_URLS } from "../data/tool-logos";
+import { CATEGORY_LABELS, type AiToolsCategory } from "@/lib/ai-tools-categories";
+import type { UseCaseTool } from "@/lib/tools";
 
 const MAX_SELECT = 3;
 
 // ── Small logo helper (image from review page, fallback to colored box) ──────────
-function ToolLogo({ tool, size = 48 }: { tool: AITool; size?: number }) {
+// logoUrl is resolved server-side in lib/tools.ts (verified to exist on disk).
+function ToolLogo({ tool, size = 48 }: { tool: UseCaseTool; size?: number }) {
   const dim = { width: size, height: size };
-  if (TOOL_LOGO_URLS[tool.slug]) {
+  if (tool.logoUrl) {
     return (
       <div
         className="rounded-xl bg-white border border-gray-100 flex items-center justify-center overflow-hidden p-1 shrink-0"
         style={{ width: size, height: size }}
       >
         <Image
-          src={TOOL_LOGO_URLS[tool.slug]}
+          src={tool.logoUrl}
           alt={tool.name}
           {...dim}
           className="object-contain w-full h-full"
@@ -31,7 +32,7 @@ function ToolLogo({ tool, size = 48 }: { tool: AITool; size?: number }) {
       className={`rounded-xl ${tool.logoBg} flex items-center justify-center shrink-0`}
       style={{ width: size, height: size }}
     >
-      <span className={tool.logoTextClass}>{tool.logoText}</span>
+      <span className="text-white font-bold text-sm">{tool.logoText}</span>
     </div>
   );
 }
@@ -53,17 +54,17 @@ function StarRow({ rating }: { rating: number }) {
   );
 }
 
-export default function CompareTools({ tools }: { tools: AITool[] }) {
+export default function CompareTools({ tools }: { tools: UseCaseTool[] }) {
   // When the tools span multiple categories (e.g. on the comparisons hub),
   // show a category selector so users only compare tools in the same group.
   const categories = useMemo(
-    () => Array.from(new Set(tools.map((t) => t.category))) as ToolCategory[],
+    () => Array.from(new Set(tools.map((t) => t.category))) as AiToolsCategory[],
     [tools],
   );
   const multiCategory = categories.length > 1;
 
-  const [activeCat, setActiveCat] = useState<ToolCategory>(categories[0]);
-  const [selected, setSelected] = useState<AITool[]>([]);
+  const [activeCat, setActiveCat] = useState<AiToolsCategory>(categories[0]);
+  const [selected, setSelected] = useState<UseCaseTool[]>([]);
   const [pickerSlot, setPickerSlot] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
   const resultRef = useRef<HTMLDivElement>(null);
@@ -77,14 +78,14 @@ export default function CompareTools({ tools }: { tools: AITool[] }) {
   // Trending pairs auto-built from the top-rated tools in the working set.
   const trendingPairs = useMemo(() => {
     const ranked = [...workingTools].sort((a, b) => b.rating - a.rating).slice(0, 6);
-    const pairs: [AITool, AITool][] = [];
+    const pairs: [UseCaseTool, UseCaseTool][] = [];
     for (let i = 0; i + 1 < ranked.length && pairs.length < 3; i += 2) {
       pairs.push([ranked[i], ranked[i + 1]]);
     }
     return pairs;
   }, [workingTools]);
 
-  function changeCategory(cat: ToolCategory) {
+  function changeCategory(cat: AiToolsCategory) {
     setActiveCat(cat);
     setSelected([]);
     setPickerSlot(null);
@@ -94,7 +95,7 @@ export default function CompareTools({ tools }: { tools: AITool[] }) {
   const selectedSlugs = new Set(selected.map((t) => t.slug));
   const available = workingTools.filter((t) => !selectedSlugs.has(t.slug));
 
-  function addTool(tool: AITool) {
+  function addTool(tool: UseCaseTool) {
     setSelected((prev) =>
       prev.length >= MAX_SELECT || prev.some((t) => t.slug === tool.slug)
         ? prev
@@ -109,7 +110,7 @@ export default function CompareTools({ tools }: { tools: AITool[] }) {
     setShowResult(false);
   }
 
-  function compareNow(pair?: [AITool, AITool]) {
+  function compareNow(pair?: [UseCaseTool, UseCaseTool]) {
     if (pair) setSelected(pair);
     setShowResult(true);
     // Defer scroll until the table renders.
@@ -121,7 +122,7 @@ export default function CompareTools({ tools }: { tools: AITool[] }) {
   const slots = Array.from({ length: MAX_SELECT }, (_, i) => selected[i] ?? null);
   const canCompare = selected.length >= 2;
 
-  const rows: { label: string; render: (t: AITool) => React.ReactNode }[] = [
+  const rows: { label: string; render: (t: UseCaseTool) => React.ReactNode }[] = [
     {
       label: "Rating",
       render: (t) => (
@@ -137,23 +138,23 @@ export default function CompareTools({ tools }: { tools: AITool[] }) {
         <div>
           <span
             className={`inline-block text-xs font-semibold px-2 py-0.5 rounded-full ${
-              t.pricing === "Freemium"
+              t.pricingType === "Freemium"
                 ? "bg-green-50 text-green-700"
-                : t.pricing === "Free"
+                : t.pricingType === "Free"
                   ? "bg-teal-50 text-teal-700"
                   : "bg-blue-50 text-blue-700"
             }`}
           >
-            {t.pricing}
+            {t.pricingType}
           </span>
-          <p className="text-xs text-gray-500 mt-1">{t.pricingDetail}</p>
+          <p className="text-xs text-gray-500 mt-1">{t.pricing}</p>
         </div>
       ),
     },
     { label: "Best For", render: (t) => <span className="text-xs text-gray-600">{t.bestFor}</span> },
     {
       label: "Key Features",
-      render: (t) => <span className="text-xs text-gray-600 leading-relaxed">{t.keyFeatures}</span>,
+      render: (t) => <span className="text-xs text-gray-600 leading-relaxed">{t.excerpt}</span>,
     },
     {
       label: "Industries",
@@ -198,7 +199,7 @@ export default function CompareTools({ tools }: { tools: AITool[] }) {
                 <div className="relative">
                   <select
                     value={activeCat}
-                    onChange={(e) => changeCategory(e.target.value as ToolCategory)}
+                    onChange={(e) => changeCategory(e.target.value as AiToolsCategory)}
                     className="appearance-none border border-gray-200 rounded-lg pl-3 pr-8 py-2 text-sm text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-[#F97316] cursor-pointer"
                   >
                     {categories.map((c) => (

@@ -30,7 +30,7 @@ import Navbar from "../../components/Navbar";
 import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
 import { comparisonsData } from "../../../lib/comparisons-data";
-import { ALL_TOOLS } from "../../data/tools";
+import { getAllUseCaseTools } from "../../../lib/tools";
 import CompareTools from "../../ai-tools/CompareTools";
 import FeaturedComparisons from "./FeaturedComparisons";
 import LatestComparisons from "./LatestComparisons";
@@ -360,7 +360,7 @@ export default function ComparisonsPage() {
       </section>
 
       {/* ── Compare AI Tools (interactive) ── */}
-      <CompareTools tools={ALL_TOOLS} />
+      <CompareTools tools={getAllUseCaseTools()} />
 
       {/* ── SECTION 5: Featured Comparisons ── */}
       <FeaturedComparisons comparisons={FEATURED_COMPARISONS} featBadge={FEAT_BADGE} />
