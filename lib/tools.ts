@@ -312,3 +312,168 @@ export function getRelatedTools(
 
   return { hub, siblings };
 }
+
+// ── AI-tools use-case pillar pages (design/automation/productivity/sales/content-marketing) ──
+//
+// Plain, serializable shape for the 5 /ai-tools/[usecase] client pages —
+// resolved server-side (uses fs via getAllTools) and passed as a prop, same
+// pattern as GridTool for the industry/best-of hubs.
+
+export interface UseCaseTool {
+  slug: string;
+  name: string;
+  /** Single-industry label for the sidebar filter, or "All" for cross-industry tools. */
+  industry: string;
+  rating: number;
+  excerpt: string;
+  bestFor: string;
+  pricingType: PricingType;
+  pricing: string;
+  logoUrl: string;
+  logoBg: string;
+  logoText: string;
+  hasReview: true;
+  affiliateHref: string;
+}
+
+const USE_CASE_INDUSTRY_LABEL: Record<IndustrySlug, string> = {
+  furniture: "Furniture",
+  architecture: "Architecture",
+  construction: "Construction",
+  "interior-design": "Interior Design",
+  "real-estate": "Real Estate",
+};
+
+// Same category → color mapping as the tool review page's logo chip, so a
+// tool's fallback color is consistent whether it's rendered on its own review
+// or on a use-case pillar page.
+const USE_CASE_LOGO_BG: Record<string, string> = {
+  Furniture: "bg-orange-600",
+  Architecture: "bg-blue-700",
+  Construction: "bg-amber-600",
+  "Real Estate": "bg-purple-700",
+  "Cross-niche": "bg-slate-700",
+};
+
+function useCaseInitials(name: string): string {
+  return name
+    .split(" ")
+    .map((w) => w[0])
+    .filter(Boolean)
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
+}
+
+function toUseCaseTool(t: Tool): UseCaseTool {
+  const f = t.frontmatter;
+  const name = f.toolName || f.title.split(":")[0].trim();
+  const industries = f.industries ?? [];
+  const industry =
+    industries.length === 1 ? USE_CASE_INDUSTRY_LABEL[industries[0]] : "All";
+  const logo = TOOL_LOGO_URLS[t.slug] ?? f.logoUrl ?? "";
+  const logoUrl =
+    logo && fs.existsSync(path.join(process.cwd(), "public", logo)) ? logo : "";
+  return {
+    slug: t.slug,
+    name,
+    industry,
+    rating: f.rating,
+    excerpt: f.excerpt,
+    bestFor: f.bestFor[0] ?? f.category,
+    pricingType: f.pricingType ?? "Custom",
+    pricing: f.pricing ?? "Contact for pricing",
+    logoUrl,
+    logoBg: USE_CASE_LOGO_BG[f.category] ?? "bg-slate-700",
+    logoText: useCaseInitials(name),
+    hasReview: true,
+    affiliateHref: f.affiliateLink || f.websiteUrl || "",
+  };
+}
+
+/**
+ * All reviews eligible for a /ai-tools/[usecase] pillar page: every review
+ * whose (normalized) `aiToolsCategory` matches, regardless of whether it also
+ * carries a `bestOf` industry tag — a tool can legitimately appear on both an
+ * industry hub and a use-case hub, these are independent browsing axes.
+ *
+ * `featuredSlugs` pins specific tools to the front (editorial curation) in the
+ * given order; everything else follows, sorted by rating (desc). Throws at
+ * build time if a slug doesn't resolve to a real review, or resolves to one
+ * whose real category doesn't match `category` — catches curation drift
+ * immediately instead of silently dropping/misplacing a featured tool.
+ */
+export function getUseCaseTools(
+  category: AiToolsCategory,
+  featuredSlugs: string[] = []
+): UseCaseTool[] {
+  const all = getAllTools();
+  const eligible = all.filter(
+    (t) => normalizeCategory(t.frontmatter.aiToolsCategory) === category
+  );
+
+  for (const slug of featuredSlugs) {
+    const tool = all.find((t) => t.slug === slug);
+    if (!tool) {
+      throw new Error(
+        `getUseCaseTools("${category}"): featuredSlugs contains "${slug}", which has no matching review in content/tools/. Fix the slug or remove it.`
+      );
+    }
+    const norm = normalizeCategory(tool.frontmatter.aiToolsCategory);
+    if (norm !== category) {
+      throw new Error(
+        `getUseCaseTools("${category}"): featuredSlugs contains "${slug}", but its aiToolsCategory ("${tool.frontmatter.aiToolsCategory}") normalizes to "${norm}", not "${category}". Move it to the matching use-case page or fix its frontmatter.`
+      );
+    }
+  }
+
+  const featuredSet = new Set(featuredSlugs);
+  const featured = featuredSlugs
+    .map((slug) => eligible.find((t) => t.slug === slug))
+    .filter((t): t is Tool => Boolean(t));
+  const rest = eligible
+    .filter((t) => !featuredSet.has(t.slug))
+    .sort((a, b) => b.frontmatter.rating - a.frontmatter.rating);
+
+  return [...featured, ...rest].map(toUseCaseTool);
+}
+
+/**
+ * Eligible-tool count per use-case category (same normalization as
+ * getUseCaseTools). Powers the "N Tools" label on each use-case page's
+ * "Explore Other Categories" cross-links, so those counts stay in sync with
+ * the real grid instead of a stale hardcoded number.
+ */
+export function getUseCaseCategoryCounts(): Record<AiToolsCategory, number> {
+  const counts: Record<AiToolsCategory, number> = {
+    design: 0,
+    "content-marketing": 0,
+    automation: 0,
+    sales: 0,
+    productivity: 0,
+  };
+  for (const t of getAllTools()) {
+    const cat = normalizeCategory(t.frontmatter.aiToolsCategory);
+    if (cat) counts[cat]++;
+  }
+  return counts;
+}
+
+// ── Tag pages ──────────────────────────────────────────────────────────────
+//
+// Plain, serializable shape for the /tags/[slug] client page's "AI Tools"
+// section — same rationale as GridTool/UseCaseTool: resolved server-side,
+// passed down as a prop. Reuses the UseCaseTool shape (it already carries
+// everything the tag-page card needs: review link data + confirmed-or-empty
+// affiliate href).
+
+/**
+ * Every review tagged with `tag` (frontmatter.tags), rating-sorted. Replaces
+ * the old lib/ai-tools-data.ts curated list, which only covered ~35 tools and
+ * had a broken/placeholder affiliateHref on 33 of them.
+ */
+export function getUseCaseToolsByTag(tag: string): UseCaseTool[] {
+  return getToolsByTag(tag)
+    .sort((a, b) => b.frontmatter.rating - a.frontmatter.rating)
+    .map(toUseCaseTool);
+}

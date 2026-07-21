@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import Link from "next/link";
 import { BookOpen, Clock, Tag, Zap, FileText, GitCompare, Star, Hash } from "lucide-react";
 import Navbar from "../../components/Navbar";
@@ -12,16 +11,19 @@ import { guidesData } from "@/lib/guides-data";
 import { tutorialsData } from "@/lib/tutorials-data";
 import { comparisonsData } from "@/lib/comparisons-data";
 import { workflowsData } from "@/lib/workflows-data";
-import { aiToolCards } from "@/lib/ai-tools-data";
-import { TOOL_LOGO_URLS } from "../../data/tool-logos";
+import type { UseCaseTool } from "@/lib/tools";
 
-export default function TagPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = React.use(params);
-
+export default function TagPage({
+  slug,
+  relatedTools,
+}: {
+  slug: string;
+  /** Resolved server-side in page.tsx via getUseCaseToolsByTag (uses fs). */
+  relatedTools: UseCaseTool[];
+}) {
   const tag = tagsData.find((t) => t.slug === slug);
   const tagName = tag?.name ?? slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 
-  const relatedTools       = aiToolCards.filter((t) => t.tags.includes(slug));
   const relatedGuides      = guidesData.filter((g) => g.tags.includes(slug));
   const relatedTutorials   = tutorialsData.filter((t) => t.tags.includes(slug));
   const relatedCaseStudies = caseStudiesData.filter((c) => c.tags.includes(slug));
@@ -86,39 +88,73 @@ export default function TagPage({ params }: { params: Promise<{ slug: string }> 
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {relatedTools.map((tool) => (
-                <Link
+                <div
                   key={tool.slug}
-                  href={tool.affiliateHref}
-                  className="bg-white rounded-2xl border border-gray-200 p-5 hover:shadow-md transition-shadow"
+                  className="group bg-white rounded-2xl border border-gray-200 p-5 hover:shadow-md transition-shadow flex flex-col"
                 >
-                  <div className="flex items-center gap-3 mb-3">
-                    {TOOL_LOGO_URLS[tool.slug] ? (
+                  {/* Title + image → internal review page. Default click target. */}
+                  <Link
+                    href={`/tools/${tool.slug}`}
+                    className="flex items-center gap-3 mb-3"
+                  >
+                    {tool.logoUrl ? (
                       <img
-                        src={TOOL_LOGO_URLS[tool.slug]}
+                        src={tool.logoUrl}
                         alt={tool.name}
                         className="w-10 h-10 rounded-xl object-contain bg-white border border-gray-100"
                       />
                     ) : (
-                      <div className={`w-10 h-10 rounded-xl ${tool.logo.bg} flex items-center justify-center text-white font-bold text-sm`}>
-                        {tool.logo.text}
+                      <div className={`w-10 h-10 rounded-xl ${tool.logoBg} flex items-center justify-center text-white font-bold text-sm`}>
+                        {tool.logoText}
                       </div>
                     )}
                     <div>
-                      <div className="font-semibold text-gray-900">{tool.name}</div>
-                      <div className="text-xs text-gray-500">{tool.category}</div>
+                      <div className="font-semibold text-gray-900 group-hover:text-orange-600 transition-colors">
+                        {tool.name}
+                      </div>
+                      <div className="text-xs text-gray-500">{tool.industry}</div>
                     </div>
-                  </div>
-                  <p className="text-sm text-gray-600 line-clamp-2">{tool.shortDesc}</p>
+                  </Link>
+                  <p className="text-sm text-gray-600 line-clamp-2 flex-1">{tool.excerpt}</p>
                   <div className="flex items-center justify-between mt-3">
                     <span className="text-xs text-gray-500">{tool.pricing}</span>
                     <div className="flex items-center gap-1 text-xs text-orange-500 font-medium">
                       <Star className="w-3 h-3 fill-orange-400 stroke-orange-400" />
-                      {tool.editorialRating}
+                      {tool.rating.toFixed(1)}
                     </div>
                   </div>
-                </Link>
+                  <div className="flex items-center gap-4 mt-3 pt-3 border-t border-gray-100">
+                    <Link
+                      href={`/tools/${tool.slug}`}
+                      className="text-orange-600 text-xs font-semibold hover:underline"
+                    >
+                      Read review →
+                    </Link>
+                    {/* Secondary CTA — only when a confirmed affiliate link exists. Never "#". */}
+                    {tool.affiliateHref && (
+                      <a
+                        href={tool.affiliateHref}
+                        target="_blank"
+                        rel="sponsored nofollow"
+                        className="text-gray-500 text-xs font-medium hover:text-gray-700 hover:underline"
+                      >
+                        Visit site ↗
+                      </a>
+                    )}
+                  </div>
+                </div>
               ))}
             </div>
+            {relatedTools.some((t) => t.affiliateHref) && (
+              <p className="text-xs text-gray-400 mt-4">
+                Some &ldquo;Visit site&rdquo; links are affiliate links — we may
+                earn a commission at no extra cost to you. See our{" "}
+                <Link href="/affiliate-disclosure" className="underline hover:text-gray-600">
+                  affiliate disclosure
+                </Link>
+                .
+              </p>
+            )}
           </section>
         )}
 
