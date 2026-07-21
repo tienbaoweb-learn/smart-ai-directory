@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import BestInteriorDesignClient, { FAQ_ITEMS } from "./BestInteriorDesignClient";
+import BestInteriorDesignClient from "./BestInteriorDesignClient";
+import { FAQ_ITEMS } from "./faq-items";
 import { getIndustryGridTools } from "../../../lib/tools";
 
 export const metadata: Metadata = {
@@ -16,19 +17,6 @@ export const metadata: Metadata = {
   },
 };
 
-// Serialized from the same FAQ_ITEMS array the page renders as a visible
-// accordion (BestInteriorDesignClient) — text here must never drift from
-// what's on the page.
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: FAQ_ITEMS.map((item) => ({
-    "@type": "Question",
-    name: item.q,
-    acceptedAnswer: { "@type": "Answer", text: item.a },
-  })),
-};
-
 // Reflects the visible breadcrumb: Home > Best Of > Best AI Tools for
 // Interior Designers.
 const breadcrumbSchema = {
@@ -43,6 +31,22 @@ const breadcrumbSchema = {
 
 export default function Page() {
   const allTools = getIndustryGridTools("interior-design");
+
+  // Computed inside the component (not at module scope) — FAQ_ITEMS is
+  // exported from a "use client" module, and evaluating .map() on it at
+  // server-module top level breaks the production build. Serialized from
+  // the same array the page renders as a visible accordion
+  // (BestInteriorDesignClient) — text here must never drift from what's on
+  // the page.
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: FAQ_ITEMS.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
+  };
 
   // Data-driven from the exact same list rendered on the page — never drifts.
   const collectionSchema = {

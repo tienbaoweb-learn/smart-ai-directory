@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import AIGlossaryClient, { GLOSSARY_TERMS } from "./AIGlossaryClient";
+import AIGlossaryClient from "./AIGlossaryClient";
+import { GLOSSARY_TERMS } from "./glossary-terms";
 
 export const metadata: Metadata = {
   title: "AI Glossary: Key AI Terms Explained | SmartAI for Work",
@@ -28,8 +29,9 @@ const breadcrumbSchema = {
 // DefinedTermSet (not CollectionPage/ItemList): a glossary is a set of terms
 // defined on this one page, not a list of separate detail pages — there's no
 // per-term url to point to, so this is the schema.org type that actually
-// matches the content instead of fabricating urls. Serialized from the same
-// GLOSSARY_TERMS array the page renders.
+// matches the content instead of fabricating urls. GLOSSARY_TERMS lives in
+// ./glossary-terms.ts (plain module) so this can never drift from what
+// AIGlossaryClient renders.
 const glossarySchema = {
   "@context": "https://schema.org",
   "@type": "DefinedTermSet",
