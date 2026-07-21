@@ -34,8 +34,49 @@ const FEATURED_SLUGS = [
   "reimagine-home", // moved here from the sales page — its real frontmatter aiToolsCategory is "design", not "sales"
 ];
 
+// Reflects the visible breadcrumb: Home > AI Tools > AI Design & Visualization.
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.smartaiforwork.com/" },
+    { "@type": "ListItem", position: 2, name: "AI Tools", item: "https://www.smartaiforwork.com/ai-tools" },
+    { "@type": "ListItem", position: 3, name: "AI Design & Visualization", item: "https://www.smartaiforwork.com/ai-tools/design" },
+  ],
+};
+
 export default function Page() {
   const tools = getUseCaseTools("design", FEATURED_SLUGS);
   const categoryCounts = getUseCaseCategoryCounts();
-  return <DesignToolsClient tools={tools} categoryCounts={categoryCounts} />;
+
+  // Data-driven from the exact same list rendered on the page — never drifts.
+  const collectionSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "AI Design & Visualization Tools",
+    url: "https://www.smartaiforwork.com/ai-tools/design",
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: tools.slice(0, 30).map((t, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: t.name,
+        url: `https://www.smartaiforwork.com/tools/${t.slug}`,
+      })),
+    },
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
+      />
+      <DesignToolsClient tools={tools} categoryCounts={categoryCounts} />
+    </>
+  );
 }
