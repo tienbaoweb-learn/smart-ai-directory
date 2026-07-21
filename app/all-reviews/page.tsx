@@ -76,6 +76,16 @@ function resolveLogo(slug: string, frontmatterLogo?: string): string {
   return fs.existsSync(path.join(process.cwd(), "public", logo)) ? logo : "";
 }
 
+// Reflects the visible breadcrumb: Home > All Reviews.
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.smartaiforwork.com/" },
+    { "@type": "ListItem", position: 2, name: "All Reviews", item: "https://www.smartaiforwork.com/all-reviews" },
+  ],
+};
+
 export default function AllReviewsPage() {
   // Pull the real review articles so cards (and their logos) stay in sync with each review.
   const tools: ReviewTool[] = getAllTools()
@@ -98,5 +108,35 @@ export default function AllReviewsPage() {
       };
     });
 
-  return <AllReviewsClient tools={tools} />;
+  // Data-driven from the exact same list rendered on the page — never drifts.
+  // Capped at 30 per the session's ItemList guidance (239 reviews total).
+  const collectionSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "All AI Tool Reviews",
+    url: "https://www.smartaiforwork.com/all-reviews",
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: tools.slice(0, 30).map((t, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: t.name,
+        url: `https://www.smartaiforwork.com/tools/${t.slug}`,
+      })),
+    },
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
+      />
+      <AllReviewsClient tools={tools} />
+    </>
+  );
 }

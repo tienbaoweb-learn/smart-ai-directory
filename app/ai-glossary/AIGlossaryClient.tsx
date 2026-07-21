@@ -30,7 +30,7 @@ const TERM_THEME: Record<string, { iconBg: string; iconColor: string }> = {
 
 // ─── A-Z GLOSSARY DATA ────────────────────────────────────────────────────────
 
-const GLOSSARY_TERMS = [
+export const GLOSSARY_TERMS = [
   { term: "AI Agent",                      category: "AI Tools & Platforms",    def: "An AI system that can perform tasks autonomously, often by using tools or making decisions on its own." },
   { term: "API",                           category: "AI Tools & Platforms",    def: "A way for different software programs to communicate with each other, often used to connect AI tools." },
   { term: "Bias (AI Bias)",               category: "AI Ethics",               def: "Unfair or skewed results from an AI model, often caused by imbalanced training data." },
