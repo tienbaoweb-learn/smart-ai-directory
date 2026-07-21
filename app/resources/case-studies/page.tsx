@@ -199,9 +199,48 @@ export const metadata: Metadata = {
   },
 };
 
+// Reflects the visible breadcrumb: Home > Resources > Case Studies.
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.smartaiforwork.com/" },
+    { "@type": "ListItem", position: 2, name: "Resources", item: "https://www.smartaiforwork.com/resources" },
+    { "@type": "ListItem", position: 3, name: "Case Studies", item: "https://www.smartaiforwork.com/resources/case-studies" },
+  ],
+};
+
+// Only FEATURED_REAL_CASES has a real detail page (content/case-studies) —
+// LATEST_CASES (caseStudiesData minus featured) is listing-chrome only and
+// renders without a link on this same page, so it must never get a schema
+// url either.
+const collectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "AI Case Studies",
+  url: "https://www.smartaiforwork.com/resources/case-studies",
+  mainEntity: {
+    "@type": "ItemList",
+    itemListElement: FEATURED_REAL_CASES.map((cs, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: cs.title,
+      url: `https://www.smartaiforwork.com${cs.href}`,
+    })),
+  },
+};
+
 export default function CaseStudiesPage() {
   return (
     <div className="min-h-screen bg-white font-sans text-[#1E293B]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
+      />
       <Navbar />
 
       {/* ── Breadcrumb ── */}

@@ -125,9 +125,45 @@ export const metadata: Metadata = {
   },
 };
 
+// Reflects the visible breadcrumb: Home > Resources > Guides.
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.smartaiforwork.com/" },
+    { "@type": "ListItem", position: 2, name: "Resources", item: "https://www.smartaiforwork.com/resources" },
+    { "@type": "ListItem", position: 3, name: "Guides", item: "https://www.smartaiforwork.com/resources/guides" },
+  ],
+};
+
+// Data-driven from the exact same list rendered on the page — never drifts.
+const collectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "AI Guides",
+  url: "https://www.smartaiforwork.com/resources/guides",
+  mainEntity: {
+    "@type": "ItemList",
+    itemListElement: guidesData.slice(0, 30).map((g, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: g.title,
+      url: `https://www.smartaiforwork.com${g.href}`,
+    })),
+  },
+};
+
 export default function GuidesPage() {
   return (
     <div className="min-h-screen bg-white font-sans text-[#1E293B]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
+      />
       <Navbar />
 
       {/* ── Breadcrumb ── */}
