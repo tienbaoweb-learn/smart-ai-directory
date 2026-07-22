@@ -58,6 +58,7 @@ import FAQAccordion, {
 import PricingPlans from "../../components/tools/PricingPlans";
 import { getComparisonsForTool } from "../../../lib/comparisons";
 import { getWorkflowsForTool } from "../../../lib/workflows-data";
+import { getAlternativesBySlug } from "../../../lib/alternatives";
 
 // ── generateStaticParams + generateMetadata ────────────────────────────────────
 
@@ -726,6 +727,9 @@ export default async function ToolReviewPage({
     href: w.href,
     title: w.title,
   }));
+
+  // ── Alternatives page for this tool (auto from lib/alternatives.ts) ────────
+  const toolAlternatives = getAlternativesBySlug(slug);
 
   // ── Related tools + hub (dual-axis internal linking) ───────────────────────
   const { hub: relatedHub, siblings: relatedSiblings } = getRelatedTools(
@@ -1794,6 +1798,26 @@ export default async function ToolReviewPage({
                       </Link>
                     ))}
                   </div>
+                </div>
+              )}
+
+              {/* Alternatives page for this tool (auto from lib/alternatives.ts) */}
+              {toolAlternatives && (
+                <div className="scroll-mt-24">
+                  <h2 className="text-2xl font-bold text-[#1E293B] mb-4">
+                    Looking for Alternatives?
+                  </h2>
+                  <Link
+                    href={`/alternatives/${toolAlternatives.incumbentSlug}`}
+                    className="group flex items-center justify-between gap-3 border border-gray-100 rounded-xl p-4 bg-white hover:shadow-md hover:border-blue-200 transition-all"
+                  >
+                    <span className="font-semibold text-sm text-[#1E293B] group-hover:text-blue-600">
+                      {toolAlternatives.alternativeSlugs.length} Best {toolName} Alternatives
+                    </span>
+                    <span className="text-blue-600 text-xs font-medium group-hover:underline shrink-0">
+                      Compare →
+                    </span>
+                  </Link>
                 </div>
               )}
 
