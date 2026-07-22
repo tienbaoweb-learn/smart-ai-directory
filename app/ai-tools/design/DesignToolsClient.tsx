@@ -7,12 +7,15 @@ import Navbar from "../../components/Navbar";
 import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
 import { ALL_TOOLS, CATEGORY_LABELS } from "../../data/tools";
-import { TOOL_LOGO_URLS } from "../../data/tool-logos";
+import type { UseCaseTool } from "@/lib/tools";
 import CompareTools from "../CompareTools";
 
 // ─── CONSTANTS ────────────────────────────────────────────────────────────────
 
-const DESIGN_TOOLS = ALL_TOOLS.filter((t) => t.category === "design");
+// The embedded "Compare 2 tools" widget below still draws from the legacy
+// curated dataset (unchanged) — see the Session A wrap-up notes on why this
+// wasn't migrated together with the main grid.
+const COMPARE_WIDGET_TOOLS = ALL_TOOLS.filter((t) => t.category === "design");
 
 const INDUSTRY_OPTIONS = [
   { label: "All Industries", value: "All" },
@@ -109,9 +112,9 @@ function StarRating({ rating }: { rating: number }) {
   );
 }
 
-function getIndustryCount(value: string) {
-  if (value === "All") return DESIGN_TOOLS.length;
-  return DESIGN_TOOLS.filter(
+function getIndustryCount(tools: UseCaseTool[], value: string) {
+  if (value === "All") return tools.length;
+  return tools.filter(
     (t) => t.industry === value || t.industry === "All"
   ).length;
 }
@@ -141,20 +144,22 @@ function BreadcrumbSection() {
 const POPULAR_SEARCHES = ["3D Rendering", "Interior Design", "Midjourney", "D5 Render", "Visualization"];
 
 function HeroSection({
+  tools,
   searchQuery,
   setSearchQuery,
 }: {
+  tools: UseCaseTool[];
   searchQuery: string;
   setSearchQuery: (v: string) => void;
 }) {
   const avgRating =
-    DESIGN_TOOLS.length > 0
-      ? (DESIGN_TOOLS.reduce((sum, t) => sum + t.rating, 0) / DESIGN_TOOLS.length).toFixed(1)
+    tools.length > 0
+      ? (tools.reduce((sum, t) => sum + t.rating, 0) / tools.length).toFixed(1)
       : "—";
 
   const stats = [
     {
-      value: "20+",
+      value: `${tools.length}+`,
       label: "Tools Reviewed",
       icon: (
         <svg className="w-4 h-4 text-[#F97316]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
@@ -281,18 +286,18 @@ function ToolRow({
   tool,
   onReset,
 }: {
-  tool: (typeof ALL_TOOLS)[0];
+  tool: UseCaseTool;
   onReset: () => void;
 }) {
   void onReset;
   return (
     <div className="flex flex-col sm:flex-row gap-4 p-5 bg-white border border-gray-100 rounded-2xl hover:border-orange-200 hover:shadow-sm transition-all">
       {/* Logo */}
-      <div className={`w-14 h-14 rounded-xl overflow-hidden ${TOOL_LOGO_URLS[tool.slug] ? "bg-white border border-gray-100 p-1" : tool.logoBg} flex items-center justify-center shrink-0`}>
-        {TOOL_LOGO_URLS[tool.slug] ? (
-          <Image src={TOOL_LOGO_URLS[tool.slug]} alt={tool.name} width={56} height={56} className="object-contain w-full h-full" />
+      <div className={`w-14 h-14 rounded-xl overflow-hidden ${tool.logoUrl ? "bg-white border border-gray-100 p-1" : tool.logoBg} flex items-center justify-center shrink-0`}>
+        {tool.logoUrl ? (
+          <Image src={tool.logoUrl} alt={tool.name} width={56} height={56} className="object-contain w-full h-full" />
         ) : (
-          <span className={tool.logoTextClass}>{tool.logoText}</span>
+          <span className="text-white font-bold text-sm">{tool.logoText}</span>
         )}
       </div>
 
@@ -306,10 +311,10 @@ function ToolRow({
         </div>
         <div className="flex items-center gap-2 mb-2">
           <StarRating rating={tool.rating} />
-          <span className="font-bold text-[#1E293B] text-xs">{tool.rating}</span>
+          <span className="font-bold text-[#1E293B] text-xs">{tool.rating.toFixed(1)}</span>
           <span className="text-gray-400 text-xs">Editorial Rating</span>
         </div>
-        <p className="text-gray-500 text-sm leading-relaxed line-clamp-2">{tool.keyFeatures}</p>
+        <p className="text-gray-500 text-sm leading-relaxed line-clamp-2">{tool.excerpt}</p>
         <p className="text-gray-400 text-xs mt-1">{tool.bestFor}</p>
       </div>
 
@@ -317,35 +322,32 @@ function ToolRow({
       <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-start gap-3 shrink-0">
         <div className="text-right">
           <span className={`inline-block text-xs font-semibold px-2 py-0.5 rounded-full mb-1 ${
-            tool.pricing === "Freemium" ? "bg-green-50 text-green-700" :
-            tool.pricing === "Free"     ? "bg-blue-50 text-blue-700" :
-                                          "bg-orange-50 text-orange-700"
+            tool.pricingType === "Freemium" ? "bg-green-50 text-green-700" :
+            tool.pricingType === "Free"     ? "bg-blue-50 text-blue-700" :
+                                              "bg-orange-50 text-orange-700"
           }`}>
-            {tool.pricing}
+            {tool.pricingType}
           </span>
-          <p className="text-gray-400 text-xs">{tool.pricingDetail}</p>
+          <p className="text-gray-400 text-xs">{tool.pricing}</p>
         </div>
         <div className="flex sm:flex-col gap-2">
-          {tool.hasReview ? (
-            <Link
-              href={`/tools/${tool.slug}`}
-              className="text-xs font-semibold border border-gray-200 text-gray-600 hover:border-gray-300 px-3 py-1.5 rounded-lg whitespace-nowrap transition-colors"
-            >
-              Read Review
-            </Link>
-          ) : (
-            <span className="text-xs font-semibold border border-gray-200 text-gray-400 px-3 py-1.5 rounded-lg whitespace-nowrap cursor-default">
-              Review Coming Soon
-            </span>
-          )}
-          <a
-            href={tool.affiliateHref}
-            target="_blank"
-            rel="sponsored noopener noreferrer"
-            className="text-xs font-semibold bg-[#2B7FFF] hover:bg-blue-600 text-white px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap"
+          <Link
+            href={`/tools/${tool.slug}`}
+            className="text-xs font-semibold border border-gray-200 text-gray-600 hover:border-gray-300 px-3 py-1.5 rounded-lg whitespace-nowrap transition-colors"
           >
-            Visit Website →
-          </a>
+            Read Review
+          </Link>
+          {/* Never fall back to "#" — only render when a confirmed affiliate/website link exists. */}
+          {tool.affiliateHref && (
+            <a
+              href={tool.affiliateHref}
+              target="_blank"
+              rel="sponsored noopener noreferrer"
+              className="text-xs font-semibold bg-[#2B7FFF] hover:bg-blue-600 text-white px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap"
+            >
+              Visit Website →
+            </a>
+          )}
         </div>
       </div>
     </div>
@@ -378,7 +380,11 @@ const COMPARE_SLOTS = [
   { name: "Canva AI",    bg: "bg-[#00C4CC]", initials: "CA" },
 ];
 
-function ExploreOtherCategories() {
+function ExploreOtherCategories({
+  categoryCounts,
+}: {
+  categoryCounts: Record<string, number>;
+}) {
   return (
     <section className="py-12 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -386,7 +392,7 @@ function ExploreOtherCategories() {
         <p className="text-gray-500 text-sm mb-8">Find AI tools across every use case for your workflow.</p>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {OTHER_CATEGORIES.map((cat) => {
-            const count = ALL_TOOLS.filter((t) => t.category === cat.value).length;
+            const count = categoryCounts[cat.value] ?? 0;
             return (
               <Link
                 key={cat.value}
@@ -414,7 +420,13 @@ function ExploreOtherCategories() {
 
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
 
-export default function DesignToolsPage() {
+export default function DesignToolsPage({
+  tools: allTools,
+  categoryCounts,
+}: {
+  tools: UseCaseTool[];
+  categoryCounts: Record<string, number>;
+}) {
   const [searchQuery, setSearchQuery] = useState("");
   const [industryFilter, setIndustryFilter] = useState("All");
   const [pricingFilters, setPricingFilters] = useState<string[]>([]);
@@ -434,7 +446,7 @@ export default function DesignToolsPage() {
   };
 
   const filtered = useMemo(() => {
-    let tools = DESIGN_TOOLS;
+    let tools = allTools;
 
     if (industryFilter !== "All") {
       tools = tools.filter(
@@ -443,7 +455,7 @@ export default function DesignToolsPage() {
     }
 
     if (pricingFilters.length > 0) {
-      tools = tools.filter((t) => pricingFilters.includes(t.pricing));
+      tools = tools.filter((t) => pricingFilters.includes(t.pricingType));
     }
 
     if (ratingFilter === "4.5") {
@@ -461,7 +473,7 @@ export default function DesignToolsPage() {
     }
 
     return tools;
-  }, [searchQuery, industryFilter, pricingFilters, ratingFilter, sortBy]);
+  }, [allTools, searchQuery, industryFilter, pricingFilters, ratingFilter, sortBy]);
 
   const hasActiveFilters =
     industryFilter !== "All" || pricingFilters.length > 0 || ratingFilter !== "all";
@@ -470,7 +482,7 @@ export default function DesignToolsPage() {
     <div className="min-h-screen bg-white font-sans text-slate-900">
       <Navbar />
       <BreadcrumbSection />
-      <HeroSection searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      <HeroSection tools={allTools} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
       {/* Two-column layout */}
       <section id="all-tools" className="py-10 sm:py-14 bg-white scroll-mt-24">
@@ -486,7 +498,7 @@ export default function DesignToolsPage() {
                   <h3 className="font-bold text-[#1E293B] text-sm mb-3">Industry</h3>
                   <div className="space-y-2">
                     {INDUSTRY_OPTIONS.map((opt) => {
-                      const count = getIndustryCount(opt.value);
+                      const count = getIndustryCount(allTools, opt.value);
                       return (
                         <label key={opt.value} className="flex items-center justify-between gap-2 cursor-pointer group">
                           <div className="flex items-center gap-2">
@@ -595,8 +607,8 @@ export default function DesignToolsPage() {
         </div>
       </section>
 
-      <CompareTools tools={DESIGN_TOOLS} />
-      <ExploreOtherCategories />
+      <CompareTools tools={COMPARE_WIDGET_TOOLS} />
+      <ExploreOtherCategories categoryCounts={categoryCounts} />
       <Newsletter />
       <Footer />
     </div>

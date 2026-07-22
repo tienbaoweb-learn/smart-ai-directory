@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { tagsData } from "@/lib/tags-data";
+import { getUseCaseToolsByTag } from "@/lib/tools";
 import TagPageClient from "./TagPageClient";
 
 export function generateStaticParams() {
@@ -34,10 +35,15 @@ export async function generateMetadata({
   };
 }
 
-export default function Page({
+export default async function Page({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  return <TagPageClient params={params} />;
+  const { slug } = await params;
+  // Resolved server-side (getUseCaseToolsByTag uses fs via getAllTools) and
+  // passed down as a plain prop — this is what powers the tag page's
+  // "AI Tools" section; see lib/tools.ts.
+  const relatedTools = getUseCaseToolsByTag(slug);
+  return <TagPageClient slug={slug} relatedTools={relatedTools} />;
 }
