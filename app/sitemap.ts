@@ -5,6 +5,7 @@ import { caseStudies } from "@/lib/case-studies-content";
 import { tutorialsContent } from "@/lib/tutorials-content";
 import { tagsData } from "@/lib/tags-data";
 import { comparisonsData } from "@/lib/comparisons-data";
+import { alternativesEntries } from "@/lib/alternatives";
 import { aiNewsPosts } from "@/lib/ai-news-data";
 import { workflowsData } from "@/lib/workflows-data";
 
@@ -103,6 +104,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
+  const alternativesPages = alternativesEntries.map((entry) => ({
+    url: `${baseUrl}/alternatives/${entry.incumbentSlug}`,
+    lastModified: new Date(entry.lastUpdated),
+    changeFrequency: "monthly" as const,
+    priority: 0.8,
+  }));
+
   const newsPages = aiNewsPosts.map((post) => ({
     url: `${baseUrl}/resources/ai-news/${post.slug}`,
     lastModified: new Date(post.publishedDate),
@@ -136,6 +144,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...guidePages,
     ...caseStudyPages,
     ...comparisonPages,
+    ...alternativesPages,
     ...newsPages,
     ...workflowPages,
     ...tutorialPages,
