@@ -135,9 +135,49 @@ export const metadata: Metadata = {
   },
 };
 
+// Reflects the visible breadcrumb: Home > Resources > Tutorials.
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.smartaiforwork.com/" },
+    { "@type": "ListItem", position: 2, name: "Resources", item: "https://www.smartaiforwork.com/resources" },
+    { "@type": "ListItem", position: 3, name: "Tutorials", item: "https://www.smartaiforwork.com/resources/tutorials" },
+  ],
+};
+
+// Only non-placeholder tutorials have a real detail page — placeholders
+// render without a link on this same page (see FEATURED_TUTORIALS /
+// LATEST_TUTORIALS_DATA above), so they must never get a schema url either.
+const REAL_TUTORIALS = tutorialsData.filter((t) => !t.isPlaceholder);
+
+const collectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "AI Tutorials",
+  url: "https://www.smartaiforwork.com/resources/tutorials",
+  mainEntity: {
+    "@type": "ItemList",
+    itemListElement: REAL_TUTORIALS.map((t, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: t.title,
+      url: `https://www.smartaiforwork.com${t.href}`,
+    })),
+  },
+};
+
 export default function TutorialsPage() {
   return (
     <div className="min-h-screen bg-white font-sans text-[#1E293B]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
+      />
       <Navbar />
 
       {/* ── Breadcrumb ── */}

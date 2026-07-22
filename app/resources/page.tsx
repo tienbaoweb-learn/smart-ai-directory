@@ -183,9 +183,53 @@ export const metadata: Metadata = {
   },
 };
 
+// Reflects the visible breadcrumb: Home > Resources.
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.smartaiforwork.com/" },
+    { "@type": "ListItem", position: 2, name: "Resources", item: "https://www.smartaiforwork.com/resources" },
+  ],
+};
+
+// The 6 resource-type listing pages this hub links to.
+const RESOURCE_SECTIONS = [
+  { name: "Guides", slug: "guides" },
+  { name: "AI News", slug: "ai-news" },
+  { name: "Case Studies", slug: "case-studies" },
+  { name: "Tutorials", slug: "tutorials" },
+  { name: "Comparisons", slug: "comparisons" },
+  { name: "Workflows", slug: "workflows" },
+];
+
+const collectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "AI Resources Hub",
+  url: "https://www.smartaiforwork.com/resources",
+  mainEntity: {
+    "@type": "ItemList",
+    itemListElement: RESOURCE_SECTIONS.map((s, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: s.name,
+      url: `https://www.smartaiforwork.com/resources/${s.slug}`,
+    })),
+  },
+};
+
 export default function ResourcesPage() {
   return (
     <div className="min-h-screen bg-white font-sans text-[#1E293B]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
+      />
       <Navbar />
 
       {/* ── Breadcrumb ── */}

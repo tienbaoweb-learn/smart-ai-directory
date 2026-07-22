@@ -34,10 +34,50 @@ const FEATURED_SLUGS = [
   "claude",
 ];
 
+// Reflects the visible breadcrumb: Home > AI Tools > AI Productivity &
+// Management.
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.smartaiforwork.com/" },
+    { "@type": "ListItem", position: 2, name: "AI Tools", item: "https://www.smartaiforwork.com/ai-tools" },
+    { "@type": "ListItem", position: 3, name: "AI Productivity & Management", item: "https://www.smartaiforwork.com/ai-tools/productivity" },
+  ],
+};
+
 export default function Page() {
   const tools = getUseCaseTools("productivity", FEATURED_SLUGS);
   const categoryCounts = getUseCaseCategoryCounts();
+
+  // Data-driven from the exact same list rendered on the page — never drifts.
+  const collectionSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "AI Productivity & Management Tools",
+    url: "https://www.smartaiforwork.com/ai-tools/productivity",
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: tools.slice(0, 30).map((t, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: t.name,
+        url: `https://www.smartaiforwork.com/tools/${t.slug}`,
+      })),
+    },
+  };
+
   return (
-    <ProductivityToolsClient tools={tools} categoryCounts={categoryCounts} />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
+      />
+      <ProductivityToolsClient tools={tools} categoryCounts={categoryCounts} />
+    </>
   );
 }
