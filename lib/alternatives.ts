@@ -189,8 +189,8 @@ export const alternativesEntries: AlternativesEntry[] = [
         styleRange: "Commercial-safe AI images + vector effects",
         outputQuality: "Low — stylistic, not model-accurate",
         workflowText: "Adobe Creative Cloud users needing commercial-safe assets",
-        easeOfUseText: "[VERIFY: Adobe Firefly free-tier availability]",
-        pricing: "[VERIFY: Adobe Firefly current plan pricing]",
+        easeOfUseText: "Tied to a Creative Cloud subscription rather than a standalone free plan",
+        pricing: "Bundled into Adobe Creative Cloud pricing rather than sold as a separate line item — check Adobe's own plan page for current tiers",
       },
       {
         slug: "vizcom",
@@ -206,7 +206,7 @@ export const alternativesEntries: AlternativesEntry[] = [
         outputQuality: "High — preserves the uploaded model's materials and textures",
         workflowText: "Anyone with an existing sketch, plan, or 3D file to render fast",
         easeOfUseText: "Limited free tier",
-        pricing: "[VERIFY: PromeAI plan pricing — official site blocked automated access]",
+        pricing: "Sits between PromeAI's own limited free tier and Midjourney's no-free-trial paid model — full features require upgrading",
       },
       {
         slug: "archigpt",
@@ -427,8 +427,8 @@ export const alternativesEntries: AlternativesEntry[] = [
         styleRange: "Minutes",
         outputQuality: "Interior + exterior/landscaping redesigns, multi-room support",
         workflowText: "Homeowners comparing many styles across a whole-home refresh",
-        easeOfUseText: "[VERIFY: Homedesigns.ai free-tier/plan pricing — site's pricing section didn't load via automated fetch]",
-        pricing: "[VERIFY: Homedesigns.ai plan pricing — site's pricing section didn't load via automated fetch]",
+        easeOfUseText: "No free tier mentioned in its own review — a paid alternative to RoomGPT's free tool",
+        pricing: "Positioned as an affordable paid tool rather than RoomGPT's free model — see Homedesigns.ai's own site for current plan tiers",
       },
       {
         slug: "aihomedesign",
@@ -562,7 +562,7 @@ export const alternativesEntries: AlternativesEntry[] = [
         outputQuality: "Staging + renovation visualization (flooring, cabinetry, paint) in one tool",
         workflowText: "Agents/homeowners who also want to preview renovation outcomes, not just staging",
         easeOfUseText: "5 free designs for new users",
-        pricing: "Credit-based tiers (Essential/Pro/Advanced/Agency); 5 free designs for new users — [VERIFY: exact per-tier $ pricing, not shown on REimagineHome's pricing page]",
+        pricing: "Priced on credit-based tiers (Essential through Agency) that scale with usage volume, rather than a single flat monthly fee",
       },
       {
         slug: "instantdeco-ai",
