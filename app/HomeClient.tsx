@@ -6,7 +6,6 @@ import Link from "next/link";
 import Navbar from "./components/Navbar";
 import Newsletter from "./components/Newsletter";
 import Footer from "./components/Footer";
-import { ALL_TOOLS } from "./data/tools";
 
 // ─── DATA ───────────────────────────────────────────────────────────────────
 
@@ -455,11 +454,6 @@ function StatsBar() {
     </section>
   );
 }
-
-// Logo lookup từ app/data/tools.ts (single source of truth với review pages)
-const TOOL_LOGO_MAP = Object.fromEntries(
-  ALL_TOOLS.map((t) => [t.slug, { logoBg: t.logoBg, logoText: t.logoText, logoTextClass: t.logoTextClass }])
-);
 
 const TOP_TOOLS_PER_TAB = 6;
 

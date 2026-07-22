@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getAllUseCaseTools } from "@/lib/tools";
 import AIToolsHubClient from "./AIToolsHubClient";
 
 export const metadata: Metadata = {
@@ -62,7 +63,7 @@ export default function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
       />
-      <AIToolsHubClient />
+      <AIToolsHubClient tools={getAllUseCaseTools()} />
     </>
   );
 }
