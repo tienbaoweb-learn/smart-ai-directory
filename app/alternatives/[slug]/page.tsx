@@ -261,7 +261,10 @@ export default async function AlternativesPage({
                 const alt = alternatives.find((a) => a.slug === choice.slug);
                 if (!alt) return null;
                 const logo = resolveLogo(alt);
-                const altHref = alt.frontmatter.affiliateLink || alt.frontmatter.websiteUrl;
+                const showExternalCta = entry.showExternalCta ?? true;
+                const altHref = showExternalCta
+                  ? alt.frontmatter.affiliateLink || alt.frontmatter.websiteUrl
+                  : "";
                 const isAffiliate = Boolean(alt.frontmatter.affiliateLink);
                 return (
                   <div key={choice.slug} className="rounded-2xl border border-gray-100 p-6">
@@ -322,10 +325,18 @@ export default async function AlternativesPage({
                 <thead>
                   <tr className="bg-gray-50 border-b border-gray-100">
                     <th className="text-left text-xs uppercase text-gray-500 font-medium py-3 px-4">Tool</th>
-                    <th className="text-left text-xs uppercase text-gray-500 font-medium py-3 px-4">Style range</th>
-                    <th className="text-left text-xs uppercase text-gray-500 font-medium py-3 px-4">Output quality</th>
-                    <th className="text-left text-xs uppercase text-gray-500 font-medium py-3 px-4">Professional workflow</th>
-                    <th className="text-left text-xs uppercase text-gray-500 font-medium py-3 px-4">Ease of use</th>
+                    <th className="text-left text-xs uppercase text-gray-500 font-medium py-3 px-4">
+                      {entry.comparisonColumns?.styleRange ?? "Style range"}
+                    </th>
+                    <th className="text-left text-xs uppercase text-gray-500 font-medium py-3 px-4">
+                      {entry.comparisonColumns?.outputQuality ?? "Output quality"}
+                    </th>
+                    <th className="text-left text-xs uppercase text-gray-500 font-medium py-3 px-4">
+                      {entry.comparisonColumns?.professionalWorkflow ?? "Professional workflow"}
+                    </th>
+                    <th className="text-left text-xs uppercase text-gray-500 font-medium py-3 px-4">
+                      {entry.comparisonColumns?.easeOfUse ?? "Ease of use"}
+                    </th>
                     <th className="text-left text-xs uppercase text-gray-500 font-medium py-3 px-4">Typical pricing</th>
                   </tr>
                 </thead>
@@ -342,8 +353,16 @@ export default async function AlternativesPage({
                         </td>
                         <td className="py-3 px-4 text-gray-600">{row.styleRange}</td>
                         <td className="py-3 px-4 text-gray-600">{row.outputQuality}</td>
-                        <td className="py-3 px-4"><ScoreStars score={row.professionalWorkflow} /></td>
-                        <td className="py-3 px-4"><ScoreStars score={row.easeOfUse} /></td>
+                        <td className="py-3 px-4 text-gray-600">
+                          {row.professionalWorkflow !== undefined ? (
+                            <ScoreStars score={row.professionalWorkflow} />
+                          ) : (
+                            row.workflowText
+                          )}
+                        </td>
+                        <td className="py-3 px-4 text-gray-600">
+                          {row.easeOfUse !== undefined ? <ScoreStars score={row.easeOfUse} /> : row.easeOfUseText}
+                        </td>
                         <td className="py-3 px-4 text-gray-600">{row.pricing}</td>
                       </tr>
                     );
