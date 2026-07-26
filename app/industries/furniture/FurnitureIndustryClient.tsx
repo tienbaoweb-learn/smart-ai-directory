@@ -833,24 +833,36 @@ function RecommendedToolsSection({
               <div className="divide-y divide-gray-50">
                 {stepData.tools.map((tool) => {
                   const logoUrl = tool.slug ? TOOL_LOGO_URLS[tool.slug] : undefined;
-                  return (
-                  <div key={tool.name} className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3">
-                    <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg overflow-hidden ${logoUrl ? "bg-white border border-gray-100 p-0.5" : tool.iconBg} flex items-center justify-center text-white text-[9px] sm:text-[10px] font-black shrink-0`}>
-                      {logoUrl ? (
-                        <Image src={logoUrl} alt={tool.name} width={32} height={32} className="object-contain w-full h-full" />
-                      ) : (
-                        tool.initials
-                      )}
-                    </div>
-                    <div className="min-w-0">
-                      <p className="text-xs sm:text-sm font-semibold text-[#1E293B] truncate">{tool.name}</p>
-                      <div className="flex items-center gap-1">
-                        <Stars rating={tool.rating} />
-                        <span className="text-[10px] sm:text-xs font-semibold text-[#1E293B]">{tool.rating}</span>
-                        
+                  // Link to the review only when one exists — slug is set for
+                  // every tool with a page under content/tools.
+                  const href = tool.slug ? `/tools/${tool.slug}` : undefined;
+                  const rowClassName = `flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3${href ? " hover:bg-gray-50 transition-colors" : ""}`;
+                  const rowContent = (
+                    <>
+                      <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg overflow-hidden ${logoUrl ? "bg-white border border-gray-100 p-0.5" : tool.iconBg} flex items-center justify-center text-white text-[9px] sm:text-[10px] font-black shrink-0`}>
+                        {logoUrl ? (
+                          <Image src={logoUrl} alt={tool.name} width={32} height={32} className="object-contain w-full h-full" />
+                        ) : (
+                          tool.initials
+                        )}
                       </div>
+                      <div className="min-w-0">
+                        <p className="text-xs sm:text-sm font-semibold text-[#1E293B] truncate">{tool.name}</p>
+                        <div className="flex items-center gap-1">
+                          <Stars rating={tool.rating} />
+                          <span className="text-[10px] sm:text-xs font-semibold text-[#1E293B]">{tool.rating}</span>
+                        </div>
+                      </div>
+                    </>
+                  );
+                  return href ? (
+                    <Link key={tool.name} href={href} className={rowClassName}>
+                      {rowContent}
+                    </Link>
+                  ) : (
+                    <div key={tool.name} className={rowClassName}>
+                      {rowContent}
                     </div>
-                  </div>
                   );
                 })}
               </div>

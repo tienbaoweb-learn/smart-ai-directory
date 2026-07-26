@@ -216,7 +216,7 @@ const STEP_TOOLS_DATA: { step: string; tab: string; stepNum: number; badgeColor:
       { name: "Planner 5D", slug: "planner-5d", rating: "4.8", initials: "P5", iconBg: "bg-[#35966a]" },
       { name: "RoomGPT", slug: "roomgpt", rating: "4.7", initials: "RG", iconBg: "bg-purple-600" },
       { name: "Homestyler", slug: "homestyler", rating: "4.6", initials: "H", iconBg: "bg-teal-500" },
-      { name: "Coohom", rating: "4.6", initials: "C", iconBg: "bg-blue-600" },
+      { name: "Coohom", slug: "coohom", rating: "4.6", initials: "C", iconBg: "bg-blue-600" },
     ],
   },
   {
@@ -228,7 +228,7 @@ const STEP_TOOLS_DATA: { step: string; tab: string; stepNum: number; badgeColor:
     totalCount: 11,
     tools: [
       { name: "Foyr", slug: "foyr", href: "/tools/foyr", rating: "4.8", initials: "FN", iconBg: "bg-indigo-600" },
-      { name: "Coohom", rating: "4.7", initials: "C", iconBg: "bg-blue-600" },
+      { name: "Coohom", slug: "coohom", rating: "4.7", initials: "C", iconBg: "bg-blue-600" },
       { name: "Planner 5D", slug: "planner-5d", rating: "4.8", initials: "P5", iconBg: "bg-[#35966a]" },
       { name: "SketchUp AI", slug: "sketchup-ai", rating: "4.6", initials: "SK", iconBg: "bg-red-500" },
     ],
@@ -818,7 +818,10 @@ function RecommendedToolsSection({
               <div className="divide-y divide-gray-50">
                 {stepData.tools.map((tool) => {
                   const logoUrl = tool.slug ? TOOL_LOGO_URLS[tool.slug] : undefined;
-                  const rowClassName = `flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3${tool.href ? " hover:bg-gray-50 transition-colors" : ""}`;
+                  // Link to the review only when one exists — slug is set for
+                  // every tool with a page under content/tools.
+                  const href = tool.href ?? (tool.slug ? `/tools/${tool.slug}` : undefined);
+                  const rowClassName = `flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3${href ? " hover:bg-gray-50 transition-colors" : ""}`;
                   const rowContent = (
                     <>
                       <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg overflow-hidden ${logoUrl ? "bg-white border border-gray-100 p-0.5" : tool.iconBg} flex items-center justify-center text-white text-[9px] sm:text-[10px] font-black shrink-0`}>
@@ -838,8 +841,8 @@ function RecommendedToolsSection({
                       </div>
                     </>
                   );
-                  return tool.href ? (
-                    <Link key={tool.name} href={tool.href} className={rowClassName}>
+                  return href ? (
+                    <Link key={tool.name} href={href} className={rowClassName}>
                       {rowContent}
                     </Link>
                   ) : (

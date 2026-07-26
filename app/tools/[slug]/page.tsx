@@ -191,6 +191,12 @@ function nameToSlug(name: string): string {
     .replace(/^-|-$/g, "");
 }
 
+// Separator-insensitive key, so spacing variants of the same product still
+// match ("Virtual Staging AI" and "VirtualStagingAI" → virtualstagingai).
+function compactName(name: string): string {
+  return name.toLowerCase().replace(/[^a-z0-9]/g, "");
+}
+
 // ── Pricing plan generator ─────────────────────────────────────────────────────
 
 function generatePricingPlans(
@@ -620,13 +626,23 @@ export default async function ToolReviewPage({
   // with a real review get an internal link — everything else renders as plain
   // text so we never emit internal links that 404.
   const allTools = getAllTools();
+  // Index every review by slug and by name once, so each alternative lookup is
+  // O(1) instead of scanning all ~260 reviews. Exact keys are matched first;
+  // the compact index only catches spacing variants ("Virtual Staging AI" →
+  // virtualstagingai) and is verified collision-free across every review.
+  const exactIndex = new Map<string, (typeof allTools)[number]>();
+  const compactIndex = new Map<string, (typeof allTools)[number]>();
+  for (const t of allTools) {
+    const name = t.frontmatter.toolName || t.frontmatter.title;
+    for (const key of [t.slug, nameToSlug(name)]) {
+      if (!exactIndex.has(key)) exactIndex.set(key, t);
+    }
+    for (const key of [compactName(t.slug), compactName(name)]) {
+      if (!compactIndex.has(key)) compactIndex.set(key, t);
+    }
+  }
   function findToolByName(name: string) {
-    const target = nameToSlug(name);
-    return allTools.find(
-      (t) =>
-        t.slug === target ||
-        nameToSlug(t.frontmatter.toolName || t.frontmatter.title) === target,
-    );
+    return exactIndex.get(nameToSlug(name)) ?? compactIndex.get(compactName(name));
   }
 
   // Reuse the matched review's logo, so logos stay in sync with the actual
