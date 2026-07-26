@@ -156,7 +156,7 @@ Build hiện tại: ~334 trang static (SSG). Không có trang dynamic runtime.
 
 | Nội dung | Trang detail (content) | Listing/chrome (-data) |
 |---|---|---|
-| Tool reviews | `content/tools/*.mdx` (frontmatter + MDX) qua `lib/tools.ts` | `app/data/tools.ts`, `tool-logos.ts` |
+| Tool reviews | `content/tools/*.mdx` (frontmatter + MDX) qua `lib/tools.ts` | `app/data/tool-logos.ts` — **AUTO-GENERATED, không sửa tay** |
 | Guides | `lib/guides-content.ts` | `lib/guides-data.ts` (topic tags chuẩn ở đây) |
 | AI News | `lib/ai-news-data.ts` (content + data chung 1 file) | — |
 | Case studies | `lib/case-studies-content.ts` | `lib/case-studies-data.ts` (CHỈ chrome — slug KHÔNG có trang thật) |
@@ -170,6 +170,11 @@ không lấy từ cột listing.
 
 - `content/drafts/` — bài nháp, không được import vào site
 - Tool `sample-tool` bị exclude khỏi mọi listing (EXCLUDED_SLUGS trong lib/tools.ts)
+- **Logo tool**: chỉ khai `logoUrl` trong frontmatter MDX. `app/data/tool-logos.ts`
+  do `scripts/generate-tool-logos.mjs` sinh ra (chạy tự động qua `predev`/`prebuild`),
+  KHÔNG sửa tay — sửa tay sẽ bị ghi đè ở lần build kế tiếp. Map này tồn tại vì 11
+  client component cần một module tĩnh (không đọc được filesystem). Ảnh trỏ tới file
+  không tồn tại sẽ bị bỏ qua kèm cảnh báo lúc build.
 
 ---
 

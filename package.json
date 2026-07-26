@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "generate:tool-logos": "node scripts/generate-tool-logos.mjs",
+    "predev": "npm run generate:tool-logos",
     "dev": "next dev",
+    "prebuild": "npm run generate:tool-logos",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
