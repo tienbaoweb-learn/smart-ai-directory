@@ -125,6 +125,17 @@ function QuickHit({ item }: { item: QuickHitItem }) {
         </p>
       )}
 
+      {item.relatedLink && (
+        <p className="mt-3">
+          <Link
+            href={item.relatedLink.href}
+            className="text-blue-600 text-sm font-medium hover:underline"
+          >
+            {item.relatedLink.label} →
+          </Link>
+        </p>
+      )}
+
       {item.source && (
         <p className="text-xs text-gray-400 italic mt-3">
           Source:{" "}
@@ -329,6 +340,10 @@ export default async function AINewsDetailPage({
 
               case "quick-hits": {
                 const items = block.items ?? [];
+                // Rải ảnh minh hoạ đều theo số story: với 5 story ra đúng vị trí
+                // cũ (sau story #2 và #4); với 3 story là sau #2 và #3.
+                const firstImageAfter = Math.floor(items.length / 3);
+                const secondImageAfter = Math.floor((items.length * 2) / 3);
                 return (
                   <div key={i} className="mb-10">
                     <h2 className="text-2xl font-bold text-[#1E293B] mb-5">{block.heading ?? "Quick Hits"}</h2>
@@ -336,11 +351,10 @@ export default async function AINewsDetailPage({
                       {items.map((item, idx) => (
                         <div key={item.title}>
                           <QuickHit item={item} />
-                          {/* Ảnh minh hoạ sau Quick Hit #2 và #4 nếu đủ ảnh */}
-                          {idx === 1 && images[0] && (
+                          {idx === firstImageAfter && images[0] && (
                             <InArticleImage src={images[0]} alt={`${post.title} — illustration 1`} />
                           )}
-                          {idx === 3 && images[1] && (
+                          {idx === secondImageAfter && images[1] && (
                             <InArticleImage src={images[1]} alt={`${post.title} — illustration 2`} />
                           )}
                         </div>
@@ -381,6 +395,88 @@ export default async function AINewsDetailPage({
                     {block.text}
                   </p>
                 );
+
+              case "table": {
+                const columns = block.columns ?? [];
+                const rows = block.rows ?? [];
+                if (columns.length === 0 || rows.length === 0) return null;
+                return (
+                  <div key={i} className="mb-10">
+                    {block.heading && (
+                      <h2 className="text-2xl font-bold text-[#1E293B] mb-4">
+                        {block.heading}
+                      </h2>
+                    )}
+                    <div className="overflow-x-auto border border-gray-100 rounded-xl">
+                      <table className="min-w-[640px] w-full text-sm">
+                        <thead>
+                          <tr className="bg-gray-50 border-b border-gray-100">
+                            {columns.map((col) => (
+                              <th
+                                key={col}
+                                className="text-left text-xs uppercase text-gray-500 font-medium py-3 px-4"
+                              >
+                                {col}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {rows.map((row, r) => (
+                            <tr key={r} className="border-t border-gray-100">
+                              {row.map((cell, c) => (
+                                <td
+                                  key={c}
+                                  className={
+                                    c === 0
+                                      ? "py-3 px-4 text-[#1E293B] font-medium whitespace-nowrap"
+                                      : "py-3 px-4 text-gray-500"
+                                  }
+                                >
+                                  {cell}
+                                </td>
+                              ))}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                    {block.note && (
+                      <p className="text-xs text-gray-400 mt-2 italic">{block.note}</p>
+                    )}
+                  </div>
+                );
+              }
+
+              case "bullet-list": {
+                const bullets = block.bullets ?? [];
+                if (bullets.length === 0) return null;
+                return (
+                  <div key={i} className="mb-10">
+                    {block.heading && (
+                      <h2 className="text-2xl font-bold text-[#1E293B] mb-4">
+                        {block.heading}
+                      </h2>
+                    )}
+                    <ul className="space-y-3">
+                      {bullets.map((b, j) => (
+                        <li
+                          key={j}
+                          className="border-l-2 border-gray-200 pl-4 text-gray-600 leading-relaxed"
+                        >
+                          {b.title && (
+                            <span className="font-semibold text-[#1E293B]">
+                              {b.title}
+                              {" — "}
+                            </span>
+                          )}
+                          {b.text}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              }
 
               case "heading":
                 return (
@@ -502,6 +598,46 @@ export default async function AINewsDetailPage({
                       </span>
                       <ArrowRight size={16} className="shrink-0 text-gray-400 group-hover:text-blue-600 transition-colors" />
                     </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Explore next — hub / best-of / alternatives liên quan */}
+          {(post.exploreNext ?? []).length > 0 && (
+            <div className="mt-10">
+              <h2 className="text-xl font-bold text-[#1E293B] mb-4">Explore Next</h2>
+              <div className="flex flex-wrap gap-2">
+                {(post.exploreNext ?? []).map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="inline-flex items-center gap-1.5 border border-gray-200 rounded-full px-4 py-2 text-sm text-[#1E293B] hover:border-blue-600 hover:text-blue-600 transition-colors"
+                  >
+                    {link.label}
+                    <ArrowRight size={14} className="shrink-0" />
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Sources */}
+          {(post.sources ?? []).length > 0 && (
+            <div className="mt-10 pt-8 border-t border-gray-100">
+              <h2 className="text-base font-bold text-[#1E293B] mb-3">Sources</h2>
+              <ul className="space-y-1.5">
+                {(post.sources ?? []).map((s) => (
+                  <li key={s.url} className="text-sm text-gray-500 leading-relaxed">
+                    <a
+                      href={s.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-blue-600 hover:underline"
+                    >
+                      {s.label}
+                    </a>
                   </li>
                 ))}
               </ul>

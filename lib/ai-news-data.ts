@@ -13,6 +13,11 @@ export interface QuickHitItem {
   source?: string;
   /** Link tới nguồn gốc (tùy chọn). */
   sourceUrl?: string;
+  /**
+   * Internal link liên quan tới story (tùy chọn) — dùng thay cho inline link
+   * trong body, vì body render dạng plain text. `href` phải là route có thật.
+   */
+  relatedLink?: { label: string; href: string };
 }
 
 export interface AINewsContentBlock {
@@ -22,12 +27,18 @@ export interface AINewsContentBlock {
     | "what-to-watch" // closing editorial
     | "disclaimer" // footer note
     | "paragraph" // đoạn văn thường nếu có
-    | "heading"; // subheading nếu cần
-  heading?: string; // sub-heading cho editor-pick / heading block
+    | "heading" // subheading nếu cần
+    | "table" // bảng dữ liệu — KHÔNG dùng markdown pipe table trong body
+    | "bullet-list"; // danh sách gạch đầu dòng (vd "Also this week")
+  heading?: string; // sub-heading cho editor-pick / heading / table / bullet-list
   text?: string; // cho paragraph, heading, disclaimer
   leadIn?: string; // câu mở đầu in đậm cho what-to-watch
   paragraphs?: string[]; // cho editor-pick, what-to-watch
   items?: QuickHitItem[]; // cho quick-hits
+  columns?: string[]; // cho table — tiêu đề cột
+  rows?: string[][]; // cho table — mỗi row khớp số cột
+  note?: string; // ghi chú nhỏ dưới table
+  bullets?: { title?: string; text: string }[]; // cho bullet-list
 }
 
 export interface AINewsPost {
@@ -54,6 +65,13 @@ export interface AINewsPost {
    * `slug` phải khớp tool trong content/tools; `note` giải thích vì sao liên quan.
    */
   recommendedTools?: { slug: string; note: string }[];
+  /**
+   * Internal link "Explore next" — hub/alternatives/best-of liên quan.
+   * `href` phải là route có thật (không tự ghép slug).
+   */
+  exploreNext?: { label: string; href: string }[];
+  /** Nguồn tham khảo cuối bài (cho các bài tổng hợp nhiều nguồn). */
+  sources?: { label: string; url: string }[];
 }
 
 /** Badge label hiển thị theo newsType */
@@ -84,6 +102,197 @@ export function industryColor(industry: string): string {
 }
 
 export const aiNewsPosts: AINewsPost[] = [
+  {
+    slug: "weekly-ai-news-2026-07-26",
+    title: "AI in Architecture & Construction: Week of July 20–26, 2026",
+    newsType: "weekly-roundup",
+    thumbnail: "/images/ai-news/weekly-ai-news-2026-07-26-thumbnail.webp",
+    heroImage: "/images/ai-news/ai-news-hero.webp",
+    excerpt:
+      "Procore ships Digital Coworker packages, robotics takes the biggest ConTech checks of the week, New York freezes hyperscale data center permits, and Claude Opus 5 lands. What it means for AEC teams.",
+    publishedDate: "2026-07-26",
+    readingTime: "6 min",
+    weekOf: "July 20–26, 2026",
+    nextRoundup: "Week of August 2, 2026",
+    inArticleImages: [
+      "/images/ai-news/weekly-ai-news-2026-07-26-1.webp",
+      "/images/ai-news/weekly-ai-news-2026-07-26-2.webp",
+    ],
+    tags: [
+      "ai-news",
+      "construction",
+      "architecture",
+      "procore",
+      "construction-robotics",
+    ],
+    relatedGuides: ["construction-ai-tools", "architecture-ai-tools"],
+    recommendedTools: [
+      {
+        slug: "handoff",
+        note: "AI estimating and proposals — the document-heavy work Procore is now packaging into Digital Coworker seats.",
+      },
+      {
+        slug: "build-ai",
+        note: "AI assistant for construction docs and specs, for teams not ready to standardize on a single platform's operating layer.",
+      },
+      {
+        slug: "lead-truffle",
+        note: "AI lead capture for contractors — useful ballast while nonresidential spending stays soft.",
+      },
+    ],
+    exploreNext: [
+      { label: "Best AI Tools for Architects", href: "/best-of/architecture" },
+      { label: "Best AI Tools for Construction", href: "/best-of/construction" },
+      { label: "Procore Alternatives", href: "/alternatives/procore-ai" },
+    ],
+    sources: [
+      {
+        label:
+          "Procore Introduces Digital Coworker Packages, Expands AI Agent Library, and Previews Skills — BusinessWire, July 23, 2026",
+        url: "https://businesswire.com/news/home/20260723618361/en/Procore-Introduces-Digital-Coworker-Packages-Expands-AI-Agent-Library-and-Previews-Skills-to-Help-Construction-Teams-Put-AI-to-Work",
+      },
+      {
+        label:
+          "Procore Skills and the Race to Own the Construction Operating Layer — Highways Today, July 24, 2026",
+        url: "https://highways.today/2026/07/24/procore-skills-race/",
+      },
+      {
+        label:
+          "Latest Construction Technology Funding Rounds, 20 Jul 2026 — Bricks & Bytes",
+        url: "https://bricks-bytes.com/funding-ma/latest-construction-technology-funding-rounds-20th-jul-2026/",
+      },
+      {
+        label: "Last Week in ConTech, 20 July 2026 — Bhragan Paramanantham",
+        url: "https://contechroundup.substack.com/p/last-week-in-contech-20-july-2026",
+      },
+      {
+        label: "TerraFirma Raises $115M — BusinessWire",
+        url: "https://www.businesswire.com/news/home/20260714397606/en/TerraFirma-Raises-$115M-to-Accelerate-Construction-on-Earth-and-Beyond",
+      },
+      {
+        label: "Monumental secures $32M Series B — Tech.eu",
+        url: "https://tech.eu/2026/07/15/monumental-secures-32m-series-b-to-accelerate-construction-automation/",
+      },
+      {
+        label:
+          "First statewide moratorium on new hyperscale data centers — Office of Governor Kathy Hochul",
+        url: "https://www.governor.ny.gov/news/first-statewide-moratorium-new-hyperscale-data-centers-launched-governor-kathy-hochul",
+      },
+      {
+        label: "July 2026 AI Releases — ThursdAI",
+        url: "https://thursdai.news/releases/2026-07",
+      },
+      {
+        label:
+          "Generative AI in Architecture Market Report 2026 — GlobeNewswire",
+        url: "https://www.globenewswire.com/news-release/2026/07/09/3324586/28124/en/generative-ai-in-architecture-market-report-2026-now-available-250-page-study-covers-design-automation-urban-planning-and-cloud-collaboration.html",
+      },
+    ],
+    content: [
+      {
+        type: "paragraph",
+        text: "Three things happened this week that change how AEC teams should think about AI budgets: Procore made its AI agents generally available as packaged \"Digital Coworkers,\" construction robotics took nearly $140M across three rounds — all of it going to companies that sell finished work rather than machines — and New York became the first state to freeze permits for hyperscale data centers, the one nonresidential segment still holding construction spending up.",
+      },
+      {
+        type: "paragraph",
+        text: "Here's what actually matters.",
+      },
+      {
+        type: "quick-hits",
+        heading: "The 3 Stories That Matter This Week",
+        items: [
+          {
+            emoji: "🏗️",
+            industry: "Construction",
+            title: "Procore packages its AI agents — and previews Skills",
+            body: "On July 23, Procore introduced three Digital Coworker packages, expanded its AI agent library to roughly 20 agents, and previewed Skills, a capability that lets a contractor encode their own procedures, standards, and best practices into the agents so every project applies the same company playbook. Skills rolls out across all Digital Coworker packages in August. The Enterprise tier adds Agent Studio for building custom agents.\n\nThe agent lineup covers the document-heavy parts of the job: contract review, deep search, schedule analysis, site safety, change analysis, RFIs, daily logs, and submittal review.",
+            whyItMatters:
+              "The pricing story here is the real story. Packaging agents into tiers means AI stops being a line item you evaluate and starts being a seat you renew. If you're a GC comparing platforms, the question shifts from \"does it have AI\" to \"whose operating layer are you standardizing on.\"",
+            relatedLink: {
+              label: "Read our Procore alternatives breakdown",
+              href: "/alternatives/procore-ai",
+            },
+            tags: ["Construction", "Procore", "AI Agents"],
+          },
+          {
+            emoji: "🤖",
+            industry: "Construction",
+            title: "Robotics took the biggest ConTech checks — and none of them sell robots",
+            body: "Eleven ConTech startups raised in the week ending July 20. Roughly $139M of the disclosed funding went into robotics across three deals.\n\nThe pattern worth noting: TerraFirma and Monumental both bid and deliver the work themselves. You don't buy the robot. You buy finished earthworks or finished wall, the same way you'd engage any other trade. That puts maintenance, calibration, training, and idle time on the provider's books, not yours.\n\nFor context on why that model wins: the UK is short roughly 20,000 bricklayers, and only 1,990 completed bricklaying apprenticeships in 2024.",
+            whyItMatters:
+              "Outcome pricing is how robotics finally escapes pilot purgatory in construction, because subcontracting is already how the industry buys almost everything. If you're evaluating a robotics vendor, ask about utilization and uptime — under a hire model, the provider eats every bad day on site, which means their margins depend on answers they may not want to give.",
+            tags: ["Construction", "Robotics", "Funding"],
+          },
+          {
+            emoji: "⚡",
+            industry: "Market",
+            title: "New York freezes hyperscale data center permits",
+            body: "Governor Kathy Hochul signed Executive Order 62 on July 14, halting state environmental permits for up to a year on new data centers drawing 50 megawatts or more. Existing facilities and completed applications are excluded. The Department of Public Service will spend the year producing an environmental impact statement on energy demand, water, air quality, and noise.\n\nSeattle passed an emergency moratorium the same week. Pennsylvania's budget now requires annual water and power reporting. Fourteen state legislatures have introduced data center restrictions; New York's is the first to take effect.\n\nMeta moved the opposite direction, committing a further $40 billion to its Richland Parish campus in Louisiana — announced spending there now $50 billion, with the site expanding to at least 5 gigawatts.",
+            whyItMatters:
+              "Associated Builders and Contractors chief economist Anirban Basu put nonresidential construction spending down 3.8% from May 2025 to May 2026, with manufacturing sliding hardest as CHIPS Act subsidies wind down. Data centers are close to the only segment propping up the numbers. A permit freeze in a major state means siting now needs a political read alongside the engineering one.",
+            tags: ["Market", "Data Centers", "Regulation"],
+          },
+        ],
+      },
+      {
+        type: "table",
+        heading: "Where the robotics money went",
+        columns: ["Company", "Base", "Raise", "What it does"],
+        rows: [
+          [
+            "TerraFirma",
+            "Austin, TX",
+            "$100M Series A (Kleiner Perkins)",
+            "Retrofits excavators, dozers, loaders and skid steers for remote operation; runs multiple machines from one command center",
+          ],
+          [
+            "Monumental",
+            "Amsterdam",
+            "$32M Series B (Khosla)",
+            "150+ bricklaying robots; brickwork on 100+ homes, a school, a hotel, a canal wall",
+          ],
+          [
+            "Hyperion Robotics",
+            "Finland",
+            "$7.4M",
+            "On-site robotic microfactory casting concrete parts and foundations",
+          ],
+        ],
+      },
+      {
+        type: "bullet-list",
+        heading: "Also this week",
+        bullets: [
+          {
+            title: "Claude Opus 5 shipped July 24",
+            text: "Taking the top spot on Artificial Analysis's Intelligence Index at 61 and Agentic Index at 55.3, at $5 / $25 per 1M tokens. Cheaper and stronger matters for anyone running document-heavy AEC workflows — spec review, submittal comparison, code checking. Google shipped Gemini 3.6 Flash on July 21.",
+          },
+          {
+            title: "AI Designer",
+            text: "A joint tool from Arup and YJK, launched in Hong Kong on July 16 — generate and compare design options, then refine them against real constraints.",
+          },
+          {
+            title: "Guthrie AI and Alloovium",
+            text: "Guthrie AI raised $4M seed for bid assistants that automate tender prep for glazing contractors. Alloovium came out of stealth in San Francisco consolidating project data with cited answers. Document search keeps being the wedge for construction AI startups, largely because it hands them the customer's project data — the foundation for every later workflow.",
+          },
+          {
+            title: "Sodex Innovations",
+            text: "The Austrian startup took €4M for machine-mounted sensors that survey while the machine works.",
+          },
+        ],
+      },
+      {
+        type: "what-to-watch",
+        heading: "The Takeaway",
+        leadIn:
+          "The center of gravity in construction AI moved this week from \"which tool\" to \"whose platform.\"",
+        paragraphs: [
+          "Procore packaging agents and previewing customer-specific Skills is a bid to be the operating layer. The robotics rounds are a bid to be a subcontractor. Both are asking for a recurring relationship, not a license fee.",
+          "If you're setting an AI budget for Q4, the useful question isn't what each tool can do. It's which one you'd be willing to be locked into for three years.",
+        ],
+      },
+    ],
+  },
   {
     slug: "ai-news-2026-07-19",
     title:
