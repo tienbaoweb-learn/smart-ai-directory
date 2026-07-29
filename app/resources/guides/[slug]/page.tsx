@@ -87,17 +87,24 @@ function ContentBlock({ block }: { block: GuideContentBlock }) {
         </figure>
       );
 
-    case "comparison-table":
+    case "comparison-table": {
+      // Column labels default to the standard set; a guide can rename them and
+      // opt into the optional 5th data column by setting `headers.extra`.
+      const h = block.headers ?? {};
+      const showExtra = Boolean(h.extra);
       return (
         <div className="my-6">
           <div className="overflow-x-auto border border-gray-100 rounded-xl">
-            <table className="min-w-[640px] w-full text-sm">
+            <table className={`${showExtra ? "min-w-[760px]" : "min-w-[640px]"} w-full text-sm`}>
               <thead>
                 <tr className="bg-gray-50 border-b border-gray-100">
-                  <th className="text-left text-xs uppercase text-gray-500 font-medium py-3 px-4">Tool</th>
-                  <th className="text-left text-xs uppercase text-gray-500 font-medium py-3 px-4">Category</th>
-                  <th className="text-left text-xs uppercase text-gray-500 font-medium py-3 px-4">Best For</th>
-                  <th className="text-left text-xs uppercase text-gray-500 font-medium py-3 px-4">Notes</th>
+                  <th className="text-left text-xs uppercase text-gray-500 font-medium py-3 px-4">{h.tool ?? "Tool"}</th>
+                  <th className="text-left text-xs uppercase text-gray-500 font-medium py-3 px-4">{h.category ?? "Category"}</th>
+                  <th className="text-left text-xs uppercase text-gray-500 font-medium py-3 px-4">{h.bestFor ?? "Best For"}</th>
+                  {showExtra && (
+                    <th className="text-left text-xs uppercase text-gray-500 font-medium py-3 px-4">{h.extra}</th>
+                  )}
+                  <th className="text-left text-xs uppercase text-gray-500 font-medium py-3 px-4">{h.notes ?? "Notes"}</th>
                   <th className="py-3 px-4" />
                 </tr>
               </thead>
@@ -124,6 +131,9 @@ function ContentBlock({ block }: { block: GuideContentBlock }) {
                       </td>
                       <td className="py-3 px-4 text-gray-500">{row.category}</td>
                       <td className="py-3 px-4 text-gray-500">{row.bestFor}</td>
+                      {showExtra && (
+                        <td className="py-3 px-4 text-gray-500">{row.extra}</td>
+                      )}
                       <td className="py-3 px-4 text-gray-500">{row.notes}</td>
                       <td className="py-3 px-4 whitespace-nowrap">
                         {rowAffiliate && (
@@ -148,6 +158,7 @@ function ContentBlock({ block }: { block: GuideContentBlock }) {
           )}
         </div>
       );
+    }
 
     case "faq":
       return (
