@@ -317,5 +317,82 @@ export const caseStudies: CaseStudy[] = [
       { type: "quote", text: "We're not doing anything dramatically different in terms of how we work with clients. We're just not losing the ones who came to us first anymore." },
       { type: "cta", ctaText: "Browse AI tools for real estate teams", ctaLink: "/best-of/real-estate" },
     ]
+  },
+  {
+    slug: "case-study-real-estate-photography-virtual-staging",
+    title: "How a Real Estate Photography Studio Added $84K in Annual Revenue with AI Virtual Staging",
+    industry: "Real Estate Services / Photography",
+    businessSize: "4-person studio",
+    market: "Residential listing photography, US Southeast",
+    timeFrame: "7 months",
+    thumbnail: "/images/case-studies/case-study-real-estate-photography-virtual-staging-thumbnail.webp",
+    excerpt:
+      "A four-person photography studio built a virtual staging service line on top of the listings it already shot — lifting revenue per listing 34% and adding roughly $84K a year without hiring a third photographer.",
+    tags: ["AI virtual staging", "real estate photography business", "listing marketing", "service business growth", "MLS compliance"],
+    readingTime: "7 min",
+    publishedDate: "2026-07-22",
+    recommendedTools: [
+      { slug: "virtualstagingai", note: "AI-first staging with an API — the multi-angle consistency and volume economics this service line was built on." },
+      { slug: "collov-ai", note: "Fast AI staging and restyling, a common alternative evaluated during the studio's three-week tool test." },
+      { slug: "chatgpt", note: "Brief-driven listing descriptions — the copywriting add-on the studio layered on after staging was established." },
+    ],
+    content: [
+      { type: "paragraph", text: "Real estate photography is a volume business with thin margins and constant downward price pressure. Agents shop on price. New entrants with a decent camera undercut established studios every year. And the actual work — drive to property, shoot, edit, deliver — has a hard ceiling on how many listings one photographer can handle in a day." },
+
+      { type: "heading", level: 2, text: "The Squeeze on Listing Photography" },
+      { type: "paragraph", text: "Meridian Frame (name changed) is a four-person photography studio in the US Southeast serving roughly 40 to 60 residential listings per month for a stable base of agent clients. By 2024 they had a good reputation and a full schedule, but the economics had stopped improving. Their per-listing rate had been essentially flat for three years, while drive time, equipment costs, and editing hours had not." },
+      { type: "paragraph", text: "The owner had run the numbers and concluded the studio had two options: hire a third photographer and take on more volume at the same thin margin, or find something to sell that wasn't priced per hour of shooting." },
+      { type: "quote", text: "We were selling a commodity and we knew it. Every agent we worked with could name three other people who'd shoot their listing for the same money. There was nothing we did that they couldn't get elsewhere." },
+
+      { type: "heading", level: 2, text: "The Opening" },
+      { type: "paragraph", text: "The realization came from a client complaint, of all things." },
+      { type: "paragraph", text: "An agent had listed a vacant three-bedroom that had been sitting on the market for six weeks with no offers. She called the studio frustrated — not about the photos, which were technically fine, but about the outcome. The empty rooms photographed accurately and looked exactly like what they were: empty rooms. Buyers were scrolling past." },
+      { type: "image", src: "/images/case-studies/case-study-real-estate-photography-virtual-staging-1.webp", alt: "Empty living room in a vacant listing photographed for MLS", caption: "The vacant three-bedroom that started it all — technically good photos of rooms buyers scrolled past" },
+      { type: "paragraph", text: "The agent asked whether the studio could do anything about it. She'd looked at physical staging and gotten a quote of $2,400 per month, which the seller refused. She'd heard virtual staging existed but didn't know who did it or whether it was allowed." },
+      { type: "paragraph", text: "The studio owner didn't have an answer at the time. But the question stuck with her, because it pointed at something she hadn't considered: her clients had a problem that sat directly adjacent to what she already did, and nobody was solving it for them." },
+
+      { type: "heading", level: 2, text: "Building the Service Line" },
+      { type: "heading", level: 3, text: "Choosing the tool" },
+      { type: "paragraph", text: "The studio evaluated several virtual staging options over about three weeks, testing each on the same set of five rooms across two properties — deliberately including one awkward space (a narrow living room with an unusual window arrangement) to see where each tool broke down." },
+      { type: "paragraph", text: "The key finding from testing: single-image demos were misleading. Several tools produced an impressive first image but showed visible style drift when staging multiple angles of the same room — different furniture, different palette, subtly different lighting. For a listing where six or eight photos appear in sequence in an MLS gallery, that inconsistency was disqualifying." },
+      { type: "image", src: "/images/case-studies/case-study-real-estate-photography-virtual-staging-2.webp", alt: "Virtually staged living room with consistent furniture and lighting across angles", caption: "Multi-angle consistency — not single-image quality — was the deciding factor in tool selection" },
+      { type: "paragraph", text: "They settled on an AI-first platform with strong multi-angle consistency, on a subscription plan sized to their expected monthly volume. Per-image economics mattered because the plan was to sell staging as a volume add-on, not a boutique service." },
+
+      { type: "heading", level: 3, text: "Building the compliance process first" },
+      { type: "paragraph", text: "Before selling a single staged image, the studio built its disclosure process — a decision the owner credits as the reason the service line scaled without incident." },
+      { type: "paragraph", text: "Every staged image is delivered with a standardized \"Virtually staged\" caption. Original unedited files are retained for every property. Their delivery agreement includes a short written explanation of disclosure requirements that agents can forward to sellers. And the studio established a hard internal rule: virtual staging adds furniture and décor only. No removing permanent features, no altering structural elements, no concealing condition issues — regardless of what a client asks for." },
+      { type: "quote", text: "We turned down two requests in the first month. One agent wanted a water stain edited out of a ceiling. That's not staging, that's a lawsuit." },
+
+      { type: "heading", level: 3, text: "Pricing and packaging" },
+      { type: "paragraph", text: "Rather than selling staging as a separate line item requiring a new purchase decision, the studio built it into tiered photography packages — standard photography, or photography plus staging on a set number of key rooms. The staging tier was priced at a meaningful premium over standard photography, but far below what agents were quoted for physical staging." },
+      { type: "paragraph", text: "The internal cost of producing those staged images was a fraction of the price increase, which is where the margin expansion came from." },
+
+      { type: "heading", level: 3, text: "Adding listing copy" },
+      { type: "paragraph", text: "A smaller secondary service followed once staging was established. Since the studio was already handling a property's visual marketing, several agents asked whether they could handle listing descriptions too. Using AI writing tools with a per-property brief covering features and target buyer profile, the studio began offering listing copy as a small add-on — low effort, high attach rate, and it deepened the client relationship beyond photography." },
+
+      { type: "heading", level: 2, text: "The Results, Seven Months Later" },
+      { type: "stat-table", rows: [
+        { label: "Monthly listings serviced", before: "40–60", after: "45–65" },
+        { label: "Staging attach rate on eligible listings", before: "—", after: "61%" },
+        { label: "Average revenue per listing", before: "baseline", after: "+34%" },
+        { label: "Additional annual revenue (annualized)", before: "—", after: "~$84K" },
+        { label: "Client retention (12-month)", before: "71%", after: "89%" },
+        { label: "Photographers on staff", before: "2", after: "2" },
+      ]},
+      { type: "paragraph", text: "The most important number in that table is the last one. The revenue increase came without hiring, without more drive time, and without more shooting hours — because the new service line wasn't priced against a photographer's time." },
+      { type: "paragraph", text: "The retention improvement was the outcome the owner hadn't anticipated. Agents who bought staging packages were meaningfully stickier than photography-only clients, because switching photographers now meant rebuilding a whole marketing workflow rather than just finding someone else with a camera." },
+      { type: "paragraph", text: "The vacant three-bedroom that started it all was restaged virtually and relisted. It went under contract in eleven days." },
+
+      { type: "heading", level: 2, text: "What This Means for Service Businesses in Real Estate" },
+      { type: "paragraph", text: "The Meridian Frame story isn't really about virtual staging. It's about a service business finding a high-margin product that sits adjacent to what it already sells, to clients it already has." },
+      { type: "paragraph", text: "Photography is priced against time and constrained by it. Virtual staging is priced against outcomes and constrained by almost nothing — the marginal cost of the tenth staged image in a month is nearly identical to the first. For any business already producing listing photography, that asymmetry is the whole opportunity." },
+      { type: "paragraph", text: "Two things made it work, and both are transferable. First, the studio tested tools on multi-angle consistency rather than single-image quality, because that's what actually breaks in production. Second, they built the compliance process before the sales process — which meant that when the service scaled, it scaled without creating legal exposure for their clients or themselves." },
+      { type: "quote", text: "We stopped competing on who could take the better photo. That was never a fight we were going to win permanently." },
+
+      { type: "heading", level: 2, text: "A Note on This Case Study" },
+      { type: "paragraph", text: "This case study is a composite scenario, built from publicly reported industry data on virtual staging pricing, turnaround times, and adoption patterns, and constructed to illustrate a realistic workflow rather than to report on a specific named business. Figures are illustrative and modeled on published market rates. Tools and compliance requirements described are real and verifiable." },
+
+      { type: "cta", ctaText: "Compare AI virtual staging tools by tier, turnaround, and price", ctaLink: "/resources/guides/ai-virtual-staging-tools" },
+    ]
   }
 ];

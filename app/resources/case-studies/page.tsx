@@ -52,6 +52,7 @@ const CASE_BADGE: Record<string, string> = {
   "CONSTRUCTION":    "bg-orange-500 text-white",
   "REAL ESTATE":     "bg-emerald-600 text-white",
   "FURNITURE":       "bg-teal-600 text-white",
+  "PHOTOGRAPHY":     "bg-slate-700 text-white",
 };
 
 // ─── RESULTS CARD THEMES ──────────────────────────────────────────────────────
@@ -128,6 +129,16 @@ const FEATURED_REAL_CASES = [
       { icon: "Users",        value: "94",     label: "Qualified Leads/mo" },
       { icon: "TrendingDown", value: "$92",    label: "Cost per Lead"      },
       { icon: "DollarSign",   value: "$4.7M",  label: "Pipeline Value"     },
+    ],
+  },
+  {
+    cs: findCase("case-study-real-estate-photography-virtual-staging"),
+    badge: "PHOTOGRAPHY",
+    company: { name: "Meridian Frame", logo: { bg: "bg-slate-700", text: "MF" } },
+    stats: [
+      { icon: "DollarSign", value: "~$84K", label: "Added Revenue/yr" },
+      { icon: "TrendingUp", value: "+34%",  label: "Revenue/Listing"  },
+      { icon: "Users",      value: "89%",   label: "Client Retention" },
     ],
   },
 ].map(({ cs, badge, company, stats }) => ({
