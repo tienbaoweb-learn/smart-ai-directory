@@ -99,4 +99,18 @@ export const guidesData: Guide[] = [
     href: "/resources/guides/furniture-ai-tools",
     isFeatured: true,
   },
+  {
+    slug: "ai-virtual-staging-tools",
+    title: "Best AI Virtual Staging Tools in 2026 (Tested & Compared)",
+    description: "AI-first, hybrid, and designer-led staging tiers compared on turnaround and price — plus the MLS disclosure rules most guides skip.",
+    category: "Virtual Staging",
+    badge: "VIRTUAL STAGING",
+    imageHint: "empty room virtually staged with AI furniture",
+    thumbnail: "/images/guides/guide-ai-virtual-staging-tools-thumbnail.webp",
+    readTime: "9 min read",
+    date: "Jul 20, 2026",
+    tags: ["ai-image-generation", "ai-for-business"],
+    href: "/resources/guides/ai-virtual-staging-tools",
+    isFeatured: true,
+  },
 ];
