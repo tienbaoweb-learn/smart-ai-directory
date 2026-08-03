@@ -210,9 +210,14 @@ export default async function AINewsDetailPage({
         note,
         name: f.toolName || f.title.split(":")[0].trim(),
         affiliateHref: f.affiliateLink || f.websiteUrl || "",
+        // Chỉ true khi có affiliate link thật — dòng disclosure bên dưới chỉ
+        // hiển thị khi ít nhất một tool thực sự là affiliate.
+        isAffiliate: Boolean(f.affiliateLink),
       };
     })
     .filter((t): t is NonNullable<typeof t> => t !== null);
+
+  const hasAffiliateTool = recommendedTools.some((t) => t.isAffiliate);
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -567,12 +572,24 @@ export default async function AINewsDetailPage({
               </ul>
 
               <p className="text-xs text-gray-400 mt-3">
-                Some links above are affiliate links — we may earn a commission at no extra
-                cost to you. See our{" "}
-                <Link href="/affiliate-disclosure" className="underline hover:text-gray-600">
-                  affiliate disclosure
-                </Link>
-                .
+                {hasAffiliateTool ? (
+                  <>
+                    Some links above are affiliate links — we may earn a commission at no
+                    extra cost to you. See our{" "}
+                    <Link href="/affiliate-disclosure" className="underline hover:text-gray-600">
+                      affiliate disclosure
+                    </Link>
+                    .
+                  </>
+                ) : (
+                  <>
+                    We don&apos;t earn a commission on the links above. See our{" "}
+                    <Link href="/affiliate-disclosure" className="underline hover:text-gray-600">
+                      affiliate disclosure
+                    </Link>
+                    .
+                  </>
+                )}
               </p>
             </div>
           )}
