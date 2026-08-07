@@ -197,6 +197,26 @@ function compactName(name: string): string {
   return name.toLowerCase().replace(/[^a-z0-9]/g, "");
 }
 
+// Products whose common name differs from the name its review carries, so no
+// amount of string normalisation would connect them. Each entry was checked
+// against the review's own text — these are the same product, not lookalikes.
+// Keyed by compactName(); the value is the review slug.
+const TOOL_NAME_ALIASES: Record<string, string> = {
+  // Acquired by Chaos; the reviews carry the "Chaos " prefix.
+  enscape: "chaos-enscape",
+  vray: "chaos-v-ray",
+  cylindo: "chaos-cylindo",
+  // Rebrand: BoldTrail is kvCORE, per Inside Real Estate.
+  kvcore: "boldtrail",
+  // The review covers the platform's AI product; there is no separate review
+  // of the base platform, so the plain name should still land there.
+  canva: "canva-ai",
+  jasper: "jasper-ai",
+  procore: "procore-ai",
+  notion: "notion-ai",
+  customgpt: "customgpt-ai",
+};
+
 // ── Pricing plan generator ─────────────────────────────────────────────────────
 
 function generatePricingPlans(
@@ -642,7 +662,15 @@ export default async function ToolReviewPage({
     }
   }
   function findToolByName(name: string) {
-    return exactIndex.get(nameToSlug(name)) ?? compactIndex.get(compactName(name));
+    const compact = compactName(name);
+    const alias = TOOL_NAME_ALIASES[compact];
+    // Aliases are consulted last, so a future review of the base product
+    // (e.g. a plain "Canva" review) would win over its alias automatically.
+    return (
+      exactIndex.get(nameToSlug(name)) ??
+      compactIndex.get(compact) ??
+      (alias ? exactIndex.get(alias) : undefined)
+    );
   }
 
   // Reuse the matched review's logo, so logos stay in sync with the actual
@@ -668,7 +696,12 @@ export default async function ToolReviewPage({
   })();
 
   // ── Alternative cards (derived from string[]) ─────────────────────────────
-  const altCards = f.alternatives.map((name, i) => {
+  // A tool is never its own alternative: drop entries that resolve back to this
+  // review, which happens when a list names a former brand (kvCORE → BoldTrail).
+  const alternativeNames = f.alternatives.filter(
+    (name) => findToolByName(name)?.slug !== slug,
+  );
+  const altCards = alternativeNames.map((name, i) => {
     const match = findToolByName(name);
     return {
       name,
@@ -698,7 +731,7 @@ export default async function ToolReviewPage({
       overallRating,
       isCurrent: true,
     },
-    ...f.alternatives.slice(0, 4).map((name, i) => ({
+    ...alternativeNames.slice(0, 4).map((name, i) => ({
       name,
       reviewSlug: findToolByName(name)?.slug ?? null,
       logo: { bg: ALT_COLORS[i % ALT_COLORS.length], text: getInitials(name) },

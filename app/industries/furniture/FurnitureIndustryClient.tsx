@@ -214,7 +214,7 @@ const STEP_TOOLS_DATA = [
     tools: [
       { name: "Roomvo", slug: "roomvo", rating: "4.8", initials: "RV", iconBg: "bg-[#e67e22]" },
       { name: "Zakeke", slug: "zakeke", rating: "4.7", initials: "ZK", iconBg: "bg-purple-600" },
-      { name: "Cylindo", rating: "4.6", initials: "CY", iconBg: "bg-amber-600" },
+      { name: "Cylindo", slug: "chaos-cylindo", rating: "4.6", initials: "CY", iconBg: "bg-amber-600" },
       { name: "Marxent", slug: "marxent", rating: "4.5", initials: "MX", iconBg: "bg-blue-700" },
     ],
   },
