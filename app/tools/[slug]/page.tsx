@@ -215,6 +215,16 @@ const TOOL_NAME_ALIASES: Record<string, string> = {
   procore: "procore-ai",
   notion: "notion-ai",
   customgpt: "customgpt-ai",
+  // The reverse case: the name carries a qualifier (former brand, paid tier,
+  // sub-product, or domain suffix) that the review's plain name doesn't, so
+  // the review still covers it.
+  makeintegromat: "make", // Integromat is Make's former name
+  chatgptplus: "chatgpt",
+  chatgptdataanalysis: "chatgpt",
+  zapierai: "zapier",
+  zendeskchat: "zendesk",
+  synthesiaio: "synthesia",
+  cgtraderarsenal: "cgtrader",
 };
 
 // ── Pricing plan generator ─────────────────────────────────────────────────────
