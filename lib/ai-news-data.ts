@@ -103,6 +103,156 @@ export function industryColor(industry: string): string {
 
 export const aiNewsPosts: AINewsPost[] = [
   {
+    slug: "ai-news-2026-08-09",
+    title:
+      "AI News Roundup — Week of August 9, 2026: The Engineering Firm That Bought Its Vendor, and the Week Your Assistant Got Your Data",
+    newsType: "weekly-roundup",
+    thumbnail: "/images/ai-news/news-2026-08-09-thumbnail.webp",
+    heroImage: "/images/ai-news/ai-news-hero.webp",
+    excerpt:
+      "This week in AI for the built environment: Arcadis takes equity in an AEC document-AI startup, contech money lands on payroll compliance instead of design, SoftBank circles a $500M excavator-robotics deal, Rechat wires Claude and ChatGPT directly into brokerage data via MCP, and Shopify reports AI-search orders tripling.",
+    publishedDate: "2026-08-09",
+    readingTime: "7 min",
+    weekOf: "August 9, 2026",
+    nextRoundup: "Week of August 16, 2026",
+    inArticleImages: [
+      "/images/ai-news/news-2026-08-09-1.webp",
+      "/images/ai-news/news-2026-08-09-2.webp",
+    ],
+    tags: [
+      "AI News",
+      "Architecture",
+      "Construction",
+      "Real Estate",
+      "Interior Design",
+      "Furniture",
+      "Weekly Roundup",
+    ],
+    relatedGuides: [
+      "construction-ai-tools",
+      "real-estate-ai-tools",
+      "furniture-ai-tools",
+    ],
+    recommendedTools: [
+      {
+        slug: "togal-ai",
+        note: "AI that reads drawings and does takeoff — the buyable version of what Arcadis just took equity in.",
+      },
+      {
+        slug: "rechat",
+        note: "The brokerage platform that opened an MCP server this week, letting Claude and ChatGPT act on real agent data.",
+      },
+      {
+        slug: "shopify-magic",
+        note: "AI product content for the storefront that AI shoppers now land on directly — relevant if you sell furniture online.",
+      },
+      {
+        slug: "smartli",
+        note: "AI product descriptions and listing content for furniture e-commerce — the clean, structured data AI search rewards.",
+      },
+    ],
+    exploreNext: [
+      { label: "Best AI Tools for Construction", href: "/best-of/construction" },
+      { label: "Best AI Tools for Real Estate", href: "/best-of/real-estate" },
+      { label: "AI Tools for Furniture", href: "/industries/furniture" },
+    ],
+    content: [
+      {
+        type: "paragraph",
+        text: "Last week the money went into bodies and balance sheets. This week it went somewhere less cinematic and more consequential: into the plumbing.",
+      },
+      {
+        type: "paragraph",
+        text: "A global engineering firm wrote a cheque to an AI startup instead of running another pilot. A brokerage platform opened a door that lets the chatbot already sitting on an agent's second monitor reach into live contacts, listings and transactions. And the largest disclosed contech round of the week went to prevailing-wage paperwork.",
+      },
+      {
+        type: "paragraph",
+        text: "None of it looks like a robot. All of it changes what your software can do to your business. Here are the five stories worth your attention, and why each one matters if you design, build, sell, or furnish spaces for a living.",
+      },
+      {
+        type: "quick-hits",
+        heading: "The 5 Stories That Matter This Week",
+        items: [
+          {
+            emoji: "🏛️",
+            industry: "Architecture",
+            title: "Arcadis put money into an AEC AI startup — not a pilot, equity",
+            body: "Nomic, a New York startup building an AEC-specific AI platform that works across drawings, specs, standards and internal firm knowledge, received a strategic investment from Arcadis — one of the world's larger engineering and design consultancies. Terms weren't disclosed. Separately, Zurich's goNeon raised €160,000 for an agentic platform that auto-generates infrastructure planning layouts from engineering requirements, local regulations and real site constraints, producing a set of technically feasible options rather than the handful an engineer can draw by hand.\n\nTwo small stories, one shared direction: AI is moving off the back office and onto the drawing set.",
+            whyItMatters:
+              "The Arcadis detail is the one to sit with. A firm of that size has a procurement process, an innovation team, and every option to simply license the software and move on. Choosing to hold equity in a document-AI vendor is a statement that the buy side now believes this category is core, not a nice-to-have — and that being an early, shaping customer is worth paying for. If you run a practice, the practical translation is smaller but the same: the value isn't in the model, it's in whether the tool understands your standards, your spec language, your details. Ask any vendor how their tool learns your conventions, and how it handles revisions. A drawing assistant that's confident and one addendum out of date is worse than no assistant.",
+            source: "Bricks & Bytes, August 3, 2026",
+            sourceUrl:
+              "https://bricks-bytes.com/funding-ma/latest-construction-technology-funding-rounds-3rd-aug-2026/",
+            tags: ["Architecture", "Document AI", "Funding"],
+          },
+          {
+            emoji: "📋",
+            industry: "Construction",
+            title: "The biggest contech cheque of the week went to payroll compliance",
+            body: "Eight contech startups raised in the week ending August 3, and the largest disclosed round wasn't a design tool or a robot. Dili, a New York startup, raised a $15M Series A — investors including Brick & Mortar Ventures — to automate prevailing wage and apprenticeship monitoring, Davis-Bacon compliance, and certified payroll review, with audit-ready reporting built in. Buildforce (Texas) took $10M Series A for a staffing platform that screens, places and manages electricians on commercial and industrial work. TaskHer (London) raised £650k connecting homeowners with verified tradeswomen.\n\nThree of the eight rounds went to the labour and compliance layer. Not one went to rendering.",
+            whyItMatters:
+              "This is investors telling you where the real cost sits. On publicly funded work, certified payroll and prevailing-wage compliance is a genuine risk centre — the kind that produces a five-figure problem eighteen months after the job closes out, discovered by an auditor rather than by you. It is also, structurally, exactly what AI is good at: high-volume, rule-bound, repetitive document checking where the standard is defined in writing. If you bid public work, the honest question is how many hours a month you currently spend on compliance paperwork, and whether anyone would notice if the first pass were done by software with a human signing off. That's a much duller use of AI than a concept render — and a much easier one to prove a number against.",
+            source: "Bricks & Bytes, August 3, 2026",
+            sourceUrl:
+              "https://bricks-bytes.com/funding-ma/latest-construction-technology-funding-rounds-3rd-aug-2026/",
+            tags: ["Construction", "Compliance", "Funding"],
+          },
+          {
+            emoji: "🚜",
+            industry: "Construction",
+            title: "SoftBank is reportedly circling a $500M+ excavator-robotics deal",
+            body: "SoftBank is reported to be in talks to acquire Gravis Robotics, a Swiss startup building autonomous hardware and software for excavators and other heavy construction equipment, in a deal reportedly valued at more than $500 million. It hasn't closed and terms could change. It follows SoftBank completing its exit from Boston Dynamics.\n\nIn parallel, Google DeepMind released Gemini Robotics 2, extending its robotics model from upper-body control to coordinated whole-body movement — walking, crouching, reaching, improved five-finger dexterity, longer-horizon task reasoning, and coordination between different robot types, with an on-device version that adapts to new hardware without a cloud connection.",
+            whyItMatters:
+              "Last week construction robotics was a funding story. This week it's an exit story, and that's a different signal. Venture money says a category might work; a strategic acquirer paying nine figures says someone believes the buyer exists today. The near-term read for contractors is unchanged — you are not buying an autonomous excavator this quarter. The medium-term read is worth a calendar note: when the control software for heavy equipment consolidates under a small number of owners, the cost curve on earthworks and site prep stops being set purely by local labour markets. Keep an eye on how your groundworks subs quote over the next few bid cycles. That's where you'll see it first, if you see it at all.",
+            source: "Tech Funding News, via Bricks & Bytes",
+            sourceUrl:
+              "https://techfundingnews.com/softbank-eyes-500m-gravis-robotics-deal-after-completing-its-boston-dynamics-exit/",
+            tags: ["Construction", "Robotics", "M&A"],
+          },
+          {
+            emoji: "🔌",
+            industry: "Real Estate",
+            title: "Rechat opened an MCP server — your chatbot can now touch your real business data",
+            body: "Rechat launched a Model Context Protocol (MCP) server, letting AI assistants including Claude and ChatGPT carry out agent-directed tasks inside the Rechat platform using an agent's actual contacts, marketing, transactions and listing data. Access is permission-based and scoped to what each user is already authorised to do. Agents can ask their assistant to launch a campaign, update a listing site, manage follow-ups, or check where a deal stands — and it happens in Rechat, with their real data and their own branding. Rechat's VP of strategic growth, Audie Chamberlain, framed the gap plainly: agents already have an AI assistant open all day; what was missing was the connection to their actual business.\n\nThe same week, RealAnalytica launched Atlas Agents, an \"AI workforce\" spanning CRM, email, MLS and tax data, marketing, recruiting, analytics, e-signature and transactions across 30+ integrations, running in the background on approved multistep workflows. It follows Compass's AI Assistant in July and Inside Real Estate's no-code Streams Studio.",
+            whyItMatters:
+              "This is the most important item in this week's roundup and it has nothing to do with real estate specifically. The assistant most professionals use is a stranger to their business — it writes fine copy because it knows English, not because it knows your pipeline. MCP is the plumbing that closes that gap, and it is spreading fast across vertical software. Two consequences. First, the value of your AI shifts from which model you use to what data it can reach — which means whoever holds your CRM, your project data, or your document archive is about to become a much stickier vendor. Ask yours whether an MCP server is on the roadmap. Second, permissions become the whole safety story. \"Scoped to what the user can already do\" is doing enormous work in that sentence; if you turn this on, scope it the way you'd scope a new hire's system access on day one, not day ninety.",
+            source: "Real Estate News, August 7, 2026",
+            sourceUrl:
+              "https://www.realestatenews.com/2026/08/07/rechat-realanalytica-launch-ai-workflow-tools-for-agents",
+            tags: ["Real Estate", "MCP", "AI Agents"],
+          },
+          {
+            emoji: "🛒",
+            industry: "Furniture",
+            title: "Shopify says AI-driven orders tripled — and your site now has a second kind of visitor",
+            body: "On its latest earnings call, Shopify reported that AI-driven traffic and orders tripled year over year while traditional search kept growing — AI search expanding ecommerce rather than cannibalising it. Executives credited AI's ability to match intent across many product attributes instead of keywords, and noted that AI-referred visitors land directly on product pages far more often than search visitors, compressing the buying journey.\n\nThree related things landed the same week. Gemini Spark can now drive a user's signed-in Chrome browser — navigating sites, comparing options, filling forms and advancing bookings until a sensitive approval is needed. The IAB published guidance for measuring AI-search visibility across four dimensions: Presence, Prominence, Portrayal and Persuasion. And Google began rolling out a Search Console control to opt a site out of AI Overviews, AI Mode and Discover's generative features — though click data to judge that trade-off isn't expected until December.",
+            whyItMatters:
+              "For anyone selling furniture, fittings, or design services online, the Shopify number is the most encouraging data point in months — AI discovery appears to be additive, and it favours whoever has clean, complete, well-structured product data over whoever has the biggest ad budget. The Gemini Spark half is the warning. Your website now has two audiences: humans who read it, and agents that operate it. Custom widgets, obstructive interstitials, images-as-text, and clever bespoke forms all read as friction to an agent, even when a human copes fine. The fix is unglamorous and largely identical to accessibility work you should already be doing: semantic HTML, properly labelled form fields, structured data, visible pricing and availability, simple checkout and enquiry flows. And on Google's opt-out — the honest advice this month is don't. Establish a baseline first; you can't evaluate a trade-off whose cost side won't be measurable until December.",
+            source: "TechCrunch, August 5, 2026",
+            sourceUrl:
+              "https://techcrunch.com/2026/08/05/shopify-says-ai-search-is-driving-more-traffic-and-sales-not-replacing-google/",
+            tags: ["Furniture", "E-commerce", "AI Search"],
+          },
+        ],
+      },
+      {
+        type: "what-to-watch",
+        heading: "The Through-Line",
+        leadIn:
+          "Strip the funding numbers out and every story this week is about the same thing: connection.",
+        paragraphs: [
+          "An engineering firm buying into the tool that reads its drawings. Compliance software wired into payroll systems. Robotics control software consolidating under one owner. An assistant plugged into live brokerage data. A browser agent operating your storefront on a customer's behalf.",
+          "The era of AI as a separate window you paste things into is closing. What replaces it is AI that reaches into the systems where your work already lives — and that shifts the competitive question from which tool did you buy to is your data in a state where a tool can use it. Structured specs. A findable project archive. Clean product attributes. Labelled form fields. Permissions you can explain out loud.",
+          "None of that is exciting. All of it is now the prerequisite. The firms that spent the last two years quietly tidying their data are about to find out that was the strategy.",
+        ],
+      },
+      {
+        type: "disclaimer",
+        text: "Editorial note: This roundup summarizes reporting from the sources linked above; figures and claims belong to those sources. The SoftBank–Gravis Robotics transaction was reported as being in talks and had not closed at time of writing — treat the figure as reported, not final.",
+      },
+    ],
+  },
+  {
     slug: "ai-news-2026-08-02",
     title:
       "AI News Roundup — Week of August 2, 2026: Robots Get the Big Cheques, Agencies Get Rolled Up, and the EU AI Act Finally Bites",
