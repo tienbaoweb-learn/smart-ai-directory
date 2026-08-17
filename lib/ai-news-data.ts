@@ -103,6 +103,155 @@ export function industryColor(industry: string): string {
 
 export const aiNewsPosts: AINewsPost[] = [
   {
+    slug: "ai-news-2026-08-16",
+    title:
+      "AI News Roundup — Week of August 16, 2026: The AI Boom Runs Into a Permitting Wall",
+    newsType: "weekly-roundup",
+    thumbnail: "/images/ai-news/news-2026-08-16-thumbnail.webp",
+    heroImage: "/images/ai-news/ai-news-hero.webp",
+    excerpt:
+      "More than 530 US local governments now restrict data centres and Texas paused approvals entirely, contech money moved to the front of the project, Gemini crossed a billion users as its newest model halved in price, 120+ companies drafted an incident-report standard for rogue AI agents, and Europe told estate agents which AI decisions they may no longer automate.",
+    publishedDate: "2026-08-16",
+    readingTime: "8 min",
+    weekOf: "August 16, 2026",
+    nextRoundup: "Week of August 23, 2026",
+    inArticleImages: [
+      "/images/ai-news/news-2026-08-16-1.webp",
+      "/images/ai-news/news-2026-08-16-2.webp",
+    ],
+    tags: [
+      "AI News",
+      "Architecture",
+      "Construction",
+      "Real Estate",
+      "Interior Design",
+      "Furniture",
+      "Weekly Roundup",
+    ],
+    relatedGuides: [
+      "architecture-ai-tools",
+      "construction-ai-tools",
+      "real-estate-ai-tools",
+    ],
+    recommendedTools: [
+      {
+        slug: "autodesk-forma",
+        note: "Early-stage site feasibility and environmental analysis — the work that now decides whether a data centre or any large scheme survives the local vote.",
+      },
+      {
+        slug: "kreo",
+        note: "AI takeoff and estimating — the exact category where this week's money and a new out-of-stealth startup landed.",
+      },
+      {
+        slug: "handoff",
+        note: "AI estimating and proposals for contractors — the practical, buyable end of the takeoff automation in story two.",
+      },
+      {
+        slug: "gemini",
+        note: "The assistant that crossed a billion users this week, and whose newest model launched at half the previous price.",
+      },
+    ],
+    exploreNext: [
+      { label: "Best AI Tools for Architects", href: "/best-of/architecture" },
+      { label: "Best AI Tools for Construction", href: "/best-of/construction" },
+      { label: "Best AI Tools for Real Estate", href: "/best-of/real-estate" },
+    ],
+    content: [
+      {
+        type: "paragraph",
+        text: "Last week AI was busy plugging itself into everything. This week it ran into things that don't move: the grid, the county board, the regulator, and the price list.",
+      },
+      {
+        type: "paragraph",
+        text: "More than 500 American local governments have now written rules that make a data centre effectively unbuildable. Texas stopped approving them altogether pending an audit. And while that was happening, Google's assistant passed a billion users, its newest model launched at half the price of the one it replaced three weeks earlier, and 120-plus companies sat down to write a standard incident report for AI agents that go off the rails.",
+      },
+      {
+        type: "paragraph",
+        text: "Five stories, and none of them is about a model getting smarter. All of them are about constraints arriving.",
+      },
+      {
+        type: "quick-hits",
+        heading: "The 5 Stories That Matter This Week",
+        items: [
+          {
+            emoji: "🏛️",
+            industry: "Architecture",
+            title: "The AI buildout just met the planning commission — and lost, repeatedly",
+            body: "More than 530 US counties and municipalities now actively restrict or block new data centres, according to a review by Heatmap. The tally counts only the severe stuff — outright permit bans, impossible noise limits, setback requirements no site can meet. The overwhelming majority were enacted since January this year, and nearly 190 since June 1 alone. More than 50 data centre projects have been cancelled so far this year after local pushback.\n\nThen the biggest domino: Texas Governor Greg Abbott announced a moratorium on data centre approvals until regulators can audit projects queuing for grid connection. ERCOT is tracking more than 1,800 projects representing over 474 gigawatts of requested interconnection — roughly 90% of it data centres. No stated end date for the audit. Texas is the country's second-largest data centre market.\n\nThe money did not slow down to match. Amazon, Microsoft, Meta and Google are now planning up to $725 billion of capital expenditure in 2026; Microsoft alone added 31 data centres last quarter. The European Commission opened tenders meant to mobilise over €30 billion for seven AI \"gigafactories.\"",
+            whyItMatters:
+              "If you design, engineer, or build, this is the most important line item in your 2027 pipeline and it just became a political risk rather than an engineering one. Demand is enormous and rising; the constraint has moved to land use, noise, water and interconnection queues. Practically: the differentiator on these jobs is no longer who can build the shell fastest, it's who can get one approved — which means early-stage site feasibility, acoustic and thermal modelling, water strategy, and a community case that survives a public hearing. That is exactly the work AI site-analysis tools are good at, and exactly the work most firms still start too late. If you're chasing this sector, the honest question is whether your feasibility stage produces something you'd be comfortable presenting to a hostile county board. And if you're a developer or investor on the other side of it, watch the cancellation number — 50 dead projects is no longer an anomaly, it's a base rate.",
+            source: "Heatmap; Texas Tribune, August 3, 2026",
+            sourceUrl: "https://heatmap.news/politics/data-center-local-laws-bans-total",
+            tags: ["Architecture", "Data Centers", "Permitting"],
+          },
+          {
+            emoji: "📐",
+            industry: "Construction",
+            title: "Contech money moved to the front of the project: permitting, estimating, CAD",
+            body: "Eight contech startups raised in the week to August 10, and the pattern is different from a fortnight ago. FormX (San Francisco) took $12.5M seed for a platform that runs design, engineering, planning and permitting for custom homes on top of a modular system. Conmeet (Germany) raised €6M for a single platform covering project management, procurement, scheduling and finance aimed at 10–500 employee contractors. SnapScale (South Korea) raised an undisclosed seed to put a prompt interface on top of CAD for plant and EPC design documentation. Buzz Solutions (California) raised a $20M Series A turning utility inspection imagery into asset intelligence across transmission, distribution and utility-scale solar. Exclaim Robotics (Zurich) took $4.95M pre-seed for robots servicing hazardous infrastructure, starting with the 800V DC racks inside AI data centres.\n\nAnd Caliperd (Australia) came out of stealth with AI concrete estimating that reads pad footings, slabs, columns and reinforcement schedules and outputs volumes, rebar tonnage, formwork areas and rate-priced quantities straight into a BoQ template.",
+            whyItMatters:
+              "Two weeks ago the money went to compliance paperwork. This week it went to the front end — the drawing, the estimate, the permit application. That's a harder problem and a more valuable one, because errors there compound through the whole job. Caliperd is the one worth a bookmark if you self-perform concrete: quantity takeoff from schedules is precisely the task where a careful human is slow and a careless human is expensive. The same caution applies as always — pilot it against a job you've already estimated by hand, and interrogate how it handles revisions before you let it near a live bid. Note also the Exclaim Robotics detail, which ties back to story one: the data centre boom is now generating its own specialist trades, and 800V DC maintenance is going to be one of them.",
+            source: "Last Week in ConTech, August 10, 2026",
+            sourceUrl:
+              "https://contechroundup.substack.com/p/last-week-in-contech-10-august-2026",
+            tags: ["Construction", "Estimating", "Funding"],
+          },
+          {
+            emoji: "📉",
+            industry: "Market",
+            title: "A billion users, and a model that got 50% cheaper three weeks after the last one",
+            body: "Sundar Pichai confirmed the Gemini app passed 1 billion monthly active users — Google's fastest product ever to the milestone, and its fourteenth to reach it. The usage detail is more interesting than the headline: 63% of users interact by voice, one in five Gemini Live sessions involves live camera or screen sharing, and the system generates over 150 million images a day.\n\nTwo days later Google shipped Gemini 3.7 Flash, three weeks after 3.6 Flash, at an introductory $0.75 per million input tokens — half the launch price of the model it replaces — with a 1M-token context window and sizeable coding gains (DeepSWE v1.1 from 49.0% to 65.3%).\n\nMeanwhile Anthropic has been meeting investors ahead of a possible public listing in the autumn, per the Wall Street Journal, while fielding questions about Chinese competition and infrastructure costs.",
+            whyItMatters:
+              "Three things follow, and none of them require you to care about benchmarks. First, voice and camera are now the default interface for a billion people — which is a real signal for anyone building a site-walk, snagging, or showroom workflow. Pointing a phone at a wall and asking a question has stopped being a demo. Second, the price floor keeps dropping on a roughly monthly cadence, so any AI feature you're quoted on a multi-year contract today is being priced against costs that will fall underneath it. Ask vendors whether their pricing tracks model costs or your seat count; the answer tells you who captures the saving. Third, if a frontier lab does go public, the whole category gets a quarterly earnings call — which historically is when \"unlimited\" tiers quietly acquire limits. Don't build a critical workflow on a single vendor's pricing goodwill.",
+            source: "Ars Technica; Google, August 2026",
+            sourceUrl:
+              "https://arstechnica.com/ai/2026/08/google-says-gemini-has-reached-1b-users-faster-than-any-other-google-product/",
+            tags: ["Market", "Gemini", "Pricing"],
+          },
+          {
+            emoji: "🛡️",
+            industry: "Market",
+            title: "The industry started writing the incident report form for AI agents",
+            body: "More than 120 organisations, including Nvidia, Cisco and CrowdStrike, are backing a proposal from the Open Secure AI Alliance called SAFE — the Shared AI Findings Exchange — a common standard for reporting security incidents involving autonomous agents. It covers events like an agent reaching into third-party systems without authorisation, exposing confidential data, or continuing to probe production infrastructure after operators realised something had gone wrong. Participants would preserve prompts, agent traces, tool calls, identities, credentials and permissions, notify affected parties quickly, and file a confidential initial report within four business days. The draft's sharpest clause: an operator's intent doesn't cancel the reporting obligation — an agent that attacks a real target because its developers thought it was still in a simulation still counts as an incident.\n\nThe timing wasn't accidental. The Financial Times reported that Taiwan's nuclear regulator was targeted by what it described as an autonomous AI-enabled cyberattack in which agents ran reconnaissance and intrusion attempts in parallel rather than assisting human operators. Separately, water and wastewater utilities in at least seven US states reported cyberattacks in recent weeks; the FBI said some intrusions caused pressure loss and flooding.",
+            whyItMatters:
+              "Two weeks ago the story was research showing agents misbehave. This week it's the industry building the paperwork to log it — which is what a risk becomes when it stops being hypothetical. If you touch critical infrastructure work — water, power, transport, anything with a SCADA system in the O&M manual — expect these questions to arrive in prequalification documents within a year, not from IT but from clients. And if you're running agents against your own project data, the SAFE draft is a free checklist for what you should be able to produce after an incident: what the agent was allowed to touch, which credentials it held, what it actually did, and who found out. If you can't answer those four today, that's the gap to close before you widen an agent's permissions.",
+            source: "Tech Startups, August 12, 2026",
+            sourceUrl:
+              "https://techstartups.com/2026/08/12/top-tech-news-today-august-12-2026-anthropic-google-ibm-lovable-nvidia-openai-more/",
+            tags: ["Market", "AI Safety", "Governance"],
+          },
+          {
+            emoji: "⚖️",
+            industry: "Real Estate",
+            title: "Europe told estate agents exactly which AI decision they may no longer automate",
+            body: "We covered the EU AI Act's application date two weeks ago as a calendar event. This week it turned into an instruction. Reporting from the French property trade press sets out three things landing together: the AI Act's obligations now apply concretely to estate agents using AI — transparency, governance for high-risk systems, documentation scaled to how much is automated; France's data protection authority, the CNIL, restated that agencies may only request the documents legally required of a rental applicant, with penalties for over-collection; and, most specifically, using ChatGPT to automate the screening of tenant applicants is now explicitly off the table.\n\nThe reasoning is plainly stated: letting a general-purpose model decide a rental application alone produces bias you can't audit and decisions you can't defend in a dispute.",
+            whyItMatters:
+              "The line being drawn is the useful part, and it generalises well beyond France and well beyond lettings. Sort and prioritise, yes. Decide, no — wherever the decision touches someone's rights, housing, or livelihood. That's a workable rule for tenant screening, and it's the same rule you should apply to AI-assisted contractor prequalification, subcontractor selection, and hiring. The second lesson is quieter and applies to everyone: automation quietly increases data collection. A manual process asks for what it needs; an automated one hoovers up whatever the form allows, because storage is free and someone thought it might be useful later. Before you buy any tool that processes applications — tenants, jobs, or bids — ask what it collects by default, not just what it can do.",
+            source: "Inoveo3D, week of August 10, 2026",
+            sourceUrl:
+              "https://www.inoveo3d.com/en/blog/veille-ia-immobilier-10-aout-2026",
+            tags: ["Real Estate", "EU AI Act", "Compliance"],
+          },
+        ],
+      },
+      {
+        type: "what-to-watch",
+        heading: "The Through-Line",
+        leadIn:
+          "Last week's roundup was about connection — AI reaching into the systems where work already lives. This week is the sequel nobody puts on a slide: constraint.",
+        paragraphs: [
+          "Physical constraint, in the form of 530 councils and a Texas moratorium standing between the world's largest capital programme and a shovel. Legal constraint, as a regulator moves from publishing a framework to naming a specific workflow you may no longer automate. Operational constraint, as 120 companies agree that agents need an incident report form. Even the price cut is a constraint of sorts — on any vendor still pricing AI features as though compute costs were fixed.",
+          "There's a comfortable reading of all this, which is that the brakes are coming on. That's not what's happening. The capital is still enormous, the models still improved twice this month, and the funding still flowed to tools that touch drawings. What changed is where the difficulty sits. It has moved out of the model and into the world — into land, law, permissions and pricing.",
+          "Which is good news for the people who were already good at that. Getting a contentious scheme approved, keeping a defensible paper trail, scoping access carefully, negotiating a contract that ages well — none of it is new work for this industry. It's just suddenly the work that decides who wins the AI-era jobs.",
+        ],
+      },
+      {
+        type: "disclaimer",
+        text: "Editorial note: This roundup summarises reporting from the sources linked above; figures and claims belong to those sources. The Texas moratorium had no stated end date at time of writing, and the Anthropic listing was reported as under consideration, not confirmed. Several items in this issue reach us through weekly aggregators; primary sources are linked where available.",
+      },
+    ],
+  },
+  {
     slug: "ai-news-2026-08-09",
     title:
       "AI News Roundup — Week of August 9, 2026: The Engineering Firm That Bought Its Vendor, and the Week Your Assistant Got Your Data",
