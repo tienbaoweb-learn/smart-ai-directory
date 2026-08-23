@@ -1,5 +1,45 @@
 // next.config.ts
+import fs from "fs";
+import path from "path";
 import type { NextConfig } from "next";
+
+// ── Legacy /ai-tools/:slug support ───────────────────────────────────────────
+// Tool reviews used to live at /ai-tools/:slug and now live at /tools/:slug.
+// We must only redirect slugs that actually resolve to a review, otherwise the
+// redirect lands on a 404 — which Google reports as a "Redirect error".
+// The list is read from the content directory so new reviews are covered
+// automatically and retired ones stop redirecting.
+function readReviewSlugs(): string[] {
+  const dir = path.join(process.cwd(), "content/tools");
+  let files: string[] = [];
+  try {
+    files = fs.readdirSync(dir).filter((f) => f.endsWith(".mdx"));
+  } catch {
+    return [];
+  }
+  const slugs = files.map((f) => {
+    const raw = fs.readFileSync(path.join(dir, f), "utf8");
+    const m = raw.match(/^slug:\s*"?([^"\n\r]+)"?\s*$/m);
+    return (m ? m[1] : f.replace(/\.mdx$/, "")).trim();
+  });
+  return [...new Set(slugs)]
+    // sample-tool is excluded from every listing, so it has no public page
+    .filter((s) => s !== "sample-tool")
+    // guard the regex alternation below against anything unexpected
+    .filter((s) => /^[a-z0-9-]+$/.test(s));
+}
+
+// Old tool slugs that were renamed. Mapped straight to the final destination so
+// a legacy URL never chains through a second redirect.
+const LEGACY_TOOL_ALIASES: Record<string, string> = {
+  jasper: "jasper-ai",
+  twinmotion: "twinmotion-ai",
+  "virtual-staging-ai": "virtualstagingai",
+  "diedinhouse-com": "diedinhouse",
+  "synthesia-io": "synthesia",
+  "v-ray": "chaos-v-ray",
+  reimaginehome: "reimagine-home",
+};
 
 const nextConfig: NextConfig = {
   images: {
@@ -19,19 +59,30 @@ const nextConfig: NextConfig = {
     ],
   },
   async redirects() {
+    const reviewSlugs = readReviewSlugs();
+    // An alias key must never also be a live review slug.
+    const aliases = Object.entries(LEGACY_TOOL_ALIASES).filter(
+      ([from]) => !reviewSlugs.includes(from),
+    );
+
     return [
-      // Specific redirect for the only Jasper review that existed at /ai-tools/jasper
-      {
-        source: "/ai-tools/jasper",
-        destination: "/tools/jasper-ai",
-        permanent: true,
-      },
-      // Redirect individual tool slugs to /tools/:slug, but exclude the 5 category pages
-      {
-        source: "/ai-tools/:slug((?!design|content-marketing|automation|sales|productivity).+)",
-        destination: "/tools/:slug",
-        permanent: true,
-      },
+      // ── Renamed tool slugs: send both old paths straight to the final URL ──
+      ...aliases.flatMap(([from, to]) => [
+        { source: `/tools/${from}`, destination: `/tools/${to}`, permanent: true },
+        { source: `/ai-tools/${from}`, destination: `/tools/${to}`, permanent: true },
+      ]),
+
+      // ── /ai-tools/:slug → /tools/:slug, but ONLY for slugs that have a
+      //    review. Anything else 404s directly instead of redirecting to a 404.
+      ...(reviewSlugs.length
+        ? [
+            {
+              source: `/ai-tools/:slug(${reviewSlugs.join("|")})`,
+              destination: "/tools/:slug",
+              permanent: true,
+            },
+          ]
+        : []),
 
       // ── Legacy WordPress URLs from the previous site ──
       { source: "/tag/:slug*", destination: "/tags", permanent: true },
@@ -41,13 +92,6 @@ const nextConfig: NextConfig = {
         destination: "/resources",
         permanent: true,
       },
-
-      // ── Tool reviews that now live under a corrected slug ──
-      { source: "/tools/twinmotion", destination: "/tools/twinmotion-ai", permanent: true },
-      { source: "/tools/virtual-staging-ai", destination: "/tools/virtualstagingai", permanent: true },
-      { source: "/tools/diedinhouse-com", destination: "/tools/diedinhouse", permanent: true },
-      { source: "/tools/synthesia-io", destination: "/tools/synthesia", permanent: true },
-      { source: "/tools/v-ray", destination: "/tools/chaos-v-ray", permanent: true },
 
       // ── Comparison hub moved under /resources ──
       { source: "/compare", destination: "/resources/comparisons", permanent: true },
