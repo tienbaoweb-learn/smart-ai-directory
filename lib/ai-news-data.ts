@@ -103,6 +103,156 @@ export function industryColor(industry: string): string {
 
 export const aiNewsPosts: AINewsPost[] = [
   {
+    slug: "ai-news-2026-08-23",
+    title:
+      "AI News Roundup — Week of August 23, 2026: The Shortage Isn't Chips Anymore",
+    newsType: "weekly-roundup",
+    thumbnail: "/images/ai-news/news-2026-08-23-thumbnail.webp",
+    heroImage: "/images/ai-news/ai-news-hero.webp",
+    excerpt:
+      "The data centre bottleneck moved from permits to electricians and transformers, $95M of contech money went to seeing the building rather than managing it, AI financing turned into a debt-market product, the sharpest analysis of the week argued the real constraint is customer absorption, and Apple started labelling AI-generated work.",
+    publishedDate: "2026-08-23",
+    readingTime: "8 min",
+    weekOf: "August 23, 2026",
+    nextRoundup: "Week of August 30, 2026",
+    inArticleImages: [
+      "/images/ai-news/news-2026-08-23-1.webp",
+      "/images/ai-news/news-2026-08-23-2.webp",
+    ],
+    tags: [
+      "AI News",
+      "Architecture",
+      "Construction",
+      "Real Estate",
+      "Interior Design",
+      "Furniture",
+      "Weekly Roundup",
+    ],
+    relatedGuides: [
+      "construction-ai-tools",
+      "architecture-ai-tools",
+      "ai-rendering-visualization-tools",
+    ],
+    recommendedTools: [
+      {
+        slug: "matterport",
+        note: "Reality capture and digital twins — the category that took the week's biggest cheque, and the layer everything else now sits on.",
+      },
+      {
+        slug: "veras",
+        note: "AI rendering inside your existing model — the same job Oslo's Visoid just raised seed money to do, available to try today.",
+      },
+      {
+        slug: "rendair-ai",
+        note: "Turns sketches, 3D models and floor plans into finished imagery — the AI-render category story two says is being repriced right now.",
+      },
+      {
+        slug: "procore-ai",
+        note: "The agent library that starts rolling out company-specific Skills this month, and the clearest test of whether teams can actually absorb AI features.",
+      },
+    ],
+    exploreNext: [
+      { label: "Best AI Tools for Construction", href: "/best-of/construction" },
+      { label: "Best AI Tools for Architects", href: "/best-of/architecture" },
+      { label: "Best AI Tools for Real Estate", href: "/best-of/real-estate" },
+    ],
+    content: [
+      {
+        type: "paragraph",
+        text: "Last week the story was constraint: 530 councils, a Texas moratorium, a regulator naming a workflow you may no longer automate.",
+      },
+      {
+        type: "paragraph",
+        text: "This week the constraint got more specific, and more awkward. It turns out the thing standing between the largest capital programme in modern history and a finished building is an electrician, a transformer, and a customer who hasn't got round to reading the release notes.",
+      },
+      {
+        type: "paragraph",
+        text: "Meanwhile $121 million of contech funding went almost entirely to tools that see the building rather than manage it, AI infrastructure started being financed like a toll road, and Apple quietly began labelling work that was \"materially generated using AI.\" Five stories. None of them is about a model getting smarter. All of them are about the gap between what AI can do and what the physical world will let it do.",
+      },
+      {
+        type: "quick-hits",
+        heading: "The 5 Stories That Matter This Week",
+        items: [
+          {
+            emoji: "⚡",
+            industry: "Construction",
+            title: "The data centre bottleneck moved again — to electricians, transformers, and land",
+            body: "Three numbers from this week, and they belong together.\n\nBy some estimates the US is 58,000 people short of the workforce needed to install the fibre-optic cable that connects data centres to the internet, according to NBC News. Separately, the New York Times reported AI companies are now recruiting electricians and carpenters by the thousands, running their own training programmes rather than waiting for the trades to appear.\n\nThen the parts. Austin's Fluxco raised $26M seed for an AI procurement platform aimed at one specific choke point: electrical transformers. Clients upload engineering requirements and receive vetted bids from a global OEM network. The reason that's worth $26M is in the startup's own numbers — lead times for large power transformers in the US now run 128 weeks, generator step-up units 144 weeks, and prices are up 70–150% since 2020.\n\nAnd the land. A data centre developer offered Virginia homeowners roughly $4.4 million per acre for land in an area where median prices sit closer to $100,000 per acre. Data centre builders are now outbidding home builders for sites, straightforwardly. The result is showing up in delivery: CNN reported that only about half of the AI computing capacity scheduled to come online between now and 2028 is actually expected to arrive on time.",
+            whyItMatters:
+              "Last week the answer to \"why can't they build these?\" was the planning commission. This week it's four separate answers — labour, switchgear, land price, and grid connection — none of which a permit fixes. Practically, three things follow. First, if you're pricing data centre work, your programme risk is now concentrated in long-lead electrical equipment, and a schedule that doesn't name transformer procurement as a critical-path item is a schedule you'll be arguing about in year two. Second, the trades shortage is a genuine commercial opening: the firms training their own electricians right now are buying capacity that money alone won't get in 2028. Third, and less comfortable — if you build housing, you're now bidding against buyers who value the same acre at forty times what your pro forma allows. That's not a temporary distortion; it's the new comp in certain counties.",
+            source: "NBC News; New York Times; CNN, August 2026",
+            sourceUrl:
+              "https://www.nbcnews.com/business/business-news/labor-shortage-chokes-ai-data-center-construction-rcna591051",
+            tags: ["Construction", "Data Centers", "Supply Chain"],
+          },
+          {
+            emoji: "📷",
+            industry: "Architecture",
+            title: "$95M of contech money went to seeing the building, not managing it",
+            body: "Eight startups raised in the week to August 17, totalling roughly $160M disclosed. Strip out the finance, procurement and equipment rounds and $95M of it sits in one place — and the pattern is very clear.\n\nMunich's NavVis took $85M Series D, led by The Jordan Company, for a spatial data platform that pairs mobile reality capture with an enterprise digital twin — the idea being that every stakeholder works from the same trusted as-built rather than three conflicting versions. Tennessee's SiteVue AI raised $7.5M seed for fixed and wearable AI cameras that read the environment in real time: defects, labour activity, injuries, PPE compliance, with alerts to workers or supervisors. Worth noting SiteVue came up through automotive manufacturing and food production and is only now expanding into construction, oil and gas — the QA discipline is arriving from outside the industry.\n\nAt the smaller end but arguably the most relevant to design practices: Oslo's Visoid raised $2.5M seed for architectural visualisation that turns an existing 3D model into finished imagery, with adjustable lighting, swappable materials and seasonal variants — explicitly positioned as an alternative to a traditional rendering pipeline.\n\nThen the consolidation. Caterpillar acquired Skycatch, a drone and geospatial analytics company, feeding near-real-time site data into its mining software stack. And ENG, the largest US BIM services provider, acquired e-verse, a shop of architects and engineers who write code.",
+            whyItMatters:
+              "The stack is being assembled from the bottom. Reality capture used to be a deliverable you bought once for a survey; it's becoming the substrate that estimating, QA, progress claims and handover all read from — which is why the biggest cheque of the week went there and why a machinery manufacturer just bought a drone analytics firm outright. Two practical reads. If you're an architect or interior designer, watch Visoid and the category around it: rendering is one of the last places where a practice still trades hours for images, and that trade is being repriced right now — the question to ask isn't \"is it as good as our renderer,\" it's \"how many more options can we show a client per week.\" If you're a contractor, the ENG/e-verse deal is the more interesting signal — a services firm decided the way to compete was to own people who can build software, not just buy it. That's a build-versus-buy line moving in an unusual direction, and it's worth asking why before you sign another five-year platform contract.",
+            source: "Last Week in ConTech, August 17, 2026",
+            sourceUrl:
+              "https://contechroundup.substack.com/p/last-week-in-contech-17-august-2026",
+            tags: ["Architecture", "Reality Capture", "Funding"],
+          },
+          {
+            emoji: "🏦",
+            industry: "Market",
+            title: "AI stopped being a tech story and became a debt-market one",
+            body: "Three items from a single week that only make sense together.\n\nBroadcom is in talks to raise more than $60 billion in debt for an AI chip financing arrangement, per Bloomberg — a structure that could reach roughly $100 billion all in, with senior secured debt alongside junior financing, and reportedly tied in part to Anthropic infrastructure. Broadcom has previously worked with Blackstone and Apollo on similar arrangements.\n\nAnthropic is preparing an IPO that people familiar with the process say could match or exceed SpaceX's record debut, with a filing possibly as soon as the end of August. Bloomberg reporting put the company's annualised revenue at roughly $65 billion by the end of July.\n\nAnd Nvidia struck a $6 billion licensing deal with AI coding startup Poolside — plus a further $1 billion investment at a $12 billion pre-money valuation, plus job offers to about 109 Poolside employees, all without formally acquiring the company.",
+            whyItMatters:
+              "This industry knows what it looks like when an asset class forms. Special-purpose financing structures built around expected future demand, syndicated across banks and private credit, secured against long-lived physical plant — that is not how software has historically been funded. It's how toll roads, pipelines and power stations are funded. Which tells you two things. One: the AI buildout is now structurally committed in a way that a bad quarter won't unwind, so treat the data centre pipeline as real demand rather than hype. Two: debt has covenants and repayment schedules, and every vendor whose infrastructure sits inside one of these structures now has a fixed obligation to service. Free tiers and generous seat pricing are the first things to move when that pressure arrives. If you're signing a multi-year AI tool contract this autumn, price protection and data portability are worth more than another 5% off the licence fee. The Nvidia–Poolside structure is worth a second look too — licence the technology, hire most of the team, leave the shell standing. Expect to see that shape used on smaller AEC software vendors, and to find out about it only when your account manager's email address changes.",
+            source: "Tech Startups, August 21, 2026",
+            sourceUrl:
+              "https://techstartups.com/2026/08/21/top-tech-news-today-august-21-2026-anthropic-apple-broadcom-google-nvidia-openai-tesla-more/",
+            tags: ["Market", "AI Financing", "IPO"],
+          },
+          {
+            emoji: "🧠",
+            industry: "Construction",
+            title: "The best argument of the week: the constraint isn't building software, it's absorbing it",
+            body: "The sharpest piece of analysis in contech this week wasn't a funding round. It was an observation from Last Week in ConTech, drawn from a conversation with Clearstory founder Cameron Page, and it deserves reading twice.\n\nAI made software radically cheaper to build. It did not make software any easier to adopt. Before a feature reaches general availability it still needs testing, internal enablement, customer training, documentation, support material and a deployment plan — so a large release can still take months to reach widespread use, no matter how fast it was written. The bottleneck has moved from engineering velocity to adoption velocity.\n\nThe conclusion is uncomfortable for vendors and useful for buyers: when almost anything can be built quickly, deciding what to build matters far more, because customers have a hard limit on how many new workflows they can learn at once. The timing rhymes with Procore, which began rolling out Skills across its Digital Coworker packages this month — a mechanism for teaching its AI agents your own processes, standards and ways of working, sitting on top of a library that now runs to 20 pre-built agents across planning, bidding, safety, quality and risk.",
+            whyItMatters:
+              "If you have ever paid for a platform your team uses at 20% of its capability, this is the diagnosis. And the fix is not more features. Practically: before you buy another AI tool this quarter, count how many new workflows you've already asked your team to learn this year, and be honest about how many of them stuck. A tool nobody has time to learn is a subscription, not a capability. The corollary is the buying criterion nobody puts in an RFP — ask a vendor how they get customers to actually use what they ship. If the answer is \"customer success will run a training session,\" you are looking at the old model. If they can show you a changelog, a product-update channel and evidence that customers discover features without being told, that's a vendor whose roadmap will reach you. Procore Skills is the version of this worth watching in construction specifically: teaching an agent your standards is a far smaller ask of a team than teaching a team a new tool, which may be the only adoption strategy that actually scales.",
+            source: "Last Week in ConTech, August 17, 2026",
+            sourceUrl:
+              "https://contechroundup.substack.com/p/last-week-in-contech-17-august-2026",
+            tags: ["Construction", "Adoption", "Procore"],
+          },
+          {
+            emoji: "🏷️",
+            industry: "Real Estate",
+            title: "Apple started labelling AI-generated work. Your renders are next.",
+            body: "Apple Music will apply visible labels to songs that content providers identify as \"materially generated using AI,\" according to an email Apple sent music-industry partners, extending its broader AI Transparency Tags initiative. Apple is not banning AI-generated music — it's making the provenance visible and pushing the classification duty onto distributors and rights holders.\n\nIn the same week, OpenAI began rolling out a ChatGPT integration with Apple Messages on macOS, letting the assistant read, search, summarise, draft and send messages once permissions are granted. OpenAI says the data is processed locally with no separate index of conversations. The security caveat is the obvious one: a malicious instruction embedded in an incoming message is a prompt-injection vector if permissions are drawn too wide.",
+            whyItMatters:
+              "The labelling norm will not stay in music. Once one large platform establishes that \"materially generated using AI\" is a disclosable fact, the phrase starts appearing in other people's contracts — and the industries where an image persuades someone to spend money are next in line. That means competition boards asking whether a visualisation was AI-generated, clients asking whether the render reflects a real material specification, and listing platforms asking the same about virtually staged property photography. None of that is a reason to stop using AI visualisation — story two in this issue is money betting hard the other way. It's a reason to start recording provenance now, while it's cheap: which images were model-generated, from what source geometry, and what was represented as real. A practice that can answer that in a year will be fine. A practice reconstructing it from memory will not enjoy the exercise. And on the Messages integration — the general rule holds. Every time an assistant gains read access to a channel that strangers can write to, someone else gains a way to put instructions in front of your AI. Scope the permissions to the narrowest thing that does the job.",
+            source: "Tech Startups, August 21, 2026",
+            sourceUrl:
+              "https://techstartups.com/2026/08/21/top-tech-news-today-august-21-2026-anthropic-apple-broadcom-google-nvidia-openai-tesla-more/",
+            tags: ["Real Estate", "AI Transparency", "Provenance"],
+          },
+        ],
+      },
+      {
+        type: "what-to-watch",
+        heading: "The Through-Line",
+        leadIn:
+          "Last week's roundup argued the difficulty had moved out of the model and into the world. This week says where in the world it landed: in the supply chain, and in the calendar.",
+        paragraphs: [
+          "The supply chain part is literal. Transformers at 128 weeks. Fibre crews 58,000 people short. Half the promised compute arriving late. An acre of Virginia worth forty times its comp. None of that is solved by a better model, and all of it is solved by the unglamorous competencies this industry already sells — procurement, sequencing, trade training, land assembly.",
+          "The calendar part is subtler and more interesting. The adoption argument is the same shape as the transformer argument: capacity to absorb, not capacity to produce, is the binding constraint. Software can be written in a day and still take six months to land in someone's Tuesday morning. The same is true of a jobsite process, a new material, a new agent.",
+          "Which suggests the winning move for the rest of 2026 isn't adopting more AI. It's picking fewer things and actually finishing them — while quietly writing down what your AI touched, because in a year somebody will ask.",
+        ],
+      },
+      {
+        type: "disclaimer",
+        text: "Editorial note: This roundup summarises reporting from the sources linked above; figures and claims belong to those sources. Anthropic's IPO was reported as in preparation, not filed, at time of writing, and the revenue figure is a press report rather than an audited disclosure. The Broadcom financing was described as in talks. Several items reach us through weekly aggregators; primary sources are linked where available.",
+      },
+    ],
+  },
+  {
     slug: "ai-news-2026-08-16",
     title:
       "AI News Roundup — Week of August 16, 2026: The AI Boom Runs Into a Permitting Wall",
