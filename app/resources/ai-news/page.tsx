@@ -383,6 +383,8 @@ export default function AINewsPage() {
                   <ResourceListRow
                     key={post.slug}
                     href={`/resources/ai-news/${post.slug}`}
+                    thumbnailSrc={post.thumbnail}
+                    thumbnailAlt={post.title}
                     title={post.title}
                     badge={{
                       label: NEWS_TYPE_LABEL[post.newsType],

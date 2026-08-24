@@ -392,6 +392,8 @@ export default function GuidesPage() {
                   <ResourceListRow
                     key={item.slug}
                     href={item.href}
+                    thumbnailSrc={item.thumbnail}
+                    thumbnailAlt={item.title}
                     title={item.title}
                     badge={{ label: item.badge, className: LATEST_BADGE[item.badge] }}
                     metaContent={
