@@ -7,7 +7,7 @@ export interface ResourceListRowProps {
   href?: string;
   thumbnailSrc?: string;
   thumbnailAlt?: string;
-  /** Placeholder background when thumbnailSrc is not provided. Default: "bg-gray-300". */
+  /** Background behind the thumbnail image. Default: "bg-gray-300". */
   thumbnailBgClassName?: string;
   title: string;
   badge: { label: string; className: string };
@@ -28,11 +28,19 @@ export default function ResourceListRow({
 }: ResourceListRowProps) {
   return (
     <li className="flex gap-4 items-start py-4 border-b border-gray-100 last:border-0">
-      <div className={`${thumbnailBgClassName} rounded-lg w-20 md:w-24 aspect-[2/1] relative overflow-hidden flex-shrink-0`}>
-        {thumbnailSrc && (
-          <Image src={thumbnailSrc} alt={thumbnailAlt ?? title} fill className="object-cover" />
-        )}
-      </div>
+      {/* Only reserve space when there is a real image — an empty grey block
+          reads as a broken thumbnail. */}
+      {thumbnailSrc && (
+        <div className={`${thumbnailBgClassName} rounded-lg w-20 md:w-24 aspect-[2/1] relative overflow-hidden flex-shrink-0`}>
+          <Image
+            src={thumbnailSrc}
+            alt={thumbnailAlt ?? title}
+            fill
+            sizes="(max-width: 768px) 80px, 96px"
+            className="object-cover"
+          />
+        </div>
+      )}
 
       <div className="flex-1 min-w-0">
         {href ? (
