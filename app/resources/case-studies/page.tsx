@@ -487,7 +487,10 @@ export default function CaseStudiesPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
-            {/* ── LEFT COL: Latest Case Studies ── */}
+            {/* ── LEFT COL: Latest Case Studies ──
+                Not rendered at all while there is nothing to list, so the page
+                never shows a heading above an empty list. */}
+            {LATEST_CASES.length > 0 && (
             <div className="lg:col-span-2">
               <div className="mb-4">
                 <h2 className="text-2xl font-bold text-[#1E293B]">Latest Case Studies</h2>
@@ -516,9 +519,18 @@ export default function CaseStudiesPage() {
                 ))}
               </ul>
             </div>
+            )}
 
-            {/* ── RIGHT COL: Sidebar ── */}
-            <div className="lg:col-span-1">
+            {/* ── RIGHT COL: Sidebar ──
+                Centred on its own while the Latest list is empty, so it does not
+                sit stranded in a third of the grid. */}
+            <div
+              className={
+                LATEST_CASES.length > 0
+                  ? "lg:col-span-1"
+                  : "lg:col-span-3 lg:max-w-md lg:mx-auto w-full"
+              }
+            >
 
               {/* Box 1: Popular Topics */}
               <div className="border border-gray-100 rounded-xl p-5 bg-white mb-6">
