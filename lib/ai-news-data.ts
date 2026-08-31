@@ -103,6 +103,155 @@ export function industryColor(industry: string): string {
 
 export const aiNewsPosts: AINewsPost[] = [
   {
+    slug: "ai-news-2026-08-30",
+    title:
+      "AI News Roundup — Week of August 30, 2026: The Week AI Became a Construction Company",
+    newsType: "weekly-roundup",
+    thumbnail: "/images/ai-news/news-2026-08-30-thumbnail.webp",
+    heroImage: "/images/ai-news/ai-news-hero.webp",
+    excerpt:
+      "$200M went into retrofitting excavators rather than replacing them, an insurance brokerage started buying roofing companies, data centres stopped being a permitting problem and became an election one, the week's contech money went into concrete scanning and tender reading, and Silicon Valley's most famous software fund raised $1.1 billion for hardware.",
+    publishedDate: "2026-08-30",
+    readingTime: "9 min",
+    weekOf: "August 30, 2026",
+    nextRoundup: "Week of September 6, 2026",
+    inArticleImages: [
+      "/images/ai-news/news-2026-08-30-1.webp",
+      "/images/ai-news/news-2026-08-30-2.webp",
+    ],
+    tags: [
+      "AI News",
+      "Architecture",
+      "Construction",
+      "Real Estate",
+      "Interior Design",
+      "Furniture",
+      "Weekly Roundup",
+    ],
+    relatedGuides: [
+      "construction-ai-tools",
+      "real-estate-ai-tools",
+      "architecture-ai-tools",
+    ],
+    recommendedTools: [
+      {
+        slug: "open-space",
+        note: "Site reality capture — and one of the three products named in an insurance programme that pays contractors up to 25% off premiums for using it.",
+      },
+      {
+        slug: "doxel",
+        note: "Autonomous progress tracking. The same \"capture the site, compare to the model\" loop that this week's $200M robotics round is trying to close on the machine side.",
+      },
+      {
+        slug: "kreo",
+        note: "AI takeoff and estimating — the pre-construction layer Norway's Volve just raised to attack from the tender-reading side.",
+      },
+      {
+        slug: "handoff",
+        note: "AI estimates and proposals for residential contractors — the paperwork side of the mitigation work insurers are now paying to have verified.",
+      },
+    ],
+    exploreNext: [
+      { label: "Best AI Tools for Construction", href: "/best-of/construction" },
+      { label: "Best AI Tools for Architects", href: "/best-of/architecture" },
+      { label: "Best AI Tools for Real Estate", href: "/best-of/real-estate" },
+    ],
+    content: [
+      {
+        type: "paragraph",
+        text: "Last week the story was the supply chain: 128-week transformers, 58,000 missing fibre workers, half the promised compute arriving late.",
+      },
+      {
+        type: "paragraph",
+        text: "This week the AI industry went further and adopted the rest of our problems. Long lead times it can't shorten. Communities that vote. Insurers that price risk. Equipment too expensive to replace, so you retrofit it instead. Revenue that arrives in fiscal 2029 because that's simply how long it takes to build a physical thing.",
+      },
+      {
+        type: "paragraph",
+        text: "Five stories. The common thread isn't that AI got better at construction. It's that AI got worse at being software — and started running into the exact constraints this industry has been managing for a hundred years.",
+      },
+      {
+        type: "quick-hits",
+        heading: "The 5 Stories That Matter This Week",
+        items: [
+          {
+            emoji: "🚜",
+            industry: "Construction",
+            title: "$200M says the future of heavy equipment is retrofit, not replacement",
+            body: "Swiss startup Gravis Robotics raised $200 million in Series A funding, backed by SoftBank, to build autonomous control systems for heavy machinery — starting with excavators. The product detail is the interesting part: the Gravis Rack retrofits into machines you already own, turning an existing excavator into one that can work without a driver in the cab.\n\nIt isn't an isolated cheque. Per Last Week in ConTech, Bedrock Robotics raised $270M earlier this year and TerraFirma $100M last month. The sector's thesis is demographic rather than technological: 41% of the pre-2020 construction workforce is expected to retire by 2031, and 20% of workers today are over 50.\n\nThe roundup's own note on this is sharper than the funding number. New hires can replace headcount. They cannot replace the decades of judgement that walk out with the retiring operator. Physical AI is being pitched as a way to capture some of that experience in software and apply it consistently to whoever is left. (For readers who followed the 9 August issue: this is the follow-through on the SoftBank excavator-robotics deal reported as circling at the time. It landed.)",
+            whyItMatters:
+              "Retrofit is the whole story, and it's the part that should change how you think about your fleet. A replacement thesis needs contractors to write off working machines — that never happens on a plant list. A retrofit thesis needs a bolt-on kit and a paid pilot, which is a decision a yard manager can make. That means autonomy arrives on your equipment, on your renewal cycle, far sooner than a fleet-replacement model would suggest. Two practical consequences. First, when you next spec or lease heavy plant, ask whether the machine's control architecture is open enough to accept a third-party autonomy kit — that's now a residual-value question, not a nice-to-have. Second, if you employ operators in their fifties, the most valuable thing you can do this year has nothing to do with robots: it's writing down how they decide. Grade tolerances, soil reads, the sequences they never bothered to document. Whether that knowledge ends up training a machine or a 24-year-old, the firms that captured it will be the ones still delivering in 2031.",
+            source: "SiliconANGLE, August 17, 2026",
+            sourceUrl:
+              "https://siliconangle.com/2026/08/17/gravis-robotics-gets-200m-funding-softbank-retrofit-excavators-self-driving-ai-systems",
+            tags: ["Construction", "Robotics", "Workforce"],
+          },
+          {
+            emoji: "🔥",
+            industry: "Real Estate",
+            title: "Your insurer is now a reason to buy software — and may soon be your competitor",
+            body: "The most quietly consequential item of the week was a $12.5 million Series A.\n\nRockRose Risk, a Californian technology-enabled insurance brokerage, raised $12.5M — and said it would spend part of it acquiring tree-trimming and roofing companies. Its model runs parcel-level wildfire risk modelling, on-site inspection and defensible-space verification, then prices the premium off verified mitigation. Today it refers that mitigation work out to partner contractors. With this round it wants to own the contractors and become, in its own words, a vertically integrated risk manager.\n\nThe context makes it less strange than it sounds. Californian insurers have been pulling back from wildfire-exposed markets, and the state's Safer from Wildfires framework requires insurers that rate on wildfire risk to give separate mitigation credits for specified actions. Startups like Stand Insurance already simulate a fire's behaviour against an individual house and tell the owner which changes — clear the trees, swap mulch for gravel — will move the premium.\n\nAnd the same logic is already live on commercial jobsites. The Shepherd Savings programme offers contractors premium savings of up to 25% for using technology such as Procore, OpenSpace or DroneDeploy, on the back of research showing adoption correlated with lower claim frequency and severity. Meanwhile California passed the toughest home-landscaping wildfire rules in the US: plants restricted within five feet of the house, non-woody plants under 18 inches permitted unless they sit directly beneath the roofline, tree branches trimmed five feet clear. New construction is covered immediately; existing structures phase in, affecting almost 2 million homes in high-risk areas.",
+            whyItMatters:
+              "This is the first genuinely new ROI argument for construction technology in years, and most firms are not using it. You have been justifying software on productivity — hours saved, rework avoided — which is the hardest number to defend in a bid review. Insurance is a different conversation entirely: it's a line item on your P&L that a broker will quote against evidence. Ask your broker directly whether documented use of site capture, safety monitoring or progress tracking moves your premium, and get the answer in writing. If it does, the payback maths on your platform changes overnight and the renewal becomes the business case. Three further reads. For landscape architects and residential designers: the California five-foot rule is a design constraint arriving on two million existing homes — plant schedules, mulch specs and tree placement near structures all now have an insurance consequence, and clients will start asking you to certify it. For roofing, tree and exterior trades: an insurance broker with venture funding is now shopping for firms like yours, which is either an exit or a competitor depending on the week. And for everyone: verified mitigation means somebody inspects and records. The trades that can produce that record cheaply — photos, geotags, dates — will win the referral, and that's a reality-capture habit, not a new hire.",
+            source: "citybiz; California Dept. of Insurance, August 2026",
+            sourceUrl:
+              "https://www.citybiz.co/article/891742/rockrose-risk-raises-12-5m-series-a-to-expand-wildfire-insurance-platform/",
+            tags: ["Real Estate", "Insurance", "Wildfire"],
+          },
+          {
+            emoji: "🗳️",
+            industry: "Market",
+            title: "Data centres stopped being a permitting problem and became an election one",
+            body: "Two weeks ago this newsletter covered councils refusing data centre applications. That was planning. This week it became politics, and the difference matters for anyone pricing this work.\n\nThe Senate GOP campaign arm sent a private memo to top AI companies warning that hostility to data centres is threatening a Senate seat in Ohio, with Democrats making them a \"centrepiece\" of the campaign against Sen. Jon Husted — and that it is working. The memo's line is the one to remember: if he loses and data centres get the blame, \"politicians across the country will take notice.\" Supporting it, polling reported by Heatmap found roughly 75% of Americans now oppose local data centre development.\n\nGovernments are responding in opposite directions at once. Tightening: Pennsylvania's governor signed an executive order requiring AI data centre developers to meet environmental and transparency safeguards and secure local community approval, removing data centres from the state's Fast Track permit programme and barring agencies from signing NDAs with developers. Australia is moving to make renewables the default for data centre power, with the grid operator expecting data centre electricity demand to rise roughly sevenfold over the coming decade. India's boom is drawing its own backlash over land, water and tax breaks.\n\nLoosening: New South Wales stripped councils of the ability to refer data centre proposals to the Independent Planning Commission, protecting a $50.3 billion pipeline — to visible council fury. And the US Transportation Department opened a request for information (deadline 12 September) on fast-tracking siting, permitting and financing of linear utility infrastructure — transmission, pipelines, fibre — along federal highway and railway corridors.\n\nThe capital keeps moving regardless: Nvidia is backing $105 billion in financing for an OpenAI data centre in Ohio, supporting an initial 4.25 GW with an option for a further 3.75 GW, phasing in from 2028. And Meta signed a partnership with North America's Building Trades Unions to fund training, credentials and full-time jobs for the trades doing the building.",
+            whyItMatters:
+              "Site selection is now a political forecast, and you should be pricing it as one. The practical version: for any data centre or large-load project you're bidding, ask what the jurisdiction is doing, not just what the parcel allows — Pennsylvania has added a community-approval gate that no zoning check will reveal, and NSW has removed one that a risk register might still assume exists. Build both into your programme float. Second, the Meta–NABTU deal and the corridor RFI point at where the near-term work actually is: not the hyperscale shed, which is contested, but the linear infrastructure feeding it, which is being deliberately accelerated. If your firm does transmission, substations, water or fibre, the September RFI deadline is worth a response — this is the rare moment when a policy is still being drafted around what's physically possible. Third, and least comfortable: 75% opposition is not a messaging problem you can consult your way out of. Projects will get cancelled after award. Make sure your contracts say who pays when that happens.",
+            source: "Axios; Heatmap; Reuters, August 2026",
+            sourceUrl: "https://www.axios.com/2026/08/19/gop-data-center-memo-ai-election",
+            tags: ["Market", "Data Centers", "Policy"],
+          },
+          {
+            emoji: "🧱",
+            industry: "Construction",
+            title: "The week's contech money went into concrete, tenders, and the file system",
+            body: "Ten funding rounds in the week, and the pattern is less glamorous than robotics — which is usually where the useful stuff is.\n\nBirdsview (Norway) raised €3.7M for non-destructive concrete scanning: ground-penetrating radar plus LiDAR, turned into a 3D model showing rebar position, thickness, cracks, voids and corrosion without drilling the slab. The roundup's note explains why that's a real change — traditional coring samples one point and extrapolates across the rest, which misses exactly the localised voids and corrosion you most need to find, and leaves a hole to backfill (and a road closed while you do it).\n\nVolve (Norway) raised $3M for tendering and preconstruction AI that reads tender and contract packages and builds a structured graph of scope, requirements and risk — for spotting gaps and making go/no-go calls. Space (San Francisco) raised $2.4M pre-seed for an AI-native distributed file system aimed at video, marketing and AEC, collapsing cloud and local drive into one layer so that applications, teammates and agents read the same live files without full-file downloads or duplicate copies. Rundoo raised $30M Series B for an AI-first system of record for building supply stores — POS, ecommerce, CRM, loyalty, ledger — explicitly to help independents compete with the large distributors.\n\nTwo companies also came out of stealth. Worldcastr (New York) is building a foundation model for physical development, forecasting how infrastructure and the built environment will change over the next 30 years, aimed at public agencies, developers and infrastructure teams. CrewPilot (New York) is building an AI that \"rides along\" on field service visits, answering questions live and auto-generating audit-ready reports.",
+            whyItMatters:
+              "Notice what these have in common — none of them is a new place to do your work. They all attach to something you already do and make the record better. That's the shape of contech investment right now, and it's a useful filter for your own buying. Specifically: if you do refurbishment, retrofit or structural assessment, non-destructive scanning changes the commercial structure of an inspection, not just the method — you can survey a whole slab for something close to the cost of coring three points, which turns \"we'll extrapolate\" into a defensible as-found record. That's worth quoting differently. On the Space round, the phrase to sit with is \"and agents\" — a file layer designed so an AI reads the same live model your team is in is the unglamorous prerequisite for every agent demo you've been shown this year, and its absence is why most of them stay demos. And Worldcastr is worth a bookmark for anyone in feasibility or land: a 30-year forecast model is a very confident claim, and the interesting question is not whether it's right but whether planning authorities start citing one.",
+            source: "Last Week in ConTech, August 24, 2026",
+            sourceUrl:
+              "https://contechroundup.substack.com/p/last-week-in-contech-24-august-2026",
+            tags: ["Construction", "Inspection", "Funding"],
+          },
+          {
+            emoji: "🔩",
+            industry: "Market",
+            title: "\"Software is eating the world\" raised $1.1 billion for hardware",
+            body: "Andreessen Horowitz closed a $1.1 billion fund called Machine Age — its first dedicated to hardware infrastructure. The targets are processors, memory, networking, storage, robotics and physical infrastructure. From the firm whose defining essay argued software would eat everything, that is a notable change of diet.\n\nThe reasoning is the same one this newsletter has been tracking for a month: AI's binding constraints have moved below the application layer, into memory bandwidth, chip availability, power delivery and manufacturing capacity.\n\nTwo items the same week show what that costs in patience. Marvell fell about 8% despite strong results, because management said revenue from its custom AI-chip agreement with Google — potentially $120 billion through fiscal 2033 — becomes substantially meaningful in fiscal 2029. Investors had assumed sooner. And Nvidia, after another record quarter, reportedly paused the cloud-financing deals that were keeping smaller AI operators supplied. At the other end of the price range, Hugging Face launched Microduck, a $399 open-source bipedal robot with a documented simulation-to-hardware training loop — physical AI as a thing a developer can buy with a credit card.",
+            whyItMatters:
+              "A venture fund raising for hardware is an odd thing to put in a construction newsletter, so here's the practical translation. Software venture economics — build fast, ship free, monetise later — are what gave you a decade of cheap AEC tools with generous free tiers. Hardware economics don't work that way: they need capex, inventory, factories, and revenue that arrives in fiscal 2029. As capital rotates toward the physical layer, expect the tools you buy to start behaving like equipment rather than subscriptions — longer procurement, real implementation cost, hardware attached, and pricing that doesn't drop 50% every quarter the way model APIs have. That's not worse. It's more familiar. You already know how to buy equipment: you evaluate total cost over a service life, you ask about support and parts, and you don't assume next year's version is free. Apply that frame to your next AI purchase and you'll make a better decision than the free-trial-and-see approach that most firms are still using. And the Marvell reaction is the useful discipline for your own board: a signed contract is not revenue, and a signed AI pilot is not a capability. Both take years, and the market just repriced a company for forgetting it.",
+            source: "Tech Startups, August 28, 2026",
+            sourceUrl:
+              "https://techstartups.com/2026/08/28/top-tech-news-today-august-28-2026-alibaba-anthropic-openai-google-marvell-microsoft-waymo-more/",
+            tags: ["Market", "Hardware", "Venture Capital"],
+          },
+        ],
+      },
+      {
+        type: "what-to-watch",
+        heading: "The Through-Line",
+        leadIn:
+          "Read the five together and the same sentence keeps appearing in different clothes.",
+        paragraphs: [
+          "Excavators get retrofitted because replacing a fleet is unaffordable. Insurers pay for verified mitigation because prevention beats claims. Data centre schedules now carry political risk that no permit resolves. Contech money went to inspection, tender reading and the file layer rather than anything visionary. And Silicon Valley's most software-maximalist investor raised a billion dollars for hardware, in a week when the market punished a chip company for saying the money arrives in 2029.",
+          "Every one of those is a constraint the AEC industry has lived with forever: capital you can't write off, risk somebody prices, communities that vote, records that must hold up, and timelines measured in years.",
+          "The interesting inversion is that AI is no longer arriving in this industry as an outsider with faster habits. It's arriving having acquired the same habits. Which means the advantage this year does not go to the firm with the newest tools. It goes to the firm that already knows how to run a long, capital-heavy, politically exposed programme and finish it — and that has started keeping the kind of record an insurer, a planning authority, or an agent can actually read. Boring competencies. Suddenly strategic.",
+        ],
+      },
+      {
+        type: "disclaimer",
+        text: "Editorial note: This roundup summarises reporting from the sources linked above; figures and claims belong to those sources. Several items reach us through weekly aggregators, and primary sources are linked where available. Funding amounts are as disclosed by the companies or their investors and are not independently verified. The US Transportation Department corridor proposal is a request for information, not a rule. The Senate campaign memo was reported by Axios and has not been published in full.",
+      },
+    ],
+  },
+  {
     slug: "ai-news-2026-08-23",
     title:
       "AI News Roundup — Week of August 23, 2026: The Shortage Isn't Chips Anymore",
