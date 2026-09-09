@@ -31,6 +31,8 @@ const TAG_DESTINATIONS: Record<string, string> = {
   "architecture visualization": "/tags/ai-image-generation",
   "furniture copywriting": "/tags/ai-writing",
   "real estate marketing automation": "/tags/automation",
+  "contractor lead generation": "/industries/construction",
+  "cold email outreach": "/tags/automation",
 };
 
 function resolveTagHref(tag: string): string | null {
