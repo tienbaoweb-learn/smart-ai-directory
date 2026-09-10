@@ -141,6 +141,16 @@ const FEATURED_REAL_CASES = [
       { icon: "Users",      value: "89%",   label: "Client Retention" },
     ],
   },
+  {
+    cs: findCase("case-study-construction-outbound-lead-generation"),
+    badge: "CONSTRUCTION",
+    company: { name: "Ridgeline Contracting", logo: { bg: "bg-orange-600", text: "RC" } },
+    stats: [
+      { icon: "Users",      value: "18",      label: "Opportunities/mo" },
+      { icon: "TrendingUp", value: "30-35%",  label: "Reply Rate"       },
+      { icon: "Timer",      value: "~4.5h",   label: "Per Week to Run"  },
+    ],
+  },
 ].map(({ cs, badge, company, stats }) => ({
   title: cs.title,
   description: cs.excerpt,
