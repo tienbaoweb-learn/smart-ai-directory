@@ -394,5 +394,90 @@ export const caseStudies: CaseStudy[] = [
 
       { type: "cta", ctaText: "Compare AI virtual staging tools by tier, turnaround, and price", ctaLink: "/resources/guides/ai-virtual-staging-tools" },
     ]
+  },
+  {
+    slug: "case-study-construction-outbound-lead-generation",
+    title: "How a 22-Person Contractor Replaced Referral Dependence with a Predictable Outbound Pipeline",
+    industry: "Construction / Commercial Fit-Out",
+    businessSize: "22-person general contractor",
+    market: "Light commercial and tenant fit-out, US Midwest",
+    timeFrame: "6 months",
+    thumbnail: "/images/case-studies/case-study-construction-outbound-lead-generation-thumbnail.webp",
+    excerpt:
+      "A commercial fit-out contractor stopped waiting for the phone to ring and built a repeatable AI-assisted outbound system — list building, contact verification, inbox warm-up, personalized sequences, and CRM follow-up — run by one estimator in a few hours a week.",
+    tags: ["AI tools for construction", "contractor lead generation", "cold email outreach", "automation", "workflow"],
+    readingTime: "7 min",
+    publishedDate: "2026-09-09",
+    recommendedTools: [
+      { slug: "buzz-ai", note: "AI-assisted outreach sequencing — the personalization-at-scale layer this contractor's system was built around." },
+      { slug: "emaillistverify", note: "Bulk contact verification before sending — the unglamorous step that protected their domain reputation." },
+      { slug: "leader-crm", note: "Mobile-first CRM built for field teams — where replies land and follow-up actually happens between site visits." },
+    ],
+    content: [
+      { type: "paragraph", text: "Most small and mid-sized contractors do not have a sales problem in the ordinary sense. They have a timing problem. Work arrives in clusters through referrals, repeat clients, and the occasional bid invitation, and then it stops arriving for two months. Nothing about the quality of the work changes. The pipeline simply has no floor under it." },
+      { type: "paragraph", text: "Ridgeline Contracting (name changed) is a 22-person general contractor in the US Midwest doing light commercial and tenant fit-out work — dental practices, small offices, restaurant build-outs. Their reputation was solid and their referral network was real. It was also the entire top of their funnel." },
+
+      { type: "heading", level: 2, text: "The Cost of a Pipeline You Do Not Control" },
+      { type: "paragraph", text: "The problem with a referral-only pipeline is not that referrals are bad leads. They are usually the best leads a contractor gets. The problem is that referral volume is set by other people's project timelines, and it arrives on their schedule rather than yours." },
+      { type: "paragraph", text: "For Ridgeline, that produced a familiar pattern: several months of turning work away and quoting defensively high, followed by a quiet stretch where crews were underloaded and the owner started quoting to win rather than quoting to profit. The swing showed up in margin long before it showed up in revenue." },
+      { type: "quote", text: "We were never short of work for the year. We were short of work in March. And the number you quote in March is not the number you quote in September." },
+      { type: "paragraph", text: "The owner had tried outbound twice before. Once with a part-time appointment setter who lasted four months, and once by buying a prospect list that turned out to be badly out of date — a large share of the addresses bounced, and the firm's email deliverability was damaged for weeks afterward. Both attempts confirmed a belief that outbound was for companies with sales departments." },
+
+      { type: "heading", level: 2, text: "The Turning Point" },
+      { type: "paragraph", text: "What changed the calculation was not a new tool. It was a reframing of who would do the work." },
+      { type: "paragraph", text: "Ridgeline's junior estimator already spent part of every week reading permit filings, commercial lease announcements, and local business news — because that is where bid opportunities surface. She was, in effect, already doing prospect research. What she did not have was a way to turn that research into a repeatable sequence of contacts that did not depend on her remembering to follow up." },
+      { type: "paragraph", text: "The owner's decision was to treat outbound as an operations problem rather than a sales-hiring problem: build a fixed, documented sequence of steps, assign it to someone who already understood the work, and use tools to remove the manual effort at each stage." },
+
+      { type: "heading", level: 2, text: "The Five-Stage System They Built" },
+      { type: "paragraph", text: "The structure they landed on maps closely to the outbound workflow we document for contractors: build a targeted list, verify it, protect the sending domain, run personalized sequences, then manage replies in a CRM. Each stage exists because skipping it breaks the stage after it." },
+
+      { type: "heading", level: 3, text: "Stage 1 — Define the list narrowly, then build it" },
+      { type: "paragraph", text: "The first decision was the most consequential and cost nothing: Ridgeline narrowed the target definition from \"commercial property owners\" to three specific segments they had a genuine, provable track record in — dental and medical practice fit-outs, independent restaurant build-outs, and property managers handling multi-tenant office suites under a certain size." },
+      { type: "paragraph", text: "A narrower list is a smaller list, which felt counterintuitive to the owner. But a narrow list is the only kind that supports a message specific enough to be worth reading. \"We do commercial construction\" is not a reason to reply. \"We finished three dental fit-outs in your county last year and can tell you what the inspection timeline actually looks like\" is." },
+
+      { type: "heading", level: 3, text: "Stage 2 — Verify before sending, without exception" },
+      { type: "paragraph", text: "This is the stage Ridgeline had skipped in their earlier failed attempt, and the reason that attempt failed. Contact data for small commercial operators decays quickly — practices change managers, restaurants change ownership, property management contracts move between firms." },
+      { type: "paragraph", text: "They adopted a hard rule: no list gets sent to until it has been run through bulk verification and the invalid and risky addresses have been removed. Verification is priced per thousand addresses and is trivially cheap relative to the cost of a damaged sending domain — which is measured not in dollars but in weeks of unusable outreach." },
+      { type: "quote", text: "The first time we did outbound we burned our domain in nine days. Verification costs less than a single site visit. There is no version of this where skipping it makes sense." },
+
+      { type: "heading", level: 3, text: "Stage 3 — Warm the sending inbox before volume" },
+      { type: "paragraph", text: "Ridgeline sent from a dedicated domain rather than their primary company domain, and ramped it with an inbox warm-up service before any real campaign traffic. The point of warm-up is not volume — it is establishing a sending reputation gradually enough that mailbox providers treat a new domain as legitimate rather than as a spam source appearing from nowhere." },
+      { type: "paragraph", text: "Practically, this meant the system produced zero leads for its first several weeks by design. The owner describes accepting that delay as the hardest part of the whole project." },
+
+      { type: "heading", level: 3, text: "Stage 4 — Personalized sequences, not blasts" },
+      { type: "paragraph", text: "The outreach itself ran as multi-step sequences with the first line of each message genuinely specific to the recipient — the practice's recent expansion, the building the property manager had just taken on, a completed project of Ridgeline's within a few miles of them. AI drafted the message structure and variants; the estimator supplied and checked the specific detail." },
+      { type: "paragraph", text: "That division of labor is the part worth copying. AI is good at producing twelve versions of a follow-up and holding a sequence to schedule. It is not good at knowing which detail about a prospect is actually relevant, and a message whose personalization is obviously machine-assembled performs worse than no personalization at all." },
+      { type: "paragraph", text: "Their sequence structure was deliberately unaggressive: an opening message tied to something specific, one follow-up with a relevant completed project, and a short final message offering a no-obligation walkthrough. Then the contact exits the sequence for six months. For a market this small, a contractor cannot afford a reputation for pestering people." },
+
+      { type: "heading", level: 3, text: "Stage 5 — Replies land somewhere they cannot be lost" },
+      { type: "paragraph", text: "The final stage solved the failure mode of Ridgeline's first outbound attempt with a human setter: interested replies came in, sat in an inbox, and went cold while everyone was on site. Responses now route into a mobile-first CRM that the estimator and the owner can actually work from a truck, with follow-up tasks attached to each conversation rather than living in someone's memory." },
+      { type: "paragraph", text: "The owner is direct that this stage produced more recovered opportunities than any clever thing they did at the top of the funnel." },
+
+      { type: "heading", level: 2, text: "The Results, Six Months Later" },
+      { type: "paragraph", text: "Ridgeline tracked the system against the six months preceding it." },
+      { type: "stat-table", rows: [
+        { label: "Qualified opportunities per month from outbound", before: "~10", after: "18" },
+        { label: "Share of pipeline sourced outside referrals", before: "57%", after: "73%" },
+        { label: "Hours per week spent running the system", before: "—", after: "~4.5 hours" },
+        { label: "Reply rate on verified, personalized sequences", before: "<10%", after: "30–35%" },
+        { label: "Hard-bounce rate after verification was mandatory", before: "25%", after: "<7%" },
+      ]},
+      { type: "paragraph", text: "The two rows worth reading together are the reply rate and the bounce rate. A hard-bounce rate of 25% is not a campaign that underperformed — it is a campaign that was actively damaging the domain sending it, which is why the earlier attempt collapsed. Verification did not improve the message; it made the message deliverable, and the reply rate moved once it was." },
+      { type: "paragraph", text: "The hours figure needs one qualification. Roughly four and a half hours a week is the steady-state cost of running the system once it exists — it is not the cost of building it. The list-narrowing exercise, the sequence writing, and the weeks of inbox warm-up all came first, and produced nothing measurable while they were happening. Any contractor evaluating this should budget setup separately from upkeep." },
+      { type: "paragraph", text: "The pipeline-share row is also easy to misread. A move from 57% to 73% describes the mix of where work came from; on its own it says nothing about whether referral volume itself went up, down, or nowhere. It is a statement about the shape of the funnel, not about referrals drying up." },
+      { type: "paragraph", text: "One result does not need verification, because it is structural rather than statistical: the firm now has a top-of-funnel input it controls. Referral volume still fluctuates. It is no longer the only thing determining whether March is busy." },
+
+      { type: "heading", level: 2, text: "What Contractors Should Take From This" },
+      { type: "paragraph", text: "The stack Ridgeline used is not unusual and not expensive. What made it work was the order of operations, and three decisions in particular." },
+      { type: "paragraph", text: "First, they narrowed the target list before they tried to scale sending. Outbound that fails almost always fails on relevance rather than volume, and volume makes a bad list worse rather than better." },
+      { type: "paragraph", text: "Second, they treated deliverability as infrastructure. Verification and inbox warm-up produce nothing visible, which is exactly why they get skipped — and skipping them is what turns a first outbound attempt into a permanent belief that outbound does not work." },
+      { type: "paragraph", text: "Third, they gave the work to someone who already understood the projects. The tools handled sequencing, verification, and reminders. The judgment about which prospect mattered and why stayed with a person who could tell the difference." },
+      { type: "quote", text: "It is not a sales machine. It is four hours a week that means we are never guessing about next quarter." },
+
+      { type: "heading", level: 2, text: "A Note on This Case Study" },
+      { type: "paragraph", text: "This case study is a composite scenario built to illustrate a realistic contractor outbound workflow rather than to report on a specific named business. The figures in the results table are modelled on published benchmarks for cold outreach reply rates, list-verification impact on bounce rates, and small-contractor pipeline mix — they are illustrative of a well-run system, not audited results from one firm. The tools, sequence structure, and deliverability practices described are real and verifiable; the narrative around them is not." },
+
+      { type: "cta", ctaText: "See the step-by-step contractor lead generation workflow", ctaLink: "/resources/workflows/contractor-lead-generation-workflow" },
+    ]
   }
 ];
